@@ -1,0 +1,22 @@
+{
+  "name": "@buildflow/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@buildflow/core": "workspace:*",
+    "@buildflow/database": "workspace:*",
+    "@buildflow/identity": "workspace:*",
+    "@fastify/cookie": "^9.4.0",
+    "fastify": "^4.28.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.4",
+    "@prisma/client": "^5.22.0"
+  }
+}

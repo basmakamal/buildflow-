@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "types": ["node"],
+    "paths": {
+      "@buildflow/core": ["../../packages/core/src/index.ts"],
+      "@buildflow/database": ["../../packages/database/src/index.ts"],
+      "@buildflow/identity": ["../../packages/modules/identity/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}
