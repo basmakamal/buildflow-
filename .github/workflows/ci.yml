@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  quality:
+    name: Lint · Typecheck · Architecture
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Format check
+        run: pnpm format:check
+      - name: Lint (0 warnings — includes the no-hardcoded-strings rule)
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      # The guard that keeps docs/06 true: a PR importing Prisma into a domain
+      # folder, or reaching into another module internals, fails here.
+      - name: Architecture boundaries
+        run: pnpm arch
+
+  i18n:
+    name: Translation completeness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # No feature ships English-only. A missing Arabic key is a build failure,
+      # not a backlog item that quietly accumulates for two years. docs/12 §7.
+      - name: Arabic and English key parity
+        run: pnpm --filter @buildflow/web i18n:check
+
+  test:
+    name: Unit & integration
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: buildflow
+          MYSQL_DATABASE: buildflow_test
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -pbuildflow"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s --health-timeout=3s --health-retries=5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @buildflow/database prisma:deploy
+        env:
+          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_test
+      - run: pnpm test
+        env:
+          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_test
+          REDIS_URL: redis://localhost:6379
+
+  tenant-isolation:
+    name: Tenant isolation (gated)
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: buildflow
+          MYSQL_DATABASE: buildflow_isolation
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -pbuildflow"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @buildflow/database prisma:deploy
+        env:
+          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_isolation
+      # This job is separate and non-negotiable. It seeds two companies and
+      # asserts every repository returns nothing across the tenant boundary.
+      # A cross-tenant leak is the one class of bug that ends a B2B SaaS
+      # company, so it gets its own gate rather than trusting general coverage.
+      # docs/11 §4.
+      - name: Cross-tenant access must be impossible
+        run: pnpm test:isolation
+        env:
+          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_isolation
+
+  security:
+    name: Security scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Secret scanning
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Dependency audit
+        run: pnpm audit --audit-level high
