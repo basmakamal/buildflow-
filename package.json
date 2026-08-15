@@ -27,7 +27,8 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": ">=6.4.3"
+      "vite": ">=6.4.3",
+      "happy-dom": ">=20.8.9"
     }
   },
   "devDependencies": {
