@@ -43,6 +43,17 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
 
+      # MUST run before lint and typecheck.
+      #
+      # Un-generated, @prisma/client exports an untyped placeholder, so every
+      # db.unit.* call resolves to `any` and typed-lint reports ~200 no-unsafe-*
+      # errors that do not exist locally where the client has been generated.
+      # The errors look like a typing problem in the test file; they are
+      # actually a missing build step. Any job that lints, typechecks, or runs
+      # code touching @buildflow/database needs this.
+      - name: Generate Prisma client
+        run: pnpm --filter @buildflow/database prisma:generate
+
       - name: Format check
         run: pnpm format:check
 
