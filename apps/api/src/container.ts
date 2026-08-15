@@ -9,9 +9,14 @@ import {
   PrismaSessionRepository,
   PrismaUserRepository,
   RefreshHandler,
+  PermissionResolver,
+  InMemoryPermissionCache,
+  PrismaPermissionReader,
+  type PermissionCache,
   type RefreshTokenRepository,
   type SessionRepository,
   type SecurityAlerter,
+  type TokenIssuer,
 } from '@buildflow/identity'
 
 /**
@@ -30,6 +35,8 @@ export interface Container {
   refresh: RefreshHandler
   refreshTokens: RefreshTokenRepository
   sessions: SessionRepository
+  permissions: PermissionResolver
+  tokens: TokenIssuer
   clock: Clock
   ids: IdGenerator
 }
@@ -40,6 +47,7 @@ export interface ContainerOptions {
   clock?: Clock
   ids?: IdGenerator
   alerter?: SecurityAlerter
+  permissionCache?: PermissionCache
 }
 
 export function createContainer(options: ContainerOptions): Container {
@@ -53,6 +61,10 @@ export function createContainer(options: ContainerOptions): Container {
 
   const hasher = new Argon2PasswordHasher()
   const tokens = new JwtTokenIssuer(options.jwtSecret)
+  const permissions = new PermissionResolver(
+    new PrismaPermissionReader(options.db),
+    options.permissionCache ?? new InMemoryPermissionCache(),
+  )
 
   const alerter: SecurityAlerter = options.alerter ?? {
     // Placeholder until Notifications lands. Logged loudly because a detected
@@ -64,10 +76,31 @@ export function createContainer(options: ContainerOptions): Container {
   }
 
   return {
-    login: new LoginHandler(users, sessions, refreshTokens, hasher, tokens, attempts, clock, ids),
-    refresh: new RefreshHandler(refreshTokens, sessions, users, tokens, alerter, clock, ids),
+    login: new LoginHandler(
+      users,
+      sessions,
+      refreshTokens,
+      hasher,
+      tokens,
+      attempts,
+      clock,
+      ids,
+      permissions,
+    ),
+    refresh: new RefreshHandler(
+      refreshTokens,
+      sessions,
+      users,
+      tokens,
+      alerter,
+      clock,
+      ids,
+      permissions,
+    ),
     refreshTokens,
     sessions,
+    permissions,
+    tokens,
     clock,
     ids,
   }

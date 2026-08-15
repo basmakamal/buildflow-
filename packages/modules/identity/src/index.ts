@@ -61,3 +61,14 @@ export {
   PrismaRefreshTokenRepository,
   PrismaLoginAttemptRecorder,
 } from './infrastructure/prisma.repositories'
+
+export {
+  PermissionResolver,
+  InMemoryPermissionCache,
+  PERMISSION_CACHE_TTL_SECONDS,
+  type PermissionCache,
+  type PermissionReader,
+  type CachedPrincipal,
+} from './application/permission-resolver'
+export { PrismaPermissionReader } from './infrastructure/prisma-permission.reader'
+export { seedPermissionCatalogue, seedCompanyRoles } from './infrastructure/role-seeder'

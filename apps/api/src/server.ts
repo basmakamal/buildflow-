@@ -4,6 +4,7 @@ import { MissingTenantContextError, type DomainError } from '@buildflow/core'
 import { runWithTenantContext, type Database } from '@buildflow/database'
 import type { Container } from './container'
 import { registerAuthRoutes } from './routes/auth'
+import { registerMeRoutes } from './routes/me'
 
 /**
  * Fastify application.
@@ -121,6 +122,7 @@ export async function buildServer(options: ServerOptions): Promise<FastifyInstan
   })
 
   registerAuthRoutes(app, options.container)
+  registerMeRoutes(app, options.container)
 
   return app
 }

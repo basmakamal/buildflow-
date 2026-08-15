@@ -49,7 +49,17 @@ export class RefreshHandler {
     private readonly alerter: SecurityAlerter,
     private readonly clock: Clock,
     private readonly ids: IdGenerator,
+    private readonly permHashes?: { hashFor(c: never, u: never): Promise<string> },
   ) {}
+
+  private async resolvePermHash(companyId: unknown, userId: unknown): Promise<string> {
+    if (!this.permHashes) return 'unresolved'
+    try {
+      return await this.permHashes.hashFor(companyId as never, userId as never)
+    } catch {
+      return 'unresolved'
+    }
+  }
 
   async execute(command: RefreshCommand): Promise<Result<AuthTokens, DomainError>> {
     const now = this.clock.now()
@@ -121,7 +131,9 @@ export class RefreshHandler {
       sub: consumed.userId,
       companyId: consumed.companyId,
       sessionId: consumed.sessionId,
-      permHash: 'pending',
+      // Re-resolved on every refresh, so a permission change lands on the next
+      // token rather than persisting for the refresh token's lifetime.
+      permHash: await this.resolvePermHash(consumed.companyId, consumed.userId),
       roles: [],
     })
 
