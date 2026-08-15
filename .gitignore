@@ -69,3 +69,6 @@ tmp/
 # Turbo / caches
 .turbo/
 .cache/
+
+# Prisma generated client
+packages/database/generated/
