@@ -8,7 +8,7 @@ name: CI
 # none. Jobs are added in the same commit as the code they verify:
 #
 #   • test + tenant-isolation  → LANDED with packages/database
-#   • i18n key parity          → with apps/web (vue-i18n catalogues)
+#   • i18n key parity          → LANDED with apps/web
 #   • e2e (Playwright, ar+en)  → Phase 1
 #
 # See docs/16 §4 for the Phase 0 exit criteria these build towards.
@@ -110,6 +110,18 @@ jobs:
       - run: pnpm --filter @buildflow/database prisma:generate
       - name: Unit tests (no database required)
         run: pnpm --filter @buildflow/core --filter @buildflow/identity test
+
+      - name: Web component and RTL tests
+        run: pnpm --filter @buildflow/web test
+
+      # No feature ships English-only. A missing Arabic key fails the build at
+      # the commit that introduced it — which is the only point at which fixing
+      # it is cheap. docs/12 §7
+      - name: Arabic and English key parity
+        run: pnpm --filter @buildflow/web i18n:check
+
+      - name: Web production build
+        run: pnpm --filter @buildflow/web build
 
   tenant-isolation:
     name: Tenant isolation (gated)

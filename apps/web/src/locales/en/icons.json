@@ -1,0 +1,13 @@
+{
+  "title": "Icon library",
+  "subtitle": "{count} domain icons, coloured by trade",
+  "searchPlaceholder": "Search icons",
+  "noResults": "No icons match that search",
+  "groups": {
+    "stage": "Finishing stages",
+    "electrical": "Electrical",
+    "lighting": "Lighting",
+    "ceiling": "Ceilings & gypsum",
+    "furniture": "Furniture"
+  }
+}

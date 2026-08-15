@@ -1,0 +1,57 @@
+/*
+ * Global styles.
+ *
+ * Every layout property here is LOGICAL (inline-start/end), never physical
+ * (left/right), so one stylesheet serves both Arabic RTL and English LTR.
+ * docs/12 §4.2
+ */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--bf-font);
+  font-size: var(--bf-text-base);
+  line-height: var(--bf-leading-normal);
+  color: var(--bf-text);
+  background: var(--bf-bg);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background var(--bf-duration) var(--bf-ease),
+    color var(--bf-duration) var(--bf-ease);
+}
+
+/* Numbers, emails and URLs never flip in RTL. docs/12 §4.3 */
+.numeric,
+input[type='email'],
+input[type='password'] {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--bf-primary-600);
+  outline-offset: 2px;
+  border-radius: var(--bf-radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
