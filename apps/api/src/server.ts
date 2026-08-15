@@ -86,10 +86,15 @@ export async function buildServer(options: ServerOptions): Promise<FastifyInstan
         .send(problem('INTERNAL_ERROR', 'Internal server error', 500, request.id))
     }
 
-    if (error.validation) {
+    // Fastify 5 types the handler's error as `unknown`, so the validation shape
+    // is narrowed rather than asserted. Worth the extra lines: this handler
+    // receives genuinely arbitrary throws, and an assertion here would crash
+    // the error handler itself — turning a 400 into an unhandled rejection.
+    const validation = toValidationErrors(error)
+    if (validation) {
       return reply.status(400).send({
         ...problem('VALIDATION_FAILED', 'Request validation failed', 400, request.id),
-        errors: error.validation.map((v) => ({ path: v.instancePath, message: v.message })),
+        errors: validation,
       })
     }
 
@@ -118,6 +123,32 @@ export async function buildServer(options: ServerOptions): Promise<FastifyInstan
   registerAuthRoutes(app, options.container)
 
   return app
+}
+
+interface FieldError {
+  path: string
+  message: string
+}
+
+/**
+ * Extracts Fastify's schema-validation detail, or null if this is not a
+ * validation failure. Every access is checked — the input is `unknown`.
+ */
+function toValidationErrors(error: unknown): FieldError[] | null {
+  if (typeof error !== 'object' || error === null) return null
+  const validation = (error as { validation?: unknown }).validation
+  if (!Array.isArray(validation)) return null
+
+  return validation.map((entry): FieldError => {
+    const item = (typeof entry === 'object' && entry !== null ? entry : {}) as {
+      instancePath?: unknown
+      message?: unknown
+    }
+    return {
+      path: typeof item.instancePath === 'string' ? item.instancePath : '',
+      message: typeof item.message === 'string' ? item.message : 'invalid',
+    }
+  })
 }
 
 /** Maps a domain error to its HTTP status. docs/06 §9 */

@@ -8,7 +8,7 @@ import {
   assignedProjectIds,
   type Principal,
 } from '../src/domain/authorization'
-import { SYSTEM_ROLES, permissionSetHash, type Permission } from '../src/domain/permission'
+import { SYSTEM_ROLES, permissionSetHash } from '../src/domain/permission'
 
 const PROJECT_A = 'prj-a' as ProjectId
 const PROJECT_B = 'prj-b' as ProjectId
@@ -19,7 +19,7 @@ const principal = (
 ): Principal => ({
   userId: 'usr-1' as UserId,
   companyId: 'co-1' as CompanyId,
-  permissions: new Set((SYSTEM_ROLES[role] ?? []) as readonly Permission[]),
+  permissions: new Set(SYSTEM_ROLES[role] ?? []),
   assignments,
 })
 
