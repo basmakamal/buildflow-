@@ -117,6 +117,7 @@ export default ts.config(
             'm', 'm²', 'm³', 'mm', 'cm', 'kg', 'L',
             'SAR', 'AED', 'EGP', 'KWD', 'QAR', 'BHD', 'OMR', 'USD',
             'BuildFlow',
+            'BF', // brand mark, not prose
           ],
           attributes: {
             '/.+/': ['title', 'aria-label', 'aria-placeholder', 'aria-valuetext'],
@@ -167,6 +168,14 @@ export default ts.config(
         },
       ],
     },
+  },
+
+  // The single audited waiver of the v-html ban. Declared here, file-scoped, so
+  // it is visible to anyone reviewing security policy — and so the component
+  // itself stays single-root. See the docblock in BfIcon.vue.
+  {
+    files: ['packages/ui/src/icons/BfIcon.vue'],
+    rules: { 'vue/no-v-html': 'off' },
   },
 
   {
