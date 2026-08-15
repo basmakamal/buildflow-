@@ -1,0 +1,214 @@
+/**
+ * BuildFlow design tokens.
+ *
+ * Modern, restrained, built for dense operational screens that people stare at
+ * for eight hours. Deliberately NOT the generic SaaS-blue look — the palette is
+ * drawn from the trade: deep site green and safety amber.
+ *
+ * Every value here is a token. No component hardcodes a colour, radius, or
+ * duration; that is what keeps 40 screens looking like one product.
+ */
+
+:root {
+  /* ── Brand ─────────────────────────────────────────────────────────────── */
+  --bf-primary-50: #eef7f3;
+  --bf-primary-100: #d3ebe1;
+  --bf-primary-200: #a7d7c4;
+  --bf-primary-300: #6fbb9f;
+  --bf-primary-400: #3f9a79;
+  --bf-primary-500: #27795d;
+  --bf-primary-600: #1b5e4a; /* primary */
+  --bf-primary-700: #164b3c;
+  --bf-primary-800: #123b30;
+  --bf-primary-900: #0d2b23;
+
+  --bf-accent-50: #fdf5e7;
+  --bf-accent-100: #fae6c2;
+  --bf-accent-200: #f5cd88;
+  --bf-accent-300: #efb256;
+  --bf-accent-400: #e8a33d; /* accent — safety amber */
+  --bf-accent-500: #d18a24;
+  --bf-accent-600: #a96b18;
+
+  /* ── Neutrals — warm-tinted, easier on the eye than pure grey ──────────── */
+  --bf-neutral-0: #ffffff;
+  --bf-neutral-50: #fafaf9;
+  --bf-neutral-100: #f5f5f4;
+  --bf-neutral-200: #e7e5e4;
+  --bf-neutral-300: #d6d3d1;
+  --bf-neutral-400: #a8a29e;
+  --bf-neutral-500: #78716c;
+  --bf-neutral-600: #57534e;
+  --bf-neutral-700: #44403c;
+  --bf-neutral-800: #292524;
+  --bf-neutral-900: #1c1917;
+  --bf-neutral-950: #0f0e0d;
+
+  /* ── Semantic ──────────────────────────────────────────────────────────── */
+  --bf-success: #16a34a;
+  --bf-success-bg: #f0fdf4;
+  --bf-warning: #f59e0b;
+  --bf-warning-bg: #fffbeb;
+  --bf-danger: #dc2626;
+  --bf-danger-bg: #fef2f2;
+  --bf-info: #0284c7;
+  --bf-info-bg: #f0f9ff;
+
+  /* ── Stage palette ─────────────────────────────────────────────────────────
+   * One fixed colour per trade, used identically on the kanban, the Gantt, the
+   * progress donut, the mobile app, and every exported PDF. Users learn the
+   * palette once. docs/08 §6.1
+   */
+  --bf-stage-received: #64748b;
+  --bf-stage-demolition: #8b5e3c;
+  --bf-stage-plumbing: #0ea5e9;
+  --bf-stage-electrical: #eab308;
+  --bf-stage-hvac: #06b6d4;
+  --bf-stage-waterproofing: #3b82f6;
+  --bf-stage-plastering: #a8a29e;
+  --bf-stage-gypsum: #c4bfbc;
+  --bf-stage-flooring: #78716c;
+  --bf-stage-painting: #ec4899;
+  --bf-stage-carpentry: #b45309;
+  --bf-stage-lighting: #fbbf24;
+  --bf-stage-cleaning: #22c55e;
+  --bf-stage-delivery: #16a34a;
+
+  /* ── Surfaces (light theme) ────────────────────────────────────────────── */
+  --bf-bg: var(--bf-neutral-50);
+  --bf-surface: var(--bf-neutral-0);
+  --bf-surface-raised: var(--bf-neutral-0);
+  --bf-surface-sunken: var(--bf-neutral-100);
+  --bf-border: var(--bf-neutral-200);
+  --bf-border-strong: var(--bf-neutral-300);
+  --bf-text: var(--bf-neutral-900);
+  --bf-text-muted: var(--bf-neutral-500);
+  --bf-text-inverse: var(--bf-neutral-0);
+
+  /* ── Typography ────────────────────────────────────────────────────────────
+   * Arabic needs more vertical breathing room than Latin and must NEVER receive
+   * letter-spacing — the letters connect, and spacing them destroys word shapes.
+   * docs/12 §4.5
+   */
+  --bf-font-en: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --bf-font-ar: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', sans-serif;
+  --bf-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --bf-font: var(--bf-font-en);
+
+  --bf-text-2xs: 0.6875rem;
+  --bf-text-xs: 0.75rem;
+  --bf-text-sm: 0.8125rem;
+  --bf-text-base: 0.9375rem;
+  --bf-text-lg: 1.0625rem;
+  --bf-text-xl: 1.25rem;
+  --bf-text-2xl: 1.5rem;
+  --bf-text-3xl: 1.875rem;
+  --bf-text-4xl: 2.25rem;
+
+  --bf-leading-tight: 1.25;
+  --bf-leading-normal: 1.55;
+  --bf-leading-relaxed: 1.75;
+
+  --bf-weight-normal: 400;
+  --bf-weight-medium: 500;
+  --bf-weight-semibold: 600;
+  --bf-weight-bold: 700;
+
+  /* ── Spacing — 4px base ────────────────────────────────────────────────── */
+  --bf-space-0: 0;
+  --bf-space-1: 0.25rem;
+  --bf-space-2: 0.5rem;
+  --bf-space-3: 0.75rem;
+  --bf-space-4: 1rem;
+  --bf-space-5: 1.25rem;
+  --bf-space-6: 1.5rem;
+  --bf-space-8: 2rem;
+  --bf-space-10: 2.5rem;
+  --bf-space-12: 3rem;
+  --bf-space-16: 4rem;
+
+  /* ── Radius ────────────────────────────────────────────────────────────── */
+  --bf-radius-sm: 4px;
+  --bf-radius: 6px;
+  --bf-radius-md: 8px;
+  --bf-radius-lg: 12px;
+  --bf-radius-xl: 16px;
+  --bf-radius-full: 9999px;
+
+  /* ── Elevation — two levels only. Deep shadow stacks read as dated. ────── */
+  --bf-shadow-card: 0 1px 2px rgb(28 25 23 / 0.05), 0 1px 3px rgb(28 25 23 / 0.06);
+  --bf-shadow-overlay: 0 10px 32px -8px rgb(28 25 23 / 0.18), 0 4px 12px -4px rgb(28 25 23 / 0.1);
+  --bf-ring: 0 0 0 3px color-mix(in srgb, var(--bf-primary-600) 22%, transparent);
+
+  /* ── Motion ────────────────────────────────────────────────────────────── */
+  --bf-ease: cubic-bezier(0.2, 0, 0.1, 1);
+  --bf-duration-micro: 150ms;
+  --bf-duration: 250ms;
+
+  /* ── Icons ─────────────────────────────────────────────────────────────── */
+  --bf-icon-stroke: 1.5;
+  --bf-icon-sm: 16px;
+  --bf-icon-md: 20px;
+  --bf-icon-lg: 24px;
+  --bf-icon-xl: 32px;
+  --bf-icon-2xl: 48px;
+
+  /* ── Layout ────────────────────────────────────────────────────────────── */
+  --bf-sidebar-width: 240px;
+  --bf-sidebar-width-collapsed: 64px;
+  --bf-topbar-height: 56px;
+  --bf-z-dropdown: 1000;
+  --bf-z-sticky: 1100;
+  --bf-z-overlay: 1200;
+  --bf-z-modal: 1300;
+  --bf-z-toast: 1400;
+}
+
+/* Arabic typography: larger base, looser leading, zero tracking. */
+:root:lang(ar),
+[dir='rtl'] {
+  --bf-font: var(--bf-font-ar);
+  --bf-text-base: 1rem;
+  --bf-leading-normal: 1.75;
+  letter-spacing: 0 !important;
+}
+
+/* Dark theme — driven by system preference, overridable by an explicit choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bf-bg: var(--bf-neutral-950);
+    --bf-surface: var(--bf-neutral-900);
+    --bf-surface-raised: var(--bf-neutral-800);
+    --bf-surface-sunken: #171513;
+    --bf-border: var(--bf-neutral-800);
+    --bf-border-strong: var(--bf-neutral-700);
+    --bf-text: var(--bf-neutral-100);
+    --bf-text-muted: var(--bf-neutral-400);
+    --bf-primary-600: var(--bf-primary-400);
+    --bf-success-bg: #082b16;
+    --bf-warning-bg: #2b1d05;
+    --bf-danger-bg: #2b0b0b;
+    --bf-info-bg: #06243a;
+    --bf-shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.3);
+    --bf-shadow-overlay: 0 10px 32px -8px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme='dark'] {
+  --bf-bg: var(--bf-neutral-950);
+  --bf-surface: var(--bf-neutral-900);
+  --bf-surface-raised: var(--bf-neutral-800);
+  --bf-surface-sunken: #171513;
+  --bf-border: var(--bf-neutral-800);
+  --bf-border-strong: var(--bf-neutral-700);
+  --bf-text: var(--bf-neutral-100);
+  --bf-text-muted: var(--bf-neutral-400);
+  --bf-primary-600: var(--bf-primary-400);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --bf-duration-micro: 0ms;
+    --bf-duration: 0ms;
+  }
+}
