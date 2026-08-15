@@ -1,0 +1,13 @@
+{
+  "title": "مكتبة الأيقونات",
+  "subtitle": "{count} أيقونة، ملونة حسب البند",
+  "searchPlaceholder": "ابحث في الأيقونات",
+  "noResults": "لا توجد أيقونات مطابقة",
+  "groups": {
+    "stage": "مراحل التشطيب",
+    "electrical": "الكهرباء",
+    "lighting": "الإنارة",
+    "ceiling": "الأسقف والجبس",
+    "furniture": "العفش"
+  }
+}

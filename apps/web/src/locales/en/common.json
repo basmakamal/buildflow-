@@ -1,0 +1,18 @@
+{
+  "app": { "name": "BuildFlow", "tagline": "Construction & Interior Finishing" },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "retry": "Try again",
+    "search": "Search"
+  },
+  "state": {
+    "loading": "Loading…",
+    "empty": "Nothing here yet",
+    "error": "Something went wrong"
+  },
+  "language": { "switch": "العربية", "current": "English" },
+  "theme": { "toggle": "Toggle theme", "light": "Light", "dark": "Dark" }
+}
