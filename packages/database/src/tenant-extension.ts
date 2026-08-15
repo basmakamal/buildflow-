@@ -38,6 +38,23 @@ import { getCompanyId, isBypassingTenantScope } from './tenant-context'
 export const GLOBAL_MODELS: ReadonlySet<string> = new Set([
   'Company', // scoped by its own id, not by companyId — see below
   'ProcessedEvent', // consumer bookkeeping, carries no tenant data
+
+  /**
+   * The permission catalogue is platform-global: every tenant draws from the
+   * same vocabulary, and a tenant-specific permission code would be meaningless
+   * to the code that checks it. The table has no companyId column, so it is not
+   * scopable even in principle.
+   */
+  'Permission',
+
+  /**
+   * Role↔permission links carry no companyId either. They are reachable only
+   * through a Role, which IS tenant-scoped — so the isolation boundary is
+   * enforced one join up. Every read in PrismaPermissionReader starts from
+   * `userRole`, which is scoped, and traverses inward. Querying this table
+   * directly would require already knowing a role's UUID.
+   */
+  'RolePermission',
 ])
 
 /** Operations whose `where` clause needs the tenant predicate added. */
