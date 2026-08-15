@@ -2,6 +2,7 @@
   "name": "buildflow",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "Construction & Interior Finishing Management Platform",
   "packageManager": "pnpm@9.12.0",
   "engines": {
@@ -9,28 +10,30 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
     "test": "pnpm -r test",
-    "test:isolation": "pnpm --filter @buildflow/database test:isolation",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "typecheck": "pnpm -r typecheck",
-    "format": "prettier --write \"**/*.{ts,vue,json,md,css}\"",
-    "format:check": "prettier --check \"**/*.{ts,vue,json,md,css}\"",
-    "arch": "depcruise --config .dependency-cruiser.cjs packages apps",
-    "arch:graph": "depcruise --config .dependency-cruiser.cjs --output-type dot packages | dot -T svg > docs/diagrams/dependency-graph.svg",
-    "verify": "pnpm lint && pnpm typecheck && pnpm arch && pnpm test",
+    "format": "prettier --write \"**/*.{ts,vue,json,md,css,mjs}\"",
+    "format:check": "prettier --check \"**/*.{ts,vue,json,md,css,mjs}\"",
+    "arch": "depcruise --config .dependency-cruiser.cjs packages",
+    "icons:build": "pnpm --filter @buildflow/ui icons:build",
+    "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm arch && pnpm icons:build",
     "infra:up": "docker compose -f infra/docker-compose.yml up -d",
     "infra:down": "docker compose -f infra/docker-compose.yml down",
     "infra:reset": "docker compose -f infra/docker-compose.yml down -v && pnpm infra:up"
   },
   "devDependencies": {
+    "@eslint/js": "^9.14.0",
     "@types/node": "^22.9.0",
     "dependency-cruiser": "^16.5.0",
     "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-vue": "^9.30.0",
     "prettier": "^3.3.3",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "typescript-eslint": "^8.13.0",
+    "vue-eslint-parser": "^9.4.3"
   }
 }

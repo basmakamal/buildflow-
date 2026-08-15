@@ -1,0 +1,14 @@
+# Generated artefacts — regenerate, never hand-edit
+packages/ui/icon-gallery.html
+pnpm-lock.yaml
+dist/
+build/
+coverage/
+
+# Architecture documentation.
+#
+# These are hand-authored deliverables, not source. The tables are aligned for
+# reading in a plain text editor and the ASCII dashboard mockups in doc 15 depend
+# on exact column widths. Running them through Prettier produces a large diff
+# with no benefit and risks disturbing layout that was set deliberately.
+docs/**/*.md
