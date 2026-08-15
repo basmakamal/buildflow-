@@ -8,6 +8,7 @@ export {
 } from './tenant-context'
 
 export { withTenantScope, GLOBAL_MODELS, Prisma } from './tenant-extension'
+export { bindTenantContext } from './bind-context'
 export {
   createDatabase,
   TenantConnectionRegistry,

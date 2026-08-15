@@ -151,6 +151,12 @@ jobs:
       - name: Audit trail integrity
         run: pnpm --filter @buildflow/database test
 
+      # End-to-end authentication over real HTTP against a real database:
+      # cookie handling, tenant context propagation, and the stolen-token
+      # scenario. These seams are invisible to the unit suites.
+      - name: API auth flow (end to end)
+        run: pnpm --filter @buildflow/api test
+
   security:
     name: Security scanning
     runs-on: ubuntu-latest

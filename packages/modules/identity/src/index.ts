@@ -36,3 +36,28 @@ export {
 
 export { Argon2PasswordHasher } from './infrastructure/argon2-hasher'
 export { JwtTokenIssuer } from './infrastructure/jwt-token-issuer'
+
+export {
+  PERMISSIONS,
+  SYSTEM_ROLES,
+  DANGEROUS_PERMISSIONS,
+  isPermission,
+  permissionSetHash,
+  type Permission,
+} from './domain/permission'
+export {
+  can,
+  canInScope,
+  canSeeCost,
+  canSeeMargin,
+  assignedProjectIds,
+  type Principal,
+  type Assignment,
+  type ResourceScope,
+} from './domain/authorization'
+export {
+  PrismaUserRepository,
+  PrismaSessionRepository,
+  PrismaRefreshTokenRepository,
+  PrismaLoginAttemptRecorder,
+} from './infrastructure/prisma.repositories'
