@@ -183,6 +183,11 @@ module.exports = {
           '(^|/)\\.[^/]+\\.(js|cjs|mjs|ts)$',
           '(^|/)(eslint|prettier|vitest|vite|tailwind)\\.config\\.(js|cjs|mjs|ts)$',
           '(^|/)index\\.ts$',
+          // Shared config presets and build scripts are consumed by tooling
+          // outside the module graph (an app's tailwind.config.js, a package
+          // script), so they are legitimately unreferenced by application code.
+          '(^|/)tailwind\\.preset\\.js$',
+          '(^|/)scripts/.*\\.mjs$',
         ],
       },
       to: {},

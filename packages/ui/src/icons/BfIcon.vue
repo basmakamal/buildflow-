@@ -56,12 +56,21 @@ const styleVars = computed(() =>
 </script>
 
 <template>
-  <span
-    v-if="variant === 'chip'"
-    class="bf-icon-chip"
-    :style="styleVars"
-    :data-tone="resolvedTone"
-  >
+  <!--
+    AUDITED EXCEPTION to the project-wide v-html ban (docs/11 §5.2).
+
+    `icon.body` is never user input. It is an SVG fragment defined as a
+    compile-time constant in packages/ui/src/icons/*.ts, authored and reviewed
+    in this repository. It cannot reach this component from the API, the
+    database, or a tenant. Rendering it needs v-html because the markup is a
+    variable set of SVG elements, not text.
+
+    The ban stays enabled everywhere else; this is the single audited waiver.
+    If icon bodies ever become tenant-supplied or database-backed, replace this
+    with a parsed allow-list renderer — v-html would then be a stored-XSS vector.
+  -->
+  <!-- eslint-disable vue/no-v-html -->
+  <span v-if="variant === 'chip'" class="bf-icon-chip" :style="styleVars" :data-tone="resolvedTone">
     <svg
       class="bf-icon bf-icon--tone"
       :class="{ 'bf-icon--mirror': icon.mirrorInRtl }"
@@ -97,6 +106,7 @@ const styleVars = computed(() =>
     :data-icon="icon.name"
     v-html="icon.body"
   />
+  <!-- eslint-enable vue/no-v-html -->
 </template>
 
 <style scoped>

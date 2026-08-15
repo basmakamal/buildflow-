@@ -9,7 +9,7 @@
  * Run:  node packages/ui/scripts/build-icon-gallery.mjs
  * Out:  packages/ui/icon-gallery.html
  */
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
