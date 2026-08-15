@@ -1,0 +1,12 @@
+# The CI job regenerates this file on Linux and fails if it differs from the
+# committed copy. Without a pinned EOL it would be generated with LF and
+# compared against a CRLF working copy on Windows, so the check would fail for
+# a reason that has nothing to do with the icons.
+packages/ui/icon-gallery.html text eol=lf
+
+# Lockfiles are tool-generated; never merge them by hand.
+pnpm-lock.yaml -diff linguist-generated=true
+
+# Documentation and generated artefacts are excluded from language statistics
+# so the repo language reflects the application code.
+docs/** linguist-documentation=true
