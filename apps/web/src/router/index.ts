@@ -1,0 +1,41 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+export const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', redirect: '/dashboard' },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/LoginView.vue'),
+      meta: { public: true },
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/DashboardView.vue'),
+    },
+    {
+      // Route-level code splitting: a user who never opens the icon library
+      // never downloads it. docs/08 §4
+      path: '/icons',
+      name: 'icons',
+      component: () => import('@/views/IconsView.vue'),
+    },
+  ],
+})
+
+/**
+ * Auth guard.
+ *
+ * A client-side redirect for UX only. Every protected endpoint enforces
+ * authorisation server-side, so bypassing this guard shows an empty shell
+ * rather than data. docs/11 §3.1
+ */
+router.beforeEach((to) => {
+  const auth = useAuthStore()
+  if (to.meta['public']) return true
+  if (!auth.isAuthenticated) return { name: 'login', query: { redirect: to.fullPath } }
+  return true
+})
