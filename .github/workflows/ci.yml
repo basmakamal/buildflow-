@@ -1,5 +1,18 @@
 name: CI
 
+# SCOPE: this pipeline asserts only what exists in the repository today.
+#
+# An earlier revision was written for a finished Phase 0 and referenced scripts
+# and packages that had not been built yet, so every PR went red. A pipeline
+# that always fails teaches people to ignore it, which is worse than having
+# none. Jobs are added in the same commit as the code they verify:
+#
+#   • test + tenant-isolation  → with packages/database (Prisma + tenant extension)
+#   • i18n key parity          → with apps/web (vue-i18n catalogues)
+#   • e2e (Playwright, ar+en)  → Phase 1
+#
+# See docs/16 §4 for the Phase 0 exit criteria these build towards.
+
 on:
   push:
     branches: [main]
@@ -14,7 +27,7 @@ env:
 
 jobs:
   quality:
-    name: Lint · Typecheck · Architecture
+    name: Format · Lint · Types · Architecture
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,101 +37,48 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+
       - name: Format check
         run: pnpm format:check
-      - name: Lint (0 warnings — includes the no-hardcoded-strings rule)
+
+      # Includes the no-hardcoded-strings rule (docs/12 §3.4) and the
+      # domain-layer restrictions on ambient time and I/O (docs/06 §1).
+      - name: Lint — zero warnings tolerated
         run: pnpm lint
+
       - name: Typecheck
         run: pnpm typecheck
-      # The guard that keeps docs/06 true: a PR importing Prisma into a domain
-      # folder, or reaching into another module internals, fails here.
+
+      # The guard that keeps docs/06 true. A PR importing Prisma into a domain
+      # folder, reaching into another module's internals, or introducing a
+      # cycle fails here rather than in review.
       - name: Architecture boundaries
         run: pnpm arch
 
-  i18n:
-    name: Translation completeness
+  icons:
+    name: Icon library integrity
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      # No feature ships English-only. A missing Arabic key is a build failure,
-      # not a backlog item that quietly accumulates for two years. docs/12 §7.
-      - name: Arabic and English key parity
-        run: pnpm --filter @buildflow/web i18n:check
 
-  test:
-    name: Unit & integration
-    runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: buildflow
-          MYSQL_DATABASE: buildflow_test
-        ports: ['3306:3306']
-        options: >-
-          --health-cmd="mysqladmin ping -pbuildflow"
-          --health-interval=10s --health-timeout=5s --health-retries=10
-      redis:
-        image: redis:7-alpine
-        ports: ['6379:6379']
-        options: >-
-          --health-cmd="redis-cli ping"
-          --health-interval=10s --health-timeout=3s --health-retries=5
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @buildflow/database prisma:deploy
-        env:
-          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_test
-      - run: pnpm test
-        env:
-          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_test
-          REDIS_URL: redis://localhost:6379
+      # The generator asserts: no duplicate icon names, every icon resolves to a
+      # trade tone, and every icon has an Arabic label. It reads colours from
+      # tokens.css rather than restating them — the two had already drifted once.
+      - name: Validate icons and regenerate gallery
+        run: node packages/ui/scripts/build-icon-gallery.mjs
 
-  tenant-isolation:
-    name: Tenant isolation (gated)
-    runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: buildflow
-          MYSQL_DATABASE: buildflow_isolation
-        ports: ['3306:3306']
-        options: >-
-          --health-cmd="mysqladmin ping -pbuildflow"
-          --health-interval=10s --health-timeout=5s --health-retries=10
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @buildflow/database prisma:deploy
-        env:
-          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_isolation
-      # This job is separate and non-negotiable. It seeds two companies and
-      # asserts every repository returns nothing across the tenant boundary.
-      # A cross-tenant leak is the one class of bug that ends a B2B SaaS
-      # company, so it gets its own gate rather than trusting general coverage.
-      # docs/11 §4.
-      - name: Cross-tenant access must be impossible
-        run: pnpm test:isolation
-        env:
-          DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_isolation
+      # The committed gallery is a reviewable artefact. If it no longer matches
+      # the source, it is showing reviewers colours the product does not use.
+      - name: Committed gallery is up to date
+        run: |
+          if ! git diff --quiet -- packages/ui/icon-gallery.html; then
+            echo "::error::icon-gallery.html is stale. Run: pnpm icons:build"
+            git diff --stat -- packages/ui/icon-gallery.html
+            exit 1
+          fi
 
   security:
     name: Security scanning
@@ -126,15 +86,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
+
       - name: Secret scanning
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+
       - name: Dependency audit
         run: pnpm audit --audit-level high
