@@ -1,0 +1,128 @@
+import { Prisma, type PrismaClient } from '@prisma/client'
+import { MissingTenantContextError } from '@buildflow/core'
+import { getCompanyId, isBypassingTenantScope } from './tenant-context'
+
+/**
+ * Tenant scoping, enforced at the data layer.
+ *
+ * THIS IS THE MOST IMPORTANT FILE IN THE CODEBASE.
+ *
+ * Shared-schema multi-tenancy has exactly one catastrophic failure mode: a
+ * developer forgets `WHERE company_id = ?` once. The result is one tenant
+ * reading another's clients, costs, and margins — the single bug class that
+ * ends a B2B SaaS company.
+ *
+ * The architecture does not ask developers to remember. This extension
+ * intercepts every Prisma operation and injects the tenant predicate itself.
+ * There is no code path through the ORM that can omit it, because the injection
+ * happens below the point where application code has any say. docs/03 §5.2
+ *
+ * Three properties make it trustworthy:
+ *
+ *   1. It THROWS when context is missing, rather than falling through. A
+ *      background job that forgot to establish context fails loudly in staging
+ *      instead of silently reading every tenant's data in production.
+ *   2. Global models are an explicit allow-list, not a default. Adding a model
+ *      to it is a visible, reviewable decision.
+ *   3. Raw SQL bypasses this entirely, so it is banned outside one audited
+ *      directory by a dependency-cruiser rule.
+ */
+
+/**
+ * Models with no tenant dimension. Reference data, shared by every tenant.
+ *
+ * ⚠️ Adding a model here removes its tenant protection. It is correct only for
+ * data that is genuinely global — never for anything a tenant creates, owns, or
+ * would be harmed by another tenant reading.
+ */
+export const GLOBAL_MODELS: ReadonlySet<string> = new Set([
+  'Company', // scoped by its own id, not by companyId — see below
+  'ProcessedEvent', // consumer bookkeeping, carries no tenant data
+])
+
+/** Operations whose `where` clause needs the tenant predicate added. */
+const READ_OPERATIONS = new Set([
+  'findFirst',
+  'findFirstOrThrow',
+  'findMany',
+  'findUnique',
+  'findUniqueOrThrow',
+  'count',
+  'aggregate',
+  'groupBy',
+])
+
+/** Operations that write and must be constrained to the tenant. */
+const WRITE_WHERE_OPERATIONS = new Set(['update', 'updateMany', 'delete', 'deleteMany', 'upsert'])
+
+const CREATE_OPERATIONS = new Set(['create', 'createMany', 'createManyAndReturn'])
+
+type AnyArgs = Record<string, unknown>
+
+/**
+ * Prisma's `$allOperations` hook is generic over every model and operation, so
+ * its parameter is structurally untyped. Declaring the shape explicitly keeps
+ * `any` out of the one file where an unchecked value would be most dangerous —
+ * a silently-typed `model` or `operation` here is a scoping decision made on a
+ * value nobody verified.
+ */
+interface OperationContext {
+  model: string
+  operation: string
+  args: AnyArgs
+  query: (args: AnyArgs) => Promise<unknown>
+}
+
+export function withTenantScope(client: PrismaClient) {
+  return client.$extends({
+    name: 'tenant-scope',
+    query: {
+      $allModels: {
+        async $allOperations({ model, operation, args, query }: OperationContext) {
+          if (GLOBAL_MODELS.has(model)) return query(args)
+
+          if (isBypassingTenantScope()) return query(args)
+
+          const companyId = getCompanyId()
+          if (!companyId) {
+            // Deliberately fatal. The alternative — proceeding unscoped — is a
+            // data breach that no test would catch.
+            throw new MissingTenantContextError(model, operation)
+          }
+
+          return query(injectTenant(operation, args, companyId))
+        },
+      },
+    },
+  })
+}
+
+function injectTenant(operation: string, args: AnyArgs, companyId: string): AnyArgs {
+  const next: AnyArgs = { ...args }
+
+  if (READ_OPERATIONS.has(operation) || WRITE_WHERE_OPERATIONS.has(operation)) {
+    // Covers findUnique/update/delete too. Before Prisma 5 those accepted only
+    // unique fields in `where` and would have rejected an injected companyId —
+    // which would have left `findUnique({ where: { id } })` as a hole straight
+    // through the isolation guarantee. Prisma 5 made extended where-unique GA,
+    // so a unique field plus additional filters is valid and the predicate
+    // applies uniformly to every operation.
+    next['where'] = { ...(args['where'] as AnyArgs | undefined), companyId }
+  }
+
+  if (CREATE_OPERATIONS.has(operation)) {
+    const data = args['data']
+    next['data'] = Array.isArray(data)
+      ? data.map((row: AnyArgs) => ({ ...row, companyId }))
+      : { ...(data as AnyArgs | undefined), companyId }
+  }
+
+  if (operation === 'upsert') {
+    next['create'] = { ...(args['create'] as AnyArgs | undefined), companyId }
+    next['update'] = { ...(args['update'] as AnyArgs | undefined) }
+  }
+
+  return next
+}
+
+export { Prisma }

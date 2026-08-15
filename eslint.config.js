@@ -59,6 +59,17 @@ export default ts.config(
       eqeqeq: ['error', 'always'],
       'no-console': ['error', { allow: ['warn', 'error'] }],
 
+      // `_`-prefixed parameters are intentionally unused — they exist to satisfy
+      // an interface (Result.map on the Err branch ignores its callback).
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
+      ],
+
+      // Numbers interpolate unambiguously. The rule exists to catch objects
+      // stringifying to "[object Object]", which allowNumber does not permit.
+      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+
       // Off deliberately. The rule predates typed props: with `defineProps<T>()`
       // an optional prop's absence is meaningful (`tone` falls back to the
       // trade-derived colour, `label` marks the icon decorative). Forcing a

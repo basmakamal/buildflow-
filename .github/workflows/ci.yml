@@ -7,7 +7,7 @@ name: CI
 # that always fails teaches people to ignore it, which is worse than having
 # none. Jobs are added in the same commit as the code they verify:
 #
-#   • test + tenant-isolation  → with packages/database (Prisma + tenant extension)
+#   • test + tenant-isolation  → LANDED with packages/database
 #   • i18n key parity          → with apps/web (vue-i18n catalogues)
 #   • e2e (Playwright, ar+en)  → Phase 1
 #
@@ -42,6 +42,17 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+
+      # MUST run before lint and typecheck.
+      #
+      # Un-generated, @prisma/client exports an untyped placeholder, so every
+      # db.unit.* call resolves to `any` and typed-lint reports ~200 no-unsafe-*
+      # errors that do not exist locally where the client has been generated.
+      # The errors look like a typing problem in the test file; they are
+      # actually a missing build step. Any job that lints, typechecks, or runs
+      # code touching @buildflow/database needs this.
+      - name: Generate Prisma client
+        run: pnpm --filter @buildflow/database prisma:generate
 
       - name: Format check
         run: pnpm format:check
@@ -84,6 +95,56 @@ jobs:
             git diff --stat -- packages/ui/icon-gallery.html
             exit 1
           fi
+
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @buildflow/database prisma:generate
+      - name: Unit tests (no database required)
+        run: pnpm --filter @buildflow/core test
+
+  tenant-isolation:
+    name: Tenant isolation (gated)
+    runs-on: ubuntu-latest
+    # This job is separate and non-negotiable. It seeds two companies and then
+    # actively TRIES to read, update, and delete across the boundary using every
+    # Prisma operation, including the unfiltered `deleteMany({})` case.
+    #
+    # Cross-tenant access is the one bug class that ends a B2B SaaS company, so
+    # it gets a dedicated gate rather than being folded into general coverage.
+    # Every new repository must be represented in this suite. docs/11 §4
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: buildflow
+          MYSQL_DATABASE: buildflow_isolation
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -pbuildflow"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    env:
+      DATABASE_URL: mysql://root:buildflow@localhost:3306/buildflow_isolation
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @buildflow/database prisma:generate
+      - run: pnpm --filter @buildflow/database prisma:deploy
+      - name: Cross-tenant access must be impossible
+        run: pnpm --filter @buildflow/database test:isolation
 
   security:
     name: Security scanning
