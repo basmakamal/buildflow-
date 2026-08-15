@@ -74,6 +74,34 @@
   --bf-stage-cleaning: #22c55e;
   --bf-stage-delivery: #16a34a;
 
+  /* Stage INK — the same identity, darkened for strokes and text.
+   *
+   * The palette above is tuned for filled areas: kanban headers, Gantt bars,
+   * donut segments. Those read fine at #fbbf24 because they are large blocks of
+   * colour. A 1.5px stroke at the same value is ~1.5:1 against white and simply
+   * disappears, and so does 12px label text.
+   *
+   * WCAG 1.4.11 wants 3:1 for graphical objects; these all clear it while
+   * staying recognisably the same colour as their fill. Fill and ink are a pair,
+   * not alternatives — use fill for areas, ink for strokes and labels.
+   */
+  --bf-stage-received-ink: #556275;
+  --bf-stage-demolition-ink: #8b5e3c;
+  --bf-stage-plumbing-ink: #0284c7;
+  --bf-stage-electrical-ink: #a16207;
+  --bf-stage-hvac-ink: #0e7490;
+  --bf-stage-waterproofing-ink: #2563eb;
+  --bf-stage-plastering-ink: #6b645f;
+  --bf-stage-gypsum-ink: #7d7671;
+  --bf-stage-flooring-ink: #78716c;
+  --bf-stage-painting-ink: #db2777;
+  --bf-stage-carpentry-ink: #b45309;
+  --bf-stage-lighting-ink: #d97706;
+  --bf-stage-cleaning-ink: #15803d;
+  /* Deliberately darker than cleaning-ink: the two are adjacent in the stage
+   * sequence, so identical inks would make the last two columns indistinguishable. */
+  --bf-stage-delivery-ink: #14532d;
+
   /* ── Surfaces (light theme) ────────────────────────────────────────────── */
   --bf-bg: var(--bf-neutral-50);
   --bf-surface: var(--bf-neutral-0);
@@ -145,6 +173,35 @@
   --bf-duration-micro: 150ms;
   --bf-duration: 250ms;
 
+  /* ── Icon tones ────────────────────────────────────────────────────────────
+   * Icons are coloured BY TRADE, not decoratively. A socket is always amber
+   * because electrical is always amber — on the kanban, in the BOQ, on the
+   * material card, and in the mobile app. Colour carries meaning, so a user
+   * scanning a 147-line BOQ can find the electrical section without reading.
+   *
+   * Each tone has a solid (stroke) and a tint (chip backdrop) value.
+   */
+  --bf-tone-electrical: #d9920a;
+  --bf-tone-electrical-tint: #fdf3dd;
+  --bf-tone-lighting: #d97706;
+  --bf-tone-lighting-tint: #fef3e2;
+  --bf-tone-plumbing: #0284c7;
+  --bf-tone-plumbing-tint: #e4f3fc;
+  --bf-tone-hvac: #0891b2;
+  --bf-tone-hvac-tint: #e2f5f8;
+  --bf-tone-ceiling: #7c7671;
+  --bf-tone-ceiling-tint: #f0efee;
+  --bf-tone-flooring: #78716c;
+  --bf-tone-flooring-tint: #f1efee;
+  --bf-tone-wall: #db2777;
+  --bf-tone-wall-tint: #fdeaf3;
+  --bf-tone-joinery: #b45309;
+  --bf-tone-joinery-tint: #fbeee0;
+  --bf-tone-furniture: #9a5b2c;
+  --bf-tone-furniture-tint: #f7ede4;
+  --bf-tone-neutral: var(--bf-neutral-600);
+  --bf-tone-neutral-tint: var(--bf-neutral-100);
+
   /* ── Icons ─────────────────────────────────────────────────────────────── */
   --bf-icon-stroke: 1.5;
   --bf-icon-sm: 16px;
@@ -204,6 +261,36 @@
   --bf-text: var(--bf-neutral-100);
   --bf-text-muted: var(--bf-neutral-400);
   --bf-primary-600: var(--bf-primary-400);
+}
+
+/*
+ * Dark-theme icon tones. The solids are lifted for contrast against a dark
+ * surface and the tints become low-alpha washes — a light tint on a dark
+ * background would glare, and the same hue at the same lightness would vanish.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bf-tone-electrical: #f0b429;
+    --bf-tone-electrical-tint: rgb(240 180 41 / 0.14);
+    --bf-tone-lighting: #f59e0b;
+    --bf-tone-lighting-tint: rgb(245 158 11 / 0.14);
+    --bf-tone-plumbing: #38bdf8;
+    --bf-tone-plumbing-tint: rgb(56 189 248 / 0.14);
+    --bf-tone-hvac: #22d3ee;
+    --bf-tone-hvac-tint: rgb(34 211 238 / 0.14);
+    --bf-tone-ceiling: #b7b0aa;
+    --bf-tone-ceiling-tint: rgb(183 176 170 / 0.14);
+    --bf-tone-flooring: #b0a8a2;
+    --bf-tone-flooring-tint: rgb(176 168 162 / 0.14);
+    --bf-tone-wall: #f472b6;
+    --bf-tone-wall-tint: rgb(244 114 182 / 0.14);
+    --bf-tone-joinery: #f0913b;
+    --bf-tone-joinery-tint: rgb(240 145 59 / 0.14);
+    --bf-tone-furniture: #d08a55;
+    --bf-tone-furniture-tint: rgb(208 138 85 / 0.14);
+    --bf-tone-neutral: var(--bf-neutral-300);
+    --bf-tone-neutral-tint: rgb(214 211 209 / 0.12);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
