@@ -4,6 +4,7 @@ import {
   type DomainError,
   type IdGenerator,
   type Result,
+  type UserId,
   err,
   ok,
   unauthorizedError,
@@ -17,6 +18,17 @@ import type {
   UserRepository,
 } from '../domain/ports'
 import { generateRefreshToken, hashToken } from '../domain/refresh-token-family'
+
+/**
+ * Supplies the fingerprint of the user's effective permissions for the token.
+ *
+ * A port rather than a direct dependency: the handler must stay testable with
+ * no database, and login must not fail because permission resolution had a bad
+ * day — see the fallback below.
+ */
+export interface PermHashProvider {
+  hashFor(companyId: CompanyId, userId: UserId): Promise<string>
+}
 
 export interface LoginCommand {
   companyId: CompanyId
@@ -68,6 +80,7 @@ export class LoginHandler {
     private readonly attempts: LoginAttemptRecorder,
     private readonly clock: Clock,
     private readonly ids: IdGenerator,
+    private readonly permHashes?: PermHashProvider,
   ) {}
 
   async execute(command: LoginCommand): Promise<Result<AuthTokens, DomainError>> {
@@ -143,7 +156,7 @@ export class LoginHandler {
       sub: user.id,
       companyId: command.companyId,
       sessionId,
-      permHash: 'pending', // resolved once RBAC lands; see docs/11 §2.2
+      permHash: await this.resolvePermHash(command.companyId, user.id),
       roles: [],
     })
 
@@ -156,6 +169,23 @@ export class LoginHandler {
     })
 
     return ok({ accessToken, refreshToken, expiresIn: ACCESS_TOKEN_TTL_SECONDS, sessionId })
+  }
+
+  /**
+   * Resolves the permission fingerprint, degrading to a sentinel on failure.
+   *
+   * permHash is a cache-coherency hint, not an authorization decision — the
+   * guard resolves permissions server-side regardless. So a resolver outage
+   * must not block a legitimate login: failing open HERE is safe precisely
+   * because nothing downstream trusts this value to grant anything.
+   */
+  private async resolvePermHash(companyId: CompanyId, userId: UserId): Promise<string> {
+    if (!this.permHashes) return 'unresolved'
+    try {
+      return await this.permHashes.hashFor(companyId, userId)
+    } catch {
+      return 'unresolved'
+    }
   }
 
   private async recordFailure(command: LoginCommand, email: string, reason: string): Promise<void> {
