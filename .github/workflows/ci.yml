@@ -109,7 +109,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @buildflow/database prisma:generate
       - name: Unit tests (no database required)
-        run: pnpm --filter @buildflow/core test
+        run: pnpm --filter @buildflow/core --filter @buildflow/identity test
 
   tenant-isolation:
     name: Tenant isolation (gated)
@@ -145,6 +145,11 @@ jobs:
       - run: pnpm --filter @buildflow/database prisma:deploy
       - name: Cross-tenant access must be impossible
         run: pnpm --filter @buildflow/database test:isolation
+
+      # The audit trail is only trustworthy if it commits and rolls back with
+      # the change it records. Verified against a real database, not mocked.
+      - name: Audit trail integrity
+        run: pnpm --filter @buildflow/database test
 
   security:
     name: Security scanning

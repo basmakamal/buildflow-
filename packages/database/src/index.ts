@@ -22,3 +22,4 @@ export {
   type OutboxPublisher,
   type OutboxRow,
 } from './unit-of-work'
+export { AuditWriter, REASON_REQUIRED_ACTIONS, type AuditEntry, type AuditAction } from './audit'
