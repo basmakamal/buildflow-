@@ -1,0 +1,122 @@
+name: CI
+
+# SCOPE: this pipeline asserts only what exists in the repository today.
+#
+# An earlier revision was written for a finished Phase 0 and referenced scripts
+# and packages that had not been built yet, so every PR went red. A pipeline
+# that always fails teaches people to ignore it, which is worse than having
+# none. Jobs are added in the same commit as the code they verify:
+#
+#   • test + tenant-isolation  → with packages/database (Prisma + tenant extension)
+#   • i18n key parity          → with apps/web (vue-i18n catalogues)
+#   • e2e (Playwright, ar+en)  → Phase 1
+#
+# See docs/16 §4 for the Phase 0 exit criteria these build towards.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least privilege by default. Individual jobs widen this only where they must,
+# so a compromised action in one job cannot write to the repository.
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  quality:
+    name: Format · Lint · Types · Architecture
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Format check
+        run: pnpm format:check
+
+      # Includes the no-hardcoded-strings rule (docs/12 §3.4) and the
+      # domain-layer restrictions on ambient time and I/O (docs/06 §1).
+      - name: Lint — zero warnings tolerated
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # The guard that keeps docs/06 true. A PR importing Prisma into a domain
+      # folder, reaching into another module's internals, or introducing a
+      # cycle fails here rather than in review.
+      - name: Architecture boundaries
+        run: pnpm arch
+
+  icons:
+    name: Icon library integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # The generator asserts: no duplicate icon names, every icon resolves to a
+      # trade tone, and every icon has an Arabic label. It reads colours from
+      # tokens.css rather than restating them — the two had already drifted once.
+      - name: Validate icons and regenerate gallery
+        run: node packages/ui/scripts/build-icon-gallery.mjs
+
+      # The committed gallery is a reviewable artefact. If it no longer matches
+      # the source, it is showing reviewers colours the product does not use.
+      - name: Committed gallery is up to date
+        run: |
+          if ! git diff --quiet -- packages/ui/icon-gallery.html; then
+            echo "::error::icon-gallery.html is stale. Run: pnpm icons:build"
+            git diff --stat -- packages/ui/icon-gallery.html
+            exit 1
+          fi
+
+  security:
+    name: Security scanning
+    runs-on: ubuntu-latest
+    # gitleaks-action lists the commits on a pull request so it can scan only
+    # the PR range. That needs pull_requests:read, which the repository's
+    # default token does not grant — hence the 403 this replaces. Read only;
+    # the action never needs to write.
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      # fetch-depth 0 gives the action full history. A secret that was committed
+      # and then "removed" in a later commit is still in the history and still
+      # compromised, so a shallow scan of the tip is close to worthless.
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      # NOTE: gitleaks-action v2 is free for personal accounts and public repos.
+      # If this repository is ever transferred to a GitHub organisation it will
+      # additionally require a GITLEAKS_LICENSE secret, or this step should be
+      # swapped for the gitleaks CLI, which needs no API access at all.
+      - name: Secret scanning
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Dependency audit
+        run: pnpm audit --audit-level high

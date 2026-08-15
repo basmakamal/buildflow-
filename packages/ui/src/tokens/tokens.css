@@ -1,0 +1,301 @@
+/**
+ * BuildFlow design tokens.
+ *
+ * Modern, restrained, built for dense operational screens that people stare at
+ * for eight hours. Deliberately NOT the generic SaaS-blue look — the palette is
+ * drawn from the trade: deep site green and safety amber.
+ *
+ * Every value here is a token. No component hardcodes a colour, radius, or
+ * duration; that is what keeps 40 screens looking like one product.
+ */
+
+:root {
+  /* ── Brand ─────────────────────────────────────────────────────────────── */
+  --bf-primary-50: #eef7f3;
+  --bf-primary-100: #d3ebe1;
+  --bf-primary-200: #a7d7c4;
+  --bf-primary-300: #6fbb9f;
+  --bf-primary-400: #3f9a79;
+  --bf-primary-500: #27795d;
+  --bf-primary-600: #1b5e4a; /* primary */
+  --bf-primary-700: #164b3c;
+  --bf-primary-800: #123b30;
+  --bf-primary-900: #0d2b23;
+
+  --bf-accent-50: #fdf5e7;
+  --bf-accent-100: #fae6c2;
+  --bf-accent-200: #f5cd88;
+  --bf-accent-300: #efb256;
+  --bf-accent-400: #e8a33d; /* accent — safety amber */
+  --bf-accent-500: #d18a24;
+  --bf-accent-600: #a96b18;
+
+  /* ── Neutrals — warm-tinted, easier on the eye than pure grey ──────────── */
+  --bf-neutral-0: #ffffff;
+  --bf-neutral-50: #fafaf9;
+  --bf-neutral-100: #f5f5f4;
+  --bf-neutral-200: #e7e5e4;
+  --bf-neutral-300: #d6d3d1;
+  --bf-neutral-400: #a8a29e;
+  --bf-neutral-500: #78716c;
+  --bf-neutral-600: #57534e;
+  --bf-neutral-700: #44403c;
+  --bf-neutral-800: #292524;
+  --bf-neutral-900: #1c1917;
+  --bf-neutral-950: #0f0e0d;
+
+  /* ── Semantic ──────────────────────────────────────────────────────────── */
+  --bf-success: #16a34a;
+  --bf-success-bg: #f0fdf4;
+  --bf-warning: #f59e0b;
+  --bf-warning-bg: #fffbeb;
+  --bf-danger: #dc2626;
+  --bf-danger-bg: #fef2f2;
+  --bf-info: #0284c7;
+  --bf-info-bg: #f0f9ff;
+
+  /* ── Stage palette ─────────────────────────────────────────────────────────
+   * One fixed colour per trade, used identically on the kanban, the Gantt, the
+   * progress donut, the mobile app, and every exported PDF. Users learn the
+   * palette once. docs/08 §6.1
+   */
+  --bf-stage-received: #64748b;
+  --bf-stage-demolition: #8b5e3c;
+  --bf-stage-plumbing: #0ea5e9;
+  --bf-stage-electrical: #eab308;
+  --bf-stage-hvac: #06b6d4;
+  --bf-stage-waterproofing: #3b82f6;
+  --bf-stage-plastering: #a8a29e;
+  --bf-stage-gypsum: #c4bfbc;
+  --bf-stage-flooring: #78716c;
+  --bf-stage-painting: #ec4899;
+  --bf-stage-carpentry: #b45309;
+  --bf-stage-lighting: #fbbf24;
+  --bf-stage-cleaning: #22c55e;
+  --bf-stage-delivery: #16a34a;
+
+  /* Stage INK — the same identity, darkened for strokes and text.
+   *
+   * The palette above is tuned for filled areas: kanban headers, Gantt bars,
+   * donut segments. Those read fine at #fbbf24 because they are large blocks of
+   * colour. A 1.5px stroke at the same value is ~1.5:1 against white and simply
+   * disappears, and so does 12px label text.
+   *
+   * WCAG 1.4.11 wants 3:1 for graphical objects; these all clear it while
+   * staying recognisably the same colour as their fill. Fill and ink are a pair,
+   * not alternatives — use fill for areas, ink for strokes and labels.
+   */
+  --bf-stage-received-ink: #556275;
+  --bf-stage-demolition-ink: #8b5e3c;
+  --bf-stage-plumbing-ink: #0284c7;
+  --bf-stage-electrical-ink: #a16207;
+  --bf-stage-hvac-ink: #0e7490;
+  --bf-stage-waterproofing-ink: #2563eb;
+  --bf-stage-plastering-ink: #6b645f;
+  --bf-stage-gypsum-ink: #7d7671;
+  --bf-stage-flooring-ink: #78716c;
+  --bf-stage-painting-ink: #db2777;
+  --bf-stage-carpentry-ink: #b45309;
+  --bf-stage-lighting-ink: #d97706;
+  --bf-stage-cleaning-ink: #15803d;
+  /* Deliberately darker than cleaning-ink: the two are adjacent in the stage
+   * sequence, so identical inks would make the last two columns indistinguishable. */
+  --bf-stage-delivery-ink: #14532d;
+
+  /* ── Surfaces (light theme) ────────────────────────────────────────────── */
+  --bf-bg: var(--bf-neutral-50);
+  --bf-surface: var(--bf-neutral-0);
+  --bf-surface-raised: var(--bf-neutral-0);
+  --bf-surface-sunken: var(--bf-neutral-100);
+  --bf-border: var(--bf-neutral-200);
+  --bf-border-strong: var(--bf-neutral-300);
+  --bf-text: var(--bf-neutral-900);
+  --bf-text-muted: var(--bf-neutral-500);
+  --bf-text-inverse: var(--bf-neutral-0);
+
+  /* ── Typography ────────────────────────────────────────────────────────────
+   * Arabic needs more vertical breathing room than Latin and must NEVER receive
+   * letter-spacing — the letters connect, and spacing them destroys word shapes.
+   * docs/12 §4.5
+   */
+  --bf-font-en: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --bf-font-ar: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', sans-serif;
+  --bf-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --bf-font: var(--bf-font-en);
+
+  --bf-text-2xs: 0.6875rem;
+  --bf-text-xs: 0.75rem;
+  --bf-text-sm: 0.8125rem;
+  --bf-text-base: 0.9375rem;
+  --bf-text-lg: 1.0625rem;
+  --bf-text-xl: 1.25rem;
+  --bf-text-2xl: 1.5rem;
+  --bf-text-3xl: 1.875rem;
+  --bf-text-4xl: 2.25rem;
+
+  --bf-leading-tight: 1.25;
+  --bf-leading-normal: 1.55;
+  --bf-leading-relaxed: 1.75;
+
+  --bf-weight-normal: 400;
+  --bf-weight-medium: 500;
+  --bf-weight-semibold: 600;
+  --bf-weight-bold: 700;
+
+  /* ── Spacing — 4px base ────────────────────────────────────────────────── */
+  --bf-space-0: 0;
+  --bf-space-1: 0.25rem;
+  --bf-space-2: 0.5rem;
+  --bf-space-3: 0.75rem;
+  --bf-space-4: 1rem;
+  --bf-space-5: 1.25rem;
+  --bf-space-6: 1.5rem;
+  --bf-space-8: 2rem;
+  --bf-space-10: 2.5rem;
+  --bf-space-12: 3rem;
+  --bf-space-16: 4rem;
+
+  /* ── Radius ────────────────────────────────────────────────────────────── */
+  --bf-radius-sm: 4px;
+  --bf-radius: 6px;
+  --bf-radius-md: 8px;
+  --bf-radius-lg: 12px;
+  --bf-radius-xl: 16px;
+  --bf-radius-full: 9999px;
+
+  /* ── Elevation — two levels only. Deep shadow stacks read as dated. ────── */
+  --bf-shadow-card: 0 1px 2px rgb(28 25 23 / 0.05), 0 1px 3px rgb(28 25 23 / 0.06);
+  --bf-shadow-overlay: 0 10px 32px -8px rgb(28 25 23 / 0.18), 0 4px 12px -4px rgb(28 25 23 / 0.1);
+  --bf-ring: 0 0 0 3px color-mix(in srgb, var(--bf-primary-600) 22%, transparent);
+
+  /* ── Motion ────────────────────────────────────────────────────────────── */
+  --bf-ease: cubic-bezier(0.2, 0, 0.1, 1);
+  --bf-duration-micro: 150ms;
+  --bf-duration: 250ms;
+
+  /* ── Icon tones ────────────────────────────────────────────────────────────
+   * Icons are coloured BY TRADE, not decoratively. A socket is always amber
+   * because electrical is always amber — on the kanban, in the BOQ, on the
+   * material card, and in the mobile app. Colour carries meaning, so a user
+   * scanning a 147-line BOQ can find the electrical section without reading.
+   *
+   * Each tone has a solid (stroke) and a tint (chip backdrop) value.
+   */
+  --bf-tone-electrical: #d9920a;
+  --bf-tone-electrical-tint: #fdf3dd;
+  --bf-tone-lighting: #d97706;
+  --bf-tone-lighting-tint: #fef3e2;
+  --bf-tone-plumbing: #0284c7;
+  --bf-tone-plumbing-tint: #e4f3fc;
+  --bf-tone-hvac: #0891b2;
+  --bf-tone-hvac-tint: #e2f5f8;
+  --bf-tone-ceiling: #7c7671;
+  --bf-tone-ceiling-tint: #f0efee;
+  --bf-tone-flooring: #78716c;
+  --bf-tone-flooring-tint: #f1efee;
+  --bf-tone-wall: #db2777;
+  --bf-tone-wall-tint: #fdeaf3;
+  --bf-tone-joinery: #b45309;
+  --bf-tone-joinery-tint: #fbeee0;
+  --bf-tone-furniture: #9a5b2c;
+  --bf-tone-furniture-tint: #f7ede4;
+  --bf-tone-neutral: var(--bf-neutral-600);
+  --bf-tone-neutral-tint: var(--bf-neutral-100);
+
+  /* ── Icons ─────────────────────────────────────────────────────────────── */
+  --bf-icon-stroke: 1.5;
+  --bf-icon-sm: 16px;
+  --bf-icon-md: 20px;
+  --bf-icon-lg: 24px;
+  --bf-icon-xl: 32px;
+  --bf-icon-2xl: 48px;
+
+  /* ── Layout ────────────────────────────────────────────────────────────── */
+  --bf-sidebar-width: 240px;
+  --bf-sidebar-width-collapsed: 64px;
+  --bf-topbar-height: 56px;
+  --bf-z-dropdown: 1000;
+  --bf-z-sticky: 1100;
+  --bf-z-overlay: 1200;
+  --bf-z-modal: 1300;
+  --bf-z-toast: 1400;
+}
+
+/* Arabic typography: larger base, looser leading, zero tracking. */
+:root:lang(ar),
+[dir='rtl'] {
+  --bf-font: var(--bf-font-ar);
+  --bf-text-base: 1rem;
+  --bf-leading-normal: 1.75;
+  letter-spacing: 0 !important;
+}
+
+/* Dark theme — driven by system preference, overridable by an explicit choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bf-bg: var(--bf-neutral-950);
+    --bf-surface: var(--bf-neutral-900);
+    --bf-surface-raised: var(--bf-neutral-800);
+    --bf-surface-sunken: #171513;
+    --bf-border: var(--bf-neutral-800);
+    --bf-border-strong: var(--bf-neutral-700);
+    --bf-text: var(--bf-neutral-100);
+    --bf-text-muted: var(--bf-neutral-400);
+    --bf-primary-600: var(--bf-primary-400);
+    --bf-success-bg: #082b16;
+    --bf-warning-bg: #2b1d05;
+    --bf-danger-bg: #2b0b0b;
+    --bf-info-bg: #06243a;
+    --bf-shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.3);
+    --bf-shadow-overlay: 0 10px 32px -8px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme='dark'] {
+  --bf-bg: var(--bf-neutral-950);
+  --bf-surface: var(--bf-neutral-900);
+  --bf-surface-raised: var(--bf-neutral-800);
+  --bf-surface-sunken: #171513;
+  --bf-border: var(--bf-neutral-800);
+  --bf-border-strong: var(--bf-neutral-700);
+  --bf-text: var(--bf-neutral-100);
+  --bf-text-muted: var(--bf-neutral-400);
+  --bf-primary-600: var(--bf-primary-400);
+}
+
+/*
+ * Dark-theme icon tones. The solids are lifted for contrast against a dark
+ * surface and the tints become low-alpha washes — a light tint on a dark
+ * background would glare, and the same hue at the same lightness would vanish.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bf-tone-electrical: #f0b429;
+    --bf-tone-electrical-tint: rgb(240 180 41 / 0.14);
+    --bf-tone-lighting: #f59e0b;
+    --bf-tone-lighting-tint: rgb(245 158 11 / 0.14);
+    --bf-tone-plumbing: #38bdf8;
+    --bf-tone-plumbing-tint: rgb(56 189 248 / 0.14);
+    --bf-tone-hvac: #22d3ee;
+    --bf-tone-hvac-tint: rgb(34 211 238 / 0.14);
+    --bf-tone-ceiling: #b7b0aa;
+    --bf-tone-ceiling-tint: rgb(183 176 170 / 0.14);
+    --bf-tone-flooring: #b0a8a2;
+    --bf-tone-flooring-tint: rgb(176 168 162 / 0.14);
+    --bf-tone-wall: #f472b6;
+    --bf-tone-wall-tint: rgb(244 114 182 / 0.14);
+    --bf-tone-joinery: #f0913b;
+    --bf-tone-joinery-tint: rgb(240 145 59 / 0.14);
+    --bf-tone-furniture: #d08a55;
+    --bf-tone-furniture-tint: rgb(208 138 85 / 0.14);
+    --bf-tone-neutral: var(--bf-neutral-300);
+    --bf-tone-neutral-tint: rgb(214 211 209 / 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --bf-duration-micro: 0ms;
+    --bf-duration: 0ms;
+  }
+}

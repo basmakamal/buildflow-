@@ -1,0 +1,94 @@
+name: buildflow
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: buildflow-mysql
+    restart: unless-stopped
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: buildflow
+      MYSQL_DATABASE: buildflow
+      MYSQL_USER: buildflow
+      MYSQL_PASSWORD: buildflow
+    command:
+      # utf8mb4 everywhere — Arabic content is a first-class requirement, not an afterthought
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+      # ngram parser is what makes Arabic FULLTEXT search usable (see docs/04 §3.3)
+      - --ngram_token_size=2
+      - --max_connections=200
+      - --innodb_buffer_pool_size=512M
+      # surface slow queries in development, before they surface in production
+      - --slow_query_log=1
+      - --long_query_time=0.5
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-pbuildflow']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: buildflow-redis
+    restart: unless-stopped
+    ports:
+      - '6380:6379'
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: buildflow-minio
+    restart: unless-stopped
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: buildflow
+      MINIO_ROOT_PASSWORD: buildflow123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ['CMD', 'mc', 'ready', 'local']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  # Creates the private bucket on first boot so uploads work without manual setup.
+  # Buckets are never public — access is always via signed URLs (see docs/13 §7).
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 buildflow buildflow123 &&
+      mc mb --ignore-existing local/buildflow-media &&
+      mc anonymous set none local/buildflow-media &&
+      echo 'bucket ready';
+      "
+
+  mailhog:
+    image: axllent/mailpit:latest
+    container_name: buildflow-mail
+    restart: unless-stopped
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
+volumes:
+  mysql_data:
+  redis_data:
+  minio_data:
