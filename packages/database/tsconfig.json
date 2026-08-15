@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // No rootDir: this package imports @buildflow/core source directly across
+    // the workspace, and rootDir would reject anything outside this folder.
+    // Harmless because noEmit is set — nothing is written from these paths.
+    "composite": false,
+    "noEmit": true,
+    "types": ["node"],
+    "paths": {
+      "@buildflow/core": ["../core/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
