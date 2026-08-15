@@ -18,7 +18,6 @@ export type UnitOfMeasure =
   'm' | 'm2' | 'm3' | 'pcs' | 'box' | 'kg' | 'litre' | 'bag' | 'roll' | 'set' | 'man_day'
 
 /** Everything is stored at 4 dp; site measurement never needs more. */
-const SCALE = 10_000n
 const PRECISION = 4
 
 export class Quantity {
