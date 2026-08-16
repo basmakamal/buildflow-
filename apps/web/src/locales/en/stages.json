@@ -1,0 +1,29 @@
+{
+  "title": "Stage board",
+  "unitProgress": "Unit progress",
+  "instantiate": "Start workflow",
+  "noWorkflow": "This unit has no workflow yet",
+  "status": {
+    "not_started": "Not started",
+    "in_progress": "In progress",
+    "blocked": "Blocked",
+    "on_hold": "On hold",
+    "completed": "Awaiting approval",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "actions": {
+    "start": "Start",
+    "complete": "Complete",
+    "approve": "Approve",
+    "reject": "Reject",
+    "block": "Block",
+    "unblock": "Resume",
+    "saveProgress": "Save"
+  },
+  "reasonPrompt": "Reason",
+  "reasonRequired": "A reason is required",
+  "blockedBecause": "Blocked: {reason}",
+  "rejectedBecause": "Rejected: {reason}",
+  "workflowDone": "All stages approved — unit complete"
+}

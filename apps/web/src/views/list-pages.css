@@ -1,0 +1,169 @@
+/*
+ * Shared styles for list pages. Logical properties only — one stylesheet
+ * serves Arabic RTL and English LTR. docs/12 §4.2
+ */
+.page {
+  padding: var(--bf-space-6);
+  max-width: 1000px;
+  margin-inline: auto;
+}
+
+.page__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bf-space-4);
+  margin-bottom: var(--bf-space-5);
+}
+
+.page__head h1 {
+  margin: 0;
+  font-size: var(--bf-text-2xl);
+  font-weight: var(--bf-weight-semibold);
+}
+
+.panel {
+  background: var(--bf-surface);
+  border: 1px solid var(--bf-border);
+  border-radius: var(--bf-radius-lg);
+}
+
+.form {
+  display: grid;
+  gap: var(--bf-space-3);
+  padding: var(--bf-space-4);
+  margin-bottom: var(--bf-space-5);
+  max-width: 480px;
+}
+
+.field {
+  display: grid;
+  gap: var(--bf-space-1);
+  font-size: var(--bf-text-sm);
+  font-weight: var(--bf-weight-medium);
+}
+
+.field input {
+  padding-block: 0.55rem;
+  padding-inline: 0.75rem;
+  border: 1px solid var(--bf-border);
+  border-radius: var(--bf-radius-md);
+  background: var(--bf-bg);
+  color: var(--bf-text);
+  font: inherit;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--bf-primary-600);
+  box-shadow: var(--bf-ring);
+}
+
+.btn {
+  padding-block: 0.55rem;
+  padding-inline: 1rem;
+  border-radius: var(--bf-radius-md);
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: var(--bf-weight-medium);
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--bf-primary-600);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--bf-primary-700);
+}
+
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--bf-space-3);
+}
+
+.card {
+  display: block;
+  padding: var(--bf-space-4);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--bf-duration-micro) var(--bf-ease);
+}
+
+.card:hover {
+  border-color: var(--bf-primary-600);
+}
+
+.card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bf-space-3);
+  margin-bottom: var(--bf-space-2);
+}
+
+.badge {
+  font-size: var(--bf-text-xs);
+  padding-block: 0.15rem;
+  padding-inline: 0.6rem;
+  border-radius: var(--bf-radius-full);
+  border: 1px solid var(--bf-border);
+  color: var(--bf-text-muted);
+}
+
+.badge[data-status='in_progress'] {
+  color: var(--bf-info);
+  border-color: var(--bf-info);
+}
+
+.badge[data-status='completed'],
+.badge[data-status='delivered'],
+.badge[data-status='approved'] {
+  color: var(--bf-success);
+  border-color: var(--bf-success);
+}
+
+.badge[data-status='on_hold'],
+.badge[data-status='blocked'] {
+  color: var(--bf-warning);
+  border-color: var(--bf-warning);
+}
+
+.badge[data-status='cancelled'],
+.badge[data-status='rejected'] {
+  color: var(--bf-danger);
+  border-color: var(--bf-danger);
+}
+
+/* Progress bars fill from inline-start, so they grow right-to-left in Arabic. */
+.meter {
+  height: 6px;
+  border-radius: var(--bf-radius-full);
+  background: var(--bf-surface-sunken);
+  overflow: hidden;
+}
+
+.meter__fill {
+  height: 100%;
+  background: var(--bf-primary-600);
+  border-start-start-radius: var(--bf-radius-full);
+  border-end-start-radius: var(--bf-radius-full);
+  transition: width var(--bf-duration) var(--bf-ease);
+}
+
+.muted {
+  color: var(--bf-text-muted);
+}
+
+.error {
+  margin: 0;
+  padding: var(--bf-space-2) var(--bf-space-3);
+  border-radius: var(--bf-radius-md);
+  background: var(--bf-danger-bg);
+  color: var(--bf-danger);
+  font-size: var(--bf-text-sm);
+}

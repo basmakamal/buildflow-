@@ -4,10 +4,14 @@ import enCommon from '../locales/en/common.json'
 import enAuth from '../locales/en/auth.json'
 import enNav from '../locales/en/nav.json'
 import enIcons from '../locales/en/icons.json'
+import enProjects from '../locales/en/projects.json'
+import enStages from '../locales/en/stages.json'
 import arCommon from '../locales/ar/common.json'
 import arAuth from '../locales/ar/auth.json'
 import arNav from '../locales/ar/nav.json'
 import arIcons from '../locales/ar/icons.json'
+import arProjects from '../locales/ar/projects.json'
+import arStages from '../locales/ar/stages.json'
 
 /**
  * Internationalisation.
@@ -35,8 +39,22 @@ export const i18n = createI18n({
   missingWarn: import.meta.env.DEV,
   fallbackWarn: import.meta.env.DEV,
   messages: {
-    en: { common: enCommon, auth: enAuth, nav: enNav, icons: enIcons },
-    ar: { common: arCommon, auth: arAuth, nav: arNav, icons: arIcons },
+    en: {
+      common: enCommon,
+      auth: enAuth,
+      nav: enNav,
+      icons: enIcons,
+      projects: enProjects,
+      stages: enStages,
+    },
+    ar: {
+      common: arCommon,
+      auth: arAuth,
+      nav: arNav,
+      icons: arIcons,
+      projects: arProjects,
+      stages: arStages,
+    },
   },
   numberFormats: {
     en: { currency: { style: 'currency', currency: 'SAR', notation: 'standard' } },

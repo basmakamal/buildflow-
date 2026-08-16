@@ -34,7 +34,9 @@ export default defineConfig({
     proxy: {
       // The API runs separately; proxying keeps the browser same-origin so the
       // httpOnly refresh cookie is sent without CORS credential gymnastics.
-      '/api': { target: 'http://localhost:3000', changeOrigin: true },
+      // 127.0.0.1 explicitly: 'localhost' can resolve to ::1 first, where a
+      // DIFFERENT app may be listening — exactly what happened in development.
+      '/api': { target: 'http://127.0.0.1:3000', changeOrigin: true },
     },
   },
   test: {

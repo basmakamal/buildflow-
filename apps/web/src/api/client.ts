@@ -30,7 +30,7 @@ export async function request<T>(path: string, init: RequestInit = {}): Promise<
       credentials: 'include',
       // Built explicitly rather than spread: `HeadersInit` may be an array or a
       // Headers instance, and spreading either into an object yields indices.
-      headers: buildHeaders(init.headers),
+      headers: buildHeaders(init.headers, init.body !== undefined && init.body !== null),
     })
 
     const body: unknown = await response.json().catch(() => null)
@@ -54,8 +54,12 @@ export async function request<T>(path: string, init: RequestInit = {}): Promise<
   }
 }
 
-function buildHeaders(extra: HeadersInit | undefined): Record<string, string> {
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+function buildHeaders(extra: HeadersInit | undefined, hasBody: boolean): Record<string, string> {
+  // Content-Type only when a body exists: Fastify (correctly) rejects an EMPTY
+  // json body with FST_ERR_CTP_EMPTY_JSON_BODY, so a body-less POST /start with
+  // the header set 500s. Found in the browser — inject() never set the header,
+  // so the e2e suite could not see it.
+  const headers: Record<string, string> = hasBody ? { 'Content-Type': 'application/json' } : {}
   if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`
 
   if (extra instanceof Headers) {
