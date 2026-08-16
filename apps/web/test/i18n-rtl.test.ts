@@ -91,6 +91,42 @@ describe('translation catalogues', () => {
     i18n.global.locale.value = 'ar'
   })
 
+  it('compiles every message without vue-i18n syntax errors', () => {
+    /**
+     * vue-i18n treats `@` as linked-message syntax (`@:some.key`), so a literal
+     * `you@company.com` fails to COMPILE — it still renders, but throws on every
+     * evaluation. Nothing caught it: not typecheck, not the key-parity gate, not
+     * the other tests, because none of them rendered this particular key. Only
+     * opening the page in a browser surfaced it, as six console errors.
+     *
+     * Rendering every leaf turns that into a test failure instead.
+     */
+    const walk = (obj: Record<string, unknown>, prefix: string): string[] =>
+      Object.entries(obj).flatMap(([key, value]) =>
+        value !== null && typeof value === 'object'
+          ? walk(value as Record<string, unknown>, `${prefix}.${key}`)
+          : [`${prefix}.${key}`],
+      )
+
+    const keys = [...walk(enCommon, 'common'), ...walk(enAuth, 'auth')]
+
+    for (const locale of ['ar', 'en'] as const) {
+      i18n.global.locale.value = locale
+      for (const key of keys) {
+        expect(() => i18n.global.t(key, { email: 'x', count: 1 }), `${locale}:${key}`).not.toThrow()
+      }
+    }
+    i18n.global.locale.value = 'ar'
+  })
+
+  it('renders the email placeholder literally, with @ escaped', () => {
+    for (const locale of ['ar', 'en'] as const) {
+      i18n.global.locale.value = locale
+      expect(i18n.global.t('auth.placeholders.email')).toBe('you@company.com')
+    }
+    i18n.global.locale.value = 'ar'
+  })
+
   it('keeps interpolation placeholders in both languages', () => {
     for (const locale of ['ar', 'en'] as const) {
       i18n.global.locale.value = locale
