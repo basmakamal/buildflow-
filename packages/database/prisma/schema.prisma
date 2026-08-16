@@ -370,11 +370,53 @@ model Unit {
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Restrict)
   project Project @relation(fields: [projectId], references: [id], onDelete: Restrict)
+  rooms   Room[]
 
   @@unique([companyId, projectId, unitNumber])
   @@index([companyId, projectId, status])
   @@index([companyId, status, deletedAt])
   @@map("units")
+}
+
+/// Child of Unit — cascade is correct here because a room has no meaning
+/// outside its unit. Dimensions are INTEGER MILLIMETRES (docs/18 ADR-016);
+/// the derived areas are denormalised in m² because every BOQ quantity rule
+/// starts from them and recomputing on every read would put geometry math in
+/// every query path.
+model Room {
+  id        String @id @db.Char(36)
+  companyId String @db.Char(36)
+  unitId    String @db.Char(36)
+
+  /// Validated against the domain room-type list in code. The tenant-extensible
+  /// room_types lookup table (docs/04 §2.4) lands with tenant customization —
+  /// deviation recorded here so it is a known slice, not a forgotten one.
+  typeCode String @db.VarChar(40)
+  nameEn   String @db.VarChar(120)
+  nameAr   String @db.VarChar(120)
+
+  widthMm  Int
+  lengthMm Int
+  heightMm Int
+
+  floorArea    Decimal @db.Decimal(12, 4)
+  wallArea     Decimal @db.Decimal(12, 4)
+  ceilingArea  Decimal @db.Decimal(12, 4)
+  perimeter    Decimal @db.Decimal(12, 4)
+  /// True once a floor-plan polygon owns the geometry; manual edits are then
+  /// rejected so the plan and the BOQ cannot disagree. docs/01 ROM-02
+  isAreaFromPlan Boolean @default(false)
+
+  sortOrder Int @default(0) @db.SmallInt
+
+  createdAt DateTime  @default(now()) @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @db.DateTime(3)
+  deletedAt DateTime? @db.DateTime(3)
+
+  unit Unit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, unitId])
+  @@map("rooms")
 }
 
 /// Transactional outbox.

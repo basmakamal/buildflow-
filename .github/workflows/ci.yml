@@ -109,7 +109,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @buildflow/database prisma:generate
       - name: Unit tests (no database required)
-        run: pnpm --filter @buildflow/core --filter @buildflow/identity test
+        run: pnpm --filter @buildflow/core --filter @buildflow/identity --filter @buildflow/project test
 
       - name: Web component and RTL tests
         run: pnpm --filter @buildflow/web test
