@@ -5,6 +5,7 @@ import { runWithTenantContext, type Database } from '@buildflow/database'
 import type { Container } from './container'
 import { registerAuthRoutes } from './routes/auth'
 import { registerMeRoutes } from './routes/me'
+import { registerProjectRoutes } from './routes/projects'
 
 /**
  * Fastify application.
@@ -123,6 +124,7 @@ export async function buildServer(options: ServerOptions): Promise<FastifyInstan
 
   registerAuthRoutes(app, options.container)
   registerMeRoutes(app, options.container)
+  registerProjectRoutes(app, options.container, options.db)
 
   return app
 }
