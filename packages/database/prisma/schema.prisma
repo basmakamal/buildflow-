@@ -419,6 +419,158 @@ model Room {
   @@map("rooms")
 }
 
+/// Tenant-defined workflow templates. companyId null = the system default
+/// 14-stage finishing template every company starts from. docs/01 WFL-01/02
+model WorkflowTemplate {
+  id        String  @id @db.Char(36)
+  companyId String? @db.Char(36)
+
+  code      String  @db.VarChar(64)
+  nameEn    String  @db.VarChar(120)
+  nameAr    String  @db.VarChar(120)
+  isDefault Boolean @default(false)
+  isActive  Boolean @default(true)
+  version   Int     @default(1)
+
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+
+  stages WorkflowStageTemplate[]
+
+  @@unique([companyId, code])
+  @@map("workflow_templates")
+}
+
+model WorkflowStageTemplate {
+  id         String  @id @db.Char(36)
+  companyId  String? @db.Char(36)
+  templateId String  @db.Char(36)
+
+  code     String @db.VarChar(64)
+  nameEn   String @db.VarChar(120)
+  nameAr   String @db.VarChar(120)
+  sequence Int    @db.SmallInt
+  /// Contribution to unit progress. Weights need not sum to anything — the
+  /// rollup normalises — so removing a stage does not force re-weighting.
+  weight   Decimal @db.Decimal(6, 3)
+
+  requiresApproval Boolean @default(true)
+  requiresPhotos   Boolean @default(false)
+  minPhotos        Int     @default(0) @db.TinyInt
+  color            String? @db.VarChar(16)
+
+  template WorkflowTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([templateId, sequence])
+  @@map("workflow_stage_templates")
+}
+
+/// One active workflow per unit. Later template edits never retroactively
+/// alter running units — instantiation copies the stages. docs/01 WFL-03
+model UnitWorkflow {
+  id        String @id @db.Char(36)
+  companyId String @db.Char(36)
+  unitId    String @db.Char(36)
+
+  templateId      String @db.Char(36)
+  templateVersion Int
+
+  status             WorkflowStatus @default(active)
+  progressPercentage Decimal        @default(0) @db.Decimal(5, 2)
+  startedAt          DateTime?      @db.DateTime(3)
+  completedAt        DateTime?      @db.DateTime(3)
+
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  stages UnitStage[]
+
+  @@unique([companyId, unitId])
+  @@map("unit_workflows")
+}
+
+model UnitStage {
+  id             String @id @db.Char(36)
+  companyId      String @db.Char(36)
+  unitWorkflowId String @db.Char(36)
+  /// Denormalised for the two hottest queries: the unit board and the
+  /// company-wide overdue list. docs/04 §2.8
+  unitId         String @db.Char(36)
+
+  code     String  @db.VarChar(64)
+  nameEn   String  @db.VarChar(120)
+  nameAr   String  @db.VarChar(120)
+  sequence Int     @db.SmallInt
+  weight   Decimal @db.Decimal(6, 3)
+
+  status             StageStatus @default(not_started)
+  progressPercentage Decimal     @default(0) @db.Decimal(5, 2)
+
+  requiresApproval Boolean @default(true)
+
+  plannedStartDate DateTime? @db.Date
+  plannedEndDate   DateTime? @db.Date
+  /// Set on the FIRST transition to in_progress and never overwritten —
+  /// restarts after rework do not rewrite history. docs/02 §3.8
+  actualStartDate  DateTime? @db.DateTime(3)
+  actualEndDate    DateTime? @db.DateTime(3)
+
+  completedBy String?   @db.Char(36)
+  completedAt DateTime? @db.DateTime(3)
+  approvedBy  String?   @db.Char(36)
+  approvedAt  DateTime? @db.DateTime(3)
+
+  blockedReason  String? @db.VarChar(500)
+  rejectedReason String? @db.VarChar(500)
+
+  workflow UnitWorkflow @relation(fields: [unitWorkflowId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, unitId, sequence])
+  @@index([companyId, status, plannedEndDate])
+  @@map("unit_stages")
+}
+
+/// Append-only stage event log — the field audit trail. No updatedAt, no
+/// deletedAt: corrections are new transitions. `clientEventId` is the offline
+/// idempotency key so a retried mobile sync cannot double-record. docs/04 §2.8
+model StageTransition {
+  id          String @id @db.Char(36)
+  companyId   String @db.Char(36)
+  unitStageId String @db.Char(36)
+
+  fromStatus     StageStatus
+  toStatus       StageStatus
+  progressBefore Decimal     @db.Decimal(5, 2)
+  progressAfter  Decimal     @db.Decimal(5, 2)
+
+  actorUserId   String      @db.Char(36)
+  reason        String?     @db.VarChar(500)
+  source        EventSource @default(web)
+  clientEventId String?     @db.VarChar(64)
+  occurredAt    DateTime    @default(now()) @db.DateTime(3)
+
+  @@unique([companyId, clientEventId])
+  @@index([companyId, unitStageId, occurredAt])
+  @@map("stage_transitions")
+}
+
+enum WorkflowStatus {
+  active
+  completed
+  cancelled
+}
+
+enum StageStatus {
+  not_started
+  in_progress
+  blocked
+  on_hold
+  completed
+  approved
+  rejected
+}
+
 /// Transactional outbox.
 ///
 /// Events are inserted in the SAME transaction as the state change, so "the

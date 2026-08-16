@@ -32,6 +32,7 @@ export {
   type UnitId,
   type RoomId,
   type UnitStageId,
+  type UnitWorkflowId,
   type MaterialId,
   type StockMovementId,
   type BoqId,

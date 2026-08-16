@@ -8,7 +8,8 @@
       "@buildflow/core": ["../../packages/core/src/index.ts"],
       "@buildflow/database": ["../../packages/database/src/index.ts"],
       "@buildflow/identity": ["../../packages/modules/identity/src/index.ts"],
-      "@buildflow/project": ["../../packages/modules/project/src/index.ts"]
+      "@buildflow/project": ["../../packages/modules/project/src/index.ts"],
+      "@buildflow/execution": ["../../packages/modules/execution/src/index.ts"]
     }
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts"],
