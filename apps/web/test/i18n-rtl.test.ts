@@ -108,10 +108,7 @@ describe('translation catalogues', () => {
           : [`${prefix}.${key}`],
       )
 
-    const keys = [
-      ...walk(enCommon as Record<string, unknown>, 'common'),
-      ...walk(enAuth as Record<string, unknown>, 'auth'),
-    ]
+    const keys = [...walk(enCommon, 'common'), ...walk(enAuth, 'auth')]
 
     for (const locale of ['ar', 'en'] as const) {
       i18n.global.locale.value = locale
