@@ -48,6 +48,21 @@ export const GLOBAL_MODELS: ReadonlySet<string> = new Set([
   'Permission',
 
   /**
+   * Workflow templates are readable across the tenant boundary BY DESIGN in
+   * this slice: the only rows are the system defaults (companyId null), which
+   * every tenant instantiates from, and the injected `where companyId = X`
+   * would exclude them.
+   *
+   * ⚠️ REVISIT when tenant-custom templates land: these two must leave this
+   * list and reads must become an explicit `OR [{companyId: null}, {companyId:
+   * ctx}]` in the repository — otherwise one tenant's custom template would be
+   * readable by another. The instantiated per-unit workflow tables are fully
+   * tenant-scoped already; only the template CATALOGUE is global today.
+   */
+  'WorkflowTemplate',
+  'WorkflowStageTemplate',
+
+  /**
    * Role↔permission links carry no companyId either. They are reachable only
    * through a Role, which IS tenant-scoped — so the isolation boundary is
    * enforced one join up. Every read in PrismaPermissionReader starts from
