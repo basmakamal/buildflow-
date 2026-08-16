@@ -25,6 +25,7 @@ export type ProjectId = Branded<string, 'ProjectId'>
 export type UnitId = Branded<string, 'UnitId'>
 export type RoomId = Branded<string, 'RoomId'>
 export type UnitStageId = Branded<string, 'UnitStageId'>
+export type UnitWorkflowId = Branded<string, 'UnitWorkflowId'>
 export type MaterialId = Branded<string, 'MaterialId'>
 export type StockMovementId = Branded<string, 'StockMovementId'>
 export type BoqId = Branded<string, 'BoqId'>
