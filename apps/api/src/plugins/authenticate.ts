@@ -35,45 +35,65 @@ declare module 'fastify' {
  * lifetime. docs/11 §2.2
  */
 export function authenticate(c: Container) {
-  return async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+  /**
+   * CALLBACK form, not async — deliberately, and it matters.
+   *
+   * AsyncLocalStorage context lives only inside `storage.run(fn)`. An async
+   * preHandler that establishes context internally loses it the moment its own
+   * promise resolves, so the ROUTE HANDLER then runs with no tenant context and
+   * every query it makes throws. That is exactly the bug this replaced: /auth/me
+   * worked (no queries in its handler) and every real route 500ed.
+   *
+   * With the callback form, `done()` is invoked INSIDE the store scope, and
+   * Fastify continues the request lifecycle synchronously from that call — so
+   * validation, remaining preHandlers, and the handler all inherit the context.
+   */
+  return (request: FastifyRequest, reply: FastifyReply, done: (err?: Error) => void): void => {
     const header = request.headers.authorization
     if (!header?.startsWith('Bearer ')) {
-      await reply
+      void reply
         .status(401)
         .send(problem('UNAUTHENTICATED', 'Missing bearer token', 401, request.id))
       return
     }
 
-    const claims = await c.tokens.verifyAccessToken(header.slice(7))
-    if (!claims) {
-      // Expired, forged, wrong audience, malformed — all indistinguishable to
-      // the caller. Telling them which would say which part to fix.
-      await reply
-        .status(401)
-        .send(problem('INVALID_TOKEN', 'Access token is not valid', 401, request.id))
-      return
-    }
+    c.tokens
+      .verifyAccessToken(header.slice(7))
+      .then((claims) => {
+        if (!claims) {
+          // Expired, forged, wrong audience, malformed — all indistinguishable
+          // to the caller. Telling them which would say which part to fix.
+          void reply
+            .status(401)
+            .send(problem('INVALID_TOKEN', 'Access token is not valid', 401, request.id))
+          return
+        }
 
-    await new Promise<void>((resolve, reject) => {
-      runWithTenantContext(
-        {
-          companyId: claims.companyId,
-          userId: claims.sub,
-          requestId: request.id,
-          source: 'api',
-          locale: request.headers['accept-language']?.slice(0, 5) ?? 'ar',
-        },
-        () => {
-          c.permissions
-            .resolve(claims.companyId, claims.sub)
-            .then((principal) => {
-              request.principal = principal
-              resolve()
-            })
-            .catch(reject)
-        },
-      )
-    })
+        runWithTenantContext(
+          {
+            companyId: claims.companyId,
+            userId: claims.sub,
+            requestId: request.id,
+            source: 'api',
+            locale: request.headers['accept-language']?.slice(0, 5) ?? 'ar',
+          },
+          () => {
+            c.permissions
+              .resolve(claims.companyId, claims.sub)
+              .then((principal) => {
+                request.principal = principal
+                // done() inside run(): the rest of the request inherits the store.
+                done()
+              })
+              .catch((error: unknown) => {
+                done(error instanceof Error ? error : new Error(String(error)))
+              })
+          },
+        )
+      })
+      .catch((error: unknown) => {
+        done(error instanceof Error ? error : new Error(String(error)))
+      })
   }
 }
 
