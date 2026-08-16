@@ -54,6 +54,9 @@ importers:
       '@buildflow/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@buildflow/execution':
+        specifier: workspace:*
+        version: link:../../packages/modules/execution
       '@buildflow/identity':
         specifier: workspace:*
         version: link:../../packages/modules/identity
@@ -138,6 +141,22 @@ importers:
       prisma:
         specifier: ^5.22.0
         version: 5.22.0
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@22.20.1)(happy-dom@20.11.2)
+
+  packages/modules/execution:
+    dependencies:
+      '@buildflow/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@buildflow/database':
+        specifier: workspace:*
+        version: link:../../database
+    devDependencies:
       typescript:
         specifier: ^5.6.3
         version: 5.9.3
