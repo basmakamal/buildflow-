@@ -17,6 +17,21 @@ export const router = createRouter({
       component: () => import('@/views/DashboardView.vue'),
     },
     {
+      path: '/projects',
+      name: 'projects',
+      component: () => import('@/views/ProjectsView.vue'),
+    },
+    {
+      path: '/projects/:projectId/units',
+      name: 'units',
+      component: () => import('@/views/UnitsView.vue'),
+    },
+    {
+      path: '/units/:unitId/board',
+      name: 'unit-board',
+      component: () => import('@/views/UnitBoardView.vue'),
+    },
+    {
       // Route-level code splitting: a user who never opens the icon library
       // never downloads it. docs/08 §4
       path: '/icons',
