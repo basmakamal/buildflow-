@@ -1,0 +1,29 @@
+{
+  "title": "لوحة المراحل",
+  "unitProgress": "إنجاز الوحدة",
+  "instantiate": "بدء سير العمل",
+  "noWorkflow": "لا يوجد سير عمل لهذه الوحدة بعد",
+  "status": {
+    "not_started": "لم تبدأ",
+    "in_progress": "قيد التنفيذ",
+    "blocked": "متعثرة",
+    "on_hold": "متوقفة مؤقتاً",
+    "completed": "بانتظار الاعتماد",
+    "approved": "معتمدة",
+    "rejected": "مرفوضة"
+  },
+  "actions": {
+    "start": "بدء",
+    "complete": "إنهاء",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "block": "تعثر",
+    "unblock": "استئناف",
+    "saveProgress": "حفظ"
+  },
+  "reasonPrompt": "السبب",
+  "reasonRequired": "السبب مطلوب",
+  "blockedBecause": "متعثرة: {reason}",
+  "rejectedBecause": "مرفوضة: {reason}",
+  "workflowDone": "اعتُمدت جميع المراحل — اكتملت الوحدة"
+}

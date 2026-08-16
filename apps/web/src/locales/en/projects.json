@@ -1,0 +1,43 @@
+{
+  "title": "Projects",
+  "empty": "No projects yet — create the first one",
+  "create": {
+    "action": "New project",
+    "title": "Create project",
+    "code": "Project code",
+    "nameEn": "Name (English)",
+    "nameAr": "Name (Arabic)",
+    "submit": "Create"
+  },
+  "fields": {
+    "code": "Code",
+    "status": "Status",
+    "progress": "Progress"
+  },
+  "status": {
+    "planned": "Planned",
+    "in_progress": "In progress",
+    "on_hold": "On hold",
+    "completed": "Completed",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
+  },
+  "units": {
+    "title": "Units",
+    "empty": "No units in this project yet",
+    "create": {
+      "action": "New unit",
+      "unitNumber": "Unit number",
+      "name": "Unit name",
+      "grossArea": "Gross area (m²)",
+      "floor": "Floor",
+      "submit": "Create"
+    },
+    "fields": {
+      "rooms": "rooms",
+      "floor": "Floor {n}",
+      "area": "{area} m²"
+    },
+    "openBoard": "Open stage board"
+  }
+}
