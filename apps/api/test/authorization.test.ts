@@ -157,11 +157,13 @@ describe('permission enforcement', () => {
   })
 
   it('denies a client the ability to create a project', async () => {
-    // Holds project.view, does NOT hold project.create.
+    // Holds project.view, does NOT hold project.create. The body is valid so
+    // this asserts the guard, not schema validation.
     const res = await app.inject({
       method: 'POST',
       url: '/api/v1/projects',
       headers: { authorization: `Bearer ${await actor('client')}` },
+      payload: { code: 'X-1', nameEn: 'Xx', nameAr: 'سس' },
     })
     expect(res.statusCode).toBe(403)
     expect(res.json<{ code: string }>().code).toBe('FORBIDDEN')
@@ -172,6 +174,7 @@ describe('permission enforcement', () => {
       method: 'POST',
       url: '/api/v1/projects',
       headers: { authorization: `Bearer ${await actor('site_engineer')}` },
+      payload: { code: 'X-2', nameEn: 'Xx', nameAr: 'سس' },
     })
     expect(res.statusCode).toBe(403)
   })
@@ -183,6 +186,7 @@ describe('permission enforcement', () => {
       method: 'POST',
       url: '/api/v1/projects',
       headers: { authorization: `Bearer ${token}` },
+      payload: { code: 'OWN-1', nameEn: 'Owner Tower', nameAr: 'برج المالك' },
     })
     expect(created.statusCode).toBe(201)
   })
@@ -215,22 +219,59 @@ describe('field-level cost visibility', () => {
   })
 })
 
-describe('ABAC scoping', () => {
-  it('reports company scope for a principal with view_all', async () => {
+describe('ABAC scoping — actual data visibility', () => {
+  /** Seeds two projects and returns their ids. */
+  async function seedProjects(): Promise<[string, string]> {
+    const a = ids.next()
+    const b = ids.next()
+    await runWithoutTenantScope(sys, async () => {
+      await raw.project.createMany({
+        data: [
+          {
+            id: a,
+            companyId: COMPANY,
+            code: 'PRJ-A',
+            nameEn: 'Tower A',
+            nameAr: 'برج أ',
+            currency: 'SAR',
+          },
+          {
+            id: b,
+            companyId: COMPANY,
+            code: 'PRJ-B',
+            nameEn: 'Tower B',
+            nameAr: 'برج ب',
+            currency: 'SAR',
+          },
+        ],
+      })
+    })
+    return [a, b]
+  }
+
+  it('shows every project to a principal with view_all', async () => {
+    const [a, b] = await seedProjects()
     const res = await get('/api/v1/projects', await actor('project_manager'))
-    expect(res.json<{ meta: { scopedTo: string } }>().meta.scopedTo).toBe('company')
+    const returned = res.json<{ data: { id: string }[] }>().data.map((p) => p.id)
+    expect(returned).toContain(a)
+    expect(returned).toContain(b)
   })
 
-  it('reports only assigned projects for a scoped principal', async () => {
-    const token = await actor('site_engineer', [{ scopeType: 'project', scopeId: 'prj-a' }])
-    const res = await get('/api/v1/projects', token)
-    expect(res.json<{ meta: { scopedTo: string[] } }>().meta.scopedTo).toEqual(['prj-a'])
+  it('shows a scoped engineer only their assigned project', async () => {
+    const [a, b] = await seedProjects()
+    const token = await actor('site_engineer', [{ scopeType: 'project', scopeId: a }])
+    const returned = (await get('/api/v1/projects', token))
+      .json<{ data: { id: string }[] }>()
+      .data.map((p) => p.id)
+    expect(returned).toContain(a)
+    expect(returned).not.toContain(b)
   })
 
-  it('returns an empty scope — not company-wide — when assigned to nothing', async () => {
+  it('returns an empty list — not everything — when assigned to nothing', async () => {
     // The failure that would matter: treating "no assignments" as "no filter".
+    await seedProjects()
     const res = await get('/api/v1/projects', await actor('site_engineer'))
-    expect(res.json<{ meta: { scopedTo: string[] } }>().meta.scopedTo).toEqual([])
+    expect(res.json<{ data: unknown[] }>().data).toEqual([])
   })
 })
 
