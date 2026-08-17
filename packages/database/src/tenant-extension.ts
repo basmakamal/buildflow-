@@ -70,6 +70,22 @@ export const GLOBAL_MODELS: ReadonlySet<string> = new Set([
    * directly would require already knowing a role's UUID.
    */
   'RolePermission',
+
+  /**
+   * The AI knowledge base catalogue: rules shipped and versioned with the
+   * product, plus the fact vocabulary they are written against. Neither table
+   * has a companyId column, so neither is scopable even in principle — the same
+   * situation as Permission above, and for the same reason: a tenant-specific
+   * fact code would be meaningless to the engine that evaluates it.
+   *
+   * This is safe ONLY because tenant customisation lives in a separate table.
+   * KbRuleOverride carries a NOT NULL companyId and is deliberately absent from
+   * this list, so one tenant's custom rules and disable-flags stay invisible to
+   * another. Keep that split — collapsing these into one nullable-companyId
+   * table is what the WorkflowTemplate warning above is describing.
+   */
+  'KbRule',
+  'KbFact',
 ])
 
 /** Operations whose `where` clause needs the tenant predicate added. */
