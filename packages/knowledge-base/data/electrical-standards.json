@@ -1,0 +1,460 @@
+[
+  {
+    "room_type_code": "balcony",
+    "min_sockets": 1,
+    "recommended_sockets": 1,
+    "luxury_sockets": 2,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 0,
+    "ac_type": "none",
+    "usb_points": 0,
+    "smart_home_points": 1,
+    "socket_height_cm": 110,
+    "switch_height_cm": 110,
+    "dedicated_circuits": null,
+    "notes_en": "Weatherproof (IP55+) socket with cover; switched from inside.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "bathroom",
+    "min_sockets": 1,
+    "recommended_sockets": 2,
+    "luxury_sockets": 3,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 1,
+    "ac_type": "exhaust_only",
+    "usb_points": 0,
+    "smart_home_points": 1,
+    "socket_height_cm": 130,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "water_heater",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      },
+      {
+        "appliance": "exhaust_fan",
+        "breaker_a": 10,
+        "cable_mm2": 1.5
+      }
+    ],
+    "notes_en": "Shaver socket beside mirror at 130 cm, min 60 cm horizontal from any water source; water heater on double-pole isolator switch outside the wet zone. All circuits RCD/GFCI protected.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "bedroom",
+    "min_sockets": 3,
+    "recommended_sockets": 5,
+    "luxury_sockets": 6,
+    "tv_points": 1,
+    "internet_points": 1,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 1,
+    "smart_home_points": 1,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "Bedside sockets at 60 cm; desk wall gets a double socket if room may serve study use.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "corridor",
+    "min_sockets": 1,
+    "recommended_sockets": 2,
+    "luxury_sockets": 3,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 0,
+    "ac_type": "none",
+    "usb_points": 0,
+    "smart_home_points": 1,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": null,
+    "notes_en": "Sockets for vacuum use every 6 m of corridor length.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "dining_room",
+    "min_sockets": 2,
+    "recommended_sockets": 3,
+    "luxury_sockets": 4,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 0,
+    "smart_home_points": 1,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "One socket near sideboard for hot plates/kettle during gatherings.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "dressing_room",
+    "min_sockets": 1,
+    "recommended_sockets": 2,
+    "luxury_sockets": 3,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 0,
+    "ac_type": "exhaust_only",
+    "usb_points": 0,
+    "smart_home_points": 1,
+    "socket_height_cm": 110,
+    "switch_height_cm": 110,
+    "dedicated_circuits": null,
+    "notes_en": "Socket at 110 cm for iron/steamer; consider socket inside island drawer for luxury fit-outs.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "entrance",
+    "min_sockets": 1,
+    "recommended_sockets": 2,
+    "luxury_sockets": 3,
+    "tv_points": 0,
+    "internet_points": 1,
+    "ac_points": 0,
+    "ac_type": "none",
+    "usb_points": 0,
+    "smart_home_points": 2,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "intercom_doorbell",
+        "breaker_a": 10,
+        "cable_mm2": 1.5
+      }
+    ],
+    "notes_en": "Intercom/video-doorbell point at 145 cm; router/ONT cabinet often lands here — give it a socket + data. Smart: main scene panel + door sensor.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "family_room",
+    "min_sockets": 4,
+    "recommended_sockets": 7,
+    "luxury_sockets": 9,
+    "tv_points": 1,
+    "internet_points": 1,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 2,
+    "smart_home_points": 2,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 25,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "Same TV-wall cluster as living room.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "guest_bathroom",
+    "min_sockets": 1,
+    "recommended_sockets": 1,
+    "luxury_sockets": 2,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 0,
+    "ac_type": "exhaust_only",
+    "usb_points": 0,
+    "smart_home_points": 0,
+    "socket_height_cm": 130,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "exhaust_fan",
+        "breaker_a": 10,
+        "cable_mm2": 1.5
+      }
+    ],
+    "notes_en": "One socket for air freshener/shaver; RCD protected.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "guest_room",
+    "min_sockets": 3,
+    "recommended_sockets": 4,
+    "luxury_sockets": 6,
+    "tv_points": 1,
+    "internet_points": 1,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 1,
+    "smart_home_points": 1,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "kids_room",
+    "min_sockets": 3,
+    "recommended_sockets": 5,
+    "luxury_sockets": 6,
+    "tv_points": 1,
+    "internet_points": 1,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 2,
+    "smart_home_points": 1,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "Use shuttered (child-safe) sockets throughout; desk zone needs socket + data at 75 cm.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "kitchen",
+    "min_sockets": 6,
+    "recommended_sockets": 8,
+    "luxury_sockets": 12,
+    "tv_points": 0,
+    "internet_points": 1,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 1,
+    "smart_home_points": 2,
+    "socket_height_cm": 110,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "oven",
+        "breaker_a": 32,
+        "cable_mm2": 6
+      },
+      {
+        "appliance": "cooktop",
+        "breaker_a": 32,
+        "cable_mm2": 6
+      },
+      {
+        "appliance": "refrigerator",
+        "breaker_a": 16,
+        "cable_mm2": 2.5
+      },
+      {
+        "appliance": "dishwasher",
+        "breaker_a": 16,
+        "cable_mm2": 2.5
+      },
+      {
+        "appliance": "microwave",
+        "breaker_a": 16,
+        "cable_mm2": 2.5
+      },
+      {
+        "appliance": "water_heater",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "Counter sockets at 110 cm, min one double socket per 1.2 m of counter run, none within 60 cm of sink edge. Every fixed appliance on its own circuit.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "laundry",
+    "min_sockets": 2,
+    "recommended_sockets": 3,
+    "luxury_sockets": 4,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 0,
+    "ac_type": "exhaust_only",
+    "usb_points": 0,
+    "smart_home_points": 1,
+    "socket_height_cm": 110,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "washer",
+        "breaker_a": 16,
+        "cable_mm2": 2.5
+      },
+      {
+        "appliance": "dryer",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      },
+      {
+        "appliance": "iron_socket",
+        "breaker_a": 16,
+        "cable_mm2": 2.5
+      }
+    ],
+    "notes_en": "Washer and dryer each on a dedicated circuit; sockets at 110 cm above standpipe height.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "living_room",
+    "min_sockets": 5,
+    "recommended_sockets": 8,
+    "luxury_sockets": 10,
+    "tv_points": 1,
+    "internet_points": 1,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 2,
+    "smart_home_points": 3,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 25,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "TV wall cluster: 2 sockets + TV + data behind screen at 110 cm. Add floor socket for centered seating layouts over 25 m². Smart: switches, curtain, AC.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "maid_room",
+    "min_sockets": 2,
+    "recommended_sockets": 3,
+    "luxury_sockets": 4,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 0,
+    "smart_home_points": 0,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 16,
+        "cable_mm2": 2.5
+      }
+    ],
+    "notes_en": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "majlis",
+    "min_sockets": 4,
+    "recommended_sockets": 7,
+    "luxury_sockets": 10,
+    "tv_points": 1,
+    "internet_points": 1,
+    "ac_points": 2,
+    "ac_type": "split",
+    "usb_points": 2,
+    "smart_home_points": 3,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac_1",
+        "breaker_a": 25,
+        "cable_mm2": 4
+      },
+      {
+        "appliance": "split_ac_2",
+        "breaker_a": 25,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "Large majlis (>30 m²) needs two AC points. Sockets distributed along seating perimeter every 3 m for phone charging; coffee station corner gets a double socket.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "master_bedroom",
+    "min_sockets": 4,
+    "recommended_sockets": 6,
+    "luxury_sockets": 8,
+    "tv_points": 1,
+    "internet_points": 1,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 2,
+    "smart_home_points": 3,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "One socket each side of bed at 60 cm height for lamps/chargers; USB outlets at both bedsides; smart points: switch, curtain motor, AC control.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "office",
+    "min_sockets": 4,
+    "recommended_sockets": 6,
+    "luxury_sockets": 8,
+    "tv_points": 1,
+    "internet_points": 2,
+    "ac_points": 1,
+    "ac_type": "split",
+    "usb_points": 2,
+    "smart_home_points": 2,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": [
+      {
+        "appliance": "split_ac",
+        "breaker_a": 20,
+        "cable_mm2": 4
+      }
+    ],
+    "notes_en": "Desk wall: 2 double sockets + 2 data at 75 cm. Consider a dedicated clean-power circuit for workstation/UPS in luxury tier.",
+    "is_active": 1
+  },
+  {
+    "room_type_code": "storage",
+    "min_sockets": 1,
+    "recommended_sockets": 1,
+    "luxury_sockets": 2,
+    "tv_points": 0,
+    "internet_points": 0,
+    "ac_points": 0,
+    "ac_type": "none",
+    "usb_points": 0,
+    "smart_home_points": 0,
+    "socket_height_cm": 30,
+    "switch_height_cm": 110,
+    "dedicated_circuits": null,
+    "notes_en": "One socket for vacuum/charger; no fixed load expected.",
+    "is_active": 1
+  }
+]

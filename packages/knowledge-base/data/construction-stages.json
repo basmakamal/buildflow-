@@ -1,0 +1,1865 @@
+[
+  {
+    "trade": "plumbing",
+    "code": "plb_drain_rough",
+    "name_en": "Drainage Rough-in",
+    "name_ar": "تأسيس الصرف",
+    "sequence": 1,
+    "weight_pct": "30.00",
+    "definition_en": "Install all drainage pipes, floor drain bodies and WC collars inside slabs/walls before any covering work.",
+    "checklist": [
+      {
+        "key": "routes",
+        "text_en": "Pipe routes match approved plumbing layout"
+      },
+      {
+        "key": "slope",
+        "text_en": "Horizontal runs sloped 2% (pipes <= 110 mm)"
+      },
+      {
+        "key": "fd_position",
+        "text_en": "Floor drains at lowest point of planned floor slope"
+      },
+      {
+        "key": "vent",
+        "text_en": "Vent pipes connected and extended to riser/roof"
+      },
+      {
+        "key": "protection",
+        "text_en": "Open pipe ends capped against debris"
+      }
+    ],
+    "completion_criteria": [
+      "All drainage points from layout exist on site",
+      "Water test held 24h with no level drop",
+      "Site engineer sign-off recorded"
+    ],
+    "dependencies": [],
+    "required_materials": [
+      "pvc_drainage_pipe",
+      "pipe_fittings",
+      "floor_drain_bodies"
+    ],
+    "required_photos": [
+      {
+        "key": "routes_open",
+        "description_en": "All drainage routes photographed before covering",
+        "min_count": 4
+      },
+      {
+        "key": "water_test",
+        "description_en": "Filled stack/water test in progress",
+        "min_count": 1
+      }
+    ],
+    "inspection_items": [
+      "Slope verified with level on every horizontal run",
+      "Joint solvent welds continuous",
+      "No sharp 90° bends on horizontal WC runs (use 45° pairs)"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "plumbing",
+    "code": "plb_supply_rough",
+    "name_en": "Water Supply Rough-in",
+    "name_ar": "تأسيس التغذية",
+    "sequence": 2,
+    "weight_pct": "25.00",
+    "definition_en": "Install PPR/PEX hot and cold supply lines, manifolds and angle-valve points to every fixture position.",
+    "checklist": [
+      {
+        "key": "points",
+        "text_en": "Every fixture from kb_plumbing_standards has supply points at listed heights"
+      },
+      {
+        "key": "hot_left",
+        "text_en": "Hot line on the left of each point pair"
+      },
+      {
+        "key": "insulation",
+        "text_en": "Hot lines insulated along full run"
+      },
+      {
+        "key": "spacing",
+        "text_en": "Point pairs 15-20 cm apart, level"
+      }
+    ],
+    "completion_criteria": [
+      "All points match fixture schedule",
+      "Lines anchored every 1 m",
+      "No joints buried without test"
+    ],
+    "dependencies": [
+      "plb_drain_rough"
+    ],
+    "required_materials": [
+      "ppr_pipe",
+      "ppr_fittings",
+      "pipe_insulation"
+    ],
+    "required_photos": [
+      {
+        "key": "walls_open",
+        "description_en": "Supply routes in every wet wall before plaster",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Heights match standard (basin 55-60, shower mixer 100-110, WC/shattaf 60)",
+      "Crossovers use bridge fittings, not stacked pipes"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "plumbing",
+    "code": "plb_pressure_test",
+    "name_en": "Pressure Test",
+    "name_ar": "اختبار الضغط",
+    "sequence": 3,
+    "weight_pct": "10.00",
+    "definition_en": "Pressurize supply network to 1.5x working pressure (min 10 bar) and hold to prove joint integrity before covering.",
+    "checklist": [
+      {
+        "key": "gauge",
+        "text_en": "Calibrated gauge installed at manifold"
+      },
+      {
+        "key": "pressure",
+        "text_en": "System pumped to 10 bar minimum"
+      },
+      {
+        "key": "hold",
+        "text_en": "Pressure held 24 hours"
+      },
+      {
+        "key": "record",
+        "text_en": "Start/end readings photographed with timestamps"
+      }
+    ],
+    "completion_criteria": [
+      "Pressure drop <= 0.2 bar over 24h",
+      "Test certificate uploaded",
+      "Consultant/engineer witness recorded"
+    ],
+    "dependencies": [
+      "plb_supply_rough"
+    ],
+    "required_materials": [
+      "test_pump",
+      "pressure_gauge"
+    ],
+    "required_photos": [
+      {
+        "key": "gauge_start",
+        "description_en": "Gauge at test start with visible reading",
+        "min_count": 1
+      },
+      {
+        "key": "gauge_end",
+        "description_en": "Gauge after 24h with visible reading",
+        "min_count": 1
+      }
+    ],
+    "inspection_items": [
+      "Gauge calibration valid",
+      "All branch valves open during test",
+      "Result recorded against unit, not project only"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "plumbing",
+    "code": "plb_fixtures",
+    "name_en": "Fixture Installation",
+    "name_ar": "تركيب الأدوات الصحية",
+    "sequence": 4,
+    "weight_pct": "25.00",
+    "definition_en": "Install sanitary ware, mixers, accessories and connect to tested rough-in points.",
+    "checklist": [
+      {
+        "key": "level",
+        "text_en": "Basins/WCs level and sealed with sanitary silicone"
+      },
+      {
+        "key": "clearances",
+        "text_en": "Installed positions respect clearance standards"
+      },
+      {
+        "key": "traps",
+        "text_en": "All traps installed and holding water seal"
+      },
+      {
+        "key": "heater",
+        "text_en": "Water heaters mounted with drain pan piped"
+      }
+    ],
+    "completion_criteria": [
+      "Every fixture operates without leak at full pressure",
+      "Silicone joints continuous and tooled",
+      "Protective films removed only after handover cleaning"
+    ],
+    "dependencies": [
+      "plb_pressure_test",
+      "flr_tiling"
+    ],
+    "required_materials": [
+      "sanitary_ware",
+      "mixers",
+      "silicone",
+      "traps"
+    ],
+    "required_photos": [
+      {
+        "key": "per_fixture",
+        "description_en": "Each installed fixture, connections visible",
+        "min_count": 6
+      }
+    ],
+    "inspection_items": [
+      "No flexible hose under permanent tension",
+      "Wall-hung WC torque per carrier spec",
+      "Angle valves accessible, not painted over"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "plumbing",
+    "code": "plb_final_test",
+    "name_en": "Final Test & Commissioning",
+    "name_ar": "الاختبار النهائي والتشغيل",
+    "sequence": 5,
+    "weight_pct": "10.00",
+    "definition_en": "Full-system operational test: flow, drainage speed, hot water delivery, leak audit under use conditions.",
+    "checklist": [
+      {
+        "key": "flow",
+        "text_en": "Every outlet delivers steady flow, both temperatures"
+      },
+      {
+        "key": "drain_speed",
+        "text_en": "Basins/showers drain without pooling"
+      },
+      {
+        "key": "hot_delivery",
+        "text_en": "Hot water reaches farthest outlet in acceptable time"
+      },
+      {
+        "key": "leak_audit",
+        "text_en": "Cabinet interiors and ceilings dry after 48h of use"
+      }
+    ],
+    "completion_criteria": [
+      "Zero active leaks",
+      "Drainage odor traps sealed",
+      "Handover checklist signed"
+    ],
+    "dependencies": [
+      "plb_fixtures"
+    ],
+    "required_materials": [],
+    "required_photos": [
+      {
+        "key": "commissioning",
+        "description_en": "Running outlets during test",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Check under-sink cabinets with dry tissue",
+      "Confirm floor drains hold water seal",
+      "Water heater relief valve discharges to drain"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "electrical",
+    "code": "ele_conduits",
+    "name_en": "Conduits & Boxes",
+    "name_ar": "تأسيس المواسير والعلب",
+    "sequence": 1,
+    "weight_pct": "25.00",
+    "definition_en": "Chase walls/slabs, install conduits and back boxes for all points per the approved electrical layout.",
+    "checklist": [
+      {
+        "key": "positions",
+        "text_en": "Box positions/heights match kb_electrical_standards"
+      },
+      {
+        "key": "separation",
+        "text_en": "Power and data conduits separated (min 20 cm parallel runs)"
+      },
+      {
+        "key": "radius",
+        "text_en": "Bends use springs/long radius — no crushed conduits"
+      },
+      {
+        "key": "boxes_level",
+        "text_en": "Back boxes flush with finished plaster plane, level"
+      }
+    ],
+    "completion_criteria": [
+      "Point count per room >= layout count",
+      "Draw wires present in every conduit",
+      "Chases closed with mortar, not gypsum"
+    ],
+    "dependencies": [],
+    "required_materials": [
+      "pvc_conduit",
+      "back_boxes",
+      "draw_wire"
+    ],
+    "required_photos": [
+      {
+        "key": "walls_open",
+        "description_en": "Conduited walls per room before plaster",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Socket boxes at 30 cm, switches 110 cm, counter sockets 110 cm",
+      "Kitchen appliance circuits have their own conduits",
+      "Bathroom boxes outside shower splash zone"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "electrical",
+    "code": "ele_wiring",
+    "name_en": "Cable Pulling",
+    "name_ar": "سحب الأسلاك",
+    "sequence": 2,
+    "weight_pct": "25.00",
+    "definition_en": "Pull all circuits: lighting 2x1.5 + E, sockets 2x2.5 + E, AC/heater per dedicated schedule, data cat6.",
+    "checklist": [
+      {
+        "key": "sizes",
+        "text_en": "Cable sizes match circuit schedule (1.5 lighting / 2.5 sockets / 4-6 AC-oven)"
+      },
+      {
+        "key": "earth",
+        "text_en": "Earth conductor present in every circuit"
+      },
+      {
+        "key": "color_code",
+        "text_en": "Consistent phase/neutral/earth colors throughout"
+      },
+      {
+        "key": "slack",
+        "text_en": "15-20 cm slack coiled in each box"
+      }
+    ],
+    "completion_criteria": [
+      "Continuity test passed per circuit",
+      "No joints inside conduits — junctions only in boxes",
+      "Circuit register filled (room → breaker)"
+    ],
+    "dependencies": [
+      "ele_conduits"
+    ],
+    "required_materials": [
+      "cable_1_5mm",
+      "cable_2_5mm",
+      "cable_4mm",
+      "cable_6mm",
+      "cat6_cable"
+    ],
+    "required_photos": [
+      {
+        "key": "db_tails",
+        "description_en": "Labeled circuit tails at DB",
+        "min_count": 1
+      },
+      {
+        "key": "box_slack",
+        "description_en": "Sample boxes with coiled slack",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Megger insulation test >= 1 MΩ per circuit",
+      "Data cables untwisted <13 mm at terminations",
+      "No power/data sharing a box without divider"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "electrical",
+    "code": "ele_db",
+    "name_en": "Distribution Board & Breakers",
+    "name_ar": "لوحة التوزيع والقواطع",
+    "sequence": 3,
+    "weight_pct": "15.00",
+    "definition_en": "Install DB, RCDs and breakers; terminate and label every circuit.",
+    "checklist": [
+      {
+        "key": "rcd",
+        "text_en": "RCD 30 mA protection on socket and wet-area circuits"
+      },
+      {
+        "key": "sizing",
+        "text_en": "Breaker ratings match cable sizes (16A/2.5mm², 20A/4mm², 32A/6mm²)"
+      },
+      {
+        "key": "labels",
+        "text_en": "Every breaker labeled in Arabic + English"
+      },
+      {
+        "key": "balance",
+        "text_en": "Loads balanced across phases (3-phase supplies)"
+      }
+    ],
+    "completion_criteria": [
+      "Torque check on all terminals",
+      "Main earth bar connected to earthing system",
+      "DB schedule card printed and fixed inside door"
+    ],
+    "dependencies": [
+      "ele_wiring"
+    ],
+    "required_materials": [
+      "distribution_board",
+      "breakers",
+      "rcd_units"
+    ],
+    "required_photos": [
+      {
+        "key": "db_finished",
+        "description_en": "Completed DB with labels visible",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "RCD test button trips correctly",
+      "No double-lugged breakers",
+      "Spare ways >= 20%"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "electrical",
+    "code": "ele_accessories",
+    "name_en": "Switches & Sockets Installation",
+    "name_ar": "تركيب المفاتيح والأفياش",
+    "sequence": 4,
+    "weight_pct": "20.00",
+    "definition_en": "Fit final wiring accessories, plates, and smart devices after painting final coat.",
+    "checklist": [
+      {
+        "key": "level",
+        "text_en": "Plates level and flush, no plaster gaps"
+      },
+      {
+        "key": "polarity",
+        "text_en": "Correct polarity at every socket (tester)"
+      },
+      {
+        "key": "smart_neutral",
+        "text_en": "Smart switches have neutral at the box"
+      },
+      {
+        "key": "shuttered",
+        "text_en": "Child-safe shuttered sockets in kids rooms"
+      }
+    ],
+    "completion_criteria": [
+      "Every point from layout is fitted and functional",
+      "Two-way circuits switch from both ends",
+      "USB outlets deliver rated current"
+    ],
+    "dependencies": [
+      "ele_db",
+      "pnt_final"
+    ],
+    "required_materials": [
+      "switches",
+      "sockets",
+      "smart_devices",
+      "usb_outlets"
+    ],
+    "required_photos": [
+      {
+        "key": "per_room",
+        "description_en": "Accessory walls per room after fit",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Socket tester on 100% of sockets",
+      "Dimmers matched to LED load type",
+      "Plate alignment across vertical stacks"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "electrical",
+    "code": "ele_test",
+    "name_en": "Testing & Certification",
+    "name_ar": "الفحص والاختبار النهائي",
+    "sequence": 5,
+    "weight_pct": "15.00",
+    "definition_en": "Full installation test: insulation, earth loop, RCD times, functional test of every point; issue completion certificate.",
+    "checklist": [
+      {
+        "key": "insulation",
+        "text_en": "Insulation resistance recorded per circuit"
+      },
+      {
+        "key": "earth_loop",
+        "text_en": "Earth loop impedance within breaker disconnect limits"
+      },
+      {
+        "key": "rcd_time",
+        "text_en": "RCD trip times <= 300 ms at 1x, <= 40 ms at 5x"
+      },
+      {
+        "key": "functional",
+        "text_en": "Every light, socket and smart device operated"
+      }
+    ],
+    "completion_criteria": [
+      "Test sheet uploaded with instrument readings",
+      "Zero outstanding electrical snags",
+      "Certificate signed by qualified electrician"
+    ],
+    "dependencies": [
+      "ele_accessories"
+    ],
+    "required_materials": [],
+    "required_photos": [
+      {
+        "key": "instrument",
+        "description_en": "Test instrument readings during test",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Readings match circuit register",
+      "Verify labels against actual rooms",
+      "Confirm isolation switches for AC/heaters function"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "hvac",
+    "code": "hvac_pipe_rough",
+    "name_en": "Refrigerant Piping & Drain Rough-in",
+    "name_ar": "تأسيس مواسير التكييف والصرف",
+    "sequence": 1,
+    "weight_pct": "35.00",
+    "definition_en": "Run insulated refrigerant pairs, condensate drains (sloped) and power provisions from indoor unit positions to outdoor locations.",
+    "checklist": [
+      {
+        "key": "insulation",
+        "text_en": "Suction and liquid lines individually insulated, joints taped"
+      },
+      {
+        "key": "drain_slope",
+        "text_en": "Condensate drain slope >= 1% to approved discharge"
+      },
+      {
+        "key": "trap",
+        "text_en": "Condensate trap at unit per manufacturer"
+      },
+      {
+        "key": "lengths",
+        "text_en": "Pipe lengths within unit max run/lift limits"
+      }
+    ],
+    "completion_criteria": [
+      "Drain lines water-tested before ceiling closes",
+      "Pipe ends sealed and pressurized with holding charge/nitrogen",
+      "Routes photographed before covering"
+    ],
+    "dependencies": [],
+    "required_materials": [
+      "copper_pipe_pair",
+      "pipe_insulation",
+      "condensate_pipe"
+    ],
+    "required_photos": [
+      {
+        "key": "routes",
+        "description_en": "Pipe and drain routes above ceiling line",
+        "min_count": 3
+      },
+      {
+        "key": "drain_test",
+        "description_en": "Water poured in drain pan/line during test",
+        "min_count": 1
+      }
+    ],
+    "inspection_items": [
+      "No kinked copper bends",
+      "Drain does not tie into soil stack without trap/air gap",
+      "Wall sleeves sealed"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "hvac",
+    "code": "hvac_ducting",
+    "name_en": "Ducting & Grilles Rough-in (concealed units)",
+    "name_ar": "تأسيس الدكت والشبكات",
+    "sequence": 2,
+    "weight_pct": "25.00",
+    "definition_en": "Install supply/return ducting, dampers and grille frames for concealed duct units.",
+    "checklist": [
+      {
+        "key": "sizing",
+        "text_en": "Duct sizes match design airflow"
+      },
+      {
+        "key": "insulation",
+        "text_en": "Ducts insulated/lined, joints sealed with mastic"
+      },
+      {
+        "key": "return_path",
+        "text_en": "Return air path sized — no starved returns"
+      },
+      {
+        "key": "access",
+        "text_en": "Access panels at dampers, coils and drain pans"
+      }
+    ],
+    "completion_criteria": [
+      "Grille frame positions coordinated with gypsum design",
+      "No flexible duct runs > 1.5 m or crushed bends",
+      "Leak check at joints"
+    ],
+    "dependencies": [
+      "hvac_pipe_rough"
+    ],
+    "required_materials": [
+      "duct_sheets",
+      "duct_insulation",
+      "grilles_dampers"
+    ],
+    "required_photos": [
+      {
+        "key": "ducts_open",
+        "description_en": "Duct network before ceiling boarding",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Coordination with lighting layout signed",
+      "Fire damper where duct crosses rated walls",
+      "Return grille not opposite supply (short-circuit airflow)"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "hvac",
+    "code": "hvac_units",
+    "name_en": "Unit Installation",
+    "name_ar": "تركيب الوحدات",
+    "sequence": 3,
+    "weight_pct": "25.00",
+    "definition_en": "Mount indoor/outdoor units, vacuum lines, release/charge refrigerant, connect drains and controls.",
+    "checklist": [
+      {
+        "key": "vacuum",
+        "text_en": "System vacuumed to <= 500 microns and held"
+      },
+      {
+        "key": "mounting",
+        "text_en": "Outdoor unit on anti-vibration mounts with service clearance"
+      },
+      {
+        "key": "charge",
+        "text_en": "Refrigerant charge per line-length calculation"
+      },
+      {
+        "key": "thermostat",
+        "text_en": "Thermostats mounted 150 cm, away from supply air draft"
+      }
+    ],
+    "completion_criteria": [
+      "Vacuum decay test recorded",
+      "Condensate flows at unit with test pour",
+      "Controls respond from thermostat"
+    ],
+    "dependencies": [
+      "hvac_pipe_rough",
+      "hvac_ducting"
+    ],
+    "required_materials": [
+      "ac_units",
+      "refrigerant",
+      "thermostats"
+    ],
+    "required_photos": [
+      {
+        "key": "vacuum_gauge",
+        "description_en": "Micron gauge reading during vacuum",
+        "min_count": 1
+      },
+      {
+        "key": "units_mounted",
+        "description_en": "Indoor and outdoor units installed",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Flare torque per spec — no flare paste as leak fix",
+      "Outdoor discharge clearance >= 60 cm",
+      "Drain pan clean of construction debris"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "hvac",
+    "code": "hvac_commission",
+    "name_en": "Testing & Commissioning",
+    "name_ar": "التشغيل والفحص",
+    "sequence": 4,
+    "weight_pct": "15.00",
+    "definition_en": "Run all units at design load; verify temperatures, airflow, drainage and noise before ceiling close-out sign-off.",
+    "checklist": [
+      {
+        "key": "delta_t",
+        "text_en": "Supply/return ΔT within 8-12°C at steady state"
+      },
+      {
+        "key": "airflow",
+        "text_en": "All grilles deliver design airflow"
+      },
+      {
+        "key": "drain_full",
+        "text_en": "Continuous drain test — 30 min run with dry ceiling"
+      },
+      {
+        "key": "noise",
+        "text_en": "No abnormal vibration/noise at any speed"
+      }
+    ],
+    "completion_criteria": [
+      "Commissioning sheet with readings uploaded",
+      "Client walkthrough of thermostat use done"
+    ],
+    "dependencies": [
+      "hvac_units",
+      "ele_db"
+    ],
+    "required_materials": [],
+    "required_photos": [
+      {
+        "key": "readings",
+        "description_en": "Thermometer/anemometer readings",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Amp draw vs nameplate",
+      "Insulation continuous at unit connections (no sweating)",
+      "Filters clean at handover"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "plastering",
+    "code": "pls_prep",
+    "name_en": "Surface Prep & Screeds (Bull Marks)",
+    "name_ar": "التجهيز والبؤج والأوتار",
+    "sequence": 1,
+    "weight_pct": "20.00",
+    "definition_en": "Clean substrate, fix mesh at material junctions, set plumb screed points and bands defining the finished plaster plane.",
+    "checklist": [
+      {
+        "key": "mesh",
+        "text_en": "Galvanized mesh over chases and block/concrete junctions"
+      },
+      {
+        "key": "bull_marks",
+        "text_en": "Screed points plumb and aligned wall-to-wall"
+      },
+      {
+        "key": "spatterdash",
+        "text_en": "Spatterdash/bonding coat on smooth concrete"
+      },
+      {
+        "key": "mep_closed",
+        "text_en": "All MEP chases closed and inspected before plaster"
+      }
+    ],
+    "completion_criteria": [
+      "Plumb check every wall <= 5 mm total deviation",
+      "Right angles verified at corners (3-4-5)"
+    ],
+    "dependencies": [
+      "ele_conduits",
+      "plb_supply_rough"
+    ],
+    "required_materials": [
+      "cement",
+      "sand",
+      "plaster_mesh"
+    ],
+    "required_photos": [
+      {
+        "key": "mesh_chases",
+        "description_en": "Mesh over closed chases",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "No plaster over untested plumbing lines",
+      "Door/window opening dimensions rechecked against schedule"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "plastering",
+    "code": "pls_plaster",
+    "name_en": "Cement Plastering",
+    "name_ar": "البياض / اللياسة",
+    "sequence": 2,
+    "weight_pct": "60.00",
+    "definition_en": "Apply cement plaster coats to walls and ceilings to screed plane; internal 15-20 mm typical.",
+    "checklist": [
+      {
+        "key": "thickness",
+        "text_en": "Thickness 15-20 mm; over 25 mm applied in two coats with mesh"
+      },
+      {
+        "key": "flatness",
+        "text_en": "2 m straightedge gap <= 3 mm anywhere"
+      },
+      {
+        "key": "corners",
+        "text_en": "External corners with corner beads, crisp arris"
+      },
+      {
+        "key": "openings",
+        "text_en": "Reveals square and even around doors/windows"
+      }
+    ],
+    "completion_criteria": [
+      "Full coverage, no hollow-sounding areas on tap test",
+      "Openings match carpentry schedule ±5 mm"
+    ],
+    "dependencies": [
+      "pls_prep"
+    ],
+    "required_materials": [
+      "cement",
+      "sand",
+      "corner_beads"
+    ],
+    "required_photos": [
+      {
+        "key": "walls_done",
+        "description_en": "Finished plaster per room",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Tap survey for hollows",
+      "Straightedge and plumb spot checks",
+      "No cracks at junction mesh zones"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "plastering",
+    "code": "pls_cure",
+    "name_en": "Curing & Crack Repair",
+    "name_ar": "المعالجة وإصلاح الشروخ",
+    "sequence": 3,
+    "weight_pct": "20.00",
+    "definition_en": "Water-cure plaster 3-7 days, then survey and repair shrinkage cracks before any painting starts.",
+    "checklist": [
+      {
+        "key": "curing",
+        "text_en": "Walls wetted 2x daily for min 3 days (climate-adjusted)"
+      },
+      {
+        "key": "survey",
+        "text_en": "Crack survey after 7 days, marked on walls"
+      },
+      {
+        "key": "repair",
+        "text_en": "Cracks raked and refilled, hollows re-done"
+      }
+    ],
+    "completion_criteria": [
+      "No active cracking two weeks after repair",
+      "Moisture content < 12% before paint (protimeter)"
+    ],
+    "dependencies": [
+      "pls_plaster"
+    ],
+    "required_materials": [
+      "cement"
+    ],
+    "required_photos": [
+      {
+        "key": "curing",
+        "description_en": "Curing in progress",
+        "min_count": 1
+      }
+    ],
+    "inspection_items": [
+      "Moisture reading logged per room",
+      "Repairs flush after drying"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "gypsum",
+    "code": "gyp_framing",
+    "name_en": "Ceiling Framing",
+    "name_ar": "هيكل الأسقف الجبسية",
+    "sequence": 1,
+    "weight_pct": "30.00",
+    "definition_en": "Set out ceiling levels and install channels/hangers per the approved ceiling design, coordinated with all above-ceiling services.",
+    "checklist": [
+      {
+        "key": "level",
+        "text_en": "Perimeter level lasered; design heights per drawing"
+      },
+      {
+        "key": "hangers",
+        "text_en": "Hangers max 120 cm spacing, anchored to slab (never to ducts/pipes)"
+      },
+      {
+        "key": "coordination",
+        "text_en": "Frame openings for AC grilles, curtains, access hatches set out"
+      },
+      {
+        "key": "cove_depth",
+        "text_en": "Cove/tray dimensions fit LED strip + driver access"
+      }
+    ],
+    "completion_criteria": [
+      "MEP above ceiling tested and signed BEFORE closing starts",
+      "Frame rigid — no deflection under hand pressure"
+    ],
+    "dependencies": [
+      "hvac_pipe_rough",
+      "hvac_ducting",
+      "ele_wiring",
+      "plb_pressure_test"
+    ],
+    "required_materials": [
+      "gi_channels",
+      "hangers_anchors"
+    ],
+    "required_photos": [
+      {
+        "key": "frame_services",
+        "description_en": "Frame with services above, before boarding",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Nothing suspended from HVAC/plumbing",
+      "Curtain box width fits track type (min 15 cm single, 20 cm double)"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "gypsum",
+    "code": "gyp_boarding",
+    "name_en": "Boarding",
+    "name_ar": "تركيب الألواح",
+    "sequence": 2,
+    "weight_pct": "35.00",
+    "definition_en": "Fix gypsum boards, moisture-resistant grade in wet areas, staggered joints, screwed at 15-20 cm.",
+    "checklist": [
+      {
+        "key": "board_grade",
+        "text_en": "Green (MR) board in bathrooms, kitchen, laundry"
+      },
+      {
+        "key": "stagger",
+        "text_en": "Board joints staggered, no cross joints"
+      },
+      {
+        "key": "screws",
+        "text_en": "Screws at 15-20 cm, heads dimpled not broken through paper"
+      },
+      {
+        "key": "cutouts",
+        "text_en": "Downlight/grille cutouts per lighting layout, clean holes"
+      }
+    ],
+    "completion_criteria": [
+      "All boards fixed, no unsupported edges",
+      "Access hatches installed at every concealed valve/unit"
+    ],
+    "dependencies": [
+      "gyp_framing"
+    ],
+    "required_materials": [
+      "gypsum_board",
+      "mr_gypsum_board",
+      "screws"
+    ],
+    "required_photos": [
+      {
+        "key": "boarded",
+        "description_en": "Boarded ceilings per room",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "MR board verified by edge color in wet rooms",
+      "Hatch positions match valve/AC locations"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "gypsum",
+    "code": "gyp_taping",
+    "name_en": "Taping & Finishing",
+    "name_ar": "المعجون والفواصل",
+    "sequence": 3,
+    "weight_pct": "25.00",
+    "definition_en": "Tape joints, fill fastener heads, finish to Level 4 (Level 5 skim where grazing light or gloss paint planned).",
+    "checklist": [
+      {
+        "key": "tape",
+        "text_en": "All joints taped (paper/fiber), corners beaded"
+      },
+      {
+        "key": "coats",
+        "text_en": "Three-coat system, sanded between coats"
+      },
+      {
+        "key": "level5",
+        "text_en": "Skim coat where cove lighting washes the surface"
+      }
+    ],
+    "completion_criteria": [
+      "No visible joints under raking light test",
+      "Surface dust-free ready for primer"
+    ],
+    "dependencies": [
+      "gyp_boarding"
+    ],
+    "required_materials": [
+      "joint_compound",
+      "joint_tape"
+    ],
+    "required_photos": [
+      {
+        "key": "raking_light",
+        "description_en": "Raking-light check of finished ceiling",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Raking light (LED held flat to surface) shows no ridges",
+      "Cove internal corners crisp and straight"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "gypsum",
+    "code": "gyp_hatches",
+    "name_en": "Access Hatches & Final Openings",
+    "name_ar": "فتحات الصيانة والتشطيب",
+    "sequence": 4,
+    "weight_pct": "10.00",
+    "definition_en": "Install access panels, verify every concealed serviceable item is reachable, cut any missed openings.",
+    "checklist": [
+      {
+        "key": "map",
+        "text_en": "Hatch map cross-checked against valve/unit register"
+      },
+      {
+        "key": "size",
+        "text_en": "Hatches min 30x30 cm (60x60 at AC units/heaters)"
+      },
+      {
+        "key": "fit",
+        "text_en": "Panels flush, paintable, gasketed in wet areas"
+      }
+    ],
+    "completion_criteria": [
+      "Every angle valve, damper, driver and heater reachable",
+      "Hatch schedule photographed and archived"
+    ],
+    "dependencies": [
+      "gyp_taping"
+    ],
+    "required_materials": [
+      "access_panels"
+    ],
+    "required_photos": [
+      {
+        "key": "hatches",
+        "description_en": "Each installed hatch open + closed",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Open every hatch and touch the item it serves",
+      "LED drivers not sealed inside coves without access"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "flooring",
+    "code": "flr_waterproof",
+    "name_en": "Waterproofing (Wet Areas)",
+    "name_ar": "العزل المائي",
+    "sequence": 1,
+    "weight_pct": "20.00",
+    "definition_en": "Apply waterproof membrane to wet-area floors and walls (min 30 cm up walls; 180 cm in shower zones), then flood test.",
+    "checklist": [
+      {
+        "key": "prep",
+        "text_en": "Substrate clean, cracks pre-filled, corners coved/taped"
+      },
+      {
+        "key": "coats",
+        "text_en": "Two coats applied in perpendicular directions"
+      },
+      {
+        "key": "upstands",
+        "text_en": "30 cm wall upstand; 180 cm in shower wet wall; door threshold wrapped"
+      },
+      {
+        "key": "flood",
+        "text_en": "48h flood test with marked water level"
+      }
+    ],
+    "completion_criteria": [
+      "Zero level drop and no dampness below after 48h",
+      "Membrane continuous at drains (clamped/collared)"
+    ],
+    "dependencies": [
+      "plb_drain_rough",
+      "plb_pressure_test"
+    ],
+    "required_materials": [
+      "waterproof_membrane",
+      "corner_tape"
+    ],
+    "required_photos": [
+      {
+        "key": "membrane",
+        "description_en": "Membrane coverage incl. upstands before test",
+        "min_count": 3
+      },
+      {
+        "key": "flood_test",
+        "description_en": "Flood test with level mark, start and end",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Puncture check before covering",
+      "Drain collar integration correct",
+      "Test result recorded per room"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "flooring",
+    "code": "flr_screed",
+    "name_en": "Screed & Levels",
+    "name_ar": "اللياسة الأرضية والمناسيب",
+    "sequence": 2,
+    "weight_pct": "20.00",
+    "definition_en": "Lay leveling screed to design FFL minus finish thickness; fall to drains in wet areas.",
+    "checklist": [
+      {
+        "key": "levels",
+        "text_en": "FFL datum transferred to every room; screed = FFL - finish build-up"
+      },
+      {
+        "key": "falls",
+        "text_en": "Wet areas fall 1.5-2% to floor drains, verified with water"
+      },
+      {
+        "key": "flatness",
+        "text_en": "3 mm / 2 m for large-format tile zones"
+      },
+      {
+        "key": "cure",
+        "text_en": "Cured min 7 days before tiling"
+      }
+    ],
+    "completion_criteria": [
+      "Water poured at door reaches drain in every wet room",
+      "No cracking/hollowness after cure"
+    ],
+    "dependencies": [
+      "flr_waterproof"
+    ],
+    "required_materials": [
+      "cement",
+      "sand"
+    ],
+    "required_photos": [
+      {
+        "key": "falls_test",
+        "description_en": "Water flow test toward drain",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Straightedge survey logged",
+      "Thickness min 25 mm bonded / 50 mm unbonded"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "flooring",
+    "code": "flr_tiling",
+    "name_en": "Tiling / Floor Finish Installation",
+    "name_ar": "تركيب البلاط والأرضيات",
+    "sequence": 3,
+    "weight_pct": "40.00",
+    "definition_en": "Install tile/stone/wood floors per layout drawings: centered layouts, aligned joints, full adhesive coverage.",
+    "checklist": [
+      {
+        "key": "layout",
+        "text_en": "Dry-lay approved: centered on room or per drawing, cuts balanced at edges"
+      },
+      {
+        "key": "coverage",
+        "text_en": "Back-buttered large formats; >= 90% adhesive coverage (lift test)"
+      },
+      {
+        "key": "lippage",
+        "text_en": "Lippage <= 1 mm (leveling clips on large format)"
+      },
+      {
+        "key": "joints",
+        "text_en": "Joint width consistent (2-3 mm rectified); expansion joints at 25 m² fields and doorways"
+      },
+      {
+        "key": "protection",
+        "text_en": "Finished floors boarded/covered immediately"
+      }
+    ],
+    "completion_criteria": [
+      "Tap test: no hollow tiles (max 5% corner hollowness tolerated)",
+      "Joints aligned through doorways where drawings require"
+    ],
+    "dependencies": [
+      "flr_screed",
+      "pls_cure"
+    ],
+    "required_materials": [
+      "floor_tiles",
+      "tile_adhesive",
+      "leveling_clips"
+    ],
+    "required_photos": [
+      {
+        "key": "dry_lay",
+        "description_en": "Approved dry-lay/setting-out",
+        "min_count": 1
+      },
+      {
+        "key": "finished",
+        "description_en": "Finished floor per room",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Random lift test at start of work",
+      "Slope preserved to drains after tiling",
+      "Wood/SPC expansion gaps at perimeter 8-10 mm"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "flooring",
+    "code": "flr_grout_skirt",
+    "name_en": "Grouting & Skirting",
+    "name_ar": "الترويب والنعلات",
+    "sequence": 4,
+    "weight_pct": "20.00",
+    "definition_en": "Grout joints, seal movement joints with matching sealant, install skirting.",
+    "checklist": [
+      {
+        "key": "grout",
+        "text_en": "Joints full and flush, color per approval, cleaned before cure"
+      },
+      {
+        "key": "silicone",
+        "text_en": "Silicone (not grout) at all floor-wall junctions in wet areas"
+      },
+      {
+        "key": "skirting",
+        "text_en": "Skirting level, scribed to floor, mitred corners"
+      }
+    ],
+    "completion_criteria": [
+      "No grout voids on raking inspection",
+      "Skirting-to-wall gap caulked ready for paint touch-up"
+    ],
+    "dependencies": [
+      "flr_tiling"
+    ],
+    "required_materials": [
+      "grout",
+      "silicone",
+      "skirting"
+    ],
+    "required_photos": [
+      {
+        "key": "detail",
+        "description_en": "Grout and skirting details at corners",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Wet-area junctions flexible-sealed",
+      "Grout sealed on natural stone"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "painting",
+    "code": "pnt_putty",
+    "name_en": "Putty / Skim Coats",
+    "name_ar": "المعجون",
+    "sequence": 1,
+    "weight_pct": "30.00",
+    "definition_en": "Apply 2-3 putty coats to plaster and gypsum, sanding between coats to a defect-free plane.",
+    "checklist": [
+      {
+        "key": "moisture",
+        "text_en": "Substrate moisture < 12% before starting"
+      },
+      {
+        "key": "coats",
+        "text_en": "Minimum 2 coats, full coverage including reveals"
+      },
+      {
+        "key": "sanding",
+        "text_en": "Sanded with lamp check — no scratches, pits or joints visible"
+      }
+    ],
+    "completion_criteria": [
+      "Raking-light inspection passed on 100% of surfaces",
+      "All MEP boxes masked, not filled over"
+    ],
+    "dependencies": [
+      "pls_cure",
+      "gyp_taping"
+    ],
+    "required_materials": [
+      "wall_putty",
+      "sandpaper"
+    ],
+    "required_photos": [
+      {
+        "key": "lamp_check",
+        "description_en": "Raking-light check on puttied walls",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Random scrape adhesion check",
+      "Edges and arrises still crisp, not rounded by sanding"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "painting",
+    "code": "pnt_primer",
+    "name_en": "Primer / Sealer",
+    "name_ar": "البرايمر",
+    "sequence": 2,
+    "weight_pct": "15.00",
+    "definition_en": "Apply pigmented primer-sealer to all puttied surfaces to unify absorption and reveal remaining defects.",
+    "checklist": [
+      {
+        "key": "coverage",
+        "text_en": "Uniform single coat, no misses (check against raw putty color)"
+      },
+      {
+        "key": "defect_pass",
+        "text_en": "Defects highlighted by primer re-filled and re-primed"
+      }
+    ],
+    "completion_criteria": [
+      "No suction differences visible when half-dry",
+      "Surfaces dust-free after final sand"
+    ],
+    "dependencies": [
+      "pnt_putty"
+    ],
+    "required_materials": [
+      "primer_sealer"
+    ],
+    "required_photos": [
+      {
+        "key": "primed",
+        "description_en": "Primed rooms",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Primer compatible with topcoat system",
+      "No primer on hardware/glass (masking intact)"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "painting",
+    "code": "pnt_first",
+    "name_en": "First Coat",
+    "name_ar": "الوجه الأول",
+    "sequence": 3,
+    "weight_pct": "25.00",
+    "definition_en": "Apply first finish coat in approved colors; cut lines at ceilings and color changes.",
+    "checklist": [
+      {
+        "key": "color",
+        "text_en": "Colors match approved schedule per room (verify code on can)"
+      },
+      {
+        "key": "cut_lines",
+        "text_en": "Straight cut lines at ceiling and feature walls"
+      },
+      {
+        "key": "film",
+        "text_en": "Even film, no runs/roller marks after leveling"
+      }
+    ],
+    "completion_criteria": [
+      "Full coverage, minor grinning acceptable before final coat only"
+    ],
+    "dependencies": [
+      "pnt_primer"
+    ],
+    "required_materials": [
+      "emulsion_paint"
+    ],
+    "required_photos": [
+      {
+        "key": "first_coat",
+        "description_en": "First-coated rooms",
+        "min_count": 2
+      }
+    ],
+    "inspection_items": [
+      "Wet film thickness spot check",
+      "Ventilation during application"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "painting",
+    "code": "pnt_final",
+    "name_en": "Final Coat & Touch-ups",
+    "name_ar": "الوجه الأخير واللمسات",
+    "sequence": 4,
+    "weight_pct": "30.00",
+    "definition_en": "Apply final coat after all wet/dusty trades finish; touch up after accessory and carpentry installation.",
+    "checklist": [
+      {
+        "key": "sequence",
+        "text_en": "Applied AFTER tiling, gypsum, and carpentry sanding are complete"
+      },
+      {
+        "key": "finish",
+        "text_en": "Uniform sheen, no patchiness under daylight and artificial light"
+      },
+      {
+        "key": "touchup",
+        "text_en": "Post-fit-out touch-ups blended, not patch-visible"
+      }
+    ],
+    "completion_criteria": [
+      "Client-light inspection (day + night) passed",
+      "Leftover labeled paint (min 1L per color) handed to client"
+    ],
+    "dependencies": [
+      "pnt_first",
+      "flr_grout_skirt",
+      "car_doors"
+    ],
+    "required_materials": [
+      "emulsion_paint"
+    ],
+    "required_photos": [
+      {
+        "key": "final",
+        "description_en": "Finished rooms both lighting conditions",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Sheen uniformity at grazing angles",
+      "Cut lines at cove lighting edges perfect (light magnifies)"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "carpentry",
+    "code": "car_frames",
+    "name_en": "Door Frames Installation",
+    "name_ar": "تركيب حلوق الأبواب",
+    "sequence": 1,
+    "weight_pct": "20.00",
+    "definition_en": "Install door frames plumb/square, anchored and foamed, before final plaster/paint interfaces.",
+    "checklist": [
+      {
+        "key": "plumb",
+        "text_en": "Frames plumb both axes <= 2 mm; diagonals equal"
+      },
+      {
+        "key": "height",
+        "text_en": "Head height uniform across floor (laser)"
+      },
+      {
+        "key": "anchors",
+        "text_en": "Min 3 anchors per jamb + PU foam continuous"
+      },
+      {
+        "key": "protection",
+        "text_en": "Frames wrapped until final paint"
+      }
+    ],
+    "completion_criteria": [
+      "Opening sizes leave 3-4 mm leaf gaps",
+      "Wet-area frames are WPC/aluminum or fully sealed"
+    ],
+    "dependencies": [
+      "pls_plaster"
+    ],
+    "required_materials": [
+      "door_frames",
+      "pu_foam",
+      "anchors"
+    ],
+    "required_photos": [
+      {
+        "key": "frames",
+        "description_en": "Installed frames with level on jamb",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Frame material vs room type (no MDF in bathrooms)",
+      "Floor finish thickness accounted in frame height"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "carpentry",
+    "code": "car_doors",
+    "name_en": "Door Leaves & Hardware",
+    "name_ar": "تركيب ضلف الأبواب والإكسسوارات",
+    "sequence": 2,
+    "weight_pct": "30.00",
+    "definition_en": "Hang leaves, fit locks/hinges/stoppers, align gaps, adjust closing action.",
+    "checklist": [
+      {
+        "key": "gaps",
+        "text_en": "Even 3 mm gaps at head/sides; 8-10 mm floor clearance (more if carpet)"
+      },
+      {
+        "key": "hardware",
+        "text_en": "Locks latch smoothly; keys/cards handed over labeled"
+      },
+      {
+        "key": "stoppers",
+        "text_en": "Door stoppers placed — no handle hits a wall"
+      },
+      {
+        "key": "swing",
+        "text_en": "Swing direction matches layout (into rooms, not blocking switches)"
+      }
+    ],
+    "completion_criteria": [
+      "Every door closes with soft push, no scraping",
+      "Privacy locks on bathrooms/bedrooms function"
+    ],
+    "dependencies": [
+      "car_frames",
+      "flr_tiling"
+    ],
+    "required_materials": [
+      "door_leaves",
+      "hinges",
+      "locksets",
+      "stoppers"
+    ],
+    "required_photos": [
+      {
+        "key": "doors",
+        "description_en": "Hung doors closed, gap lines visible",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Hinge screws full-set, not partial",
+      "Handle height uniform 100-105 cm",
+      "Door undercut allows return air where AC design requires"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "carpentry",
+    "code": "car_wardrobes",
+    "name_en": "Wardrobes & Built-ins",
+    "name_ar": "تركيب الدواليب والخزائن",
+    "sequence": 3,
+    "weight_pct": "25.00",
+    "definition_en": "Install wardrobes, vanities and built-ins: leveled carcasses, aligned fronts, adjusted hardware.",
+    "checklist": [
+      {
+        "key": "level",
+        "text_en": "Carcasses leveled at base (laser) before joining"
+      },
+      {
+        "key": "scribe",
+        "text_en": "Filler panels scribed to walls/ceiling — no open gaps"
+      },
+      {
+        "key": "alignment",
+        "text_en": "Door/drawer fronts co-planar, equal reveals"
+      },
+      {
+        "key": "anchoring",
+        "text_en": "Tall units anchored to wall (tip-over)"
+      }
+    ],
+    "completion_criteria": [
+      "All drawers/doors operate silently full-travel",
+      "Soft-close engaged on all fronts",
+      "Interiors clean, protective film removed"
+    ],
+    "dependencies": [
+      "pnt_first",
+      "flr_tiling"
+    ],
+    "required_materials": [
+      "wardrobe_units",
+      "hardware"
+    ],
+    "required_photos": [
+      {
+        "key": "builtin",
+        "description_en": "Installed units open + closed",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Back panels don't trap sockets — cutouts with access",
+      "Hanging rail heights per standard (100/200 cm double hang)"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "carpentry",
+    "code": "car_kitchen",
+    "name_en": "Kitchen Installation",
+    "name_ar": "تركيب المطبخ",
+    "sequence": 4,
+    "weight_pct": "25.00",
+    "definition_en": "Install kitchen cabinets, countertop templating/fitting, appliance integration, final sealing.",
+    "checklist": [
+      {
+        "key": "level",
+        "text_en": "Base run level within 2 mm over full length"
+      },
+      {
+        "key": "services",
+        "text_en": "Cutouts for sink/hob/services precise; edges sealed"
+      },
+      {
+        "key": "counter",
+        "text_en": "Countertop seams tight, silicone at wall junction"
+      },
+      {
+        "key": "appliances",
+        "text_en": "Appliances fitted, doors aligned, ventilation gaps per spec"
+      }
+    ],
+    "completion_criteria": [
+      "Sink/hob/dishwasher operational after install",
+      "Water test under sink 24h dry",
+      "All shelves/accessories delivered"
+    ],
+    "dependencies": [
+      "plb_supply_rough",
+      "ele_accessories",
+      "flr_tiling",
+      "pnt_first"
+    ],
+    "required_materials": [
+      "kitchen_cabinets",
+      "countertop",
+      "appliances"
+    ],
+    "required_photos": [
+      {
+        "key": "kitchen",
+        "description_en": "Finished kitchen: fronts, counter, appliances",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Hob-to-hood distance 65-75 cm",
+      "Cutout edges in worktop sealed against swelling",
+      "Anti-tip brackets on tall oven housings"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "lighting",
+    "code": "lgt_install",
+    "name_en": "Fixtures Installation",
+    "name_ar": "تركيب وحدات الإضاءة",
+    "sequence": 1,
+    "weight_pct": "50.00",
+    "definition_en": "Install downlights, strips, pendants and feature fixtures per lighting layout after final paint.",
+    "checklist": [
+      {
+        "key": "positions",
+        "text_en": "Fixture positions match layout (spacing/wall offset per standard)"
+      },
+      {
+        "key": "strips",
+        "text_en": "LED strips continuous, drivers accessible, no visible dots/joints in coves"
+      },
+      {
+        "key": "pendants",
+        "text_en": "Pendants centered on furniture positions at spec heights"
+      },
+      {
+        "key": "anchors",
+        "text_en": "Chandeliers on rated anchors to slab, not to gypsum"
+      }
+    ],
+    "completion_criteria": [
+      "Every fixture from layout installed and lit",
+      "Consistent color temperature within each room (verify bin/CCT)"
+    ],
+    "dependencies": [
+      "ele_accessories",
+      "pnt_final"
+    ],
+    "required_materials": [
+      "downlights",
+      "led_strips",
+      "decorative_fixtures",
+      "drivers"
+    ],
+    "required_photos": [
+      {
+        "key": "lit_rooms",
+        "description_en": "Each room with all layers on",
+        "min_count": 4
+      }
+    ],
+    "inspection_items": [
+      "Mixed CCT check (one 4000K spot in a 3000K room is a snag)",
+      "Cove strip visible-dot check at eye level",
+      "Driver hum test in silent room"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "lighting",
+    "code": "lgt_smart",
+    "name_en": "Smart System Programming",
+    "name_ar": "برمجة النظام الذكي",
+    "sequence": 2,
+    "weight_pct": "20.00",
+    "definition_en": "Commission smart switches/hub, create scenes, bind sensors, hand over app access.",
+    "checklist": [
+      {
+        "key": "binding",
+        "text_en": "All smart devices joined to hub, named per room (AR + EN)"
+      },
+      {
+        "key": "scenes",
+        "text_en": "Agreed scenes programmed (welcome/away/night/movie)"
+      },
+      {
+        "key": "sensors",
+        "text_en": "Motion sensor zones and timeouts configured"
+      },
+      {
+        "key": "fallback",
+        "text_en": "Physical switches still operate lights if hub offline"
+      }
+    ],
+    "completion_criteria": [
+      "Client app account is owner (not installer account)",
+      "Scene walkthrough done with client"
+    ],
+    "dependencies": [
+      "lgt_install"
+    ],
+    "required_materials": [
+      "smart_hub"
+    ],
+    "required_photos": [
+      {
+        "key": "app",
+        "description_en": "App dashboard showing all rooms online",
+        "min_count": 1
+      }
+    ],
+    "inspection_items": [
+      "Hub offline test — manual control works",
+      "Naming matches room signage/drawings"
+    ],
+    "is_active": 1
+  },
+  {
+    "trade": "lighting",
+    "code": "lgt_test",
+    "name_en": "Focusing, Testing & Handover",
+    "name_ar": "التوجيه والفحص والتسليم",
+    "sequence": 3,
+    "weight_pct": "30.00",
+    "definition_en": "Aim adjustable fixtures, verify lux levels against standards, resolve snags, complete photometric handover.",
+    "checklist": [
+      {
+        "key": "lux",
+        "text_en": "Lux measured at working plane per room vs kb_lighting_standards"
+      },
+      {
+        "key": "aiming",
+        "text_en": "Adjustable spots aimed at art/features, not into eyes/screens"
+      },
+      {
+        "key": "dimming",
+        "text_en": "Dimming smooth full-range, no flicker at low end"
+      },
+      {
+        "key": "labels",
+        "text_en": "Switch functions labeled/explained to client"
+      }
+    ],
+    "completion_criteria": [
+      "Measured lux within min-max band in every room",
+      "Zero flickering fixtures (slow-mo phone camera test)",
+      "Snag list closed"
+    ],
+    "dependencies": [
+      "lgt_install",
+      "lgt_smart"
+    ],
+    "required_materials": [],
+    "required_photos": [
+      {
+        "key": "lux_meter",
+        "description_en": "Lux meter readings in key rooms",
+        "min_count": 3
+      }
+    ],
+    "inspection_items": [
+      "Flicker test on all dimmed circuits",
+      "Verify IP-rated fittings actually installed in wet zones",
+      "Emergency/night pathways acceptable"
+    ],
+    "is_active": 1
+  }
+]

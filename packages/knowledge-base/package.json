@@ -1,0 +1,18 @@
+{
+  "name": "@buildflow/knowledge-base",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./schemas": "./schemas/index.json",
+    "./data": "./data/index.json"
+  },
+  "scripts": {
+    "kb:import": "node scripts/import.mjs",
+    "kb:verify": "node scripts/verify.mjs",
+    "kb:export": "node scripts/export-json.mjs"
+  },
+  "devDependencies": {
+    "mysql2": "^3.11.4"
+  }
+}

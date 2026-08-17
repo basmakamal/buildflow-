@@ -1,0 +1,720 @@
+[
+  {
+    "room_type_code": "balcony",
+    "recommended_lux": 50,
+    "min_lux": 30,
+    "max_lux": 100,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.30",
+    "spotlight_spacing_min_cm": 150,
+    "spotlight_spacing_max_cm": 200,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "planter_edges",
+        "seating_perimeter"
+      ],
+      "notes_en": "All fittings IP65; warm low-level light — high lux attracts insects and kills ambience."
+    },
+    "switch_locations": [
+      {
+        "location": "inside_door",
+        "type": "main"
+      }
+    ],
+    "smart_switch_recommended": 0,
+    "smart_switch_notes_en": null,
+    "ip_rating_required": "IP65",
+    "warnings": [
+      {
+        "code": "indoor_fitting_outdoor",
+        "message_en": "Non-IP65 fittings on balconies fail within one season of dust and rain.",
+        "message_ar": "التجهيزات غير المحمية IP65 في الشرفات تتلف خلال موسم واحد من الغبار والمطر."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "bathroom",
+    "recommended_lux": 200,
+    "min_lux": 150,
+    "max_lux": 300,
+    "color_temp_min_k": 3000,
+    "color_temp_max_k": 4000,
+    "cri_min": 90,
+    "spots_per_m2": "0.70",
+    "spotlight_spacing_min_cm": 80,
+    "spotlight_spacing_max_cm": 110,
+    "spotlight_wall_offset_cm": 50,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "mirror_perimeter",
+        "niche_shelves"
+      ],
+      "notes_en": "Vertical light at the mirror (both sides or perimeter) beats a single downlight above the head, which shadows the face."
+    },
+    "switch_locations": [
+      {
+        "location": "outside_door",
+        "type": "main"
+      }
+    ],
+    "smart_switch_recommended": 0,
+    "smart_switch_notes_en": "Humidity-tolerant smart relays only; standard smart switches fail in steam.",
+    "ip_rating_required": "IP44",
+    "warnings": [
+      {
+        "code": "downlight_over_mirror_only",
+        "message_en": "A single downlight above the mirror shadows the face — add vertical mirror lighting.",
+        "message_ar": "سبوت واحد فوق المرآة يظلل الوجه — أضف إضاءة رأسية حول المرآة."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "bedroom",
+    "recommended_lux": 150,
+    "min_lux": 100,
+    "max_lux": 300,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.50",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove"
+      ],
+      "notes_en": "Single-side cove is sufficient for standard bedrooms."
+    },
+    "switch_locations": [
+      {
+        "location": "door_entry",
+        "type": "main"
+      },
+      {
+        "location": "bedside",
+        "type": "two_way"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Single smart switch replacing main is adequate.",
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "corridor",
+    "recommended_lux": 100,
+    "min_lux": 50,
+    "max_lux": 150,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.40",
+    "spotlight_spacing_min_cm": 120,
+    "spotlight_spacing_max_cm": 160,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "skirting_level"
+      ],
+      "notes_en": "Low-level night strip on motion sensor prevents full-brightness wakeups."
+    },
+    "switch_locations": [
+      {
+        "location": "each_end",
+        "type": "two_way"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Motion sensor with night-mode dim level for corridors longer than 4 m.",
+    "ip_rating_required": null,
+    "warnings": [
+      {
+        "code": "single_switch_long_corridor",
+        "message_en": "Corridors need two-way switching at both ends.",
+        "message_ar": "الممرات تحتاج مفاتيح مزدوجة عند الطرفين."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "dining_room",
+    "recommended_lux": 200,
+    "min_lux": 150,
+    "max_lux": 300,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 90,
+    "spots_per_m2": "0.45",
+    "spotlight_spacing_min_cm": 110,
+    "spotlight_spacing_max_cm": 140,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove"
+      ],
+      "notes_en": "Pendant or chandelier centered over table at 75-90 cm above table top is the primary layer; spots are fill only."
+    },
+    "switch_locations": [
+      {
+        "location": "entry",
+        "type": "main"
+      },
+      {
+        "location": "entry",
+        "type": "dimmer"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Dimmer strongly recommended — dining lux needs range from 100 (dinner) to 300 (cleaning).",
+    "ip_rating_required": null,
+    "warnings": [
+      {
+        "code": "pendant_off_center",
+        "message_en": "Pendant not centered on the dining table reads as a construction defect.",
+        "message_ar": "الثريا غير المتمركزة فوق طاولة الطعام تبدو كعيب تنفيذ."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "dressing_room",
+    "recommended_lux": 300,
+    "min_lux": 200,
+    "max_lux": 500,
+    "color_temp_min_k": 3500,
+    "color_temp_max_k": 4000,
+    "cri_min": 90,
+    "spots_per_m2": "0.80",
+    "spotlight_spacing_min_cm": 80,
+    "spotlight_spacing_max_cm": 110,
+    "spotlight_wall_offset_cm": 50,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "shelf_edges",
+        "hanging_rails",
+        "mirror_perimeter"
+      ],
+      "notes_en": "CRI 90+ mandatory for true fabric colors; vertical illumination on rails matters more than floor lux."
+    },
+    "switch_locations": [
+      {
+        "location": "door_entry",
+        "type": "main"
+      },
+      {
+        "location": "door_entry",
+        "type": "motion"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Motion sensor with 5-minute timeout — hands are usually full.",
+    "ip_rating_required": null,
+    "warnings": [
+      {
+        "code": "low_cri",
+        "message_en": "CRI below 90 distorts clothing colors in dressing areas.",
+        "message_ar": "معامل إظهار الألوان أقل من 90 يشوه ألوان الملابس في غرف الملابس."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "entrance",
+    "recommended_lux": 150,
+    "min_lux": 100,
+    "max_lux": 200,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.50",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove",
+        "console_niche"
+      ],
+      "notes_en": "First impression zone; warm cove plus a feature pendant."
+    },
+    "switch_locations": [
+      {
+        "location": "entry",
+        "type": "main"
+      },
+      {
+        "location": "inner_end",
+        "type": "two_way"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Welcome scene triggered by door sensor is a popular smart upgrade.",
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "family_room",
+    "recommended_lux": 200,
+    "min_lux": 150,
+    "max_lux": 400,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.55",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove",
+        "tv_wall"
+      ],
+      "notes_en": "Same treatment as living room; add floor-lamp socket on switched circuit."
+    },
+    "switch_locations": [
+      {
+        "location": "main_entry",
+        "type": "main"
+      },
+      {
+        "location": "main_entry",
+        "type": "dimmer"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Scene control recommended.",
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "guest_bathroom",
+    "recommended_lux": 150,
+    "min_lux": 100,
+    "max_lux": 250,
+    "color_temp_min_k": 3000,
+    "color_temp_max_k": 4000,
+    "cri_min": 90,
+    "spots_per_m2": "0.70",
+    "spotlight_spacing_min_cm": 80,
+    "spotlight_spacing_max_cm": 110,
+    "spotlight_wall_offset_cm": 50,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "mirror_perimeter"
+      ],
+      "notes_en": "Backlit mirror is usually sufficient with one downlight."
+    },
+    "switch_locations": [
+      {
+        "location": "outside_door",
+        "type": "main"
+      }
+    ],
+    "smart_switch_recommended": 0,
+    "smart_switch_notes_en": null,
+    "ip_rating_required": "IP44",
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "guest_room",
+    "recommended_lux": 150,
+    "min_lux": 100,
+    "max_lux": 300,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.50",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": false,
+      "locations": [],
+      "notes_en": "Cove optional; prioritize bedside reading lights."
+    },
+    "switch_locations": [
+      {
+        "location": "door_entry",
+        "type": "main"
+      },
+      {
+        "location": "bedside",
+        "type": "two_way"
+      }
+    ],
+    "smart_switch_recommended": 0,
+    "smart_switch_notes_en": null,
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "kids_room",
+    "recommended_lux": 300,
+    "min_lux": 200,
+    "max_lux": 500,
+    "color_temp_min_k": 3000,
+    "color_temp_max_k": 4000,
+    "cri_min": 80,
+    "spots_per_m2": "0.65",
+    "spotlight_spacing_min_cm": 90,
+    "spotlight_spacing_max_cm": 120,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove",
+        "study_desk"
+      ],
+      "notes_en": "4000K task strip over desk; keep general light 3000K for evening wind-down."
+    },
+    "switch_locations": [
+      {
+        "location": "door_entry",
+        "type": "main"
+      },
+      {
+        "location": "bedside",
+        "type": "two_way"
+      },
+      {
+        "location": "door_entry",
+        "type": "dimmer"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Dim-to-warm night mode; avoid exposed cords and floor lamps.",
+    "ip_rating_required": null,
+    "warnings": [
+      {
+        "code": "study_lux_low",
+        "message_en": "Study/desk zone below 300 lux strains eyes during homework.",
+        "message_ar": "منطقة الدراسة أقل من 300 لوكس تجهد العينين أثناء المذاكرة."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "kitchen",
+    "recommended_lux": 300,
+    "min_lux": 200,
+    "max_lux": 500,
+    "color_temp_min_k": 3500,
+    "color_temp_max_k": 4000,
+    "cri_min": 90,
+    "spots_per_m2": "0.75",
+    "spotlight_spacing_min_cm": 80,
+    "spotlight_spacing_max_cm": 110,
+    "spotlight_wall_offset_cm": 50,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "under_cabinet",
+        "above_cabinet"
+      ],
+      "notes_en": "Under-cabinet task strip 500 lux at counter is the most-used light in the house; IP-rated near sink."
+    },
+    "switch_locations": [
+      {
+        "location": "entry",
+        "type": "main"
+      },
+      {
+        "location": "entry",
+        "type": "two_way"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Separate switch for under-cabinet task lighting.",
+    "ip_rating_required": "IP20",
+    "warnings": [
+      {
+        "code": "shadow_on_counter",
+        "message_en": "Ceiling spots behind the user throw working shadow on counters — place spots over counter edge.",
+        "message_ar": "السبوتات خلف المستخدم تلقي ظلاً على سطح العمل — ضعها فوق حافة الكاونتر."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "laundry",
+    "recommended_lux": 300,
+    "min_lux": 200,
+    "max_lux": 400,
+    "color_temp_min_k": 4000,
+    "color_temp_max_k": 4000,
+    "cri_min": 80,
+    "spots_per_m2": "0.70",
+    "spotlight_spacing_min_cm": 80,
+    "spotlight_spacing_max_cm": 110,
+    "spotlight_wall_offset_cm": 50,
+    "hidden_led": {
+      "recommended": false,
+      "locations": [],
+      "notes_en": "Utility space — even, cool task lighting; no decorative layers needed."
+    },
+    "switch_locations": [
+      {
+        "location": "entry",
+        "type": "main"
+      }
+    ],
+    "smart_switch_recommended": 0,
+    "smart_switch_notes_en": null,
+    "ip_rating_required": "IP44",
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "living_room",
+    "recommended_lux": 200,
+    "min_lux": 150,
+    "max_lux": 400,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.55",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove",
+        "tv_wall",
+        "display_niches"
+      ],
+      "notes_en": "Cove on dimmer; bias light behind TV reduces eye strain during evening viewing."
+    },
+    "switch_locations": [
+      {
+        "location": "main_entry",
+        "type": "main"
+      },
+      {
+        "location": "main_entry",
+        "type": "dimmer"
+      },
+      {
+        "location": "secondary_entry",
+        "type": "two_way"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Scene controller (movie/gathering/evening) recommended for rooms over 20 m².",
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "maid_room",
+    "recommended_lux": 150,
+    "min_lux": 100,
+    "max_lux": 250,
+    "color_temp_min_k": 3000,
+    "color_temp_max_k": 4000,
+    "cri_min": 80,
+    "spots_per_m2": "0.50",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": false,
+      "locations": [],
+      "notes_en": null
+    },
+    "switch_locations": [
+      {
+        "location": "door_entry",
+        "type": "main"
+      }
+    ],
+    "smart_switch_recommended": 0,
+    "smart_switch_notes_en": null,
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "majlis",
+    "recommended_lux": 200,
+    "min_lux": 150,
+    "max_lux": 400,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 90,
+    "spots_per_m2": "0.55",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove",
+        "wall_niches",
+        "curtain_pelmet"
+      ],
+      "notes_en": "Layered scheme expected: chandelier + cove + wall washers. Curtain pelmet LED adds hospitality-grade finish."
+    },
+    "switch_locations": [
+      {
+        "location": "main_entry",
+        "type": "main"
+      },
+      {
+        "location": "main_entry",
+        "type": "dimmer"
+      },
+      {
+        "location": "secondary_entry",
+        "type": "two_way"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Scene controller near host seat; all-off at exit.",
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  },
+  {
+    "room_type_code": "master_bedroom",
+    "recommended_lux": 150,
+    "min_lux": 100,
+    "max_lux": 300,
+    "color_temp_min_k": 2700,
+    "color_temp_max_k": 3000,
+    "cri_min": 80,
+    "spots_per_m2": "0.50",
+    "spotlight_spacing_min_cm": 100,
+    "spotlight_spacing_max_cm": 130,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "ceiling_cove",
+        "behind_headboard",
+        "wardrobe_interior"
+      ],
+      "notes_en": "Warm 2700K cove on dimmer; headboard strip on separate switch for night use."
+    },
+    "switch_locations": [
+      {
+        "location": "door_entry",
+        "type": "main"
+      },
+      {
+        "location": "bedside_left",
+        "type": "two_way"
+      },
+      {
+        "location": "bedside_right",
+        "type": "two_way"
+      },
+      {
+        "location": "door_entry",
+        "type": "dimmer"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Scene control (relax/read/night) plus bedside master-off switch.",
+    "ip_rating_required": null,
+    "warnings": [
+      {
+        "code": "no_bedside_switch",
+        "message_en": "Bedside two-way switches missing — occupant must cross a dark room.",
+        "message_ar": "لا توجد مفاتيح مزدوجة بجانب السرير — سيضطر الساكن لعبور غرفة مظلمة."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "office",
+    "recommended_lux": 400,
+    "min_lux": 300,
+    "max_lux": 500,
+    "color_temp_min_k": 4000,
+    "color_temp_max_k": 4000,
+    "cri_min": 90,
+    "spots_per_m2": "0.75",
+    "spotlight_spacing_min_cm": 80,
+    "spotlight_spacing_max_cm": 110,
+    "spotlight_wall_offset_cm": 50,
+    "hidden_led": {
+      "recommended": true,
+      "locations": [
+        "shelf_underside",
+        "monitor_wall"
+      ],
+      "notes_en": "Indirect strip behind monitor reduces contrast glare; avoid downlight directly above screen."
+    },
+    "switch_locations": [
+      {
+        "location": "door_entry",
+        "type": "main"
+      }
+    ],
+    "smart_switch_recommended": 1,
+    "smart_switch_notes_en": "Occupancy sensor acceptable; avoid auto-off during video calls (use absence detection).",
+    "ip_rating_required": null,
+    "warnings": [
+      {
+        "code": "glare_on_screen",
+        "message_en": "Downlight positioned directly above the monitor causes screen glare.",
+        "message_ar": "السبوت لايت فوق الشاشة مباشرة يسبب انعكاسات مزعجة."
+      }
+    ],
+    "is_active": 1
+  },
+  {
+    "room_type_code": "storage",
+    "recommended_lux": 100,
+    "min_lux": 50,
+    "max_lux": 150,
+    "color_temp_min_k": 4000,
+    "color_temp_max_k": 4000,
+    "cri_min": 80,
+    "spots_per_m2": "0.40",
+    "spotlight_spacing_min_cm": 120,
+    "spotlight_spacing_max_cm": 150,
+    "spotlight_wall_offset_cm": 60,
+    "hidden_led": {
+      "recommended": false,
+      "locations": [],
+      "notes_en": null
+    },
+    "switch_locations": [
+      {
+        "location": "outside_door",
+        "type": "main"
+      },
+      {
+        "location": "outside_door",
+        "type": "motion"
+      }
+    ],
+    "smart_switch_recommended": 0,
+    "smart_switch_notes_en": "Motion sensor recommended — switch is often unreachable past shelving.",
+    "ip_rating_required": null,
+    "warnings": null,
+    "is_active": 1
+  }
+]
