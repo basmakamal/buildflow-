@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { BfIcon, stageIcons, type IconDef } from '@buildflow/ui'
 import { request } from '@/api/client'
 import { useAuthStore } from '@/stores/auth'
@@ -104,12 +104,17 @@ onMounted(load)
   <AppShell>
     <div class="board">
       <header class="board__head">
-        <div>
-          <h1>{{ t('stages.title') }}</h1>
-          <p class="board__progress">
-            {{ t('stages.unitProgress') }}:
-            <strong class="numeric">{{ unitProgress }}%</strong>
-          </p>
+        <div class="board__title">
+          <div>
+            <h1>{{ t('stages.title') }}</h1>
+            <p class="board__progress">
+              {{ t('stages.unitProgress') }}:
+              <strong class="numeric">{{ unitProgress }}%</strong>
+            </p>
+          </div>
+          <RouterLink :to="`/units/${unitId}/review`" class="btn btn--small">
+            {{ t('knowledge.title') }}
+          </RouterLink>
         </div>
         <div class="board__meter" role="progressbar" :aria-valuenow="Number(unitProgress)">
           <div class="board__meter-fill" :style="{ width: `${Number(unitProgress)}%` }" />
@@ -275,6 +280,17 @@ onMounted(load)
 
 .board__head {
   margin-bottom: var(--bf-space-5);
+}
+
+.board__title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--bf-space-4);
+}
+
+.board__title .btn {
+  text-decoration: none;
 }
 
 .board__head h1 {

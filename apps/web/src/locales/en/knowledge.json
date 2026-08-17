@@ -1,0 +1,48 @@
+{
+  "title": "Room review",
+  "subtitle": "Rooms checked against execution standards",
+  "noRooms": "This unit has no rooms yet",
+  "roomsAnalyzed": "Checked {done} of {total} rooms",
+  "clean": "Nothing flagged for this room",
+  "notCovered": "No standards exist for this room type",
+  "failed": "This room could not be checked",
+  "severity": {
+    "critical": "Critical",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "suggestion": "Suggestion"
+  },
+  "domain": {
+    "lighting": "Lighting",
+    "electrical": "Electrical",
+    "plumbing": "Plumbing",
+    "furniture": "Furniture",
+    "finishing": "Finishing",
+    "progress": "Progress",
+    "estimation": "Estimation",
+    "general": "General"
+  },
+  "coverage": {
+    "label": "Coverage",
+    "evaluated": "{count} rules applied",
+    "skipped": "{count} rules skipped",
+    "why": "Rules that could not run for lack of data",
+    "unlock": "Add {fact} to unlock {count} more rules",
+    "complete": "Every available rule ran against this room"
+  },
+  "filters": {
+    "all": "All",
+    "validationOnly": "Warnings only",
+    "recommendationOnly": "Suggestions only"
+  },
+  "summary": {
+    "title": "Unit summary",
+    "issues": "no findings | 1 finding | {count} findings",
+    "none": "No findings"
+  },
+  "area": "Area",
+  "dimensions": "Dimensions",
+  "recheck": "Re-check",
+  "back": "Back to unit"
+}

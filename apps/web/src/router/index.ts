@@ -32,6 +32,11 @@ export const router = createRouter({
       component: () => import('@/views/UnitBoardView.vue'),
     },
     {
+      path: '/units/:unitId/review',
+      name: 'unit-review',
+      component: () => import('@/views/UnitReviewView.vue'),
+    },
+    {
       // Route-level code splitting: a user who never opens the icon library
       // never downloads it. docs/08 §4
       path: '/icons',
