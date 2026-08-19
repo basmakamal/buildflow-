@@ -36,10 +36,31 @@ export {
 export { type RuleReader, type FactCatalogue } from './domain/ports'
 
 export {
+  validateRuleDraft,
+  targetedRoomTypes,
+  type FactDefinition,
+  type RuleDraft,
+  type ValidationContext,
+} from './domain/rule-validation'
+
+export {
+  ManageRulesHandler,
+  type EffectiveRule,
+  type OverrideDraft,
+  type SaveOverrideCommand,
+  type RuleCatalogueReader,
+  type RuleOverrideWriter,
+} from './application/manage-rules.handler'
+
+export {
   AnalyzeRoomHandler,
   type AnalyzeRoomCommand,
   type AnalyzeRoomResult,
   type CoverageReport,
 } from './application/analyze-room.handler'
 
-export { PrismaRuleReader, PrismaFactCatalogue } from './infrastructure/prisma.repositories'
+export {
+  PrismaRuleReader,
+  PrismaFactCatalogue,
+  PrismaRuleCatalogue,
+} from './infrastructure/prisma.repositories'
