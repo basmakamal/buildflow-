@@ -21,6 +21,11 @@ async function signOut() {
       <RouterLink to="/dashboard" class="shell__brand">{{ t('common.app.name') }}</RouterLink>
       <nav class="shell__nav">
         <RouterLink to="/projects">{{ t('nav.projects') }}</RouterLink>
+        <!-- Hidden rather than disabled: a link most roles may not follow is
+             noise in their navigation, and the server rejects it regardless. -->
+        <RouterLink v-if="auth.can('knowledge.view')" to="/knowledge/rules">
+          {{ t('nav.ruleLibrary') }}
+        </RouterLink>
         <RouterLink to="/icons">{{ t('nav.iconLibrary') }}</RouterLink>
         <button class="shell__link" type="button" @click="ui.toggleLocale()">
           {{ t('common.language.switch') }}
@@ -74,6 +79,14 @@ async function signOut() {
   display: flex;
   align-items: center;
   gap: var(--bf-space-4);
+  /* The bar grows with every feature that earns a nav entry, and on a phone it
+     ran past the viewport and scrolled the whole PAGE sideways — which drags
+     the content with it, not just the bar. Wrapping keeps the overflow inside
+     the header; the shrink pair stops flex from refusing to wrap. */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  min-width: 0;
+  row-gap: var(--bf-space-1);
 }
 
 .shell__nav a,

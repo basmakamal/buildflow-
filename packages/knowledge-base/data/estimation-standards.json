@@ -1,0 +1,715 @@
+[
+  {
+    "code": "est_paint_quantity",
+    "name_en": "Paint Quantity (per coat)",
+    "name_ar": "كمية الدهان (للوجه)",
+    "trade": "painting",
+    "output_unit": "L",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Paintable area",
+        "unit": "m2"
+      },
+      {
+        "var": "coats",
+        "label_en": "Number of coats",
+        "unit": "count"
+      },
+      {
+        "var": "coverage_m2_per_l",
+        "label_en": "Coverage rate",
+        "unit": "m2/L"
+      }
+    ],
+    "formula": "area_m2 * coats / coverage_m2_per_l",
+    "waste_pct": "10.00",
+    "notes_en": "Coverage defaults: emulsion 10-12 m²/L smooth, 8-9 m²/L textured, primer 10 m²/L, enamel 12-14 m²/L. Waste 10% covers touch-ups and tray losses; use 15% for spray application.",
+    "is_active": 1
+  },
+  {
+    "code": "est_paint_wall_area",
+    "name_en": "Paintable Wall Area",
+    "name_ar": "مساحة الجدران للدهان",
+    "trade": "painting",
+    "output_unit": "m2",
+    "inputs": [
+      {
+        "var": "perimeter_m",
+        "label_en": "Room perimeter",
+        "unit": "m"
+      },
+      {
+        "var": "height_m",
+        "label_en": "Ceiling height",
+        "unit": "m"
+      },
+      {
+        "var": "openings_m2",
+        "label_en": "Doors + windows area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "perimeter_m * height_m - openings_m2",
+    "waste_pct": "0.00",
+    "notes_en": "Deduct openings only above 0.5 m² each. Perimeter = 2*(L+W) for rectangular rooms.",
+    "is_active": 1
+  },
+  {
+    "code": "est_primer_quantity",
+    "name_en": "Primer Quantity",
+    "name_ar": "كمية البرايمر",
+    "trade": "painting",
+    "output_unit": "L",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "area_m2 / 10",
+    "waste_pct": "8.00",
+    "notes_en": "Single sealer coat at 10 m²/L. Raise to 8 m²/L on new porous plaster.",
+    "is_active": 1
+  },
+  {
+    "code": "est_putty_quantity",
+    "name_en": "Wall Putty Quantity",
+    "name_ar": "كمية المعجون",
+    "trade": "painting",
+    "output_unit": "kg",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Area",
+        "unit": "m2"
+      },
+      {
+        "var": "coats",
+        "label_en": "Coats",
+        "unit": "count"
+      }
+    ],
+    "formula": "area_m2 * coats * 0.8",
+    "waste_pct": "12.00",
+    "notes_en": "~0.8 kg/m² per coat at 1 mm. Two coats standard, three on gypsum under gloss.",
+    "is_active": 1
+  },
+  {
+    "code": "est_grout",
+    "name_en": "Grout Quantity",
+    "name_ar": "كمية الروبة",
+    "trade": "flooring",
+    "output_unit": "kg",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Area",
+        "unit": "m2"
+      },
+      {
+        "var": "tile_w_cm",
+        "label_en": "Tile width",
+        "unit": "cm"
+      },
+      {
+        "var": "tile_h_cm",
+        "label_en": "Tile length",
+        "unit": "cm"
+      },
+      {
+        "var": "joint_mm",
+        "label_en": "Joint width",
+        "unit": "mm"
+      },
+      {
+        "var": "thickness_mm",
+        "label_en": "Tile thickness",
+        "unit": "mm"
+      }
+    ],
+    "formula": "1.6 * ((tile_w_cm + tile_h_cm) / (tile_w_cm * tile_h_cm)) * joint_mm * thickness_mm * area_m2",
+    "waste_pct": "10.00",
+    "notes_en": "Standard grout density factor 1.6 kg/dm³. Typical result: 0.3-0.5 kg/m² for 60x60 with 3 mm joints.",
+    "is_active": 1
+  },
+  {
+    "code": "est_screed_volume",
+    "name_en": "Screed Volume",
+    "name_ar": "حجم اللياسة الأرضية",
+    "trade": "flooring",
+    "output_unit": "m3",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Area",
+        "unit": "m2"
+      },
+      {
+        "var": "thickness_cm",
+        "label_en": "Screed thickness",
+        "unit": "cm"
+      }
+    ],
+    "formula": "area_m2 * thickness_cm / 100",
+    "waste_pct": "8.00",
+    "notes_en": "Cement:sand 1:4 → per m³ ≈ 320 kg cement + 1.15 m³ sand. Min 25 mm bonded, 50 mm unbonded.",
+    "is_active": 1
+  },
+  {
+    "code": "est_skirting",
+    "name_en": "Skirting Length",
+    "name_ar": "طول النعلة",
+    "trade": "flooring",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "perimeter_m",
+        "label_en": "Room perimeter",
+        "unit": "m"
+      },
+      {
+        "var": "door_widths_m",
+        "label_en": "Total door widths",
+        "unit": "m"
+      }
+    ],
+    "formula": "perimeter_m - door_widths_m",
+    "waste_pct": "8.00",
+    "notes_en": null,
+    "is_active": 1
+  },
+  {
+    "code": "est_tile_adhesive",
+    "name_en": "Tile Adhesive",
+    "name_ar": "كمية اللاصق",
+    "trade": "flooring",
+    "output_unit": "kg",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Tile area",
+        "unit": "m2"
+      },
+      {
+        "var": "notch_mm",
+        "label_en": "Trowel notch",
+        "unit": "mm"
+      }
+    ],
+    "formula": "area_m2 * notch_mm * 1.5",
+    "waste_pct": "8.00",
+    "notes_en": "~1.5 kg/m² per mm of notch depth. 6 mm notch for 30x30, 10 mm for 60x60, 12 mm + back-butter for large format (≈25-30 kg/m²).",
+    "is_active": 1
+  },
+  {
+    "code": "est_tile_area",
+    "name_en": "Tile Area with Waste",
+    "name_ar": "مساحة البلاط مع الهالك",
+    "trade": "flooring",
+    "output_unit": "m2",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Floor area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "area_m2",
+    "waste_pct": "10.00",
+    "notes_en": "Use when purchasing by m² rather than piece count.",
+    "is_active": 1
+  },
+  {
+    "code": "est_tile_count",
+    "name_en": "Tile / Porcelain Count",
+    "name_ar": "عدد البلاط",
+    "trade": "flooring",
+    "output_unit": "pc",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Floor area",
+        "unit": "m2"
+      },
+      {
+        "var": "tile_w_cm",
+        "label_en": "Tile width",
+        "unit": "cm"
+      },
+      {
+        "var": "tile_h_cm",
+        "label_en": "Tile length",
+        "unit": "cm"
+      }
+    ],
+    "formula": "ceil(area_m2 / ((tile_w_cm/100) * (tile_h_cm/100)))",
+    "waste_pct": "10.00",
+    "notes_en": "Waste: 10% straight lay, 15% diagonal/herringbone, 12-15% large format (>80 cm) due to cutting loss, 8% for simple rectangular rooms with 60x60.",
+    "is_active": 1
+  },
+  {
+    "code": "est_gypsum_board",
+    "name_en": "Gypsum Board Sheets",
+    "name_ar": "عدد ألواح الجبس",
+    "trade": "gypsum",
+    "output_unit": "pc",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Ceiling/wall area",
+        "unit": "m2"
+      },
+      {
+        "var": "sheet_area_m2",
+        "label_en": "Sheet area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "ceil(area_m2 / sheet_area_m2)",
+    "waste_pct": "12.00",
+    "notes_en": "Standard sheet 1.2x2.4 m = 2.88 m². Waste 12% flat ceilings, 20% for tray/cove designs (many cuts).",
+    "is_active": 1
+  },
+  {
+    "code": "est_gypsum_channels",
+    "name_en": "GI Channels",
+    "name_ar": "مواسير الجبس (أوميغا/سي)",
+    "trade": "gypsum",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Ceiling area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "area_m2 * 3.2",
+    "waste_pct": "10.00",
+    "notes_en": "≈3.2 m of channel per m² at 40 cm furring / 120 cm main-channel spacing.",
+    "is_active": 1
+  },
+  {
+    "code": "est_gypsum_hangers",
+    "name_en": "Hangers & Anchors",
+    "name_ar": "الشدادات والمسامير",
+    "trade": "gypsum",
+    "output_unit": "pc",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Ceiling area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "ceil(area_m2 / 1.2)",
+    "waste_pct": "10.00",
+    "notes_en": "One hanger per ~1.2 m² (1.2 x 1.0 m grid).",
+    "is_active": 1
+  },
+  {
+    "code": "est_gypsum_screws",
+    "name_en": "Drywall Screws",
+    "name_ar": "براغي الجبس",
+    "trade": "gypsum",
+    "output_unit": "pc",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Board area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "ceil(area_m2 * 20)",
+    "waste_pct": "10.00",
+    "notes_en": "~20 screws/m² at 15-20 cm spacing.",
+    "is_active": 1
+  },
+  {
+    "code": "est_joint_compound",
+    "name_en": "Joint Compound",
+    "name_ar": "معجون الفواصل",
+    "trade": "gypsum",
+    "output_unit": "kg",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Board area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "area_m2 * 0.6",
+    "waste_pct": "12.00",
+    "notes_en": "~0.6 kg/m² for a three-coat Level 4; 1.0 kg/m² for Level 5 full skim.",
+    "is_active": 1
+  },
+  {
+    "code": "est_joint_tape",
+    "name_en": "Joint Tape",
+    "name_ar": "شريط الفواصل",
+    "trade": "gypsum",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Board area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "area_m2 * 1.5",
+    "waste_pct": "10.00",
+    "notes_en": "~1.5 m of tape per m² of board.",
+    "is_active": 1
+  },
+  {
+    "code": "est_back_boxes",
+    "name_en": "Back Boxes",
+    "name_ar": "علب الكهرباء",
+    "trade": "electrical",
+    "output_unit": "pc",
+    "inputs": [
+      {
+        "var": "points",
+        "label_en": "Total points",
+        "unit": "count"
+      }
+    ],
+    "formula": "points",
+    "waste_pct": "5.00",
+    "notes_en": "One box per point + junction boxes at branch nodes.",
+    "is_active": 1
+  },
+  {
+    "code": "est_cable_lighting",
+    "name_en": "Lighting Cable (1.5 mm²)",
+    "name_ar": "كابل إنارة 1.5 مم",
+    "trade": "electrical",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "points",
+        "label_en": "Lighting points",
+        "unit": "count"
+      },
+      {
+        "var": "avg_run_m",
+        "label_en": "Average run to DB",
+        "unit": "m"
+      }
+    ],
+    "formula": "points * avg_run_m * 3",
+    "waste_pct": "15.00",
+    "notes_en": "×3 for live + neutral + earth in single-core installations. Average run typically 12-18 m in a villa floor, 8-12 m in an apartment. Waste 15% covers pull-back and offcuts.",
+    "is_active": 1
+  },
+  {
+    "code": "est_cable_power",
+    "name_en": "Power Cable (4-6 mm²)",
+    "name_ar": "كابل قدرة 4-6 مم",
+    "trade": "electrical",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "circuits",
+        "label_en": "Dedicated circuits (AC/oven/heater)",
+        "unit": "count"
+      },
+      {
+        "var": "avg_run_m",
+        "label_en": "Average run",
+        "unit": "m"
+      }
+    ],
+    "formula": "circuits * avg_run_m * 3",
+    "waste_pct": "12.00",
+    "notes_en": "4 mm² up to 20 A (AC, heater), 6 mm² for 32 A (oven, cooktop).",
+    "is_active": 1
+  },
+  {
+    "code": "est_cable_sockets",
+    "name_en": "Socket Cable (2.5 mm²)",
+    "name_ar": "كابل أفياش 2.5 مم",
+    "trade": "electrical",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "points",
+        "label_en": "Socket points",
+        "unit": "count"
+      },
+      {
+        "var": "avg_run_m",
+        "label_en": "Average run to DB",
+        "unit": "m"
+      }
+    ],
+    "formula": "points * avg_run_m * 3",
+    "waste_pct": "15.00",
+    "notes_en": "Ring or radial — this estimates radial (dominant in the region).",
+    "is_active": 1
+  },
+  {
+    "code": "est_conduit",
+    "name_en": "PVC Conduit",
+    "name_ar": "مواسير كهرباء PVC",
+    "trade": "electrical",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "points",
+        "label_en": "Total points (all types)",
+        "unit": "count"
+      },
+      {
+        "var": "avg_run_m",
+        "label_en": "Average run",
+        "unit": "m"
+      }
+    ],
+    "formula": "points * avg_run_m * 0.75",
+    "waste_pct": "12.00",
+    "notes_en": "×0.75 because several circuits share conduit runs on common paths.",
+    "is_active": 1
+  },
+  {
+    "code": "est_data_cable",
+    "name_en": "Cat6 Data Cable",
+    "name_ar": "كابل شبكة Cat6",
+    "trade": "electrical",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "data_points",
+        "label_en": "Data points",
+        "unit": "count"
+      },
+      {
+        "var": "avg_run_m",
+        "label_en": "Average run to rack",
+        "unit": "m"
+      }
+    ],
+    "formula": "data_points * avg_run_m",
+    "waste_pct": "15.00",
+    "notes_en": "Home-run topology — every point returns to the rack. Max 90 m per run.",
+    "is_active": 1
+  },
+  {
+    "code": "est_drain_pipe",
+    "name_en": "Drainage Pipe (PVC)",
+    "name_ar": "مواسير صرف PVC",
+    "trade": "plumbing",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "fixtures",
+        "label_en": "Fixture count",
+        "unit": "count"
+      },
+      {
+        "var": "avg_run_m",
+        "label_en": "Average run to stack",
+        "unit": "m"
+      }
+    ],
+    "formula": "fixtures * avg_run_m",
+    "waste_pct": "12.00",
+    "notes_en": "110 mm for WC, 50 mm for basins/showers/floor drains, 32 mm for condensate.",
+    "is_active": 1
+  },
+  {
+    "code": "est_pipe_fittings",
+    "name_en": "Pipe Fittings",
+    "name_ar": "لوازم المواسير",
+    "trade": "plumbing",
+    "output_unit": "pc",
+    "inputs": [
+      {
+        "var": "pipe_length_m",
+        "label_en": "Total pipe length",
+        "unit": "m"
+      }
+    ],
+    "formula": "ceil(pipe_length_m * 0.5)",
+    "waste_pct": "10.00",
+    "notes_en": "~1 fitting per 2 m of run (elbows, tees, couplers, reducers).",
+    "is_active": 1
+  },
+  {
+    "code": "est_pipe_insulation",
+    "name_en": "Hot Pipe Insulation",
+    "name_ar": "عزل مواسير الساخن",
+    "trade": "plumbing",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "hot_pipe_length_m",
+        "label_en": "Hot pipe length",
+        "unit": "m"
+      }
+    ],
+    "formula": "hot_pipe_length_m",
+    "waste_pct": "10.00",
+    "notes_en": "9 mm wall thickness minimum on all hot runs.",
+    "is_active": 1
+  },
+  {
+    "code": "est_supply_pipe",
+    "name_en": "Water Supply Pipe (PPR)",
+    "name_ar": "مواسير تغذية PPR",
+    "trade": "plumbing",
+    "output_unit": "m",
+    "inputs": [
+      {
+        "var": "fixtures",
+        "label_en": "Fixture count",
+        "unit": "count"
+      },
+      {
+        "var": "avg_run_m",
+        "label_en": "Average run to manifold",
+        "unit": "m"
+      },
+      {
+        "var": "hot_ratio",
+        "label_en": "Share needing hot supply (0-1)",
+        "unit": "ratio"
+      }
+    ],
+    "formula": "fixtures * avg_run_m * (1 + hot_ratio)",
+    "waste_pct": "12.00",
+    "notes_en": "Cold to all fixtures + hot to the hot-supply share. Sizes: 20 mm branches, 25 mm risers, 32 mm mains.",
+    "is_active": 1
+  },
+  {
+    "code": "est_waterproofing",
+    "name_en": "Waterproof Membrane",
+    "name_ar": "العزل المائي",
+    "trade": "plumbing",
+    "output_unit": "m2",
+    "inputs": [
+      {
+        "var": "floor_area_m2",
+        "label_en": "Wet floor area",
+        "unit": "m2"
+      },
+      {
+        "var": "perimeter_m",
+        "label_en": "Room perimeter",
+        "unit": "m"
+      },
+      {
+        "var": "upstand_m",
+        "label_en": "Wall upstand height",
+        "unit": "m"
+      },
+      {
+        "var": "shower_wall_m2",
+        "label_en": "Shower wall area",
+        "unit": "m2"
+      }
+    ],
+    "formula": "floor_area_m2 + perimeter_m * upstand_m + shower_wall_m2",
+    "waste_pct": "15.00",
+    "notes_en": "Two coats — multiply the material rate accordingly (typically 1.2-1.5 kg/m² per coat). Upstand 0.3 m general, shower walls to 1.8 m.",
+    "is_active": 1
+  },
+  {
+    "code": "est_plaster_cement",
+    "name_en": "Plaster Cement Bags",
+    "name_ar": "أكياس أسمنت البياض",
+    "trade": "plastering",
+    "output_unit": "bag",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Plaster area",
+        "unit": "m2"
+      },
+      {
+        "var": "thickness_mm",
+        "label_en": "Thickness",
+        "unit": "mm"
+      }
+    ],
+    "formula": "ceil(area_m2 * thickness_mm / 1000 * 320 / 50)",
+    "waste_pct": "15.00",
+    "notes_en": "50 kg bags, 1:4 mix.",
+    "is_active": 1
+  },
+  {
+    "code": "est_plaster_volume",
+    "name_en": "Cement Plaster Volume",
+    "name_ar": "حجم البياض",
+    "trade": "plastering",
+    "output_unit": "m3",
+    "inputs": [
+      {
+        "var": "area_m2",
+        "label_en": "Plaster area",
+        "unit": "m2"
+      },
+      {
+        "var": "thickness_mm",
+        "label_en": "Thickness",
+        "unit": "mm"
+      }
+    ],
+    "formula": "area_m2 * thickness_mm / 1000",
+    "waste_pct": "15.00",
+    "notes_en": "1:4 mix per m³ ≈ 320 kg cement + 1.15 m³ sand. Waste 15% — plaster droppings are unrecoverable.",
+    "is_active": 1
+  },
+  {
+    "code": "est_labor_days",
+    "name_en": "Labor Days Estimate",
+    "name_ar": "أيام العمالة",
+    "trade": "general",
+    "output_unit": "day",
+    "inputs": [
+      {
+        "var": "quantity",
+        "label_en": "Work quantity",
+        "unit": "unit"
+      },
+      {
+        "var": "daily_output",
+        "label_en": "Crew daily output",
+        "unit": "unit/day"
+      }
+    ],
+    "formula": "quantity / daily_output",
+    "waste_pct": "0.00",
+    "notes_en": "Typical daily outputs per 2-worker crew: plaster 25-30 m², tiling 20-25 m² (60x60), painting 60-80 m²/coat, gypsum ceiling 15-20 m², electrical rough-in 12-15 points.",
+    "is_active": 1
+  },
+  {
+    "code": "est_room_wall_area",
+    "name_en": "Room Wall Area",
+    "name_ar": "مساحة جدران الغرفة",
+    "trade": "general",
+    "output_unit": "m2",
+    "inputs": [
+      {
+        "var": "length_m",
+        "label_en": "Length",
+        "unit": "m"
+      },
+      {
+        "var": "width_m",
+        "label_en": "Width",
+        "unit": "m"
+      },
+      {
+        "var": "height_m",
+        "label_en": "Height",
+        "unit": "m"
+      }
+    ],
+    "formula": "2 * (length_m + width_m) * height_m",
+    "waste_pct": "0.00",
+    "notes_en": null,
+    "is_active": 1
+  }
+]

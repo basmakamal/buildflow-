@@ -18,6 +18,7 @@
     "fastify": "^5.1.0",
     "@buildflow/project": "workspace:*",
     "@buildflow/execution": "workspace:*",
+    "@buildflow/knowledge": "workspace:*",
     "zod": "^3.23.8"
   },
   "devDependencies": {

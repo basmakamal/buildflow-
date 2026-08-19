@@ -1,0 +1,350 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.buildflow.app/schemas/knowledge-base.json",
+  "title": "BuildFlow AI Knowledge Base",
+  "description": "Schemas for every JSON column in the kb_* tables plus the engine request/response contracts. Validate admin-panel writes against these before INSERT — MariaDB 10.4 stores JSON as LONGTEXT and enforces nothing beyond well-formedness.",
+  "definitions": {
+    "RoomTypeCode": {
+      "type": "string",
+      "enum": [
+        "master_bedroom",
+        "bedroom",
+        "kids_room",
+        "guest_room",
+        "dressing_room",
+        "living_room",
+        "family_room",
+        "dining_room",
+        "majlis",
+        "office",
+        "kitchen",
+        "bathroom",
+        "guest_bathroom",
+        "laundry",
+        "maid_room",
+        "storage",
+        "entrance",
+        "corridor",
+        "balcony"
+      ]
+    },
+    "Severity": {
+      "type": "string",
+      "enum": ["suggestion", "info", "warning", "error", "critical"]
+    },
+    "Operator": {
+      "type": "string",
+      "enum": [
+        "equal",
+        "notEqual",
+        "lessThan",
+        "lessThanInclusive",
+        "greaterThan",
+        "greaterThanInclusive",
+        "in",
+        "notIn",
+        "contains"
+      ]
+    },
+
+    "Condition": {
+      "description": "json-rules-engine condition tree. Leaves compare a fact to a value; branches nest with all/any/not.",
+      "oneOf": [
+        { "$ref": "#/definitions/ConditionLeaf" },
+        { "$ref": "#/definitions/ConditionBranch" }
+      ]
+    },
+    "ConditionLeaf": {
+      "type": "object",
+      "required": ["fact", "operator", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "fact": {
+          "type": "string",
+          "description": "Must exist in kb_facts.fact_code."
+        },
+        "operator": { "$ref": "#/definitions/Operator" },
+        "value": {
+          "description": "Scalar for comparison operators; array for in/notIn.",
+          "type": ["string", "number", "boolean", "array"]
+        },
+        "path": {
+          "type": "string",
+          "description": "Optional JSONPath into a composite fact, e.g. '$.counter.length'."
+        }
+      }
+    },
+    "ConditionBranch": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "all": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/Condition" } },
+        "any": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/Condition" } },
+        "not": { "$ref": "#/definitions/Condition" }
+      }
+    },
+
+    "Rule": {
+      "description": "One row of kb_rules.",
+      "type": "object",
+      "required": [
+        "code",
+        "rule_type",
+        "domain",
+        "conditions",
+        "severity",
+        "message_en",
+        "message_ar"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "maxLength": 80,
+          "pattern": "^[A-Z]{3}_[A-Z]{3}_[0-9]{3}$|^[A-Za-z0-9_-]+$"
+        },
+        "rule_type": { "type": "string", "enum": ["recommendation", "validation"] },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "lighting",
+            "electrical",
+            "plumbing",
+            "furniture",
+            "finishing",
+            "progress",
+            "estimation",
+            "general"
+          ]
+        },
+        "room_type_code": {
+          "description": "Pre-filter. MUST agree with any roomType condition inside `conditions`, and MUST be null when the conditions match more than one room type — otherwise the rule silently never fires.",
+          "oneOf": [{ "$ref": "#/definitions/RoomTypeCode" }, { "type": "null" }]
+        },
+        "conditions": { "$ref": "#/definitions/Condition" },
+        "severity": { "$ref": "#/definitions/Severity" },
+        "message_en": { "type": "string", "maxLength": 500 },
+        "message_ar": { "type": "string", "maxLength": 500 },
+        "action": {
+          "type": ["object", "null"],
+          "description": "Machine-actionable payload consumed by the UI/engine. Free-form by design — the engine passes it through to the client.",
+          "examples": [
+            { "add": "lighting_zone", "qty": 1 },
+            { "set": "bedSize", "value": "king" },
+            { "formula": "ceil(counterLengthM / 1.2)" },
+            { "block": "stage_completion" }
+          ]
+        },
+        "priority": { "type": "integer", "minimum": 0, "maximum": 32767, "default": 100 },
+        "is_active": { "type": "boolean", "default": true }
+      }
+    },
+
+    "HiddenLed": {
+      "description": "kb_lighting_standards.hidden_led",
+      "type": "object",
+      "required": ["recommended", "locations"],
+      "additionalProperties": false,
+      "properties": {
+        "recommended": { "type": "boolean" },
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ceiling_cove",
+              "behind_headboard",
+              "wardrobe_interior",
+              "tv_wall",
+              "display_niches",
+              "wall_niches",
+              "curtain_pelmet",
+              "shelf_edges",
+              "hanging_rails",
+              "mirror_perimeter",
+              "niche_shelves",
+              "under_cabinet",
+              "above_cabinet",
+              "study_desk",
+              "monitor_wall",
+              "console_niche",
+              "skirting_level",
+              "planter_edges",
+              "seating_perimeter",
+              "shelf_underside"
+            ]
+          }
+        },
+        "notes_en": { "type": ["string", "null"] }
+      }
+    },
+    "SwitchLocations": {
+      "description": "kb_lighting_standards.switch_locations",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["location", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "location": { "type": "string" },
+          "type": { "type": "string", "enum": ["main", "two_way", "dimmer", "motion"] }
+        }
+      }
+    },
+    "DedicatedCircuits": {
+      "description": "kb_electrical_standards.dedicated_circuits",
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "required": ["appliance", "breaker_a", "cable_mm2"],
+        "additionalProperties": false,
+        "properties": {
+          "appliance": { "type": "string" },
+          "breaker_a": { "type": "integer", "minimum": 6, "maximum": 63 },
+          "cable_mm2": { "type": "number", "enum": [1.5, 2.5, 4, 6, 10, 16] }
+        }
+      }
+    },
+    "WarningList": {
+      "description": "kb_lighting_standards.warnings / kb_plumbing_standards.warnings",
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "required": ["code", "message_en", "message_ar"],
+        "additionalProperties": false,
+        "properties": {
+          "code": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "message_en": { "type": "string" },
+          "message_ar": { "type": "string" }
+        }
+      }
+    },
+    "Checklist": {
+      "description": "kb_construction_stages.checklist",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["key", "text_en"],
+        "additionalProperties": false,
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "text_en": { "type": "string" },
+          "text_ar": { "type": "string" }
+        }
+      }
+    },
+    "RequiredPhotos": {
+      "description": "kb_construction_stages.required_photos",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["key", "description_en", "min_count"],
+        "additionalProperties": false,
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "description_en": { "type": "string" },
+          "min_count": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "EstimationInputs": {
+      "description": "kb_estimation_standards.inputs. Every var here must appear in the formula and vice versa.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["var", "label_en", "unit"],
+        "additionalProperties": false,
+        "properties": {
+          "var": { "type": "string", "pattern": "^[a-z][A-Za-z0-9_]*$" },
+          "label_en": { "type": "string" },
+          "unit": { "type": "string" }
+        }
+      }
+    },
+
+    "EvaluationRequest": {
+      "description": "Payload POSTed to the AI engine. `facts` keys must exist in kb_facts.",
+      "type": "object",
+      "required": ["companyId", "facts"],
+      "properties": {
+        "companyId": { "type": "string", "minLength": 36, "maxLength": 36 },
+        "roomId": { "type": ["string", "null"] },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "lighting",
+              "electrical",
+              "plumbing",
+              "furniture",
+              "finishing",
+              "progress",
+              "estimation",
+              "general"
+            ]
+          },
+          "description": "Omit to evaluate every domain."
+        },
+        "ruleTypes": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["recommendation", "validation"] }
+        },
+        "facts": {
+          "type": "object",
+          "additionalProperties": { "type": ["string", "number", "boolean", "null"] }
+        }
+      }
+    },
+    "EvaluationResponse": {
+      "type": "object",
+      "required": ["findings", "evaluated"],
+      "properties": {
+        "evaluated": {
+          "type": "object",
+          "required": ["ruleCount", "durationMs"],
+          "properties": {
+            "ruleCount": { "type": "integer" },
+            "durationMs": { "type": "number" },
+            "skipped": {
+              "type": "array",
+              "description": "Rules skipped because a fact they need was absent from the payload.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": { "type": "string" },
+                  "missingFact": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["code", "ruleType", "domain", "severity", "message"],
+            "properties": {
+              "code": { "type": "string" },
+              "ruleType": { "type": "string", "enum": ["recommendation", "validation"] },
+              "domain": { "type": "string" },
+              "severity": { "$ref": "#/definitions/Severity" },
+              "message": {
+                "type": "object",
+                "required": ["en", "ar"],
+                "properties": { "en": { "type": "string" }, "ar": { "type": "string" } }
+              },
+              "action": { "type": ["object", "null"] },
+              "priority": { "type": "integer" },
+              "roomId": { "type": ["string", "null"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

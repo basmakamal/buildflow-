@@ -7,5 +7,6 @@
   "catalogue": "Catalogue",
   "reports": "Reports",
   "settings": "Settings",
-  "iconLibrary": "Icon library"
+  "iconLibrary": "Icon library",
+  "ruleLibrary": "Rule library"
 }

@@ -1,0 +1,56 @@
+{
+  "name": "@buildflow/knowledge-base",
+  "description": "System knowledge base for the BuildFlow AI engine. Generated from sql/ — do not edit by hand.",
+  "datasets": {
+    "room-types": {
+      "file": "./room-types.json",
+      "table": "kb_room_types",
+      "count": 19
+    },
+    "lighting-standards": {
+      "file": "./lighting-standards.json",
+      "table": "kb_lighting_standards",
+      "count": 19
+    },
+    "electrical-standards": {
+      "file": "./electrical-standards.json",
+      "table": "kb_electrical_standards",
+      "count": 19
+    },
+    "plumbing-standards": {
+      "file": "./plumbing-standards.json",
+      "table": "kb_plumbing_standards",
+      "count": 21
+    },
+    "furniture-standards": {
+      "file": "./furniture-standards.json",
+      "table": "kb_furniture_standards",
+      "count": 36
+    },
+    "material-catalog": {
+      "file": "./material-catalog.json",
+      "table": "kb_material_catalog",
+      "count": 51
+    },
+    "construction-stages": {
+      "file": "./construction-stages.json",
+      "table": "kb_construction_stages",
+      "count": 36
+    },
+    "estimation-standards": {
+      "file": "./estimation-standards.json",
+      "table": "kb_estimation_standards",
+      "count": 31
+    },
+    "facts": {
+      "file": "./facts.json",
+      "table": "kb_facts",
+      "count": 93
+    },
+    "rules": {
+      "file": "./rules.json",
+      "table": "kb_rules",
+      "count": 190
+    }
+  }
+}

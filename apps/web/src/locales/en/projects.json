@@ -31,13 +31,39 @@
       "name": "Unit name",
       "grossArea": "Gross area (m²)",
       "floor": "Floor",
-      "submit": "Create"
+      "submit": "Create",
+      "unitType": "Unit type",
+      "finishLevel": "Finish level",
+      "occupantType": "Occupants",
+      "unset": "Not recorded"
     },
     "fields": {
       "rooms": "rooms",
       "floor": "Floor {n}",
       "area": "{area} m²"
     },
-    "openBoard": "Open stage board"
+    "openBoard": "Open stage board",
+    "unitType": {
+      "apartment": "Apartment",
+      "villa": "Villa",
+      "duplex": "Duplex",
+      "studio": "Studio",
+      "office": "Office"
+    },
+    "finishLevel": {
+      "economy": "Economy",
+      "standard": "Standard",
+      "premium": "Premium",
+      "luxury": "Luxury"
+    },
+    "occupantType": {
+      "family": "Family",
+      "couple": "Couple",
+      "single": "Single",
+      "kids": "Children",
+      "elderly": "Elderly",
+      "staff": "Staff",
+      "guest": "Guest"
+    }
   }
 }

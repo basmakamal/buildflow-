@@ -1,0 +1,80 @@
+{
+  "title": "مراجعة الغرف",
+  "subtitle": "فحص الغرف مقابل معايير التنفيذ",
+  "noRooms": "لا توجد غرف في هذه الوحدة بعد",
+  "roomsAnalyzed": "تم فحص {done} من {total} غرفة",
+  "clean": "لا توجد ملاحظات على هذه الغرفة",
+  "notCovered": "لا توجد معايير لهذا النوع من الغرف",
+  "failed": "تعذر فحص هذه الغرفة",
+  "severity": {
+    "critical": "حرج",
+    "error": "خطأ",
+    "warning": "تحذير",
+    "info": "معلومة",
+    "suggestion": "اقتراح"
+  },
+  "domain": {
+    "lighting": "الإضاءة",
+    "electrical": "الكهرباء",
+    "plumbing": "السباكة",
+    "furniture": "الأثاث",
+    "finishing": "التشطيبات",
+    "progress": "التنفيذ",
+    "estimation": "الحصر",
+    "general": "عام"
+  },
+  "coverage": {
+    "label": "التغطية",
+    "evaluated": "{count} قاعدة مطبقة",
+    "skipped": "{count} قاعدة متوقفة",
+    "why": "قواعد لم تُطبَّق لنقص البيانات",
+    "unlock": "أدخل {fact} لتفعيل {count} قاعدة إضافية",
+    "complete": "كل القواعد المتاحة طُبِّقت على هذه الغرفة"
+  },
+  "filters": {
+    "all": "الكل",
+    "validationOnly": "التحذيرات فقط",
+    "recommendationOnly": "الاقتراحات فقط"
+  },
+  "summary": {
+    "title": "ملخص الوحدة",
+    "issues": "ملاحظة | ملاحظة واحدة | ملاحظتان | {count} ملاحظات",
+    "none": "لا توجد ملاحظات"
+  },
+  "area": "المساحة",
+  "dimensions": "الأبعاد",
+  "recheck": "إعادة الفحص",
+  "back": "العودة للوحدة",
+  "admin": {
+    "title": "مكتبة القواعد",
+    "subtitle": "تحكم فيما يفحصه المحرك دون الحاجة لمطور",
+    "search": "ابحث في القواعد",
+    "empty": "لا توجد قواعد مطابقة",
+    "count": "{shown} من {total} قاعدة",
+    "source": {
+      "system": "أصلية",
+      "tenant_override": "معدلة",
+      "tenant_custom": "خاصة بك"
+    },
+    "disabled": "معطلة",
+    "actions": {
+      "disable": "تعطيل",
+      "enable": "تفعيل",
+      "edit": "تعديل",
+      "revert": "استعادة الأصلية",
+      "save": "حفظ",
+      "cancel": "إلغاء"
+    },
+    "fields": {
+      "severity": "الخطورة",
+      "priority": "الأولوية",
+      "messageEn": "الرسالة (إنجليزي)",
+      "messageAr": "الرسالة (عربي)"
+    },
+    "revertConfirm": "استعادة النسخة الأصلية لهذه القاعدة وإلغاء تعديلاتك؟",
+    "disableWarning": "التعطيل يوقف هذا الفحص على كل غرف الشركة.",
+    "saved": "تم الحفظ",
+    "saveFailed": "تعذر الحفظ",
+    "readOnly": "يمكنك عرض القواعد دون تعديلها"
+  }
+}

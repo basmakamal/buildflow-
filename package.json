@@ -12,7 +12,8 @@
   "scripts": {
     "postinstall": "prisma generate --schema packages/database/prisma/schema.prisma",
     "build": "pnpm -r build",
-    "test": "pnpm -r test",
+    "//test": "Serial by necessity: @buildflow/database and @buildflow/api integration tests share ONE database and both truncate `companies` in beforeEach. Each package already sets vitest fileParallelism:false, but that only orders files WITHIN a package — pnpm -r runs packages concurrently, so the two suites raced and produced intermittent failures that looked like tenant-isolation bugs. Give each package its own schema before restoring concurrency.",
+    "test": "pnpm -r --workspace-concurrency=1 test",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "typecheck": "pnpm -r typecheck",

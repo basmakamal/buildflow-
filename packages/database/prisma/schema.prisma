@@ -356,6 +356,18 @@ model Unit {
   ceilingHeight Decimal @default(3.0) @db.Decimal(6, 3)
 
   handoverCondition HandoverCondition @default(red_brick)
+
+  /// The unit's programme, as three facts the AI engine reasons over.
+  ///
+  /// Nullable rather than defaulted: the engine must distinguish "nobody has
+  /// said" from "standard finish". A default would silently answer 19 rule
+  /// conditions with a guess, and those rules would then fire — or stay
+  /// silent — on data no one supplied. Absent means the rule SKIPS and the
+  /// review screen says which fact would unlock it. docs/10
+  unitType     UnitType?     
+  finishLevel  FinishLevel?  
+  occupantType OccupantType? 
+
   status            UnitStatus        @default(planned)
   progressPercentage Decimal          @default(0) @db.Decimal(5, 2)
 
@@ -610,6 +622,160 @@ model ProcessedEvent {
   @@map("processed_events")
 }
 
+// ─── AI knowledge base ───────────────────────────────────────────────────────
+//
+// Modelled here rather than queried with raw SQL because raw SQL bypasses the
+// tenant extension (docs/11 §4), and these tables are read on a request path.
+//
+// Only the three tables the engine reads at runtime are modelled. The remaining
+// eight kb_* tables (standards, catalogues, stages, estimation) are authored and
+// imported by @buildflow/knowledge-base and read by admin tooling, not by this
+// request path — they get models when a feature needs them, not before.
+//
+// TENANCY: rules are split across two tables instead of one table with a
+// nullable companyId. The obvious single-table design cannot be scoped safely
+// here — the extension injects `companyId = X`, which hides the system rows;
+// listing the model as global removes protection from the tenant rows; and
+// bypassing the extension is forbidden from a request handler (docs/11 §4).
+// Splitting lets each table use the mechanism that actually fits:
+//   • KbRule         — product data, identical for every tenant, GLOBAL_MODELS
+//   • KbRuleOverride — tenant-owned, companyId NOT NULL, scoped with no exception
+// The repository merges them by code, tenant winning. See docs/11 §4.
+
+/// System catalogue of recommendation and validation rules. Product data,
+/// shipped and versioned with the application: no tenant owns a row here, and
+/// every tenant reads the same set. Imported by @buildflow/knowledge-base.
+/// COLUMN NAMING: every field here carries an explicit @map because the kb_*
+/// tables are snake_case, unlike the camelCase columns used everywhere else in
+/// this schema. That is deliberate, not drift — these tables are authored as
+/// portable SQL in @buildflow/knowledge-base and imported by tooling that never
+/// loads Prisma, where snake_case is the correct convention. The @map keeps both
+/// readers happy; dropping one would break whichever side stopped being mapped.
+model KbRule {
+  id       String       @id @default(uuid()) @db.Char(36)
+  code     String       @unique @db.VarChar(80)
+  ruleType KbRuleType   @map("rule_type")
+  domain   KbRuleDomain
+  /// Pre-filter. Must agree with any roomType condition inside `conditions`,
+  /// and must be null when the conditions match more than one room type —
+  /// otherwise the rule silently never fires. Enforced by kb:verify.
+  roomTypeCode String? @map("room_type_code") @db.VarChar(64)
+
+  /// json-rules-engine condition tree. MariaDB 10.4 stores this as LONGTEXT and
+  /// enforces only well-formedness, so shape is validated in the domain layer.
+  conditions Json
+  severity   KbSeverity @default(suggestion)
+  messageEn  String     @map("message_en") @db.VarChar(500)
+  messageAr  String     @map("message_ar") @db.VarChar(500)
+  /// Machine-actionable payload passed through to the client, e.g.
+  /// {"add":"lighting_zone","qty":1}. Free-form by design.
+  action   Json?
+  priority Int     @default(100) @db.SmallInt
+  isActive Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  @@index([ruleType, domain, isActive])
+  @@index([roomTypeCode])
+  @@map("kb_rules")
+}
+
+/// A tenant's customisation of the rule catalogue, written from the admin panel.
+/// Either overrides a system rule of the same `code` — disabling it, or changing
+/// its thresholds, severity or wording — or defines an entirely new tenant rule
+/// under a code no system row uses. Fully tenant-scoped.
+model KbRuleOverride {
+  id        String @id @default(uuid()) @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  code      String @db.VarChar(80)
+
+  /// Suppresses the system rule of the same code without deleting it, so the
+  /// tenant can re-enable it and product updates to that rule are not lost.
+  isDisabled Boolean @default(false) @map("is_disabled")
+
+  /// Null means "inherit from the system rule of this code". A new tenant rule
+  /// must populate every field, which the repository enforces on read.
+  ruleType     KbRuleType?   @map("rule_type")
+  domain       KbRuleDomain?
+  roomTypeCode String?       @map("room_type_code") @db.VarChar(64)
+  conditions   Json?
+  severity     KbSeverity?
+  messageEn    String?       @map("message_en") @db.VarChar(500)
+  messageAr    String?       @map("message_ar") @db.VarChar(500)
+  action       Json?
+  priority     Int?          @db.SmallInt
+  isActive     Boolean       @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+
+  @@unique([companyId, code])
+  @@index([companyId, isActive])
+  @@map("kb_rule_overrides")
+}
+
+/// Vocabulary of facts a rule may reference. The admin-panel rule builder
+/// renders its field dropdown from this table, so a business user can compose a
+/// new rule over existing facts with no deploy. Global — never tenant-scoped.
+model KbFact {
+  id       String @id @default(uuid()) @db.Char(36)
+  factCode String @unique @map("fact_code") @db.VarChar(64)
+  labelEn  String @map("label_en") @db.VarChar(120)
+  labelAr  String @map("label_ar") @db.VarChar(120)
+  dataType KbFactType @map("data_type")
+  unit     String? @db.VarChar(16)
+  /// For enum facts: the array of allowed codes.
+  allowedValues Json?        @map("allowed_values")
+  domain        KbFactDomain
+  descriptionEn String?      @map("description_en") @db.VarChar(255)
+  isActive      Boolean      @default(true) @map("is_active")
+
+  @@map("kb_facts")
+}
+
+enum KbRuleType {
+  recommendation
+  validation
+}
+
+enum KbRuleDomain {
+  lighting
+  electrical
+  plumbing
+  furniture
+  finishing
+  progress
+  estimation
+  general
+}
+
+enum KbSeverity {
+  suggestion
+  info
+  warning
+  error
+  critical
+}
+
+enum KbFactType {
+  number
+  string
+  boolean
+  enum
+}
+
+enum KbFactDomain {
+  room
+  lighting
+  electrical
+  plumbing
+  furniture
+  finishing
+  progress
+  general
+}
+
 enum MeasurementSystem {
   metric
   imperial
@@ -651,6 +817,38 @@ enum UnitStatus {
   completed
   delivered
   cancelled
+}
+
+/// Drives circulation, socket and service expectations that differ by dwelling
+/// type — a villa carries its own riser and needs per-floor Wi-Fi, a studio
+/// does not.
+enum UnitType {
+  apartment
+  villa
+  duplex
+  studio
+  office
+}
+
+/// The specification tier. The single most-referenced fact in the rule
+/// catalogue: it decides whether a recommendation is worth making at all.
+enum FinishLevel {
+  economy
+  standard
+  premium
+  luxury
+}
+
+/// Who lives here. Changes safety rules rather than taste ones — anti-scald
+/// mixers for kids and elderly, shuttered sockets where there are children.
+enum OccupantType {
+  family
+  couple
+  single
+  kids
+  elderly
+  staff
+  guest
 }
 
 enum HandoverCondition {

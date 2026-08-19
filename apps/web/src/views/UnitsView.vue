@@ -25,7 +25,26 @@ const projectId = String(route.params['projectId'])
 const units = ref<UnitRow[]>([])
 const loading = ref(true)
 const creating = ref(false)
-const form = ref({ unitNumber: '', name: '', grossArea: '', floor: 0 })
+/**
+ * `''` means "not recorded" and is sent as omitted, not as a value.
+ *
+ * The AI engine must tell an unclassified unit from a standard one: guessing
+ * `finishLevel` would answer nineteen rule conditions on data nobody supplied.
+ * An empty option is therefore offered and is the default. docs/10
+ */
+const EMPTY_PROGRAMME_FORM = { unitType: '', finishLevel: '', occupantType: '' }
+
+const UNIT_TYPES = ['apartment', 'villa', 'duplex', 'studio', 'office'] as const
+const FINISH_LEVELS = ['economy', 'standard', 'premium', 'luxury'] as const
+const OCCUPANT_TYPES = ['family', 'couple', 'single', 'kids', 'elderly', 'staff', 'guest'] as const
+
+const form = ref({
+  unitNumber: '',
+  name: '',
+  grossArea: '',
+  floor: 0,
+  ...EMPTY_PROGRAMME_FORM,
+})
 const errorCode = ref<string | null>(null)
 
 async function load() {
@@ -44,6 +63,11 @@ async function create() {
       name: form.value.name,
       grossArea: form.value.grossArea,
       floor: form.value.floor,
+      // Spread only what was chosen: the API rejects an empty string against
+      // its enum, and "not recorded" must reach the engine as absent.
+      ...(form.value.unitType ? { unitType: form.value.unitType } : {}),
+      ...(form.value.finishLevel ? { finishLevel: form.value.finishLevel } : {}),
+      ...(form.value.occupantType ? { occupantType: form.value.occupantType } : {}),
     }),
   })
   if (!result.ok) {
@@ -51,7 +75,7 @@ async function create() {
     return
   }
   creating.value = false
-  form.value = { unitNumber: '', name: '', grossArea: '', floor: 0 }
+  form.value = { unitNumber: '', name: '', grossArea: '', floor: 0, ...EMPTY_PROGRAMME_FORM }
   await load()
 }
 
@@ -90,6 +114,36 @@ onMounted(load)
           <span>{{ t('projects.units.create.floor') }}</span>
           <input v-model="form.floor" class="numeric" type="number" min="-5" max="200" />
         </label>
+        <!-- The three facts the AI engine reasons over. Optional by design:
+             "not recorded" is a distinct answer from any of the choices. -->
+        <label class="field">
+          <span>{{ t('projects.units.create.unitType') }}</span>
+          <select v-model="form.unitType">
+            <option value="">{{ t('projects.units.create.unset') }}</option>
+            <option v-for="option in UNIT_TYPES" :key="option" :value="option">
+              {{ t(`projects.units.unitType.${option}`) }}
+            </option>
+          </select>
+        </label>
+        <label class="field">
+          <span>{{ t('projects.units.create.finishLevel') }}</span>
+          <select v-model="form.finishLevel">
+            <option value="">{{ t('projects.units.create.unset') }}</option>
+            <option v-for="option in FINISH_LEVELS" :key="option" :value="option">
+              {{ t(`projects.units.finishLevel.${option}`) }}
+            </option>
+          </select>
+        </label>
+        <label class="field">
+          <span>{{ t('projects.units.create.occupantType') }}</span>
+          <select v-model="form.occupantType">
+            <option value="">{{ t('projects.units.create.unset') }}</option>
+            <option v-for="option in OCCUPANT_TYPES" :key="option" :value="option">
+              {{ t(`projects.units.occupantType.${option}`) }}
+            </option>
+          </select>
+        </label>
+
         <p v-if="errorCode" class="error" role="alert">{{ t('common.state.error') }}</p>
         <button class="btn btn--primary" type="submit">
           {{ t('projects.units.create.submit') }}

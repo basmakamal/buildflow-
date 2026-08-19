@@ -7,7 +7,7 @@ import {
   type UnitId,
 } from '@buildflow/core'
 import { Project, PROJECT_TRANSITIONS, type ProjectStatus } from '../src/domain/project'
-import { Unit } from '../src/domain/unit'
+import { EMPTY_PROGRAMME, Unit } from '../src/domain/unit'
 import { deriveGeometry, ROOM_TYPES } from '../src/domain/room'
 
 const clock = new FixedClock(new Date('2026-08-16T08:00:00Z'))
@@ -38,6 +38,8 @@ const unit = (over: Partial<Parameters<typeof Unit.restore>[0]> = {}): Unit =>
     grossArea: '142.5000',
     ceilingHeightMm: 3000,
     handoverCondition: 'red_brick',
+    // Unrecorded by default, which is the state most units are actually in.
+    programme: EMPTY_PROGRAMME,
     status: 'planned',
     currency: 'SAR',
     rooms: [],

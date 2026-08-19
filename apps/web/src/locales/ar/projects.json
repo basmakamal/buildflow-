@@ -31,13 +31,39 @@
       "name": "اسم الوحدة",
       "grossArea": "المساحة الإجمالية (م²)",
       "floor": "الدور",
-      "submit": "إنشاء"
+      "submit": "إنشاء",
+      "unitType": "نوع الوحدة",
+      "finishLevel": "مستوى التشطيب",
+      "occupantType": "الساكنون",
+      "unset": "غير محدد"
     },
     "fields": {
       "rooms": "غرف",
       "floor": "الدور {n}",
       "area": "{area} م²"
     },
-    "openBoard": "فتح لوحة المراحل"
+    "openBoard": "فتح لوحة المراحل",
+    "unitType": {
+      "apartment": "شقة",
+      "villa": "فيلا",
+      "duplex": "دوبلكس",
+      "studio": "استوديو",
+      "office": "مكتب"
+    },
+    "finishLevel": {
+      "economy": "اقتصادي",
+      "standard": "قياسي",
+      "premium": "مميز",
+      "luxury": "فاخر"
+    },
+    "occupantType": {
+      "family": "عائلة",
+      "couple": "زوجان",
+      "single": "فرد",
+      "kids": "أطفال",
+      "elderly": "كبار سن",
+      "staff": "عمالة",
+      "guest": "ضيوف"
+    }
   }
 }

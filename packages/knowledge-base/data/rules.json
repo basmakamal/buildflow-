@@ -1,0 +1,5388 @@
+[
+  {
+    "code": "REC_LGT_001",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "master_bedroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "master_bedroom"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 20
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a secondary lighting zone — a room this size needs separate ambient and reading control.",
+    "message_ar": "أضف منطقة إضاءة ثانوية — غرفة بهذه المساحة تحتاج تحكماً منفصلاً للإضاءة العامة والقراءة.",
+    "action": {
+      "add": "lighting_zone",
+      "qty": 1
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_002",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 25
+        },
+        {
+          "fact": "hasDimmer",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add dimming control — large rooms need a range of light levels through the day.",
+    "message_ar": "أضف تحكم الإضاءة (دimmer) — الغرف الكبيرة تحتاج مستويات إضاءة متعددة.",
+    "action": {
+      "add": "dimmer"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_003",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "majlis"]
+        },
+        {
+          "fact": "hasHiddenLed",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add hidden cove LED — reception spaces gain the most perceived value from indirect light.",
+    "message_ar": "أضف إضاءة مخفية بالكرنيش — مساحات الاستقبال تكسب أكبر قيمة جمالية من الإضاءة غير المباشرة.",
+    "action": {
+      "add": "hidden_led",
+      "location": "ceiling_cove"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_004",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "tvPointCount",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "hasHiddenLed",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add bias lighting behind the TV — reduces eye strain during evening viewing.",
+    "message_ar": "أضف إضاءة خلفية للتلفاز — تقلل إجهاد العين أثناء المشاهدة المسائية.",
+    "action": {
+      "add": "hidden_led",
+      "location": "tv_wall"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_005",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "dining_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dining_room"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Center a pendant or chandelier 75-90 cm above the table top.",
+    "message_ar": "ضع ثريا أو دلاية بمركز الطاولة على ارتفاع 75-90 سم فوق سطحها.",
+    "action": {
+      "add": "pendant",
+      "height_above_table_cm": 80
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_006",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "counterLengthM",
+          "operator": "greaterThan",
+          "value": 2
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add under-cabinet LED across the full counter run — the most-used light in the home.",
+    "message_ar": "أضف إضاءة LED تحت الخزائن على كامل طول الكاونتر — أكثر إضاءة استخداماً في المنزل.",
+    "action": {
+      "add": "task_light",
+      "location": "under_cabinet",
+      "formula": "counterLengthM"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_007",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "dressing_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dressing_room"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add rail and shelf-edge lighting at CRI 90+ for true fabric colors.",
+    "message_ar": "أضف إضاءة على القضبان وحواف الأرفف بمعامل إظهار ألوان 90+ لألوان أقمشة حقيقية.",
+    "action": {
+      "add": "hidden_led",
+      "locations": ["hanging_rails", "shelf_edges"],
+      "cri": 90
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_008",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "corridor",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "corridor"
+        },
+        {
+          "fact": "length",
+          "operator": "greaterThan",
+          "value": 4
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add skirting-level night lighting on a motion sensor for corridors over 4 m.",
+    "message_ar": "أضف إضاءة ليلية عند مستوى النعلة مع حساس حركة للممرات الأطول من 4 م.",
+    "action": {
+      "add": "hidden_led",
+      "location": "skirting",
+      "control": "motion"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_009",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "majlis", "master_bedroom", "dining_room", "entrance"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Specify a scene controller — premium projects expect preset lighting moods.",
+    "message_ar": "حدد وحدة تحكم بالمشاهد — المشاريع الفاخرة تتوقع أنماط إضاءة مبرمجة.",
+    "action": {
+      "add": "scene_controller"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_010",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["storage", "dressing_room", "laundry"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use a motion sensor — hands are usually full entering these rooms.",
+    "message_ar": "استخدم حساس حركة — اليدان عادة مشغولتان عند دخول هذه الغرف.",
+    "action": {
+      "add": "motion_sensor",
+      "timeout_min": 5
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_011",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "office",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "office"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add indirect light behind the monitor wall to cut screen contrast glare.",
+    "message_ar": "أضف إضاءة غير مباشرة خلف جدار الشاشة لتقليل الوهج.",
+    "action": {
+      "add": "hidden_led",
+      "location": "monitor_wall"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_012",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "ceilingHeight",
+          "operator": "greaterThan",
+          "value": 3.2
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["entrance", "living_room", "majlis"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "High ceiling — a suspended feature fixture will fill the vertical volume.",
+    "message_ar": "سقف مرتفع — وحدة إضاءة معلقة مميزة ستملأ الفراغ الرأسي.",
+    "action": {
+      "add": "chandelier"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_013",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a dim night-light circuit — full brightness at 3 AM wakes the whole household.",
+    "message_ar": "أضف دائرة إضاءة ليلية خافتة — الإضاءة الكاملة ليلاً توقظ الجميع.",
+    "action": {
+      "add": "night_light",
+      "dim_pct": 10
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_014",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "balcony",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "balcony"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 6
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add warm low-level perimeter lighting — high lux outdoors attracts insects.",
+    "message_ar": "أضف إضاءة محيطية دافئة منخفضة — الإضاءة القوية خارجياً تجذب الحشرات.",
+    "action": {
+      "add": "hidden_led",
+      "location": "seating_perimeter",
+      "ip": 65
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_015",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "windowCount",
+          "operator": "equal",
+          "value": 0
+        },
+        {
+          "fact": "roomType",
+          "operator": "notIn",
+          "value": ["storage", "corridor"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "No natural light — raise the artificial target to the upper end of the lux band.",
+    "message_ar": "لا يوجد ضوء طبيعي — ارفع مستوى الإضاءة الصناعية إلى أعلى النطاق.",
+    "action": {
+      "increase": "lux",
+      "to": "max_lux"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_016",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "entrance",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "entrance"
+        },
+        {
+          "fact": "smartPointCount",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Bind a welcome scene to the door sensor.",
+    "message_ar": "اربط مشهد الترحيب بحساس الباب.",
+    "action": {
+      "add": "scene",
+      "name": "welcome"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_017",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 40
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Split lighting into 3+ zones — a room over 40 m² needs zoned control to be usable.",
+    "message_ar": "قسّم الإضاءة إلى 3 مناطق أو أكثر — الغرف فوق 40 م² تحتاج تحكماً مقسماً.",
+    "action": {
+      "add": "lighting_zone",
+      "qty": 2
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_LGT_018",
+    "rule_type": "recommendation",
+    "domain": "lighting",
+    "room_type_code": "bathroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "bathroom"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a backlit mirror and niche lighting — highest visual return in a bathroom.",
+    "message_ar": "أضف مرآة مضاءة وإضاءة الأرفف الغائرة — أعلى عائد بصري في الحمام.",
+    "action": {
+      "add": "mirror_light",
+      "add_niche_led": true
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_001",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 20
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "family_room", "majlis"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a floor socket — centered seating in a large room otherwise trails cables.",
+    "message_ar": "أضف فيشاً أرضياً — الجلسات المركزية في الغرف الكبيرة تجر الأسلاك على الأرض.",
+    "action": {
+      "add": "floor_socket",
+      "qty": 1
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_002",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom", "kids_room", "office"]
+        },
+        {
+          "fact": "usbPointCount",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add USB-C outlets — removes charger bricks from every socket.",
+    "message_ar": "أضف منافذ USB-C — تلغي الحاجة لمحولات الشحن في كل فيش.",
+    "action": {
+      "add": "usb_point",
+      "qty": 2
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_003",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        },
+        {
+          "fact": "smartPointCount",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add smart switch provision (neutral at every switch box) — retrofitting later means re-chasing walls.",
+    "message_ar": "أضف تجهيزات المفاتيح الذكية (نيوترال في كل علبة) — الإضافة لاحقاً تعني إعادة تكسير الجدران.",
+    "action": {
+      "add": "smart_point",
+      "require": "neutral_at_box"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_004",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add pop-up or under-cabinet sockets to keep the backsplash clean.",
+    "message_ar": "أضف أفياشاً منبثقة أو تحت الخزائن للحفاظ على نظافة الواجهة.",
+    "action": {
+      "add": "socket",
+      "type": "popup",
+      "qty": 2
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_005",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "master_bedroom", "majlis"]
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add curtain motor points — motorized curtains cannot be retrofitted without exposed wiring.",
+    "message_ar": "أضف نقاط محركات الستائر — لا يمكن إضافتها لاحقاً دون أسلاك ظاهرة.",
+    "action": {
+      "add": "smart_point",
+      "type": "curtain_motor"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_006",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "unitType",
+          "operator": "in",
+          "value": ["villa", "duplex"]
+        },
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "entrance"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a video intercom point at 145 cm plus a doorbell transformer location.",
+    "message_ar": "أضف نقطة إنتركم بالفيديو على ارتفاع 145 سم مع موقع محول الجرس.",
+    "action": {
+      "add": "intercom_point"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_007",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": "office",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "office"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a dedicated clean-power circuit for the workstation/UPS.",
+    "message_ar": "أضف دائرة كهرباء مستقلة لمحطة العمل / UPS.",
+    "action": {
+      "add": "dedicated_circuit",
+      "breaker_a": 16
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_008",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "occupantType",
+          "operator": "equal",
+          "value": "elderly"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Raise sockets to 45-50 cm and lower switches to 90-100 cm for reach comfort.",
+    "message_ar": "ارفع الأفياش إلى 45-50 سم واخفض المفاتيح إلى 90-100 سم لسهولة الوصول.",
+    "action": {
+      "set": "socketHeight",
+      "value": 45,
+      "set_switch_height": 95
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_009",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "occupantType",
+          "operator": "equal",
+          "value": "kids"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Specify shuttered child-safe sockets throughout the room.",
+    "message_ar": "حدد أفياشاً بأغطية أمان للأطفال في كامل الغرفة.",
+    "action": {
+      "require": "shuttered_sockets"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_010",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "unitType",
+          "operator": "in",
+          "value": ["villa", "duplex"]
+        },
+        {
+          "fact": "internetPointCount",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add ceiling data points for Wi-Fi access points — one per floor minimum in a villa.",
+    "message_ar": "أضف نقاط بيانات في السقف لنقاط الواي فاي — نقطة لكل دور كحد أدنى في الفيلا.",
+    "action": {
+      "add": "internet_point",
+      "location": "ceiling",
+      "purpose": "wifi_ap"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_011",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": "laundry",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "laundry"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a leak-detection sensor point behind the washer.",
+    "message_ar": "أضف نقطة حساس تسرب خلف الغسالة.",
+    "action": {
+      "add": "smart_point",
+      "type": "leak_sensor"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_012",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["kitchen", "corridor"]
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add smoke/gas detector points wired to the panel rather than battery-only units.",
+    "message_ar": "أضف نقاط كواشف الدخان/الغاز موصولة باللوحة بدلاً من وحدات البطارية فقط.",
+    "action": {
+      "add": "smart_point",
+      "type": "detector"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_013",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 30
+        },
+        {
+          "fact": "acPointCount",
+          "operator": "lessThan",
+          "value": 2
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Consider a second AC point or a concealed-duct unit for even cooling.",
+    "message_ar": "فكر في نقطة تكييف ثانية أو وحدة دكت مخفية لتوزيع تبريد متساوٍ.",
+    "action": {
+      "add": "ac_point",
+      "qty": 1
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_014",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": "master_bedroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "master_bedroom"
+        },
+        {
+          "fact": "smartPointCount",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a bedside master-off switch that kills all room circuits from the bed.",
+    "message_ar": "أضف مفتاح إطفاء رئيسياً بجانب السرير يطفئ جميع دوائر الغرفة.",
+    "action": {
+      "add": "smart_point",
+      "type": "master_off"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_ELE_015",
+    "rule_type": "recommendation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "unitType",
+          "operator": "in",
+          "value": ["villa", "duplex"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Reserve at least 20% spare ways in the distribution board for future loads.",
+    "message_ar": "احجز 20% على الأقل من مساحة لوحة التوزيع للأحمال المستقبلية.",
+    "action": {
+      "reserve": "db_spare_ways",
+      "pct": 20
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_001",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": "bathroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "bathroom"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 8
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a second basin — bathrooms over 8 m² comfortably take a double vanity.",
+    "message_ar": "أضف مغسلة ثانية — الحمامات فوق 8 م² تستوعب مغسلتين بأريحية.",
+    "action": {
+      "add": "basin",
+      "qty": 1
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_002",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": "bathroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "bathroom"
+        },
+        {
+          "fact": "occupantType",
+          "operator": "in",
+          "value": ["kids", "elderly"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Specify a thermostatic shower mixer — eliminates scald risk from pressure swings.",
+    "message_ar": "حدد خلاطاً حرارياً للدش — يمنع خطر الحروق من تغير الضغط.",
+    "action": {
+      "upgrade": "mixer",
+      "to": "san_thermostatic"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_003",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "occupantType",
+          "operator": "equal",
+          "value": "elderly"
+        },
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add grab bars at the WC and shower, and specify a curbless shower entry.",
+    "message_ar": "أضف مقابض أمان عند الكرسي والدش، وحدد دشاً بدون عتبة.",
+    "action": {
+      "add": "grab_bars",
+      "require": "curbless_shower"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_004",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add an RO/water-filter point and a dedicated faucet hole at the sink.",
+    "message_ar": "أضف نقطة فلتر مياه وفتحة صنبور مخصصة عند الحوض.",
+    "action": {
+      "add": "water_filter_point"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_005",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a refrigerator water point for ice-maker models.",
+    "message_ar": "أضف نقطة مياه للثلاجة لموديلات صانع الثلج.",
+    "action": {
+      "add": "fridge_water_point"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_006",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "finishLevel",
+          "operator": "equal",
+          "value": "luxury"
+        },
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use a manifold with concealed per-fixture angle valves — isolates one fixture without shutting the unit.",
+    "message_ar": "استخدم مجمعاً مع محابس مخفية لكل قطعة — يعزل قطعة واحدة دون قطع الماء عن الوحدة.",
+    "action": {
+      "upgrade": "distribution",
+      "to": "manifold"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_007",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": "bathroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "bathroom"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 6
+        },
+        {
+          "fact": "showerCount",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Consider a linear drain with a curbless entry — needs a 2 cm screed recess planned now.",
+    "message_ar": "فكر في مصرف خطي مع دخول بدون عتبة — يتطلب تخفيض 2 سم في اللياسة يخطط الآن.",
+    "action": {
+      "upgrade": "drain",
+      "to": "linear"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_008",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": "laundry",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "laundry"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a deep utility sink for hand-wash and mop filling.",
+    "message_ar": "أضف حوض خدمة عميقاً للغسيل اليدوي وملء دلو المسح.",
+    "action": {
+      "add": "laundry_sink"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_009",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "hasWaterHeater",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Consider a central heater with a recirculation loop — instant hot water at every outlet.",
+    "message_ar": "فكر في سخان مركزي مع خط تدوير — ماء ساخن فوري عند كل مخرج.",
+    "action": {
+      "upgrade": "water_heating",
+      "to": "central_recirculation"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_010",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "unitType",
+          "operator": "in",
+          "value": ["villa", "duplex"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a main shutoff valve with a leak-detection valve at the unit inlet.",
+    "message_ar": "أضف محبساً رئيسياً مع صمام كشف تسرب عند مدخل الوحدة.",
+    "action": {
+      "add": "leak_detection_valve"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_011",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": "guest_bathroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "guest_bathroom"
+        },
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 3
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use a compact short-projection WC (62-65 cm) and a corner basin in a tight powder room.",
+    "message_ar": "استخدم كرسياً قصير البروز (62-65 سم) ومغسلة ركنية في حمام الضيوف الضيق.",
+    "action": {
+      "specify": "compact_fixtures"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_PLB_012",
+    "rule_type": "recommendation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "floorDrainCount",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Specify a trap primer or HDPE dry-seal drain for rarely used bathrooms — dried traps let sewer gas in.",
+    "message_ar": "حدد صفاية بختم جاف أو خط تغذية للسيفون في الحمامات نادرة الاستخدام — جفاف السيفون يسمح بدخول روائح الصرف.",
+    "action": {
+      "add": "trap_primer"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_001",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "master_bedroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "master_bedroom"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 22
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a reading corner — an armchair and floor lamp make the extra area useful.",
+    "message_ar": "أضف ركن قراءة — كرسي ومصباح أرضي يجعلان المساحة الإضافية مفيدة.",
+    "action": {
+      "add": "floor_lamp"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_002",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "master_bedroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "master_bedroom"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThanInclusive",
+          "value": 16
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Room supports a king bed with full clearances.",
+    "message_ar": "المساحة تستوعب سرير كينج مع خلوصات كاملة.",
+    "action": {
+      "set": "bedSize",
+      "value": "king"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_003",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom"]
+        },
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 12
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use wall-mounted bedside shelves instead of tables to reclaim floor area.",
+    "message_ar": "استخدم أرفف جدارية بدل الكومودينو لتوفير مساحة الأرضية.",
+    "action": {
+      "replace": "bedside_table",
+      "with": "wall_shelf"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_004",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "wardrobeClearance",
+          "operator": "lessThan",
+          "value": 60
+        },
+        {
+          "fact": "wardrobeWidthCm",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Switch to sliding wardrobe doors — they need no swing clearance.",
+    "message_ar": "حوّل إلى أبواب دولاب منزلقة — لا تحتاج مساحة فتح.",
+    "action": {
+      "switch": "sliding_doors"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_005",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        },
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 12
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use a loft bed with the desk underneath to free the floor for play.",
+    "message_ar": "استخدم سريراً علوياً مع مكتب تحته لتحرير الأرضية للعب.",
+    "action": {
+      "specify": "loft_bed_with_desk"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_006",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Anchor all tall furniture to the wall — tip-over is the leading furniture injury for children.",
+    "message_ar": "ثبّت كل الأثاث الطويل بالجدار — الانقلاب هو السبب الأول لإصابات الأثاث لدى الأطفال.",
+    "action": {
+      "require": "wall_anchoring"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_007",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "living_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "living_room"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 30
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Split into two seating groups — a single group in a large room leaves dead space.",
+    "message_ar": "قسّم إلى مجموعتي جلوس — مجموعة واحدة في غرفة كبيرة تترك فراغاً ميتاً.",
+    "action": {
+      "add": "seating_group"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_008",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "family_room"]
+        },
+        {
+          "fact": "tvSizeInch",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Set viewing distance to 2-2.5x the screen diagonal.",
+    "message_ar": "اضبط مسافة المشاهدة على 2-2.5 ضعف قطر الشاشة.",
+    "action": {
+      "formula": "tvSizeInch * 0.0254 * 2.25"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_009",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "dining_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dining_room"
+        },
+        {
+          "fact": "width",
+          "operator": "greaterThanInclusive",
+          "value": 3.6
+        },
+        {
+          "fact": "length",
+          "operator": "greaterThanInclusive",
+          "value": 4.5
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Room supports an 8-seat table with full chair pull-out.",
+    "message_ar": "الغرفة تستوعب طاولة 8 مقاعد مع سحب كامل للكراسي.",
+    "action": {
+      "set": "seatCount",
+      "value": 8
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_010",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "dining_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dining_room"
+        },
+        {
+          "fact": "width",
+          "operator": "lessThan",
+          "value": 3
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use a round table in a narrow room — it circulates better than a rectangular one.",
+    "message_ar": "استخدم طاولة دائرية في الغرف الضيقة — أفضل للحركة من المستطيلة.",
+    "action": {
+      "set": "table_shape",
+      "value": "round"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_011",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "office",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "office"
+        },
+        {
+          "fact": "windowCount",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Place the desk with the window to the side — never behind the screen or behind the user.",
+    "message_ar": "ضع المكتب والنافذة إلى الجانب — لا خلف الشاشة ولا خلف المستخدم.",
+    "action": {
+      "set": "desk_orientation",
+      "value": "window_side"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_012",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "majlis",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "majlis"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 30
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use perimeter seating and keep the center open for service circulation.",
+    "message_ar": "استخدم جلسات محيطية وأبقِ الوسط مفتوحاً لحركة الخدمة.",
+    "action": {
+      "set": "layout",
+      "value": "perimeter"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_013",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "majlis",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "majlis"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a coffee-service corner near the entrance side with a dedicated socket.",
+    "message_ar": "أضف ركن قهوة قرب جهة المدخل مع فيش مخصص.",
+    "action": {
+      "add": "coffee_station"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_014",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": "guest_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "guest_room"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Add a luggage bench and hanging space — guest rooms without them force suitcases onto the floor.",
+    "message_ar": "أضف مقعد حقائب ومساحة تعليق — بدونهما توضع الحقائب على الأرض.",
+    "action": {
+      "add": "luggage_bench"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FUR_015",
+    "rule_type": "recommendation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 10
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["bedroom", "kids_room", "office"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use built-in joinery instead of freestanding furniture — reclaims 10-15% of usable area.",
+    "message_ar": "استخدم أثاثاً مدمجاً بدل المنفصل — يوفر 10-15% من المساحة القابلة للاستخدام.",
+    "action": {
+      "specify": "built_in_joinery"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_001",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Specify porcelain with R10+ anti-slip and moisture-resistant board above.",
+    "message_ar": "حدد بورسلاناً بمقاومة انزلاق R10+ مع ألواح مقاومة للرطوبة أعلاه.",
+    "action": {
+      "set": "flooring",
+      "value": "flr_porcelain_60",
+      "set_ceiling": "clg_gypsum_mr"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_002",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["corridor", "entrance"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use very-high-durability flooring in traffic funnels — they wear 3-5x faster than rooms.",
+    "message_ar": "استخدم أرضيات عالية المتانة في ممرات الحركة — تتآكل أسرع 3-5 مرات من الغرف.",
+    "action": {
+      "set": "flooring",
+      "min_durability": "very_high"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_003",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom", "guest_room"]
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Consider engineered wood or SPC in bedrooms — warmer underfoot than porcelain.",
+    "message_ar": "فكر في الخشب الهندسي أو SPC في غرف النوم — أدفأ من البورسلان.",
+    "action": {
+      "set": "flooring",
+      "options": ["flr_engineered", "flr_spc"]
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_004",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use SPC vinyl and scrubbable paint — warm, quiet, waterproof and cleanable.",
+    "message_ar": "استخدم أرضيات SPC ودهاناً قابلاً للفرك — دافئ وهادئ ومقاوم للماء وقابل للتنظيف.",
+    "action": {
+      "set": "flooring",
+      "value": "flr_spc",
+      "set_paint": "pnt_kids_washable"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_005",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "majlis", "dining_room"]
+        },
+        {
+          "fact": "ceilingHeight",
+          "operator": "greaterThanInclusive",
+          "value": 2.9
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Ceiling height supports a tray/cove gypsum design with hidden LED.",
+    "message_ar": "ارتفاع السقف يسمح بتصميم جبس بكرانيش وإضاءة مخفية.",
+    "action": {
+      "set": "ceiling",
+      "value": "clg_gypsum_cove"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_006",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "hasHiddenLed",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Specify a Level 5 skim on cove-adjacent surfaces — grazing light magnifies every ridge.",
+    "message_ar": "حدد معجوناً كاملاً (Level 5) على الأسطح المجاورة للكرانيش — الضوء المائل يبرز أي عيب.",
+    "action": {
+      "require": "level5_finish"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_007",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use engineered quartz over granite — non-porous, no sealing, consistent color.",
+    "message_ar": "استخدم الكوارتز الصناعي بدل الجرانيت — غير مسامي، بلا حاجة للعزل، ولون متجانس.",
+    "action": {
+      "set": "countertop",
+      "value": "kit_top_quartz"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_008",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "occupantType",
+          "operator": "equal",
+          "value": "family"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use HPL fronts in a family kitchen — the most impact-resistant surface available.",
+    "message_ar": "استخدم واجهات HPL في مطبخ عائلي — أكثر الأسطح مقاومة للصدمات.",
+    "action": {
+      "set": "kitchen",
+      "value": "kit_hpl"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_009",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "doorCount",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Specify WPC doors for wet areas — they never swell.",
+    "message_ar": "حدد أبواب WPC للمناطق الرطبة — لا تنتفخ أبداً.",
+    "action": {
+      "set": "door",
+      "value": "dor_wpc"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_010",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": "entrance",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "entrance"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use a security steel entrance door with acoustic seals.",
+    "message_ar": "استخدم باب دخول حديدياً أمنياً مع عوازل صوتية.",
+    "action": {
+      "set": "door",
+      "value": "dor_security"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_011",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "family_room", "corridor"]
+        },
+        {
+          "fact": "occupantType",
+          "operator": "in",
+          "value": ["family", "kids"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use washable silk/eggshell emulsion, not matt — handprints wipe off.",
+    "message_ar": "استخدم دهاناً حريرياً قابلاً للغسيل بدل المطفي — آثار الأيدي تُمسح.",
+    "action": {
+      "set": "paint",
+      "value": "pnt_washable"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_012",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 25
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Large-format porcelain reduces grout lines and reads more premium at this room size.",
+    "message_ar": "البورسلان كبير المقاس يقلل خطوط الروبة ويعطي مظهراً أفخم بهذه المساحة.",
+    "action": {
+      "set": "flooring",
+      "value": "flr_porcelain_large"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_013",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "flooringCategory",
+          "operator": "equal",
+          "value": "natural_stone"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Schedule sealing at handover and annually — unsealed stone stains permanently.",
+    "message_ar": "جدول عزل الحجر عند التسليم وسنوياً — الحجر غير المعزول يتبقع بشكل دائم.",
+    "action": {
+      "add": "maintenance_task",
+      "interval": "annual"
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_014",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "tileSizeCm",
+          "operator": "greaterThanInclusive",
+          "value": 80
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Large format requires a ±2 mm flat screed and leveling clips — plan the substrate tolerance now.",
+    "message_ar": "المقاسات الكبيرة تتطلب لياسة مستوية ±2 مم ومشابك تسوية — خطط لدقة السطح الآن.",
+    "action": {
+      "require": "screed_tolerance",
+      "tolerance_mm": 2
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_FIN_015",
+    "rule_type": "recommendation",
+    "domain": "finishing",
+    "room_type_code": "balcony",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "balcony"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Use external-grade porcelain with R11 slip rating and a drainage fall to the outlet.",
+    "message_ar": "استخدم بورسلاناً خارجياً بمقاومة انزلاق R11 مع ميل تصريف نحو المخرج.",
+    "action": {
+      "set": "flooring",
+      "value": "flr_porcelain_60",
+      "require": "r11"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_EST_001",
+    "rule_type": "recommendation",
+    "domain": "estimation",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "tileSizeCm",
+          "operator": "greaterThanInclusive",
+          "value": 80
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Raise tile waste allowance to 15% — large-format cutting loss exceeds the 10% default.",
+    "message_ar": "ارفع نسبة هالك البلاط إلى 15% — الفاقد في المقاسات الكبيرة يتجاوز 10%.",
+    "action": {
+      "set": "waste_pct",
+      "code": "est_tile_count",
+      "value": 15
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_EST_002",
+    "rule_type": "recommendation",
+    "domain": "estimation",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 6
+        },
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Small wet rooms have high cut ratios — raise tile waste to 15%.",
+    "message_ar": "الغرف الرطبة الصغيرة نسبة قصها عالية — ارفع الهالك إلى 15%.",
+    "action": {
+      "set": "waste_pct",
+      "code": "est_tile_count",
+      "value": 15
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "REC_EST_003",
+    "rule_type": "recommendation",
+    "domain": "estimation",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "paintCategory",
+          "operator": "equal",
+          "value": "texture"
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Textured finishes consume 25-30% more material than smooth — adjust the coverage rate.",
+    "message_ar": "التشطيبات المحببة تستهلك 25-30% مواد أكثر — عدّل معدل التغطية.",
+    "action": {
+      "set": "coverage_m2_per_l",
+      "value": 8
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_EST_004",
+    "rule_type": "recommendation",
+    "domain": "estimation",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "hasHiddenLed",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Cove ceiling designs cut waste high — use 20% gypsum board waste, not 12%.",
+    "message_ar": "تصاميم الكرانيش تنتج هالكاً عالياً — استخدم 20% هالك ألواح جبس بدل 12%.",
+    "action": {
+      "set": "waste_pct",
+      "code": "est_gypsum_board",
+      "value": 20
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "REC_EST_005",
+    "rule_type": "recommendation",
+    "domain": "estimation",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "unitType",
+          "operator": "in",
+          "value": ["villa", "duplex"]
+        }
+      ]
+    },
+    "severity": "suggestion",
+    "message_en": "Villa cable runs average 15-18 m to the DB — use the higher run length in cable estimates.",
+    "message_ar": "متوسط أطوال الكابلات في الفلل 15-18 م — استخدم الطول الأعلى في التقديرات.",
+    "action": {
+      "set": "avg_run_m",
+      "value": 16
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_001",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "lightingLux",
+          "operator": "lessThan",
+          "value": 100
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": [
+            "master_bedroom",
+            "bedroom",
+            "kids_room",
+            "guest_room",
+            "living_room",
+            "family_room",
+            "majlis"
+          ]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Lighting level below 100 lux is insufficient for a habitable room.",
+    "message_ar": "مستوى الإضاءة أقل من 100 لوكس غير كافٍ لغرفة معيشة.",
+    "action": {
+      "increase": "lux",
+      "to": "recommended_lux"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_002",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "lightingLux",
+          "operator": "lessThan",
+          "value": 300
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Kitchen below 300 lux is unsafe for knife work and food prep.",
+    "message_ar": "المطبخ بأقل من 300 لوكس غير آمن لأعمال التقطيع والتحضير.",
+    "action": {
+      "increase": "lux",
+      "to": 300
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_003",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "office",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "office"
+        },
+        {
+          "fact": "lightingLux",
+          "operator": "lessThan",
+          "value": 300
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Office below 300 lux causes eye strain during sustained work.",
+    "message_ar": "المكتب بأقل من 300 لوكس يسبب إجهاد العين أثناء العمل.",
+    "action": {
+      "increase": "lux",
+      "to": 400
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_004",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        },
+        {
+          "fact": "hasTaskLight",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Kids room has no dedicated study task light.",
+    "message_ar": "غرفة الأطفال بدون إضاءة مخصصة للمذاكرة.",
+    "action": {
+      "add": "task_light",
+      "location": "study_desk"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_005",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "lightingLux",
+          "operator": "greaterThan",
+          "value": 500
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom", "guest_room"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Bedroom above 500 lux is over-lit and disrupts evening melatonin.",
+    "message_ar": "غرفة نوم بأكثر من 500 لوكس مضاءة بشكل مفرط وتؤثر على النوم.",
+    "action": {
+      "reduce": "lux",
+      "add": "dimmer"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_006",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "spotlightSpacing",
+          "operator": "lessThan",
+          "value": 80
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Spotlight spacing under 80 cm creates a \"runway\" effect and wastes fixtures.",
+    "message_ar": "تباعد السبوت أقل من 80 سم يعطي مظهر المدرج ويهدر الوحدات.",
+    "action": {
+      "adjust": "spacing",
+      "min_cm": 80
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_007",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "spotlightSpacing",
+          "operator": "greaterThan",
+          "value": 180
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Spotlight spacing over 180 cm leaves dark patches between fixtures.",
+    "message_ar": "تباعد السبوت أكثر من 180 سم يترك مناطق مظلمة.",
+    "action": {
+      "adjust": "spacing",
+      "max_cm": 150
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_008",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "fixtureIpRating",
+          "operator": "lessThan",
+          "value": 44
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Wet-area fixtures must be rated IP44 or higher.",
+    "message_ar": "وحدات الإضاءة في المناطق الرطبة يجب أن تكون IP44 أو أعلى.",
+    "action": {
+      "require": "ip44"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_009",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "balcony",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "balcony"
+        },
+        {
+          "fact": "fixtureIpRating",
+          "operator": "lessThan",
+          "value": 65
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Outdoor fixtures must be IP65 — dust and rain destroy lower ratings within a season.",
+    "message_ar": "وحدات الإضاءة الخارجية يجب أن تكون IP65.",
+    "action": {
+      "require": "ip65"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_010",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "switchCount",
+          "operator": "equal",
+          "value": 1
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 25
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "A single switch controlling a room over 25 m² gives no lighting flexibility.",
+    "message_ar": "مفتاح واحد لغرفة أكبر من 25 م² لا يوفر أي مرونة إضاءة.",
+    "action": {
+      "add": "lighting_zone",
+      "qty": 1
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_011",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "corridor",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "corridor"
+        },
+        {
+          "fact": "hasTwoWaySwitch",
+          "operator": "equal",
+          "value": false
+        },
+        {
+          "fact": "length",
+          "operator": "greaterThan",
+          "value": 3
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Corridors over 3 m need two-way switching at both ends.",
+    "message_ar": "الممرات الأطول من 3 م تحتاج مفاتيح مزدوجة عند الطرفين.",
+    "action": {
+      "add": "two_way_switch"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_012",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom"]
+        },
+        {
+          "fact": "hasTwoWaySwitch",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Bedroom without bedside two-way switching forces crossing a dark room.",
+    "message_ar": "غرفة نوم بدون مفتاح مزدوج بجانب السرير تجبر على عبور غرفة مظلمة.",
+    "action": {
+      "add": "two_way_switch",
+      "location": "bedside"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_013",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "dressing_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dressing_room"
+        },
+        {
+          "fact": "cri",
+          "operator": "lessThan",
+          "value": 90
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "CRI below 90 in a dressing room distorts fabric colors.",
+    "message_ar": "معامل إظهار الألوان أقل من 90 في غرفة الملابس يشوه ألوان الأقمشة.",
+    "action": {
+      "require": "cri_90"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_014",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["bathroom", "guest_bathroom"]
+        },
+        {
+          "fact": "hasMirrorLight",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "A ceiling downlight alone shadows the face at the mirror — add vertical mirror lighting.",
+    "message_ar": "السبوت العلوي وحده يظلل الوجه عند المرآة — أضف إضاءة رأسية.",
+    "action": {
+      "add": "mirror_light"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_015",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "colorTempK",
+          "operator": "greaterThan",
+          "value": 4000
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom", "guest_room", "living_room", "majlis"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Color temperature above 4000K feels clinical in living and sleeping spaces.",
+    "message_ar": "درجة حرارة اللون فوق 4000 كلفن تعطي إحساساً بارداً في غرف المعيشة والنوم.",
+    "action": {
+      "set": "colorTempK",
+      "max": 3000
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_016",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "colorTempK",
+          "operator": "lessThan",
+          "value": 3000
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["kitchen", "office", "laundry"]
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Task-heavy rooms read better at 3500-4000K.",
+    "message_ar": "الغرف ذات المهام الدقيقة أفضل عند 3500-4000 كلفن.",
+    "action": {
+      "set": "colorTempK",
+      "min": 3500
+    },
+    "priority": 50,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_017",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "lightingZones",
+          "operator": "equal",
+          "value": 1
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "majlis"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Reception spaces need at least 2 lighting zones (ambient + feature).",
+    "message_ar": "مساحات الاستقبال تحتاج منطقتي إضاءة على الأقل.",
+    "action": {
+      "add": "lighting_zone",
+      "qty": 1
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_018",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "hasTaskLight",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Kitchen without under-cabinet task lighting leaves counters in working shadow.",
+    "message_ar": "مطبخ بدون إضاءة تحت الخزائن يترك ظلال العمل على الكاونتر.",
+    "action": {
+      "add": "task_light",
+      "location": "under_cabinet"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_019",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": "dining_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dining_room"
+        },
+        {
+          "fact": "hasDimmer",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Dining lighting without a dimmer cannot serve both meals and cleaning.",
+    "message_ar": "إضاءة الطعام بدون دimmer لا تناسب الوجبات والتنظيف معاً.",
+    "action": {
+      "add": "dimmer"
+    },
+    "priority": 50,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_LGT_020",
+    "rule_type": "validation",
+    "domain": "lighting",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "spotlightCount",
+          "operator": "equal",
+          "value": 0
+        },
+        {
+          "fact": "hasHiddenLed",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "roomType",
+          "operator": "notIn",
+          "value": ["corridor", "storage", "balcony"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Hidden LED alone cannot reach usable light levels — add a general lighting layer.",
+    "message_ar": "الإضاءة المخفية وحدها لا تحقق مستوى إضاءة كافٍ — أضف طبقة إضاءة عامة.",
+    "action": {
+      "add": "spotlights"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_001",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "socketCount",
+          "operator": "lessThan",
+          "value": 4
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "living_room", "family_room", "majlis", "office", "kitchen"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Insufficient electrical outlets — fewer than 4 sockets in a primary room.",
+    "message_ar": "عدد الأفياش غير كافٍ — أقل من 4 أفياش في غرفة رئيسية.",
+    "action": {
+      "suggest": "add_sockets",
+      "target": "recommended_sockets"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_002",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "socketCount",
+          "operator": "lessThan",
+          "value": 6
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Kitchen has fewer than 6 sockets — appliance load cannot be served safely.",
+    "message_ar": "المطبخ يحتوي أقل من 6 أفياش — لا يمكن تشغيل الأجهزة بأمان.",
+    "action": {
+      "suggest": "add_sockets",
+      "min": 6
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_003",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "counterLengthM",
+          "operator": "greaterThan",
+          "value": 2.4
+        },
+        {
+          "fact": "socketCount",
+          "operator": "lessThan",
+          "value": 8
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Counter runs longer than 2.4 m need one double socket per 1.2 m of counter.",
+    "message_ar": "الكاونتر الأطول من 2.4 م يحتاج فيش مزدوج لكل 1.2 م.",
+    "action": {
+      "formula": "ceil(counterLengthM / 1.2)"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_004",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "hasRcd",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Wet-area circuits without RCD/GFCI protection are a fatal shock hazard.",
+    "message_ar": "دوائر المناطق الرطبة بدون قاطع تسرب أرضي تشكل خطر صعق قاتل.",
+    "action": {
+      "require": "rcd_30ma"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_005",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "socketToWaterDistance",
+          "operator": "lessThan",
+          "value": 60
+        },
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Socket closer than 60 cm to a water source violates safe-zone rules.",
+    "message_ar": "فيش على بعد أقل من 60 سم من مصدر ماء يخالف اشتراطات مناطق الأمان.",
+    "action": {
+      "relocate": "socket",
+      "min_distance_cm": 60
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_006",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "applianceLoadKw",
+          "operator": "greaterThan",
+          "value": 3.5
+        },
+        {
+          "fact": "hasDedicatedCircuit",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Appliances above 3.5 kW require a dedicated circuit.",
+    "message_ar": "الأجهزة التي تتجاوز 3.5 كيلوواط تتطلب دائرة مستقلة.",
+    "action": {
+      "require": "dedicated_circuit"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_007",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "breakerAmp",
+          "operator": "greaterThan",
+          "value": 16
+        },
+        {
+          "fact": "cableSizeMm2",
+          "operator": "lessThanInclusive",
+          "value": 2.5
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Breaker rating exceeds cable capacity — 2.5 mm² cable must not exceed a 16 A breaker.",
+    "message_ar": "سعة القاطع تتجاوز قدرة الكابل — كابل 2.5 مم² لا يتحمل أكثر من 16 أمبير.",
+    "action": {
+      "fix": "increase_cable_or_reduce_breaker"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_008",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "breakerAmp",
+          "operator": "greaterThan",
+          "value": 20
+        },
+        {
+          "fact": "cableSizeMm2",
+          "operator": "lessThanInclusive",
+          "value": 4
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "4 mm² cable must not be protected by a breaker above 20 A.",
+    "message_ar": "كابل 4 مم² لا يجوز حمايته بقاطع أكبر من 20 أمبير.",
+    "action": {
+      "fix": "increase_cable_to_6mm2"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_009",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "acPointCount",
+          "operator": "equal",
+          "value": 0
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": [
+            "master_bedroom",
+            "bedroom",
+            "kids_room",
+            "guest_room",
+            "living_room",
+            "family_room",
+            "majlis",
+            "office"
+          ]
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Occupied room has no AC point.",
+    "message_ar": "غرفة مأهولة بدون نقطة تكييف.",
+    "action": {
+      "add": "ac_point",
+      "qty": 1
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_010",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "majlis",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "majlis"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 30
+        },
+        {
+          "fact": "acPointCount",
+          "operator": "lessThan",
+          "value": 2
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Majlis over 30 m² needs two AC points for even cooling.",
+    "message_ar": "مجلس أكبر من 30 م² يحتاج نقطتي تكييف لتوزيع التبريد.",
+    "action": {
+      "add": "ac_point",
+      "qty": 1
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_011",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "internetPointCount",
+          "operator": "equal",
+          "value": 0
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["office", "living_room", "master_bedroom"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "No wired data point in a room that needs reliable connectivity.",
+    "message_ar": "لا توجد نقطة إنترنت سلكية في غرفة تحتاج اتصالاً موثوقاً.",
+    "action": {
+      "add": "internet_point",
+      "qty": 1
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_012",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "office",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "office"
+        },
+        {
+          "fact": "internetPointCount",
+          "operator": "lessThan",
+          "value": 2
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Home office should have 2 data points (workstation + printer/AP).",
+    "message_ar": "المكتب المنزلي يفضل أن يحتوي نقطتي إنترنت.",
+    "action": {
+      "add": "internet_point",
+      "qty": 1
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_013",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "tvPointCount",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "socketCount",
+          "operator": "lessThan",
+          "value": 4
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "TV wall needs at least 2 sockets plus room sockets — total under 4 is inadequate.",
+    "message_ar": "جدار التلفاز يحتاج فيشين على الأقل بالإضافة لأفياش الغرفة.",
+    "action": {
+      "add": "socket",
+      "qty": 2,
+      "location": "tv_wall"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_014",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        },
+        {
+          "fact": "socketHeight",
+          "operator": "lessThan",
+          "value": 30
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Sockets below 30 cm in a kids room — use shuttered outlets and raise the height.",
+    "message_ar": "أفياش أقل من 30 سم في غرفة أطفال — استخدم أفياش بغطاء أمان وارفع الارتفاع.",
+    "action": {
+      "fix": "raise_socket",
+      "min_height_cm": 30,
+      "require": "shuttered"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_015",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["bathroom", "guest_bathroom"]
+        },
+        {
+          "fact": "hasVentFan",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Bathroom without an exhaust fan traps humidity and causes mold.",
+    "message_ar": "حمام بدون شفاط يحبس الرطوبة ويسبب العفن.",
+    "action": {
+      "add": "exhaust_fan"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_016",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "smartPointCount",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "equal",
+          "value": "economy"
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Smart points specified on an economy finish level — confirm budget alignment.",
+    "message_ar": "نقاط ذكية على مستوى تشطيب اقتصادي — تأكد من مطابقة الميزانية.",
+    "action": null,
+    "priority": 80,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_017",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "laundry",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "laundry"
+        },
+        {
+          "fact": "socketCount",
+          "operator": "lessThan",
+          "value": 3
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Laundry needs separate circuits for washer, dryer and iron.",
+    "message_ar": "غرفة الغسيل تحتاج دوائر منفصلة للغسالة والنشافة والمكواة.",
+    "action": {
+      "add": "socket",
+      "qty": 3
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_018",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 25
+        },
+        {
+          "fact": "socketCount",
+          "operator": "lessThan",
+          "value": 8
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Large room (>25 m²) with fewer than 8 sockets forces extension-cord use.",
+    "message_ar": "غرفة كبيرة (>25 م²) بأقل من 8 أفياش تجبر على استخدام الوصلات.",
+    "action": {
+      "formula": "ceil(area / 4)"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_019",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "master_bedroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "master_bedroom"
+        },
+        {
+          "fact": "usbPointCount",
+          "operator": "equal",
+          "value": 0
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Premium master bedrooms should have USB outlets at both bedsides.",
+    "message_ar": "غرف النوم الرئيسية الفاخرة يفضل أن تحتوي منافذ USB بجانبي السرير.",
+    "action": {
+      "add": "usb_point",
+      "qty": 2
+    },
+    "priority": 60,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_ELE_020",
+    "rule_type": "validation",
+    "domain": "electrical",
+    "room_type_code": "entrance",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "entrance"
+        },
+        {
+          "fact": "internetPointCount",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Entrance usually hosts the router/ONT cabinet — provide a data point and socket.",
+    "message_ar": "المدخل عادة يحتوي خزانة الراوتر — وفر نقطة إنترنت وفيش.",
+    "action": {
+      "add": "internet_point",
+      "qty": 1
+    },
+    "priority": 40,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_001",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "floorDrainCount",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Wet area without a floor drain floods the unit on any leak.",
+    "message_ar": "منطقة رطبة بدون صفاية أرضية ستغرق الوحدة عند أي تسريب.",
+    "action": {
+      "add": "floor_drain",
+      "qty": 1
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_002",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": "laundry",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "laundry"
+        },
+        {
+          "fact": "floorDrainCount",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Laundry without a floor drain — a burst washer hose discharges ~100 L unnoticed.",
+    "message_ar": "غرفة غسيل بدون صفاية — انفجار خرطوم الغسالة يصرف نحو 100 لتر دون ملاحظة.",
+    "action": {
+      "add": "floor_drain",
+      "qty": 1
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_003",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "hasWaterproofing",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Wet area without waterproofing will leak to the floor below.",
+    "message_ar": "منطقة رطبة بدون عزل مائي ستسرب إلى الطابق السفلي.",
+    "action": {
+      "require": "waterproofing"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_004",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "hasWaterproofing",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "waterproofUpstandCm",
+          "operator": "lessThan",
+          "value": 30
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Waterproofing upstand below 30 cm — water wicks behind tiles at the wall junction.",
+    "message_ar": "ارتفاع العزل أقل من 30 سم — الماء يتسرب خلف البلاط عند التقاء الجدار.",
+    "action": {
+      "set": "upstand_cm",
+      "min": 30
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_005",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": "bathroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "showerCount",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "waterproofUpstandCm",
+          "operator": "lessThan",
+          "value": 180
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Shower walls require waterproofing to 180 cm minimum.",
+    "message_ar": "جدران الدش تتطلب عزلاً حتى 180 سم كحد أدنى.",
+    "action": {
+      "set": "upstand_cm",
+      "min": 180,
+      "scope": "shower_wall"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_006",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "floorSlopePct",
+          "operator": "lessThan",
+          "value": 1
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Floor slope under 1% leaves standing water and stains grout.",
+    "message_ar": "ميل الأرضية أقل من 1% يترك مياهاً راكدة ويبقع الروبة.",
+    "action": {
+      "set": "floorSlopePct",
+      "min": 1.5
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_007",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "floorSlopePct",
+          "operator": "greaterThan",
+          "value": 3
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Floor slope above 3% is visibly tilted and unstable underfoot.",
+    "message_ar": "ميل الأرضية أكثر من 3% ملحوظ بصرياً وغير مريح.",
+    "action": {
+      "set": "floorSlopePct",
+      "max": 2
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_008",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "wcCount",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "hasShattaf",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "WC without a hand-spray (shattaf) point is unacceptable in this market.",
+    "message_ar": "كرسي بدون نقطة شطاف غير مقبول في هذا السوق.",
+    "action": {
+      "add": "shattaf_point"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_009",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "wcSideClearance",
+          "operator": "lessThan",
+          "value": 38
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "WC centerline under 38 cm from side wall violates minimum clearance.",
+    "message_ar": "محور الكرسي أقل من 38 سم من الجدار يخالف الحد الأدنى.",
+    "action": {
+      "set": "wcSideClearance",
+      "min": 38,
+      "recommended": 45
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_010",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "wcFrontClearance",
+          "operator": "lessThan",
+          "value": 60
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "WC needs 60 cm clear space in front.",
+    "message_ar": "الكرسي يحتاج 60 سم خلوص أمامي.",
+    "action": {
+      "set": "wcFrontClearance",
+      "min": 60
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_011",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "any": [
+        {
+          "fact": "showerWidthCm",
+          "operator": "lessThan",
+          "value": 80
+        },
+        {
+          "fact": "showerDepthCm",
+          "operator": "lessThan",
+          "value": 80
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Shower smaller than 80x80 cm is unusable for most adults.",
+    "message_ar": "دش أصغر من 80×80 سم غير عملي لمعظم البالغين.",
+    "action": {
+      "set": "shower_min_cm",
+      "value": 90
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_012",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "hasWaterHeater",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "hasHeaterDrainPan",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Water heater without a piped drain pan destroys the ceiling on first leak.",
+    "message_ar": "سخان بدون حوض تصريف موصول سيتلف السقف عند أول تسريب.",
+    "action": {
+      "require": "drain_pan_piped"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_013",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "hasWaterHeater",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "hasAccessPanel",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Concealed water heater without an access panel cannot be serviced.",
+    "message_ar": "سخان مخفي بدون فتحة صيانة لا يمكن صيانته.",
+    "action": {
+      "add": "access_panel",
+      "min_cm": "60x60"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_014",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "basinCount",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "hasHotSupply",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Basin without hot water supply.",
+    "message_ar": "مغسلة بدون تغذية ماء ساخن.",
+    "action": {
+      "add": "hot_supply"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_015",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": "bathroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "bathroom"
+        },
+        {
+          "fact": "area",
+          "operator": "greaterThan",
+          "value": 8
+        },
+        {
+          "fact": "basinCount",
+          "operator": "lessThan",
+          "value": 2
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Bathrooms over 8 m² attached to a master suite usually take a double vanity.",
+    "message_ar": "الحمامات أكبر من 8 م² الملحقة بالجناح الرئيسي عادة تستوعب مغسلتين.",
+    "action": {
+      "add": "basin",
+      "qty": 1
+    },
+    "priority": 60,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_016",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "wcCount",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "drainDiameterMm",
+          "operator": "lessThan",
+          "value": 110
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "WC drain smaller than 110 mm will block repeatedly.",
+    "message_ar": "صرف الكرسي أقل من 110 مم سينسد بشكل متكرر.",
+    "action": {
+      "set": "drainDiameterMm",
+      "min": 110
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_017",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "floorDrainCount",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Kitchens in this region are wet-cleaned — a floor drain is strongly recommended.",
+    "message_ar": "المطابخ في المنطقة تنظف بالماء — يوصى بشدة بصفاية أرضية.",
+    "action": {
+      "add": "floor_drain",
+      "qty": 1
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_018",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageCode",
+          "operator": "equal",
+          "value": "plb_supply_rough"
+        },
+        {
+          "fact": "pressureTestPassed",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Supply lines must not be covered before a passed pressure test.",
+    "message_ar": "لا يجوز تغطية مواسير التغذية قبل اجتياز اختبار الضغط.",
+    "action": {
+      "block": "stage_completion"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_019",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageCode",
+          "operator": "equal",
+          "value": "flr_waterproof"
+        },
+        {
+          "fact": "floodTestPassed",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Waterproofing must not be covered before a passed 48-hour flood test.",
+    "message_ar": "لا يجوز تغطية العزل المائي قبل اجتياز اختبار الغمر 48 ساعة.",
+    "action": {
+      "block": "stage_completion"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PLB_020",
+    "rule_type": "validation",
+    "domain": "plumbing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "hasAccessPanel",
+          "operator": "equal",
+          "value": false
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "in",
+          "value": ["premium", "luxury"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Concealed valves without an access panel make future repairs destructive.",
+    "message_ar": "محابس مخفية بدون فتحة صيانة تجعل الإصلاح المستقبلي تكسيراً.",
+    "action": {
+      "add": "access_panel"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_001",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "circulationWidth",
+          "operator": "lessThan",
+          "value": 75
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Circulation path under 75 cm is impassable for a single person carrying anything.",
+    "message_ar": "ممر الحركة أقل من 75 سم لا يسمح بالمرور أثناء حمل الأغراض.",
+    "action": {
+      "set": "circulationWidth",
+      "min": 75
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_002",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "circulationWidth",
+          "operator": "lessThan",
+          "value": 90
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "majlis", "dining_room", "kitchen", "entrance", "corridor"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Main circulation in public rooms should be 90 cm minimum (105 cm for corridors).",
+    "message_ar": "ممرات الحركة في الغرف العامة يجب ألا تقل عن 90 سم.",
+    "action": {
+      "set": "circulationWidth",
+      "min": 90
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_003",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "bedSideClearance",
+          "operator": "lessThan",
+          "value": 55
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Bed side clearance under 55 cm prevents making the bed and getting in.",
+    "message_ar": "خلوص جانب السرير أقل من 55 سم يمنع ترتيب السرير والدخول إليه.",
+    "action": {
+      "set": "bedSideClearance",
+      "min": 60
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_004",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "master_bedroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "master_bedroom"
+        },
+        {
+          "fact": "bedSideClearance",
+          "operator": "lessThan",
+          "value": 60
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Master bedroom should have 60-75 cm on both sides of the bed.",
+    "message_ar": "غرفة النوم الرئيسية يجب أن توفر 60-75 سم على جانبي السرير.",
+    "action": {
+      "set": "bedSideClearance",
+      "min": 60,
+      "recommended": 75
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_005",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "bedFootClearance",
+          "operator": "lessThan",
+          "value": 75
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Under 75 cm at the foot of the bed makes the room feel cramped.",
+    "message_ar": "أقل من 75 سم عند نهاية السرير يجعل الغرفة ضيقة.",
+    "action": {
+      "set": "bedFootClearance",
+      "min": 90
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_006",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "master_bedroom",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "master_bedroom"
+        },
+        {
+          "fact": "bedSize",
+          "operator": "equal",
+          "value": "king"
+        },
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 14
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "A king bed does not fit a master bedroom under 14 m² with usable clearances.",
+    "message_ar": "سرير كينج لا يناسب غرفة رئيسية أقل من 14 م² مع خلوصات صالحة.",
+    "action": {
+      "downgrade": "bedSize",
+      "to": "queen"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_007",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "wardrobeClearance",
+          "operator": "lessThan",
+          "value": 60
+        },
+        {
+          "fact": "wardrobeWidthCm",
+          "operator": "greaterThan",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Hinged wardrobe doors need 60 cm of clear swing — use sliding doors below that.",
+    "message_ar": "أبواب الدولاب المفصلية تحتاج 60 سم خلوص — استخدم أبواباً منزلقة إن قل.",
+    "action": {
+      "switch": "sliding_doors"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_008",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "dining_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dining_room"
+        },
+        {
+          "fact": "tableToWallCm",
+          "operator": "lessThan",
+          "value": 90
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Under 90 cm from table edge to wall, chairs cannot be pulled out.",
+    "message_ar": "أقل من 90 سم بين حافة الطاولة والجدار لا يسمح بسحب الكراسي.",
+    "action": {
+      "set": "tableToWallCm",
+      "min": 90,
+      "with_walkway": 120
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_009",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["living_room", "family_room", "majlis"]
+        },
+        {
+          "fact": "sofaToTableCm",
+          "operator": "lessThan",
+          "value": 35
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Under 35 cm between sofa and coffee table restricts leg room.",
+    "message_ar": "أقل من 35 سم بين الكنبة وطاولة الوسط يقيد مساحة الأرجل.",
+    "action": {
+      "set": "sofaToTableCm",
+      "min": 45
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_010",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "sofaToTableCm",
+          "operator": "greaterThan",
+          "value": 60
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Over 60 cm to the coffee table puts it out of comfortable reach.",
+    "message_ar": "أكثر من 60 سم إلى طاولة الوسط يجعلها بعيدة عن متناول اليد.",
+    "action": {
+      "set": "sofaToTableCm",
+      "max": 45
+    },
+    "priority": 60,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_011",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "furnitureAreaRatio",
+          "operator": "greaterThan",
+          "value": 0.6
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Furniture occupies over 60% of floor area — the room will feel overcrowded.",
+    "message_ar": "الأثاث يشغل أكثر من 60% من مساحة الأرضية — الغرفة ستبدو مزدحمة.",
+    "action": {
+      "reduce": "furniture"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_012",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "tvSizeInch",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "tvViewingDistanceM",
+          "operator": "lessThan",
+          "value": 2
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Viewing distance under 2 m is too close for typical TV sizes.",
+    "message_ar": "مسافة المشاهدة أقل من 2 م قريبة جداً لمقاسات التلفاز الشائعة.",
+    "action": {
+      "formula": "tvSizeInch * 0.0254 * 2"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_013",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "office",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "office"
+        },
+        {
+          "fact": "deskClearance",
+          "operator": "lessThan",
+          "value": 75
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Desk chair needs 75 cm behind the desk edge; 120 cm if someone passes behind.",
+    "message_ar": "كرسي المكتب يحتاج 75 سم خلف حافة المكتب، و120 سم إن كان هناك ممر خلفه.",
+    "action": {
+      "set": "deskClearance",
+      "min": 75
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_014",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        },
+        {
+          "fact": "circulationWidth",
+          "operator": "lessThan",
+          "value": 90
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Kids rooms need 90 cm of play circulation, not the 75 cm adult minimum.",
+    "message_ar": "غرف الأطفال تحتاج 90 سم ممر للعب وليس 75 سم كالبالغين.",
+    "action": {
+      "set": "circulationWidth",
+      "min": 90
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_015",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "majlis",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "majlis"
+        },
+        {
+          "fact": "seatCount",
+          "operator": "lessThan",
+          "value": 8
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "A majlis is expected to seat at least 8 — verify against the client brief.",
+    "message_ar": "المجلس يتوقع أن يستوعب 8 مقاعد على الأقل — تحقق من متطلبات العميل.",
+    "action": {
+      "add": "seating"
+    },
+    "priority": 60,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_016",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom", "kids_room", "guest_room"]
+        },
+        {
+          "fact": "wardrobeWidthCm",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Bedroom without wardrobe provision.",
+    "message_ar": "غرفة نوم بدون دولاب ملابس.",
+    "action": {
+      "add": "wardrobe"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_017",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "dining_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "dining_room"
+        },
+        {
+          "fact": "seatCount",
+          "operator": "greaterThan",
+          "value": 6
+        },
+        {
+          "fact": "width",
+          "operator": "lessThan",
+          "value": 3.6
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "An 8-seat table needs a room at least 3.6 m wide.",
+    "message_ar": "طاولة 8 مقاعد تحتاج غرفة بعرض 3.6 م على الأقل.",
+    "action": {
+      "downgrade": "seatCount",
+      "to": 6
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_018",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        },
+        {
+          "fact": "bedSize",
+          "operator": "equal",
+          "value": "bunk"
+        },
+        {
+          "fact": "ceilingHeight",
+          "operator": "lessThan",
+          "value": 2.7
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Bunk beds need 2.7 m ceiling height for safe top-bunk clearance.",
+    "message_ar": "السرير الطابقي يحتاج ارتفاع سقف 2.7 م لخلوص آمن للطابق العلوي.",
+    "action": {
+      "downgrade": "bedSize",
+      "to": "single"
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_019",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": "living_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "living_room"
+        },
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 16
+        },
+        {
+          "fact": "seatCount",
+          "operator": "greaterThan",
+          "value": 6
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Seating for more than 6 in a living room under 16 m² blocks circulation.",
+    "message_ar": "أكثر من 6 مقاعد في غرفة معيشة أقل من 16 م² يعيق الحركة.",
+    "action": {
+      "reduce": "seatCount"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FUR_020",
+    "rule_type": "validation",
+    "domain": "furniture",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "width",
+          "operator": "lessThan",
+          "value": 2.4
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom", "kids_room", "guest_room"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "A bedroom under 2.4 m wide cannot take a bed plus circulation on both sides.",
+    "message_ar": "غرفة نوم بعرض أقل من 2.4 م لا تستوعب سريراً مع حركة على الجانبين.",
+    "action": null,
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_001",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "flooringWetSuitable",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Selected flooring is not rated for wet areas.",
+    "message_ar": "الأرضية المختارة غير مناسبة للمناطق الرطبة.",
+    "action": {
+      "replace": "flooring",
+      "with_category": ["porcelain", "ceramic"]
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_002",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "flooringCategory",
+          "operator": "in",
+          "value": ["wood"]
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Wood flooring in a wet area will swell and delaminate.",
+    "message_ar": "الأرضيات الخشبية في المناطق الرطبة ستنتفخ وتتلف.",
+    "action": {
+      "replace": "flooring",
+      "with_category": ["porcelain"]
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_003",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "hasAntiSlip",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Wet-area floors require an anti-slip rating (R10 minimum, R11 in showers).",
+    "message_ar": "أرضيات المناطق الرطبة تتطلب تصنيف مقاومة انزلاق (R10 كحد أدنى).",
+    "action": {
+      "require": "anti_slip_r10"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_004",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "ceilingMoistureResistant",
+          "operator": "equal",
+          "value": false
+        },
+        {
+          "fact": "ceilingCategory",
+          "operator": "equal",
+          "value": "gypsum"
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Wet areas need moisture-resistant (green) gypsum board.",
+    "message_ar": "المناطق الرطبة تحتاج ألواح جبس مقاومة للرطوبة (خضراء).",
+    "action": {
+      "replace": "ceiling_board",
+      "with": "mr_gypsum"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_005",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "doorCategory",
+          "operator": "in",
+          "value": ["mdf", "hdf", "wood_solid"]
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Wood-based doors in wet areas swell and delaminate — use WPC or aluminum.",
+    "message_ar": "الأبواب الخشبية في المناطق الرطبة تنتفخ — استخدم WPC أو ألمنيوم.",
+    "action": {
+      "replace": "door",
+      "with_category": ["wpc", "aluminum"]
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_006",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        },
+        {
+          "fact": "paintWashable",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Wet areas need anti-mold, washable paint above the tile line.",
+    "message_ar": "المناطق الرطبة تحتاج دهاناً مقاوماً للعفن وقابلاً للغسيل فوق خط البلاط.",
+    "action": {
+      "replace": "paint",
+      "with": "pnt_bathroom"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_007",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": "kids_room",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kids_room"
+        },
+        {
+          "fact": "paintWashable",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Kids rooms need scrubbable paint — matt emulsion cannot survive cleaning.",
+    "message_ar": "غرف الأطفال تحتاج دهاناً قابلاً للفرك — المطفي لا يتحمل التنظيف.",
+    "action": {
+      "replace": "paint",
+      "with": "pnt_kids_washable"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_008",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["corridor", "entrance", "living_room"]
+        },
+        {
+          "fact": "materialDurability",
+          "operator": "in",
+          "value": ["low", "medium"]
+        },
+        {
+          "fact": "flooringCategory",
+          "operator": "notIn",
+          "value": ["porcelain", "natural_stone"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "High-traffic areas need high-durability flooring.",
+    "message_ar": "المناطق عالية الحركة تحتاج أرضيات عالية المتانة.",
+    "action": {
+      "upgrade": "flooring",
+      "min_durability": "high"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_009",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "materialCostCategory",
+          "operator": "equal",
+          "value": "luxury"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "equal",
+          "value": "economy"
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Luxury material specified on an economy-tier project — budget mismatch.",
+    "message_ar": "مادة فاخرة على مشروع بمستوى اقتصادي — تعارض مع الميزانية.",
+    "action": {
+      "review": "budget"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_010",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "materialCostCategory",
+          "operator": "equal",
+          "value": "economy"
+        },
+        {
+          "fact": "finishLevel",
+          "operator": "equal",
+          "value": "luxury"
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Economy material on a luxury-tier project undercuts the delivered quality.",
+    "message_ar": "مادة اقتصادية على مشروع فاخر تقلل من جودة التسليم.",
+    "action": {
+      "upgrade": "material"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_011",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "tileSizeCm",
+          "operator": "greaterThanInclusive",
+          "value": 80
+        },
+        {
+          "fact": "area",
+          "operator": "lessThan",
+          "value": 8
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Large-format tiles in a small room produce heavy cutting waste and awkward cuts.",
+    "message_ar": "البلاط كبير المقاس في غرفة صغيرة ينتج هالكاً كبيراً وقصات غير متناسقة.",
+    "action": {
+      "reduce": "tileSizeCm",
+      "to": 60
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_012",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "maintenanceLevel",
+          "operator": "equal",
+          "value": "high"
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["kitchen", "bathroom", "corridor", "entrance"]
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "High-maintenance material in a heavy-use room — confirm the client accepts the upkeep.",
+    "message_ar": "مادة عالية الصيانة في غرفة كثيفة الاستخدام — تأكد من قبول العميل لمتطلبات الصيانة.",
+    "action": null,
+    "priority": 60,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_013",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": "kitchen",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        },
+        {
+          "fact": "flooringCategory",
+          "operator": "in",
+          "value": ["wood", "vinyl"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Kitchens expose flooring to heat, grease and standing water — porcelain is the safe choice.",
+    "message_ar": "المطابخ تعرض الأرضيات للحرارة والدهون والماء — البورسلان هو الخيار الآمن.",
+    "action": {
+      "replace": "flooring",
+      "with_category": ["porcelain"]
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_014",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "flooringCategory",
+          "operator": "equal",
+          "value": "natural_stone"
+        },
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "kitchen"
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Marble in kitchens etches permanently from lemon, vinegar and cleaners.",
+    "message_ar": "الرخام في المطابخ يتأثر بشكل دائم بالليمون والخل والمنظفات.",
+    "action": {
+      "replace": "flooring",
+      "with": "flr_granite"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_015",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "ceilingCategory",
+          "operator": "equal",
+          "value": "gypsum"
+        },
+        {
+          "fact": "hasAccessPanel",
+          "operator": "equal",
+          "value": false
+        },
+        {
+          "fact": "hasWaterHeater",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Gypsum ceiling sealed over a water heater — no service access.",
+    "message_ar": "سقف جبس مغلق فوق سخان — لا يوجد وصول للصيانة.",
+    "action": {
+      "add": "access_panel"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_016",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "ceilingHeight",
+          "operator": "lessThan",
+          "value": 2.7
+        },
+        {
+          "fact": "ceilingCategory",
+          "operator": "equal",
+          "value": "gypsum"
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Ceiling under 2.7 m — a dropped gypsum ceiling will feel oppressive; limit to perimeter coves.",
+    "message_ar": "ارتفاع أقل من 2.7 م — السقف الجبسي الكامل سيبدو خانقاً؛ اقتصر على الكرانيش المحيطية.",
+    "action": {
+      "limit": "ceiling_drop_cm",
+      "max": 12
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_017",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": "balcony",
+    "conditions": {
+      "all": [
+        {
+          "fact": "roomType",
+          "operator": "equal",
+          "value": "balcony"
+        },
+        {
+          "fact": "flooringCategory",
+          "operator": "in",
+          "value": ["wood", "vinyl", "epoxy"]
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Balcony flooring must be UV and freeze/heat stable — use porcelain or granite.",
+    "message_ar": "أرضية الشرفة يجب أن تقاوم الأشعة والحرارة — استخدم بورسلان أو جرانيت.",
+    "action": {
+      "replace": "flooring",
+      "with_category": ["porcelain", "natural_stone"]
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_018",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "paintCategory",
+          "operator": "equal",
+          "value": "texture"
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["kids_room", "kitchen", "bathroom"]
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Textured paint collects dust and cannot be cleaned in high-use rooms.",
+    "message_ar": "الدهان الديكوري المحبب يجمع الغبار ولا يمكن تنظيفه في الغرف كثيفة الاستخدام.",
+    "action": {
+      "replace": "paint",
+      "with": "pnt_washable"
+    },
+    "priority": 30,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_019",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageCode",
+          "operator": "equal",
+          "value": "pnt_putty"
+        },
+        {
+          "fact": "moistureContentPct",
+          "operator": "greaterThanInclusive",
+          "value": 12
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Substrate moisture at or above 12% — paint applied now will blister and peel.",
+    "message_ar": "رطوبة السطح 12% أو أكثر — الدهان الآن سينتفخ ويتقشر.",
+    "action": {
+      "block": "stage_start",
+      "wait": "curing"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_FIN_020",
+    "rule_type": "validation",
+    "domain": "finishing",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "flooringCategory",
+          "operator": "equal",
+          "value": "epoxy"
+        },
+        {
+          "fact": "roomType",
+          "operator": "in",
+          "value": ["master_bedroom", "bedroom", "kids_room", "majlis"]
+        }
+      ]
+    },
+    "severity": "info",
+    "message_en": "Epoxy floors in bedrooms and reception rooms read as industrial and feel cold.",
+    "message_ar": "الأرضيات الإيبوكسية في غرف النوم والاستقبال تبدو صناعية وباردة.",
+    "action": null,
+    "priority": 60,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_001",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageProgressPct",
+          "operator": "greaterThanInclusive",
+          "value": 100
+        },
+        {
+          "fact": "checklistCompletePct",
+          "operator": "lessThan",
+          "value": 100
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Stage marked complete with an unfinished checklist.",
+    "message_ar": "تم وضع المرحلة كمكتملة مع قائمة فحص غير مكتملة.",
+    "action": {
+      "block": "stage_completion"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_002",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageProgressPct",
+          "operator": "greaterThanInclusive",
+          "value": 100
+        },
+        {
+          "fact": "photoCount",
+          "operator": "equal",
+          "value": 0
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Stage completed with no photographic evidence.",
+    "message_ar": "مرحلة مكتملة بدون صور توثيقية.",
+    "action": {
+      "block": "stage_completion",
+      "require": "photos"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_003",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageProgressPct",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "dependenciesComplete",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Stage started before its dependencies are complete — rework risk.",
+    "message_ar": "بدأت المرحلة قبل اكتمال المراحل التي تعتمد عليها — خطر إعادة العمل.",
+    "action": {
+      "warn": "sequence_violation"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_004",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageProgressPct",
+          "operator": "greaterThanInclusive",
+          "value": 100
+        },
+        {
+          "fact": "inspectionPassed",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Stage completed without a passed inspection.",
+    "message_ar": "مرحلة مكتملة بدون اجتياز الفحص.",
+    "action": {
+      "block": "stage_completion"
+    },
+    "priority": 5,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_005",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageProgressPct",
+          "operator": "greaterThan",
+          "value": 0
+        },
+        {
+          "fact": "stageProgressPct",
+          "operator": "lessThan",
+          "value": 100
+        },
+        {
+          "fact": "daysSinceLastUpdate",
+          "operator": "greaterThan",
+          "value": 7
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "In-progress stage with no update for over 7 days — likely stalled.",
+    "message_ar": "مرحلة قيد التنفيذ بدون تحديث لأكثر من 7 أيام — يرجح توقفها.",
+    "action": {
+      "notify": "project_manager"
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_006",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageCode",
+          "operator": "equal",
+          "value": "gyp_framing"
+        },
+        {
+          "fact": "pressureTestPassed",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Ceiling framing started before MEP pressure testing — services become inaccessible.",
+    "message_ar": "بدأ هيكل السقف قبل اختبار ضغط الميكانيكا — الخدمات ستصبح غير قابلة للوصول.",
+    "action": {
+      "block": "stage_start"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_007",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageCode",
+          "operator": "equal",
+          "value": "flr_tiling"
+        },
+        {
+          "fact": "floodTestPassed",
+          "operator": "equal",
+          "value": false
+        },
+        {
+          "fact": "isWetArea",
+          "operator": "equal",
+          "value": true
+        }
+      ]
+    },
+    "severity": "critical",
+    "message_en": "Tiling a wet area before a passed flood test risks full demolition later.",
+    "message_ar": "تبليط منطقة رطبة قبل اجتياز اختبار الغمر يعرض لتكسير كامل لاحقاً.",
+    "action": {
+      "block": "stage_start"
+    },
+    "priority": 1,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_008",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "daysSinceLastUpdate",
+          "operator": "greaterThan",
+          "value": 14
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "No progress update on this unit for over two weeks.",
+    "message_ar": "لا يوجد تحديث لهذه الوحدة منذ أكثر من أسبوعين.",
+    "action": {
+      "notify": "project_manager",
+      "escalate": true
+    },
+    "priority": 10,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_009",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "stageCode",
+          "operator": "equal",
+          "value": "pnt_final"
+        },
+        {
+          "fact": "dependenciesComplete",
+          "operator": "equal",
+          "value": false
+        }
+      ]
+    },
+    "severity": "warning",
+    "message_en": "Final paint before carpentry and flooring finish guarantees touch-up rework.",
+    "message_ar": "الوجه الأخير قبل انتهاء النجارة والأرضيات يضمن إعادة عمل اللمسات.",
+    "action": {
+      "resequence": true
+    },
+    "priority": 20,
+    "is_active": 1
+  },
+  {
+    "code": "VAL_PRG_010",
+    "rule_type": "validation",
+    "domain": "progress",
+    "room_type_code": null,
+    "conditions": {
+      "all": [
+        {
+          "fact": "photoCount",
+          "operator": "lessThan",
+          "value": 4
+        },
+        {
+          "fact": "stageProgressPct",
+          "operator": "greaterThanInclusive",
+          "value": 100
+        },
+        {
+          "fact": "stageCode",
+          "operator": "in",
+          "value": [
+            "plb_drain_rough",
+            "plb_supply_rough",
+            "ele_conduits",
+            "ele_wiring",
+            "flr_waterproof"
+          ]
+        }
+      ]
+    },
+    "severity": "error",
+    "message_en": "Concealed work requires at least 4 photos before it is covered.",
+    "message_ar": "الأعمال المخفية تتطلب 4 صور على الأقل قبل التغطية.",
+    "action": {
+      "require": "photos",
+      "min": 4
+    },
+    "priority": 5,
+    "is_active": 1
+  }
+]

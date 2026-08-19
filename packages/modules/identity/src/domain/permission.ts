@@ -91,6 +91,11 @@ export const PERMISSIONS = [
   'company.manage_billing',
   'ai.use',
   'ai.view_usage',
+  // AI knowledge base. `view` is what the room-review screen needs; `manage`
+  // is what lets a business user retune the rules the engine enforces, which
+  // is a far heavier act — see DANGEROUS_PERMISSIONS below.
+  'knowledge.view',
+  'knowledge.manage',
 ] as const
 
 export type Permission = (typeof PERMISSIONS)[number]
@@ -112,6 +117,13 @@ export const DANGEROUS_PERMISSIONS: ReadonlySet<Permission> = new Set([
   'material.adjust_stock',
   'user.manage_roles',
   'company.manage_billing',
+  /**
+   * Disabling a rule silences a safety check for every room in the tenant, and
+   * the effect is invisible: the review screen simply stops mentioning it. That
+   * is a quieter failure than deleting a record, which is exactly why it needs
+   * the second reviewer and the stated reason.
+   */
+  'knowledge.manage',
 ])
 
 /**
@@ -166,6 +178,7 @@ export const SYSTEM_ROLES: Readonly<Record<string, readonly Permission[]>> = {
     'report.run',
     'report.export',
     'ai.use',
+    'knowledge.view',
   ],
 
   /**
@@ -205,6 +218,13 @@ export const SYSTEM_ROLES: Readonly<Record<string, readonly Permission[]>> = {
     'document.upload',
     'document.download',
     'ai.use',
+    /**
+     * Read, not manage. The designer is the person most likely to know a rule
+     * is wrong, and least likely to be the person who should silence it for the
+     * whole company without review. Tenants that want that hand it over — the
+     * roles are configurable, which is the point of the catalogue.
+     */
+    'knowledge.view',
   ],
 
   procurement_officer: [

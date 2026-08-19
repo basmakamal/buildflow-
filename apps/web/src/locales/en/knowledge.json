@@ -1,0 +1,80 @@
+{
+  "title": "Room review",
+  "subtitle": "Rooms checked against execution standards",
+  "noRooms": "This unit has no rooms yet",
+  "roomsAnalyzed": "Checked {done} of {total} rooms",
+  "clean": "Nothing flagged for this room",
+  "notCovered": "No standards exist for this room type",
+  "failed": "This room could not be checked",
+  "severity": {
+    "critical": "Critical",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "suggestion": "Suggestion"
+  },
+  "domain": {
+    "lighting": "Lighting",
+    "electrical": "Electrical",
+    "plumbing": "Plumbing",
+    "furniture": "Furniture",
+    "finishing": "Finishing",
+    "progress": "Progress",
+    "estimation": "Estimation",
+    "general": "General"
+  },
+  "coverage": {
+    "label": "Coverage",
+    "evaluated": "{count} rules applied",
+    "skipped": "{count} rules skipped",
+    "why": "Rules that could not run for lack of data",
+    "unlock": "Add {fact} to unlock {count} more rules",
+    "complete": "Every available rule ran against this room"
+  },
+  "filters": {
+    "all": "All",
+    "validationOnly": "Warnings only",
+    "recommendationOnly": "Suggestions only"
+  },
+  "summary": {
+    "title": "Unit summary",
+    "issues": "no findings | 1 finding | {count} findings",
+    "none": "No findings"
+  },
+  "area": "Area",
+  "dimensions": "Dimensions",
+  "recheck": "Re-check",
+  "back": "Back to unit",
+  "admin": {
+    "title": "Rule library",
+    "subtitle": "Tune what the engine checks, without a developer",
+    "search": "Search rules",
+    "empty": "No rules match",
+    "count": "{shown} of {total} rules",
+    "source": {
+      "system": "Shipped",
+      "tenant_override": "Edited",
+      "tenant_custom": "Yours"
+    },
+    "disabled": "Disabled",
+    "actions": {
+      "disable": "Disable",
+      "enable": "Enable",
+      "edit": "Edit",
+      "revert": "Reset to shipped",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "fields": {
+      "severity": "Severity",
+      "priority": "Priority",
+      "messageEn": "Message (English)",
+      "messageAr": "Message (Arabic)"
+    },
+    "revertConfirm": "Reset this rule to the shipped version and discard your changes?",
+    "disableWarning": "Disabling stops this check running on every room in the company.",
+    "saved": "Saved",
+    "saveFailed": "Could not save",
+    "readOnly": "You can view rules but not change them"
+  }
+}
