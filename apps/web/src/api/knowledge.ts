@@ -99,3 +99,60 @@ export function tallySeverities(lists: readonly (readonly Finding[])[]): Record<
   }
   return counts
 }
+
+// ─── Rule administration ─────────────────────────────────────────────────────
+
+export interface EffectiveRule {
+  code: string
+  ruleType: RuleType
+  domain: string
+  roomTypeCode: string | null
+  conditions: unknown
+  severity: Severity
+  messageEn: string
+  messageAr: string
+  action: Record<string, unknown> | null
+  priority: number
+  /** Where the rule's current shape came from. */
+  source: 'system' | 'tenant_override' | 'tenant_custom'
+  /** A system rule this tenant has suppressed. Still listed, so it can return. */
+  disabled: boolean
+}
+
+export interface FactDefinition {
+  factCode: string
+  dataType: 'number' | 'string' | 'boolean' | 'enum'
+  allowedValues: string[] | null
+}
+
+export interface Vocabulary {
+  facts: FactDefinition[]
+  roomTypeCodes: string[]
+}
+
+/** Only the fields the panel edits; omitted ones inherit from the system rule. */
+export interface RuleOverridePayload {
+  isDisabled?: boolean
+  severity?: Severity
+  messageEn?: string
+  messageAr?: string
+  priority?: number
+}
+
+export const fetchRules = (): Promise<ApiResult<{ data: EffectiveRule[] }>> =>
+  request<{ data: EffectiveRule[] }>('/knowledge/rules')
+
+export const fetchVocabulary = (): Promise<ApiResult<Vocabulary>> =>
+  request<Vocabulary>('/knowledge/vocabulary')
+
+export const saveOverride = (
+  code: string,
+  payload: RuleOverridePayload,
+): Promise<ApiResult<{ code: string }>> =>
+  request<{ code: string }>(`/knowledge/rules/${code}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  })
+
+export const revertOverride = (code: string): Promise<ApiResult<{ reverted: boolean }>> =>
+  request<{ reverted: boolean }>(`/knowledge/rules/${code}`, { method: 'DELETE' })
