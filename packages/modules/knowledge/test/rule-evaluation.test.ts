@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  type Facts,
-  type Rule,
-  evaluate,
-  parseCondition,
-} from '../src/domain/rule'
+import { type Facts, type Rule, evaluate, parseCondition } from '../src/domain/rule'
 import { ROOM_TYPE_TO_KB, deriveRoomFacts, mergeFacts } from '../src/domain/room-facts'
 
 const rule = (over: Partial<Rule> & Pick<Rule, 'code' | 'conditions'>): Rule => ({
@@ -130,7 +125,9 @@ describe('evaluate', () => {
   })
 
   it('orders findings by severity, then priority, then code', () => {
-    const always: Rule['conditions'] = { all: [{ fact: 'area', operator: 'greaterThan', value: 1 }] }
+    const always: Rule['conditions'] = {
+      all: [{ fact: 'area', operator: 'greaterThan', value: 1 }],
+    }
     const rules = [
       rule({ code: 'C', conditions: always, severity: 'suggestion' }),
       rule({ code: 'A', conditions: always, severity: 'critical' }),
@@ -141,12 +138,16 @@ describe('evaluate', () => {
   })
 
   it('filters by domain and rule type', () => {
-    const always: Rule['conditions'] = { all: [{ fact: 'area', operator: 'greaterThan', value: 1 }] }
+    const always: Rule['conditions'] = {
+      all: [{ fact: 'area', operator: 'greaterThan', value: 1 }],
+    }
     const rules = [
       rule({ code: 'L', conditions: always, domain: 'lighting', ruleType: 'validation' }),
       rule({ code: 'E', conditions: always, domain: 'electrical', ruleType: 'recommendation' }),
     ]
-    expect(evaluate(rules, { area: 5 }, { domains: ['lighting'] }).findings.map((f) => f.code)).toEqual(['L'])
+    expect(
+      evaluate(rules, { area: 5 }, { domains: ['lighting'] }).findings.map((f) => f.code),
+    ).toEqual(['L'])
     expect(
       evaluate(rules, { area: 5 }, { ruleTypes: ['recommendation'] }).findings.map((f) => f.code),
     ).toEqual(['E'])
@@ -155,7 +156,9 @@ describe('evaluate', () => {
   it('counts only the rules a filter actually let through', () => {
     // `total - skipped` would report 2 evaluated here and overstate coverage
     // exactly when the caller narrowed the request.
-    const always: Rule['conditions'] = { all: [{ fact: 'area', operator: 'greaterThan', value: 1 }] }
+    const always: Rule['conditions'] = {
+      all: [{ fact: 'area', operator: 'greaterThan', value: 1 }],
+    }
     const rules = [
       rule({ code: 'L', conditions: always, domain: 'lighting' }),
       rule({ code: 'E', conditions: always, domain: 'electrical' }),
@@ -210,7 +213,9 @@ describe('parseCondition', () => {
   })
 
   it('rejects in/notIn without an array value', () => {
-    expect(parseCondition({ fact: 'roomType', operator: 'in', value: 'kitchen' }).isErr()).toBe(true)
+    expect(parseCondition({ fact: 'roomType', operator: 'in', value: 'kitchen' }).isErr()).toBe(
+      true,
+    )
   })
 
   it('rejects an empty branch', () => {
@@ -247,28 +252,55 @@ describe('deriveRoomFacts', () => {
   })
 
   it('normalises width to the shorter side regardless of input order', () => {
-    const wide = deriveRoomFacts({ typeCode: 'bedroom', widthMm: 5000, lengthMm: 3000, heightMm: 3000 })
-    const tall = deriveRoomFacts({ typeCode: 'bedroom', widthMm: 3000, lengthMm: 5000, heightMm: 3000 })
+    const wide = deriveRoomFacts({
+      typeCode: 'bedroom',
+      widthMm: 5000,
+      lengthMm: 3000,
+      heightMm: 3000,
+    })
+    const tall = deriveRoomFacts({
+      typeCode: 'bedroom',
+      widthMm: 3000,
+      lengthMm: 5000,
+      heightMm: 3000,
+    })
     expect(wide.facts).toEqual(tall.facts)
     expect(wide.facts?.['width']).toBe(3)
   })
 
   it('flags wet areas', () => {
     for (const type of ['bathroom', 'guest_bathroom', 'kitchen', 'laundry']) {
-      const { facts } = deriveRoomFacts({ typeCode: type, widthMm: 2000, lengthMm: 2500, heightMm: 2800 })
+      const { facts } = deriveRoomFacts({
+        typeCode: type,
+        widthMm: 2000,
+        lengthMm: 2500,
+        heightMm: 2800,
+      })
       expect(facts?.['isWetArea'], type).toBe(true)
     }
-    const { facts } = deriveRoomFacts({ typeCode: 'bedroom', widthMm: 3000, lengthMm: 4000, heightMm: 2800 })
+    const { facts } = deriveRoomFacts({
+      typeCode: 'bedroom',
+      widthMm: 3000,
+      lengthMm: 4000,
+      heightMm: 2800,
+    })
     expect(facts?.['isWetArea']).toBe(false)
   })
 
   it('maps reception onto the majlis standards', () => {
-    expect(deriveRoomFacts({ typeCode: 'reception', widthMm: 5000, lengthMm: 6000, heightMm: 3000 }).kbRoomCode)
-      .toBe('majlis')
+    expect(
+      deriveRoomFacts({ typeCode: 'reception', widthMm: 5000, lengthMm: 6000, heightMm: 3000 })
+        .kbRoomCode,
+    ).toBe('majlis')
   })
 
   it('reports no coverage for an unmappable room type', () => {
-    const result = deriveRoomFacts({ typeCode: 'other', widthMm: 3000, lengthMm: 3000, heightMm: 3000 })
+    const result = deriveRoomFacts({
+      typeCode: 'other',
+      widthMm: 3000,
+      lengthMm: 3000,
+      heightMm: 3000,
+    })
     expect(result.facts).toBeNull()
     expect(result.kbRoomCode).toBeNull()
   })
@@ -280,9 +312,23 @@ describe('deriveRoomFacts', () => {
    */
   it('has an entry for every project-domain room type', () => {
     const domainRoomTypes = [
-      'bedroom', 'master_bedroom', 'bathroom', 'guest_bathroom', 'kitchen',
-      'living_room', 'dining_room', 'reception', 'majlis', 'balcony', 'laundry',
-      'storage', 'corridor', 'staircase', 'maid_room', 'driver_room', 'other',
+      'bedroom',
+      'master_bedroom',
+      'bathroom',
+      'guest_bathroom',
+      'kitchen',
+      'living_room',
+      'dining_room',
+      'reception',
+      'majlis',
+      'balcony',
+      'laundry',
+      'storage',
+      'corridor',
+      'staircase',
+      'maid_room',
+      'driver_room',
+      'other',
     ]
     for (const type of domainRoomTypes) {
       expect(Object.hasOwn(ROOM_TYPE_TO_KB, type), `no mapping for "${type}"`).toBe(true)
@@ -309,5 +355,65 @@ describe('mergeFacts', () => {
       roomType: 'bathroom',
       isWetArea: true,
     })
+  })
+})
+
+describe('unit programme facts', () => {
+  it('carries finish level, unit type and occupants down to the room', () => {
+    const { facts } = deriveRoomFacts(
+      { typeCode: 'master_bedroom', widthMm: 4000, lengthMm: 5000, heightMm: 3000 },
+      { unitType: 'villa', finishLevel: 'luxury', occupantType: 'family' },
+    )
+    expect(facts?.['unitType']).toBe('villa')
+    expect(facts?.['finishLevel']).toBe('luxury')
+    expect(facts?.['occupantType']).toBe('family')
+  })
+
+  /**
+   * The distinction the nullable columns exist for. A rule asking
+   * `finishLevel === 'luxury'` must SKIP for a unit nobody has classified, not
+   * answer "no" — otherwise unrecorded data silently reads as a decision.
+   */
+  it('omits unrecorded programme facts rather than passing null', () => {
+    const { facts } = deriveRoomFacts(
+      { typeCode: 'bedroom', widthMm: 3000, lengthMm: 4000, heightMm: 3000 },
+      { unitType: null, finishLevel: null, occupantType: null },
+    )
+    expect('finishLevel' in (facts ?? {})).toBe(false)
+    expect('unitType' in (facts ?? {})).toBe(false)
+
+    const rules = [
+      rule({
+        code: 'LUX',
+        conditions: { all: [{ fact: 'finishLevel', operator: 'equal', value: 'luxury' }] },
+      }),
+    ]
+    const result = evaluate(rules, facts!)
+    expect(result.findings).toEqual([])
+    expect(result.skipped).toEqual([{ code: 'LUX', missingFact: 'finishLevel' }])
+  })
+
+  it('lets a recorded programme fact satisfy a rule', () => {
+    const { facts } = deriveRoomFacts(
+      { typeCode: 'bedroom', widthMm: 3000, lengthMm: 4000, heightMm: 3000 },
+      { finishLevel: 'luxury' },
+    )
+    const rules = [
+      rule({
+        code: 'LUX',
+        conditions: { all: [{ fact: 'finishLevel', operator: 'equal', value: 'luxury' }] },
+      }),
+    ]
+    expect(evaluate(rules, facts!).findings.map((f) => f.code)).toEqual(['LUX'])
+  })
+
+  it('never lets the programme shadow a derived room fact', () => {
+    // roomType and isWetArea describe the room as recorded, not the unit.
+    const { facts } = deriveRoomFacts(
+      { typeCode: 'bathroom', widthMm: 2000, lengthMm: 2000, heightMm: 2800 },
+      { unitType: 'villa' },
+    )
+    expect(facts?.['roomType']).toBe('bathroom')
+    expect(facts?.['isWetArea']).toBe(true)
   })
 })

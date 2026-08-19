@@ -9,7 +9,7 @@ import {
   type SkippedRule,
   evaluate,
 } from '../domain/rule'
-import { type RoomInput, deriveRoomFacts, mergeFacts } from '../domain/room-facts'
+import { type RoomInput, type UnitContext, deriveRoomFacts, mergeFacts } from '../domain/room-facts'
 
 /**
  * Analyses one room against the knowledge base.
@@ -24,6 +24,8 @@ import { type RoomInput, deriveRoomFacts, mergeFacts } from '../domain/room-fact
 
 export interface AnalyzeRoomCommand {
   room: RoomInput
+  /** Unit-level facts every room inherits — finish level, unit type, occupants. */
+  unit?: UnitContext
   /**
    * Caller-supplied facts overlaid on derived geometry. Lets a designer explore
    * "what if this room had 4 sockets" before the electrical model exists, and
@@ -61,7 +63,7 @@ export class AnalyzeRoomHandler {
   ) {}
 
   async handle(command: AnalyzeRoomCommand): Promise<Result<AnalyzeRoomResult, DomainError>> {
-    const derived = deriveRoomFacts(command.room)
+    const derived = deriveRoomFacts(command.room, command.unit ?? {})
     if (derived.facts === null || derived.kbRoomCode === null) {
       // Not an internal error — the caller asked about a room the knowledge
       // base has nothing to say about, and must be told so explicitly rather

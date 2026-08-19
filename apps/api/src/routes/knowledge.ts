@@ -28,11 +28,7 @@ import { problem, statusFor } from '../server'
  * correct permission — requiring `unit.update` would stop a client or a viewer
  * from seeing why a room was flagged.
  */
-export function registerKnowledgeRoutes(
-  app: FastifyInstance,
-  c: Container,
-  db: Database,
-): void {
+export function registerKnowledgeRoutes(app: FastifyInstance, c: Container, db: Database): void {
   const units = new PrismaUnitRepository(db)
 
   app.post<{
@@ -111,6 +107,9 @@ export function registerKnowledgeRoutes(
           lengthMm: room.lengthMm,
           heightMm: room.heightMm,
         },
+        // Inherited by every room in the unit; finishLevel alone is referenced
+        // by nineteen rule conditions.
+        unit: unit.programme,
         ...(request.body?.facts ? { supplied: request.body.facts } : {}),
         ...(request.body?.domains ? { domains: request.body.domains } : {}),
         ...(request.body?.ruleTypes ? { ruleTypes: request.body.ruleTypes } : {}),

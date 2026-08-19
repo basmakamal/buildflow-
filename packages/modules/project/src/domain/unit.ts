@@ -18,6 +18,45 @@ export type UnitStatus =
 
 export type HandoverCondition = 'red_brick' | 'semi_finished' | 'fully_finished_renovation'
 
+export const UNIT_TYPES = ['apartment', 'villa', 'duplex', 'studio', 'office'] as const
+export type UnitType = (typeof UNIT_TYPES)[number]
+
+export const FINISH_LEVELS = ['economy', 'standard', 'premium', 'luxury'] as const
+export type FinishLevel = (typeof FINISH_LEVELS)[number]
+
+export const OCCUPANT_TYPES = [
+  'family',
+  'couple',
+  'single',
+  'kids',
+  'elderly',
+  'staff',
+  'guest',
+] as const
+export type OccupantType = (typeof OCCUPANT_TYPES)[number]
+
+/**
+ * What the unit is for, as opposed to what shape it is.
+ *
+ * Grouped rather than three more positional constructor arguments, and
+ * nullable throughout: the AI engine must be able to tell "nobody has said"
+ * from "standard". Defaulting `finishLevel` would answer nineteen rule
+ * conditions with a guess, and those rules would then fire — or stay quiet —
+ * on data no one supplied. Absent means the rule skips and the review screen
+ * names the fact that would unlock it. docs/10
+ */
+export interface UnitProgramme {
+  unitType: UnitType | null
+  finishLevel: FinishLevel | null
+  occupantType: OccupantType | null
+}
+
+export const EMPTY_PROGRAMME: UnitProgramme = {
+  unitType: null,
+  finishLevel: null,
+  occupantType: null,
+}
+
 /**
  * Unit — its own aggregate root, NOT a child of Project.
  *
@@ -42,6 +81,7 @@ export interface UnitSnapshot {
   grossArea: string
   ceilingHeightMm: number
   handoverCondition: HandoverCondition
+  programme: UnitProgramme
   status: UnitStatus
   currency: string
   rooms: RoomProps[]
@@ -66,6 +106,7 @@ export class Unit extends AggregateRoot<UnitId> {
     readonly grossArea: string,
     readonly ceilingHeightMm: number,
     readonly handoverCondition: HandoverCondition,
+    readonly programme: UnitProgramme,
     readonly currency: string,
     status: UnitStatus,
     rooms: Room[],
@@ -88,6 +129,7 @@ export class Unit extends AggregateRoot<UnitId> {
       snapshot.grossArea,
       snapshot.ceilingHeightMm,
       snapshot.handoverCondition,
+      snapshot.programme,
       snapshot.currency,
       snapshot.status,
       snapshot.rooms.map((r) => Room.restore(r)),
@@ -221,6 +263,7 @@ export class Unit extends AggregateRoot<UnitId> {
       grossArea: this.grossArea,
       ceilingHeightMm: this.ceilingHeightMm,
       handoverCondition: this.handoverCondition,
+      programme: this.programme,
       status: this.#status,
       currency: this.currency,
       rooms: this.#rooms.map((r) => ({

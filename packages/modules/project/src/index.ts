@@ -7,7 +7,20 @@ export {
   type ProjectSnapshot,
   type ProjectStatus,
 } from './domain/project'
-export { Unit, type UnitSnapshot, type UnitStatus, type HandoverCondition } from './domain/unit'
+export {
+  Unit,
+  UNIT_TYPES,
+  FINISH_LEVELS,
+  OCCUPANT_TYPES,
+  EMPTY_PROGRAMME,
+  type UnitSnapshot,
+  type UnitStatus,
+  type HandoverCondition,
+  type UnitType,
+  type FinishLevel,
+  type OccupantType,
+  type UnitProgramme,
+} from './domain/unit'
 export {
   Room,
   ROOM_TYPES,

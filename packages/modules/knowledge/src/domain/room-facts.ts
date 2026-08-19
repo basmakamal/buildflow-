@@ -57,6 +57,26 @@ export interface RoomInput {
   heightMm: number
 }
 
+/**
+ * Unit-level facts every room in the unit inherits.
+ *
+ * `finishLevel` alone is referenced by nineteen rule conditions — more than any
+ * other fact the engine cannot derive from geometry — so carrying these three
+ * down from the unit is the single largest gain in coverage available without
+ * new drawing tools.
+ *
+ * Null entries are OMITTED rather than passed as null: the evaluator treats a
+ * present null as a value to compare against, and a rule asking
+ * `finishLevel === 'luxury'` would then answer "no" for a unit whose finish
+ * level nobody has recorded. Absent is the honest answer, and it makes the
+ * rule skip and say so.
+ */
+export interface UnitContext {
+  unitType?: string | null
+  finishLevel?: string | null
+  occupantType?: string | null
+}
+
 export interface DerivedFacts {
   /** null when the room type has no knowledge-base coverage. */
   facts: Facts | null
@@ -71,7 +91,7 @@ export interface DerivedFacts {
  * models that do not exist yet (Phase 3+). Callers may supply those as
  * overrides — see `mergeFacts` — but this function will not invent them.
  */
-export function deriveRoomFacts(room: RoomInput): DerivedFacts {
+export function deriveRoomFacts(room: RoomInput, unit: UnitContext = {}): DerivedFacts {
   const kbRoomCode = ROOM_TYPE_TO_KB[room.typeCode] ?? null
   if (kbRoomCode === null) return { facts: null, kbRoomCode: null }
 
@@ -81,9 +101,17 @@ export function deriveRoomFacts(room: RoomInput): DerivedFacts {
   const widthM = room.widthMm / 1000
   const lengthM = room.lengthMm / 1000
 
+  // Only the keys that carry a value: see UnitContext on why null must not
+  // travel as a comparable fact.
+  const unitFacts: Record<string, FactValue> = {}
+  if (unit.unitType) unitFacts['unitType'] = unit.unitType
+  if (unit.finishLevel) unitFacts['finishLevel'] = unit.finishLevel
+  if (unit.occupantType) unitFacts['occupantType'] = unit.occupantType
+
   return {
     kbRoomCode,
     facts: {
+      ...unitFacts,
       roomType: kbRoomCode,
       area: round2(widthM * lengthM),
       // `width` is the SHORTER side and `length` the longer one, regardless of

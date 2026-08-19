@@ -6,8 +6,14 @@ import {
   PrismaUnitRepository,
   ProjectQueries,
   ROOM_TYPES,
+  UNIT_TYPES,
+  FINISH_LEVELS,
+  OCCUPANT_TYPES,
   type ProjectStatus,
   type RoomType,
+  type UnitType,
+  type FinishLevel,
+  type OccupantType,
 } from '@buildflow/project'
 import type { Database } from '@buildflow/database'
 import type { Container } from '../container'
@@ -170,6 +176,9 @@ export function registerProjectRoutes(app: FastifyInstance, c: Container, db: Da
       grossArea: string
       ceilingHeightMm?: number
       handoverCondition?: 'red_brick' | 'semi_finished' | 'fully_finished_renovation'
+      unitType?: UnitType
+      finishLevel?: FinishLevel
+      occupantType?: OccupantType
     }
   }>(
     '/api/v1/projects/:projectId/units',
@@ -194,6 +203,12 @@ export function registerProjectRoutes(app: FastifyInstance, c: Container, db: Da
             handoverCondition: {
               enum: ['red_brick', 'semi_finished', 'fully_finished_renovation'],
             },
+            // Optional, and left absent rather than defaulted: the AI engine
+            // must tell "not recorded" from "standard", so a guess here would
+            // answer rule conditions nobody actually supplied.
+            unitType: { enum: [...UNIT_TYPES] },
+            finishLevel: { enum: [...FINISH_LEVELS] },
+            occupantType: { enum: [...OCCUPANT_TYPES] },
           },
         },
       },
@@ -230,6 +245,11 @@ export function registerProjectRoutes(app: FastifyInstance, c: Container, db: Da
         grossArea: request.body.grossArea,
         ceilingHeightMm: request.body.ceilingHeightMm ?? 3000,
         handoverCondition: request.body.handoverCondition ?? 'red_brick',
+        programme: {
+          unitType: request.body.unitType ?? null,
+          finishLevel: request.body.finishLevel ?? null,
+          occupantType: request.body.occupantType ?? null,
+        },
         status: 'planned',
         currency: project.currency,
         rooms: [],
@@ -325,6 +345,7 @@ export function registerProjectRoutes(app: FastifyInstance, c: Container, db: Da
         grossArea: snapshot.grossArea,
         status: snapshot.status,
         handoverCondition: snapshot.handoverCondition,
+        programme: snapshot.programme,
         rooms: unit.rooms.map((room) => ({
           id: room.id,
           typeCode: room.typeCode,

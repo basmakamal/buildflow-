@@ -356,6 +356,18 @@ model Unit {
   ceilingHeight Decimal @default(3.0) @db.Decimal(6, 3)
 
   handoverCondition HandoverCondition @default(red_brick)
+
+  /// The unit's programme, as three facts the AI engine reasons over.
+  ///
+  /// Nullable rather than defaulted: the engine must distinguish "nobody has
+  /// said" from "standard finish". A default would silently answer 19 rule
+  /// conditions with a guess, and those rules would then fire — or stay
+  /// silent — on data no one supplied. Absent means the rule SKIPS and the
+  /// review screen says which fact would unlock it. docs/10
+  unitType     UnitType?     
+  finishLevel  FinishLevel?  
+  occupantType OccupantType? 
+
   status            UnitStatus        @default(planned)
   progressPercentage Decimal          @default(0) @db.Decimal(5, 2)
 
@@ -805,6 +817,38 @@ enum UnitStatus {
   completed
   delivered
   cancelled
+}
+
+/// Drives circulation, socket and service expectations that differ by dwelling
+/// type — a villa carries its own riser and needs per-floor Wi-Fi, a studio
+/// does not.
+enum UnitType {
+  apartment
+  villa
+  duplex
+  studio
+  office
+}
+
+/// The specification tier. The single most-referenced fact in the rule
+/// catalogue: it decides whether a recommendation is worth making at all.
+enum FinishLevel {
+  economy
+  standard
+  premium
+  luxury
+}
+
+/// Who lives here. Changes safety rules rather than taste ones — anti-scald
+/// mixers for kids and elderly, shuttered sockets where there are children.
+enum OccupantType {
+  family
+  couple
+  single
+  kids
+  elderly
+  staff
+  guest
 }
 
 enum HandoverCondition {

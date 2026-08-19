@@ -30,6 +30,7 @@ export {
   mergeFacts,
   ROOM_TYPE_TO_KB,
   type RoomInput,
+  type UnitContext,
   type DerivedFacts,
 } from './domain/room-facts'
 

@@ -98,6 +98,11 @@ export class PrismaUnitRepository implements UnitRepository {
       // ceilingHeight is stored in metres (Decimal 6,3); the domain works in mm.
       ceilingHeightMm: Math.round(Number(row.ceilingHeight) * 1000),
       handoverCondition: row.handoverCondition,
+      programme: {
+        unitType: row.unitType,
+        finishLevel: row.finishLevel,
+        occupantType: row.occupantType,
+      },
       status: row.status,
       currency: row.currency,
       rooms: row.rooms.map((r) => ({
@@ -131,6 +136,9 @@ export class PrismaUnitRepository implements UnitRepository {
         grossArea: snapshot.grossArea,
         ceilingHeight: (snapshot.ceilingHeightMm / 1000).toFixed(3),
         handoverCondition: snapshot.handoverCondition,
+        unitType: snapshot.programme.unitType,
+        finishLevel: snapshot.programme.finishLevel,
+        occupantType: snapshot.programme.occupantType,
         status: snapshot.status,
         currency: snapshot.currency,
       } as never,
@@ -149,7 +157,13 @@ export class PrismaUnitRepository implements UnitRepository {
 
     const result = await this.db.unit.updateMany({
       where: { id: snapshot.id, version: snapshot.version },
-      data: { status: snapshot.status, version: { increment: 1 } },
+      data: {
+        status: snapshot.status,
+        unitType: snapshot.programme.unitType,
+        finishLevel: snapshot.programme.finishLevel,
+        occupantType: snapshot.programme.occupantType,
+        version: { increment: 1 },
+      },
     })
     if (result.count === 0) {
       throw new Error(`Concurrent modification of Unit ${snapshot.id}`)
