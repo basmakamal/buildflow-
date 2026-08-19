@@ -82,6 +82,17 @@ export async function seedCompanyRoles(
     const existing = await db.role.findFirst({ where: { companyId, code } })
     if (existing) {
       roleIdByCode[code] = existing.id
+      // Backfill only. A role provisioned before a permission existed would
+      // otherwise never receive it, so every tenant created before a release
+      // silently lacks that release's capabilities — the docblock's promise of
+      // re-run safety was true of the catalogue and false of these links.
+      //
+      // Links are ADDED, never removed: these roles are tenant-owned and
+      // editable, so pruning to match SYSTEM_ROLES would silently revert a
+      // customer's deliberate customisation on the next deploy.
+      if (existing.isSystem) {
+        await grantMissing(db, existing.id, permissions, permissionIdByCode)
+      }
       continue
     }
 
@@ -111,6 +122,30 @@ export async function seedCompanyRoles(
   }
 
   return roleIdByCode
+}
+
+/**
+ * Adds the role↔permission links a role is missing, leaving existing ones alone.
+ */
+async function grantMissing(
+  db: Database,
+  roleId: string,
+  permissions: readonly string[],
+  permissionIdByCode: ReadonlyMap<string, string>,
+): Promise<void> {
+  const held = new Set(
+    (await db.rolePermission.findMany({ where: { roleId }, select: { permissionId: true } })).map(
+      (row) => row.permissionId,
+    ),
+  )
+
+  const links = permissions
+    .map((permission) => permissionIdByCode.get(permission))
+    .filter((id): id is string => id !== undefined)
+    .filter((id) => !held.has(id))
+    .map((permissionId) => ({ roleId, permissionId }))
+
+  if (links.length > 0) await db.rolePermission.createMany({ data: links })
 }
 
 function moduleFor(resource: string): string {
