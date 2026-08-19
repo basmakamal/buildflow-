@@ -39,9 +39,16 @@ const db = await mysql.createConnection({ uri: url, multipleStatements: true })
 if (replace) {
   console.log('--replace: clearing system rows (company_id IS NULL) before import')
   const tables = [
-    'kb_rules', 'kb_facts', 'kb_estimation_standards', 'kb_construction_stages',
-    'kb_material_catalog', 'kb_furniture_standards', 'kb_plumbing_standards',
-    'kb_electrical_standards', 'kb_lighting_standards', 'kb_room_types',
+    'kb_rules',
+    'kb_facts',
+    'kb_estimation_standards',
+    'kb_construction_stages',
+    'kb_material_catalog',
+    'kb_furniture_standards',
+    'kb_plumbing_standards',
+    'kb_electrical_standards',
+    'kb_lighting_standards',
+    'kb_room_types',
   ]
   for (const table of tables) {
     const [rows] = await db.query(`SHOW TABLES LIKE ${db.escape(table)}`)
@@ -61,10 +68,14 @@ for (const file of files) {
   const started = performance.now()
   try {
     const [results] = await db.query(sql)
-    const affected = (Array.isArray(results) ? results : [results])
-      .reduce((sum, r) => sum + (r?.affectedRows ?? 0), 0)
+    const affected = (Array.isArray(results) ? results : [results]).reduce(
+      (sum, r) => sum + (r?.affectedRows ?? 0),
+      0,
+    )
     total += affected
-    console.log(`  ${file.padEnd(34)} ${String(affected).padStart(4)} rows  ${(performance.now() - started).toFixed(0)}ms`)
+    console.log(
+      `  ${file.padEnd(34)} ${String(affected).padStart(4)} rows  ${(performance.now() - started).toFixed(0)}ms`,
+    )
   } catch (error) {
     console.error(`\nFAILED in ${file}\n  ${error.message}`)
     await db.end()

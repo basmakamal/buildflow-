@@ -13,10 +13,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "planter_edges",
-        "seating_perimeter"
-      ],
+      "locations": ["planter_edges", "seating_perimeter"],
       "notes_en": "All fittings IP65; warm low-level light — high lux attracts insects and kills ambience."
     },
     "switch_locations": [
@@ -51,10 +48,7 @@
     "spotlight_wall_offset_cm": 50,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "mirror_perimeter",
-        "niche_shelves"
-      ],
+      "locations": ["mirror_perimeter", "niche_shelves"],
       "notes_en": "Vertical light at the mirror (both sides or perimeter) beats a single downlight above the head, which shadows the face."
     },
     "switch_locations": [
@@ -89,9 +83,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove"
-      ],
+      "locations": ["ceiling_cove"],
       "notes_en": "Single-side cove is sufficient for standard bedrooms."
     },
     "switch_locations": [
@@ -124,9 +116,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "skirting_level"
-      ],
+      "locations": ["skirting_level"],
       "notes_en": "Low-level night strip on motion sensor prevents full-brightness wakeups."
     },
     "switch_locations": [
@@ -161,9 +151,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove"
-      ],
+      "locations": ["ceiling_cove"],
       "notes_en": "Pendant or chandelier centered over table at 75-90 cm above table top is the primary layer; spots are fill only."
     },
     "switch_locations": [
@@ -202,11 +190,7 @@
     "spotlight_wall_offset_cm": 50,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "shelf_edges",
-        "hanging_rails",
-        "mirror_perimeter"
-      ],
+      "locations": ["shelf_edges", "hanging_rails", "mirror_perimeter"],
       "notes_en": "CRI 90+ mandatory for true fabric colors; vertical illumination on rails matters more than floor lux."
     },
     "switch_locations": [
@@ -245,10 +229,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove",
-        "console_niche"
-      ],
+      "locations": ["ceiling_cove", "console_niche"],
       "notes_en": "First impression zone; warm cove plus a feature pendant."
     },
     "switch_locations": [
@@ -281,10 +262,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove",
-        "tv_wall"
-      ],
+      "locations": ["ceiling_cove", "tv_wall"],
       "notes_en": "Same treatment as living room; add floor-lamp socket on switched circuit."
     },
     "switch_locations": [
@@ -317,9 +295,7 @@
     "spotlight_wall_offset_cm": 50,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "mirror_perimeter"
-      ],
+      "locations": ["mirror_perimeter"],
       "notes_en": "Backlit mirror is usually sufficient with one downlight."
     },
     "switch_locations": [
@@ -381,10 +357,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove",
-        "study_desk"
-      ],
+      "locations": ["ceiling_cove", "study_desk"],
       "notes_en": "4000K task strip over desk; keep general light 3000K for evening wind-down."
     },
     "switch_locations": [
@@ -427,10 +400,7 @@
     "spotlight_wall_offset_cm": 50,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "under_cabinet",
-        "above_cabinet"
-      ],
+      "locations": ["under_cabinet", "above_cabinet"],
       "notes_en": "Under-cabinet task strip 500 lux at counter is the most-used light in the house; IP-rated near sink."
     },
     "switch_locations": [
@@ -498,11 +468,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove",
-        "tv_wall",
-        "display_niches"
-      ],
+      "locations": ["ceiling_cove", "tv_wall", "display_niches"],
       "notes_en": "Cove on dimmer; bias light behind TV reduces eye strain during evening viewing."
     },
     "switch_locations": [
@@ -568,11 +534,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove",
-        "wall_niches",
-        "curtain_pelmet"
-      ],
+      "locations": ["ceiling_cove", "wall_niches", "curtain_pelmet"],
       "notes_en": "Layered scheme expected: chandelier + cove + wall washers. Curtain pelmet LED adds hospitality-grade finish."
     },
     "switch_locations": [
@@ -609,11 +571,7 @@
     "spotlight_wall_offset_cm": 60,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "ceiling_cove",
-        "behind_headboard",
-        "wardrobe_interior"
-      ],
+      "locations": ["ceiling_cove", "behind_headboard", "wardrobe_interior"],
       "notes_en": "Warm 2700K cove on dimmer; headboard strip on separate switch for night use."
     },
     "switch_locations": [
@@ -660,10 +618,7 @@
     "spotlight_wall_offset_cm": 50,
     "hidden_led": {
       "recommended": true,
-      "locations": [
-        "shelf_underside",
-        "monitor_wall"
-      ],
+      "locations": ["shelf_underside", "monitor_wall"],
       "notes_en": "Indirect strip behind monitor reduces contrast glare; avoid downlight directly above screen."
     },
     "switch_locations": [

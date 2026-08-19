@@ -119,7 +119,11 @@ function toRule(row: RuleRow, onInvalid: OnInvalid): Rule | null {
  * Shared by the engine reader and the admin catalogue so the two can never
  * disagree about what a tenant's rule currently says.
  */
-function applyOverride(base: Rule | null, override: OverrideRow, onInvalid: OnInvalid): Rule | null {
+function applyOverride(
+  base: Rule | null,
+  override: OverrideRow,
+  onInvalid: OnInvalid,
+): Rule | null {
   let conditions: Condition | null = base?.conditions ?? null
   if (override.conditions !== null && override.conditions !== undefined) {
     const parsed = parseCondition(override.conditions)

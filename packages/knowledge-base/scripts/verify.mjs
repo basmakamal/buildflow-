@@ -54,8 +54,15 @@ const parse = (value) => (typeof value === 'string' ? JSON.parse(value) : value)
 
 // --- rules: facts must exist, room_type_code must resolve, operators known ---
 const KNOWN_OPERATORS = new Set([
-  'equal', 'notEqual', 'lessThan', 'lessThanInclusive',
-  'greaterThan', 'greaterThanInclusive', 'in', 'notIn', 'contains',
+  'equal',
+  'notEqual',
+  'lessThan',
+  'lessThanInclusive',
+  'greaterThan',
+  'greaterThanInclusive',
+  'in',
+  'notIn',
+  'contains',
 ])
 
 function collectOperators(node, out = []) {
@@ -86,8 +93,9 @@ for (const rule of await rows('SELECT code, room_type_code, conditions FROM kb_r
 
 // --- enum facts: every literal compared against an enum fact must be allowed ---
 const enumFacts = new Map(
-  (await rows("SELECT fact_code, allowed_values FROM kb_facts WHERE data_type = 'enum'"))
-    .map((r) => [r.fact_code, new Set(parse(r.allowed_values) ?? [])]),
+  (await rows("SELECT fact_code, allowed_values FROM kb_facts WHERE data_type = 'enum'")).map(
+    (r) => [r.fact_code, new Set(parse(r.allowed_values) ?? [])],
+  ),
 )
 
 function checkEnumLiterals(node, ruleCode) {
@@ -160,10 +168,12 @@ for (const rule of await rows(
   } else {
     const allowed = new Set(parse(factRow.allowed_values) ?? [])
     for (const room of roomTypes) {
-      if (!allowed.has(room)) fail('room_missing_from_fact', `"${room}" is absent from roomType.allowed_values`)
+      if (!allowed.has(room))
+        fail('room_missing_from_fact', `"${room}" is absent from roomType.allowed_values`)
     }
     for (const value of allowed) {
-      if (!roomTypes.has(value)) fail('fact_value_orphaned', `roomType allows "${value}" with no kb_room_types row`)
+      if (!roomTypes.has(value))
+        fail('fact_value_orphaned', `roomType allows "${value}" with no kb_room_types row`)
     }
   }
 }
@@ -179,11 +189,13 @@ for (const stage of await rows(
   if (parse(stage.required_photos).length === 0) {
     fail('no_photos', `${stage.code} requires no photographic evidence`)
   }
-  if (parse(stage.checklist).length === 0) fail('no_checklist', `${stage.code} has an empty checklist`)
+  if (parse(stage.checklist).length === 0)
+    fail('no_checklist', `${stage.code} has an empty checklist`)
   weightByTrade.set(stage.trade, (weightByTrade.get(stage.trade) ?? 0) + Number(stage.weight_pct))
 }
 for (const [trade, total] of weightByTrade) {
-  if (Math.abs(total - 100) > 0.01) fail('bad_weights', `trade ${trade} weights total ${total}, expected 100`)
+  if (Math.abs(total - 100) > 0.01)
+    fail('bad_weights', `trade ${trade} weights total ${total}, expected 100`)
 }
 
 // --- cyclic dependency detection across the stage graph ---
@@ -241,7 +253,10 @@ for (const row of await rows('SELECT code, inputs, formula FROM kb_estimation_st
   const used = row.formula.match(/[A-Za-z_][A-Za-z0-9_]*/g) ?? []
   for (const token of used) {
     if (!declared.has(token) && !RESERVED.has(token)) {
-      fail('undeclared_variable', `${row.code} formula uses "${token}" which is not a declared input`)
+      fail(
+        'undeclared_variable',
+        `${row.code} formula uses "${token}" which is not a declared input`,
+      )
     }
   }
 }
@@ -251,7 +266,10 @@ for (const row of await rows(
   'SELECT room_type_code, min_lux, recommended_lux, max_lux, spotlight_spacing_min_cm, spotlight_spacing_max_cm FROM kb_lighting_standards',
 )) {
   if (!(row.min_lux <= row.recommended_lux && row.recommended_lux <= row.max_lux)) {
-    fail('bad_lux_band', `${row.room_type_code}: ${row.min_lux}/${row.recommended_lux}/${row.max_lux}`)
+    fail(
+      'bad_lux_band',
+      `${row.room_type_code}: ${row.min_lux}/${row.recommended_lux}/${row.max_lux}`,
+    )
   }
   if (row.spotlight_spacing_min_cm > row.spotlight_spacing_max_cm) {
     fail('bad_spacing_band', row.room_type_code)
@@ -262,8 +280,13 @@ for (const row of await rows(
 for (const row of await rows(
   'SELECT room_type_code, min_sockets, recommended_sockets, luxury_sockets FROM kb_electrical_standards',
 )) {
-  if (!(row.min_sockets <= row.recommended_sockets && row.recommended_sockets <= row.luxury_sockets)) {
-    fail('bad_socket_band', `${row.room_type_code}: ${row.min_sockets}/${row.recommended_sockets}/${row.luxury_sockets}`)
+  if (!(
+    row.min_sockets <= row.recommended_sockets && row.recommended_sockets <= row.luxury_sockets
+  )) {
+    fail(
+      'bad_socket_band',
+      `${row.room_type_code}: ${row.min_sockets}/${row.recommended_sockets}/${row.luxury_sockets}`,
+    )
   }
 }
 

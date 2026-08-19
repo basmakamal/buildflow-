@@ -79,7 +79,8 @@ await writeFile(
   `${JSON.stringify(
     {
       name: '@buildflow/knowledge-base',
-      description: 'System knowledge base for the BuildFlow AI engine. Generated from sql/ — do not edit by hand.',
+      description:
+        'System knowledge base for the BuildFlow AI engine. Generated from sql/ — do not edit by hand.',
       datasets: index,
     },
     null,

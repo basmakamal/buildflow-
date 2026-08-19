@@ -134,11 +134,10 @@ export class ManageRulesHandler {
       ).filter((field) => command[field] === undefined)
       if (missing.length > 0) {
         return err(
-          validationError(
-            'RULE_INCOMPLETE',
-            `A new rule needs ${missing.join(', ')}`,
-            { code: command.code, missing: missing.join(', ') },
-          ),
+          validationError('RULE_INCOMPLETE', `A new rule needs ${missing.join(', ')}`, {
+            code: command.code,
+            missing: missing.join(', '),
+          }),
         )
       }
     }

@@ -66,10 +66,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "majlis"
-          ]
+          "value": ["living_room", "majlis"]
         },
         {
           "fact": "hasHiddenLed",
@@ -190,10 +187,7 @@
     "message_ar": "أضف إضاءة على القضبان وحواف الأرفف بمعامل إظهار ألوان 90+ لألوان أقمشة حقيقية.",
     "action": {
       "add": "hidden_led",
-      "locations": [
-        "hanging_rails",
-        "shelf_edges"
-      ],
+      "locations": ["hanging_rails", "shelf_edges"],
       "cri": 90
     },
     "priority": 20,
@@ -239,21 +233,12 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         },
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "majlis",
-            "master_bedroom",
-            "dining_room",
-            "entrance"
-          ]
+          "value": ["living_room", "majlis", "master_bedroom", "dining_room", "entrance"]
         }
       ]
     },
@@ -276,11 +261,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "storage",
-            "dressing_room",
-            "laundry"
-          ]
+          "value": ["storage", "dressing_room", "laundry"]
         }
       ]
     },
@@ -333,11 +314,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "entrance",
-            "living_room",
-            "majlis"
-          ]
+          "value": ["entrance", "living_room", "majlis"]
         }
       ]
     },
@@ -419,10 +396,7 @@
         {
           "fact": "roomType",
           "operator": "notIn",
-          "value": [
-            "storage",
-            "corridor"
-          ]
+          "value": ["storage", "corridor"]
         }
       ]
     },
@@ -504,10 +478,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -536,11 +507,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "family_room",
-            "majlis"
-          ]
+          "value": ["living_room", "family_room", "majlis"]
         }
       ]
     },
@@ -564,12 +531,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom",
-            "kids_room",
-            "office"
-          ]
+          "value": ["master_bedroom", "bedroom", "kids_room", "office"]
         },
         {
           "fact": "usbPointCount",
@@ -598,10 +560,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         },
         {
           "fact": "smartPointCount",
@@ -635,10 +594,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -663,19 +619,12 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "master_bedroom",
-            "majlis"
-          ]
+          "value": ["living_room", "master_bedroom", "majlis"]
         },
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -699,10 +648,7 @@
         {
           "fact": "unitType",
           "operator": "in",
-          "value": [
-            "villa",
-            "duplex"
-          ]
+          "value": ["villa", "duplex"]
         },
         {
           "fact": "roomType",
@@ -735,10 +681,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -810,10 +753,7 @@
         {
           "fact": "unitType",
           "operator": "in",
-          "value": [
-            "villa",
-            "duplex"
-          ]
+          "value": ["villa", "duplex"]
         },
         {
           "fact": "internetPointCount",
@@ -848,10 +788,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -875,18 +812,12 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "kitchen",
-            "corridor"
-          ]
+          "value": ["kitchen", "corridor"]
         },
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -968,10 +899,7 @@
         {
           "fact": "unitType",
           "operator": "in",
-          "value": [
-            "villa",
-            "duplex"
-          ]
+          "value": ["villa", "duplex"]
         }
       ]
     },
@@ -1029,10 +957,7 @@
         {
           "fact": "occupantType",
           "operator": "in",
-          "value": [
-            "kids",
-            "elderly"
-          ]
+          "value": ["kids", "elderly"]
         }
       ]
     },
@@ -1113,10 +1038,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -1230,10 +1152,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -1257,10 +1176,7 @@
         {
           "fact": "unitType",
           "operator": "in",
-          "value": [
-            "villa",
-            "duplex"
-          ]
+          "value": ["villa", "duplex"]
         }
       ]
     },
@@ -1396,10 +1312,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom"
-          ]
+          "value": ["master_bedroom", "bedroom"]
         },
         {
           "fact": "area",
@@ -1535,10 +1448,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "family_room"
-          ]
+          "value": ["living_room", "family_room"]
         },
         {
           "fact": "tvSizeInch",
@@ -1738,11 +1648,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "bedroom",
-            "kids_room",
-            "office"
-          ]
+          "value": ["bedroom", "kids_room", "office"]
         }
       ]
     },
@@ -1790,10 +1696,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "corridor",
-            "entrance"
-          ]
+          "value": ["corridor", "entrance"]
         }
       ]
     },
@@ -1817,19 +1720,12 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom",
-            "guest_room"
-          ]
+          "value": ["master_bedroom", "bedroom", "guest_room"]
         },
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -1838,10 +1734,7 @@
     "message_ar": "فكر في الخشب الهندسي أو SPC في غرف النوم — أدفأ من البورسلان.",
     "action": {
       "set": "flooring",
-      "options": [
-        "flr_engineered",
-        "flr_spc"
-      ]
+      "options": ["flr_engineered", "flr_spc"]
     },
     "priority": 30,
     "is_active": 1
@@ -1881,11 +1774,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "majlis",
-            "dining_room"
-          ]
+          "value": ["living_room", "majlis", "dining_room"]
         },
         {
           "fact": "ceilingHeight",
@@ -1942,10 +1831,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -2051,19 +1937,12 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "family_room",
-            "corridor"
-          ]
+          "value": ["living_room", "family_room", "corridor"]
         },
         {
           "fact": "occupantType",
           "operator": "in",
-          "value": [
-            "family",
-            "kids"
-          ]
+          "value": ["family", "kids"]
         }
       ]
     },
@@ -2092,10 +1971,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -2296,10 +2172,7 @@
         {
           "fact": "unitType",
           "operator": "in",
-          "value": [
-            "villa",
-            "duplex"
-          ]
+          "value": ["villa", "duplex"]
         }
       ]
     },
@@ -2452,11 +2325,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom",
-            "guest_room"
-          ]
+          "value": ["master_bedroom", "bedroom", "guest_room"]
         }
       ]
     },
@@ -2646,10 +2515,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom"
-          ]
+          "value": ["master_bedroom", "bedroom"]
         },
         {
           "fact": "hasTwoWaySwitch",
@@ -2706,10 +2572,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "bathroom",
-            "guest_bathroom"
-          ]
+          "value": ["bathroom", "guest_bathroom"]
         },
         {
           "fact": "hasMirrorLight",
@@ -2742,13 +2605,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom",
-            "guest_room",
-            "living_room",
-            "majlis"
-          ]
+          "value": ["master_bedroom", "bedroom", "guest_room", "living_room", "majlis"]
         }
       ]
     },
@@ -2777,11 +2634,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "kitchen",
-            "office",
-            "laundry"
-          ]
+          "value": ["kitchen", "office", "laundry"]
         }
       ]
     },
@@ -2810,10 +2663,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "majlis"
-          ]
+          "value": ["living_room", "majlis"]
         }
       ]
     },
@@ -2904,11 +2754,7 @@
         {
           "fact": "roomType",
           "operator": "notIn",
-          "value": [
-            "corridor",
-            "storage",
-            "balcony"
-          ]
+          "value": ["corridor", "storage", "balcony"]
         }
       ]
     },
@@ -2936,14 +2782,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "living_room",
-            "family_room",
-            "majlis",
-            "office",
-            "kitchen"
-          ]
+          "value": ["master_bedroom", "living_room", "family_room", "majlis", "office", "kitchen"]
         }
       ]
     },
@@ -3247,11 +3086,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "office",
-            "living_room",
-            "master_bedroom"
-          ]
+          "value": ["office", "living_room", "master_bedroom"]
         }
       ]
     },
@@ -3364,10 +3199,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "bathroom",
-            "guest_bathroom"
-          ]
+          "value": ["bathroom", "guest_bathroom"]
         },
         {
           "fact": "hasVentFan",
@@ -3488,10 +3320,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -4091,10 +3920,7 @@
         {
           "fact": "finishLevel",
           "operator": "in",
-          "value": [
-            "premium",
-            "luxury"
-          ]
+          "value": ["premium", "luxury"]
         }
       ]
     },
@@ -4146,14 +3972,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "majlis",
-            "dining_room",
-            "kitchen",
-            "entrance",
-            "corridor"
-          ]
+          "value": ["living_room", "majlis", "dining_room", "kitchen", "entrance", "corridor"]
         }
       ]
     },
@@ -4347,11 +4166,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "living_room",
-            "family_room",
-            "majlis"
-          ]
+          "value": ["living_room", "family_room", "majlis"]
         },
         {
           "fact": "sofaToTableCm",
@@ -4541,12 +4356,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom",
-            "kids_room",
-            "guest_room"
-          ]
+          "value": ["master_bedroom", "bedroom", "kids_room", "guest_room"]
         },
         {
           "fact": "wardrobeWidthCm",
@@ -4680,12 +4490,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom",
-            "kids_room",
-            "guest_room"
-          ]
+          "value": ["master_bedroom", "bedroom", "kids_room", "guest_room"]
         }
       ]
     },
@@ -4720,10 +4525,7 @@
     "message_ar": "الأرضية المختارة غير مناسبة للمناطق الرطبة.",
     "action": {
       "replace": "flooring",
-      "with_category": [
-        "porcelain",
-        "ceramic"
-      ]
+      "with_category": ["porcelain", "ceramic"]
     },
     "priority": 5,
     "is_active": 1
@@ -4743,9 +4545,7 @@
         {
           "fact": "flooringCategory",
           "operator": "in",
-          "value": [
-            "wood"
-          ]
+          "value": ["wood"]
         }
       ]
     },
@@ -4754,9 +4554,7 @@
     "message_ar": "الأرضيات الخشبية في المناطق الرطبة ستنتفخ وتتلف.",
     "action": {
       "replace": "flooring",
-      "with_category": [
-        "porcelain"
-      ]
+      "with_category": ["porcelain"]
     },
     "priority": 1,
     "is_active": 1
@@ -4838,11 +4636,7 @@
         {
           "fact": "doorCategory",
           "operator": "in",
-          "value": [
-            "mdf",
-            "hdf",
-            "wood_solid"
-          ]
+          "value": ["mdf", "hdf", "wood_solid"]
         }
       ]
     },
@@ -4851,10 +4645,7 @@
     "message_ar": "الأبواب الخشبية في المناطق الرطبة تنتفخ — استخدم WPC أو ألمنيوم.",
     "action": {
       "replace": "door",
-      "with_category": [
-        "wpc",
-        "aluminum"
-      ]
+      "with_category": ["wpc", "aluminum"]
     },
     "priority": 5,
     "is_active": 1
@@ -4927,27 +4718,17 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "corridor",
-            "entrance",
-            "living_room"
-          ]
+          "value": ["corridor", "entrance", "living_room"]
         },
         {
           "fact": "materialDurability",
           "operator": "in",
-          "value": [
-            "low",
-            "medium"
-          ]
+          "value": ["low", "medium"]
         },
         {
           "fact": "flooringCategory",
           "operator": "notIn",
-          "value": [
-            "porcelain",
-            "natural_stone"
-          ]
+          "value": ["porcelain", "natural_stone"]
         }
       ]
     },
@@ -5061,12 +4842,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "kitchen",
-            "bathroom",
-            "corridor",
-            "entrance"
-          ]
+          "value": ["kitchen", "bathroom", "corridor", "entrance"]
         }
       ]
     },
@@ -5092,10 +4868,7 @@
         {
           "fact": "flooringCategory",
           "operator": "in",
-          "value": [
-            "wood",
-            "vinyl"
-          ]
+          "value": ["wood", "vinyl"]
         }
       ]
     },
@@ -5104,9 +4877,7 @@
     "message_ar": "المطابخ تعرض الأرضيات للحرارة والدهون والماء — البورسلان هو الخيار الآمن.",
     "action": {
       "replace": "flooring",
-      "with_category": [
-        "porcelain"
-      ]
+      "with_category": ["porcelain"]
     },
     "priority": 20,
     "is_active": 1
@@ -5217,11 +4988,7 @@
         {
           "fact": "flooringCategory",
           "operator": "in",
-          "value": [
-            "wood",
-            "vinyl",
-            "epoxy"
-          ]
+          "value": ["wood", "vinyl", "epoxy"]
         }
       ]
     },
@@ -5230,10 +4997,7 @@
     "message_ar": "أرضية الشرفة يجب أن تقاوم الأشعة والحرارة — استخدم بورسلان أو جرانيت.",
     "action": {
       "replace": "flooring",
-      "with_category": [
-        "porcelain",
-        "natural_stone"
-      ]
+      "with_category": ["porcelain", "natural_stone"]
     },
     "priority": 10,
     "is_active": 1
@@ -5253,11 +5017,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "kids_room",
-            "kitchen",
-            "bathroom"
-          ]
+          "value": ["kids_room", "kitchen", "bathroom"]
         }
       ]
     },
@@ -5315,12 +5075,7 @@
         {
           "fact": "roomType",
           "operator": "in",
-          "value": [
-            "master_bedroom",
-            "bedroom",
-            "kids_room",
-            "majlis"
-          ]
+          "value": ["master_bedroom", "bedroom", "kids_room", "majlis"]
         }
       ]
     },

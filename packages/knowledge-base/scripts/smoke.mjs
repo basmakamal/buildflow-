@@ -92,7 +92,9 @@ const bedroomCodes = codes(bedroom)
 check(
   'raises no errors or criticals',
   !bedroom.findings.some((f) => f.severity === 'error' || f.severity === 'critical'),
-  JSON.stringify(bedroom.findings.filter((f) => ['error', 'critical'].includes(f.severity)).map((f) => f.code)),
+  JSON.stringify(
+    bedroom.findings.filter((f) => ['error', 'critical'].includes(f.severity)).map((f) => f.code),
+  ),
 )
 check('recommends a reading corner (area > 22)', bedroomCodes.includes('REC_FUR_001'))
 check('recommends a secondary lighting zone (area > 20)', bedroomCodes.includes('REC_LGT_001'))
@@ -122,7 +124,9 @@ check('returns without throwing', Array.isArray(sparse.findings))
 check('reports skipped rules', sparse.evaluated.skipped.length > 0)
 check(
   'skipped entries name the missing fact',
-  sparse.evaluated.skipped.every((s) => typeof s.missingFact === 'string' && s.missingFact.length > 0),
+  sparse.evaluated.skipped.every(
+    (s) => typeof s.missingFact === 'string' && s.missingFact.length > 0,
+  ),
 )
 check(
   'does not invent a socket warning with no socket data',
@@ -131,7 +135,15 @@ check(
 
 // --- Case 5: room pre-filter must not suppress matching rules ---------------
 console.log('\ncase: room_type_code pre-filter correctness')
-const kitchen = { roomType: 'kitchen', area: 14, isWetArea: true, socketCount: 4, counterLengthM: 4, lightingLux: 200, hasTaskLight: false }
+const kitchen = {
+  roomType: 'kitchen',
+  area: 14,
+  isWetArea: true,
+  socketCount: 4,
+  counterLengthM: 4,
+  lightingLux: 200,
+  hasTaskLight: false,
+}
 const filtered = evaluate(rules, kitchen)
 const unfiltered = evaluate(
   rules.map((r) => ({ ...r, room_type_code: null })),

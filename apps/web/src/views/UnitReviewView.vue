@@ -71,9 +71,7 @@ const analyzedCount = computed(
 )
 
 const totals = computed(() =>
-  tallySeverities(
-    rooms.value.map((room) => applyFilter(analysisOf(room.id)?.findings ?? [])),
-  ),
+  tallySeverities(rooms.value.map((room) => applyFilter(analysisOf(room.id)?.findings ?? []))),
 )
 
 const totalCount = computed(() => Object.values(totals.value).reduce((sum, n) => sum + n, 0))

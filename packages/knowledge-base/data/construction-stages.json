@@ -35,11 +35,7 @@
       "Site engineer sign-off recorded"
     ],
     "dependencies": [],
-    "required_materials": [
-      "pvc_drainage_pipe",
-      "pipe_fittings",
-      "floor_drain_bodies"
-    ],
+    "required_materials": ["pvc_drainage_pipe", "pipe_fittings", "floor_drain_bodies"],
     "required_photos": [
       {
         "key": "routes_open",
@@ -90,14 +86,8 @@
       "Lines anchored every 1 m",
       "No joints buried without test"
     ],
-    "dependencies": [
-      "plb_drain_rough"
-    ],
-    "required_materials": [
-      "ppr_pipe",
-      "ppr_fittings",
-      "pipe_insulation"
-    ],
+    "dependencies": ["plb_drain_rough"],
+    "required_materials": ["ppr_pipe", "ppr_fittings", "pipe_insulation"],
     "required_photos": [
       {
         "key": "walls_open",
@@ -142,13 +132,8 @@
       "Test certificate uploaded",
       "Consultant/engineer witness recorded"
     ],
-    "dependencies": [
-      "plb_supply_rough"
-    ],
-    "required_materials": [
-      "test_pump",
-      "pressure_gauge"
-    ],
+    "dependencies": ["plb_supply_rough"],
+    "required_materials": ["test_pump", "pressure_gauge"],
     "required_photos": [
       {
         "key": "gauge_start",
@@ -199,16 +184,8 @@
       "Silicone joints continuous and tooled",
       "Protective films removed only after handover cleaning"
     ],
-    "dependencies": [
-      "plb_pressure_test",
-      "flr_tiling"
-    ],
-    "required_materials": [
-      "sanitary_ware",
-      "mixers",
-      "silicone",
-      "traps"
-    ],
+    "dependencies": ["plb_pressure_test", "flr_tiling"],
+    "required_materials": ["sanitary_ware", "mixers", "silicone", "traps"],
     "required_photos": [
       {
         "key": "per_fixture",
@@ -254,9 +231,7 @@
       "Drainage odor traps sealed",
       "Handover checklist signed"
     ],
-    "dependencies": [
-      "plb_fixtures"
-    ],
+    "dependencies": ["plb_fixtures"],
     "required_materials": [],
     "required_photos": [
       {
@@ -304,11 +279,7 @@
       "Chases closed with mortar, not gypsum"
     ],
     "dependencies": [],
-    "required_materials": [
-      "pvc_conduit",
-      "back_boxes",
-      "draw_wire"
-    ],
+    "required_materials": ["pvc_conduit", "back_boxes", "draw_wire"],
     "required_photos": [
       {
         "key": "walls_open",
@@ -354,16 +325,8 @@
       "No joints inside conduits — junctions only in boxes",
       "Circuit register filled (room → breaker)"
     ],
-    "dependencies": [
-      "ele_conduits"
-    ],
-    "required_materials": [
-      "cable_1_5mm",
-      "cable_2_5mm",
-      "cable_4mm",
-      "cable_6mm",
-      "cat6_cable"
-    ],
+    "dependencies": ["ele_conduits"],
+    "required_materials": ["cable_1_5mm", "cable_2_5mm", "cable_4mm", "cable_6mm", "cat6_cable"],
     "required_photos": [
       {
         "key": "db_tails",
@@ -414,14 +377,8 @@
       "Main earth bar connected to earthing system",
       "DB schedule card printed and fixed inside door"
     ],
-    "dependencies": [
-      "ele_wiring"
-    ],
-    "required_materials": [
-      "distribution_board",
-      "breakers",
-      "rcd_units"
-    ],
+    "dependencies": ["ele_wiring"],
+    "required_materials": ["distribution_board", "breakers", "rcd_units"],
     "required_photos": [
       {
         "key": "db_finished",
@@ -467,16 +424,8 @@
       "Two-way circuits switch from both ends",
       "USB outlets deliver rated current"
     ],
-    "dependencies": [
-      "ele_db",
-      "pnt_final"
-    ],
-    "required_materials": [
-      "switches",
-      "sockets",
-      "smart_devices",
-      "usb_outlets"
-    ],
+    "dependencies": ["ele_db", "pnt_final"],
+    "required_materials": ["switches", "sockets", "smart_devices", "usb_outlets"],
     "required_photos": [
       {
         "key": "per_room",
@@ -522,9 +471,7 @@
       "Zero outstanding electrical snags",
       "Certificate signed by qualified electrician"
     ],
-    "dependencies": [
-      "ele_accessories"
-    ],
+    "dependencies": ["ele_accessories"],
     "required_materials": [],
     "required_photos": [
       {
@@ -572,11 +519,7 @@
       "Routes photographed before covering"
     ],
     "dependencies": [],
-    "required_materials": [
-      "copper_pipe_pair",
-      "pipe_insulation",
-      "condensate_pipe"
-    ],
+    "required_materials": ["copper_pipe_pair", "pipe_insulation", "condensate_pipe"],
     "required_photos": [
       {
         "key": "routes",
@@ -627,14 +570,8 @@
       "No flexible duct runs > 1.5 m or crushed bends",
       "Leak check at joints"
     ],
-    "dependencies": [
-      "hvac_pipe_rough"
-    ],
-    "required_materials": [
-      "duct_sheets",
-      "duct_insulation",
-      "grilles_dampers"
-    ],
+    "dependencies": ["hvac_pipe_rough"],
+    "required_materials": ["duct_sheets", "duct_insulation", "grilles_dampers"],
     "required_photos": [
       {
         "key": "ducts_open",
@@ -680,15 +617,8 @@
       "Condensate flows at unit with test pour",
       "Controls respond from thermostat"
     ],
-    "dependencies": [
-      "hvac_pipe_rough",
-      "hvac_ducting"
-    ],
-    "required_materials": [
-      "ac_units",
-      "refrigerant",
-      "thermostats"
-    ],
+    "dependencies": ["hvac_pipe_rough", "hvac_ducting"],
+    "required_materials": ["ac_units", "refrigerant", "thermostats"],
     "required_photos": [
       {
         "key": "vacuum_gauge",
@@ -738,10 +668,7 @@
       "Commissioning sheet with readings uploaded",
       "Client walkthrough of thermostat use done"
     ],
-    "dependencies": [
-      "hvac_units",
-      "ele_db"
-    ],
+    "dependencies": ["hvac_units", "ele_db"],
     "required_materials": [],
     "required_photos": [
       {
@@ -787,15 +714,8 @@
       "Plumb check every wall <= 5 mm total deviation",
       "Right angles verified at corners (3-4-5)"
     ],
-    "dependencies": [
-      "ele_conduits",
-      "plb_supply_rough"
-    ],
-    "required_materials": [
-      "cement",
-      "sand",
-      "plaster_mesh"
-    ],
+    "dependencies": ["ele_conduits", "plb_supply_rough"],
+    "required_materials": ["cement", "sand", "plaster_mesh"],
     "required_photos": [
       {
         "key": "mesh_chases",
@@ -839,14 +759,8 @@
       "Full coverage, no hollow-sounding areas on tap test",
       "Openings match carpentry schedule ±5 mm"
     ],
-    "dependencies": [
-      "pls_prep"
-    ],
-    "required_materials": [
-      "cement",
-      "sand",
-      "corner_beads"
-    ],
+    "dependencies": ["pls_prep"],
+    "required_materials": ["cement", "sand", "corner_beads"],
     "required_photos": [
       {
         "key": "walls_done",
@@ -887,12 +801,8 @@
       "No active cracking two weeks after repair",
       "Moisture content < 12% before paint (protimeter)"
     ],
-    "dependencies": [
-      "pls_plaster"
-    ],
-    "required_materials": [
-      "cement"
-    ],
+    "dependencies": ["pls_plaster"],
+    "required_materials": ["cement"],
     "required_photos": [
       {
         "key": "curing",
@@ -900,10 +810,7 @@
         "min_count": 1
       }
     ],
-    "inspection_items": [
-      "Moisture reading logged per room",
-      "Repairs flush after drying"
-    ],
+    "inspection_items": ["Moisture reading logged per room", "Repairs flush after drying"],
     "is_active": 1
   },
   {
@@ -936,16 +843,8 @@
       "MEP above ceiling tested and signed BEFORE closing starts",
       "Frame rigid — no deflection under hand pressure"
     ],
-    "dependencies": [
-      "hvac_pipe_rough",
-      "hvac_ducting",
-      "ele_wiring",
-      "plb_pressure_test"
-    ],
-    "required_materials": [
-      "gi_channels",
-      "hangers_anchors"
-    ],
+    "dependencies": ["hvac_pipe_rough", "hvac_ducting", "ele_wiring", "plb_pressure_test"],
+    "required_materials": ["gi_channels", "hangers_anchors"],
     "required_photos": [
       {
         "key": "frame_services",
@@ -989,14 +888,8 @@
       "All boards fixed, no unsupported edges",
       "Access hatches installed at every concealed valve/unit"
     ],
-    "dependencies": [
-      "gyp_framing"
-    ],
-    "required_materials": [
-      "gypsum_board",
-      "mr_gypsum_board",
-      "screws"
-    ],
+    "dependencies": ["gyp_framing"],
+    "required_materials": ["gypsum_board", "mr_gypsum_board", "screws"],
     "required_photos": [
       {
         "key": "boarded",
@@ -1036,13 +929,8 @@
       "No visible joints under raking light test",
       "Surface dust-free ready for primer"
     ],
-    "dependencies": [
-      "gyp_boarding"
-    ],
-    "required_materials": [
-      "joint_compound",
-      "joint_tape"
-    ],
+    "dependencies": ["gyp_boarding"],
+    "required_materials": ["joint_compound", "joint_tape"],
     "required_photos": [
       {
         "key": "raking_light",
@@ -1082,12 +970,8 @@
       "Every angle valve, damper, driver and heater reachable",
       "Hatch schedule photographed and archived"
     ],
-    "dependencies": [
-      "gyp_taping"
-    ],
-    "required_materials": [
-      "access_panels"
-    ],
+    "dependencies": ["gyp_taping"],
+    "required_materials": ["access_panels"],
     "required_photos": [
       {
         "key": "hatches",
@@ -1131,14 +1015,8 @@
       "Zero level drop and no dampness below after 48h",
       "Membrane continuous at drains (clamped/collared)"
     ],
-    "dependencies": [
-      "plb_drain_rough",
-      "plb_pressure_test"
-    ],
-    "required_materials": [
-      "waterproof_membrane",
-      "corner_tape"
-    ],
+    "dependencies": ["plb_drain_rough", "plb_pressure_test"],
+    "required_materials": ["waterproof_membrane", "corner_tape"],
     "required_photos": [
       {
         "key": "membrane",
@@ -1188,13 +1066,8 @@
       "Water poured at door reaches drain in every wet room",
       "No cracking/hollowness after cure"
     ],
-    "dependencies": [
-      "flr_waterproof"
-    ],
-    "required_materials": [
-      "cement",
-      "sand"
-    ],
+    "dependencies": ["flr_waterproof"],
+    "required_materials": ["cement", "sand"],
     "required_photos": [
       {
         "key": "falls_test",
@@ -1242,15 +1115,8 @@
       "Tap test: no hollow tiles (max 5% corner hollowness tolerated)",
       "Joints aligned through doorways where drawings require"
     ],
-    "dependencies": [
-      "flr_screed",
-      "pls_cure"
-    ],
-    "required_materials": [
-      "floor_tiles",
-      "tile_adhesive",
-      "leveling_clips"
-    ],
+    "dependencies": ["flr_screed", "pls_cure"],
+    "required_materials": ["floor_tiles", "tile_adhesive", "leveling_clips"],
     "required_photos": [
       {
         "key": "dry_lay",
@@ -1296,14 +1162,8 @@
       "No grout voids on raking inspection",
       "Skirting-to-wall gap caulked ready for paint touch-up"
     ],
-    "dependencies": [
-      "flr_tiling"
-    ],
-    "required_materials": [
-      "grout",
-      "silicone",
-      "skirting"
-    ],
+    "dependencies": ["flr_tiling"],
+    "required_materials": ["grout", "silicone", "skirting"],
     "required_photos": [
       {
         "key": "detail",
@@ -1311,10 +1171,7 @@
         "min_count": 3
       }
     ],
-    "inspection_items": [
-      "Wet-area junctions flexible-sealed",
-      "Grout sealed on natural stone"
-    ],
+    "inspection_items": ["Wet-area junctions flexible-sealed", "Grout sealed on natural stone"],
     "is_active": 1
   },
   {
@@ -1343,14 +1200,8 @@
       "Raking-light inspection passed on 100% of surfaces",
       "All MEP boxes masked, not filled over"
     ],
-    "dependencies": [
-      "pls_cure",
-      "gyp_taping"
-    ],
-    "required_materials": [
-      "wall_putty",
-      "sandpaper"
-    ],
+    "dependencies": ["pls_cure", "gyp_taping"],
+    "required_materials": ["wall_putty", "sandpaper"],
     "required_photos": [
       {
         "key": "lamp_check",
@@ -1386,12 +1237,8 @@
       "No suction differences visible when half-dry",
       "Surfaces dust-free after final sand"
     ],
-    "dependencies": [
-      "pnt_putty"
-    ],
-    "required_materials": [
-      "primer_sealer"
-    ],
+    "dependencies": ["pnt_putty"],
+    "required_materials": ["primer_sealer"],
     "required_photos": [
       {
         "key": "primed",
@@ -1427,15 +1274,9 @@
         "text_en": "Even film, no runs/roller marks after leveling"
       }
     ],
-    "completion_criteria": [
-      "Full coverage, minor grinning acceptable before final coat only"
-    ],
-    "dependencies": [
-      "pnt_primer"
-    ],
-    "required_materials": [
-      "emulsion_paint"
-    ],
+    "completion_criteria": ["Full coverage, minor grinning acceptable before final coat only"],
+    "dependencies": ["pnt_primer"],
+    "required_materials": ["emulsion_paint"],
     "required_photos": [
       {
         "key": "first_coat",
@@ -1443,10 +1284,7 @@
         "min_count": 2
       }
     ],
-    "inspection_items": [
-      "Wet film thickness spot check",
-      "Ventilation during application"
-    ],
+    "inspection_items": ["Wet film thickness spot check", "Ventilation during application"],
     "is_active": 1
   },
   {
@@ -1475,14 +1313,8 @@
       "Client-light inspection (day + night) passed",
       "Leftover labeled paint (min 1L per color) handed to client"
     ],
-    "dependencies": [
-      "pnt_first",
-      "flr_grout_skirt",
-      "car_doors"
-    ],
-    "required_materials": [
-      "emulsion_paint"
-    ],
+    "dependencies": ["pnt_first", "flr_grout_skirt", "car_doors"],
+    "required_materials": ["emulsion_paint"],
     "required_photos": [
       {
         "key": "final",
@@ -1526,14 +1358,8 @@
       "Opening sizes leave 3-4 mm leaf gaps",
       "Wet-area frames are WPC/aluminum or fully sealed"
     ],
-    "dependencies": [
-      "pls_plaster"
-    ],
-    "required_materials": [
-      "door_frames",
-      "pu_foam",
-      "anchors"
-    ],
+    "dependencies": ["pls_plaster"],
+    "required_materials": ["door_frames", "pu_foam", "anchors"],
     "required_photos": [
       {
         "key": "frames",
@@ -1577,16 +1403,8 @@
       "Every door closes with soft push, no scraping",
       "Privacy locks on bathrooms/bedrooms function"
     ],
-    "dependencies": [
-      "car_frames",
-      "flr_tiling"
-    ],
-    "required_materials": [
-      "door_leaves",
-      "hinges",
-      "locksets",
-      "stoppers"
-    ],
+    "dependencies": ["car_frames", "flr_tiling"],
+    "required_materials": ["door_leaves", "hinges", "locksets", "stoppers"],
     "required_photos": [
       {
         "key": "doors",
@@ -1632,14 +1450,8 @@
       "Soft-close engaged on all fronts",
       "Interiors clean, protective film removed"
     ],
-    "dependencies": [
-      "pnt_first",
-      "flr_tiling"
-    ],
-    "required_materials": [
-      "wardrobe_units",
-      "hardware"
-    ],
+    "dependencies": ["pnt_first", "flr_tiling"],
+    "required_materials": ["wardrobe_units", "hardware"],
     "required_photos": [
       {
         "key": "builtin",
@@ -1684,17 +1496,8 @@
       "Water test under sink 24h dry",
       "All shelves/accessories delivered"
     ],
-    "dependencies": [
-      "plb_supply_rough",
-      "ele_accessories",
-      "flr_tiling",
-      "pnt_first"
-    ],
-    "required_materials": [
-      "kitchen_cabinets",
-      "countertop",
-      "appliances"
-    ],
+    "dependencies": ["plb_supply_rough", "ele_accessories", "flr_tiling", "pnt_first"],
+    "required_materials": ["kitchen_cabinets", "countertop", "appliances"],
     "required_photos": [
       {
         "key": "kitchen",
@@ -1739,16 +1542,8 @@
       "Every fixture from layout installed and lit",
       "Consistent color temperature within each room (verify bin/CCT)"
     ],
-    "dependencies": [
-      "ele_accessories",
-      "pnt_final"
-    ],
-    "required_materials": [
-      "downlights",
-      "led_strips",
-      "decorative_fixtures",
-      "drivers"
-    ],
+    "dependencies": ["ele_accessories", "pnt_final"],
+    "required_materials": ["downlights", "led_strips", "decorative_fixtures", "drivers"],
     "required_photos": [
       {
         "key": "lit_rooms",
@@ -1793,12 +1588,8 @@
       "Client app account is owner (not installer account)",
       "Scene walkthrough done with client"
     ],
-    "dependencies": [
-      "lgt_install"
-    ],
-    "required_materials": [
-      "smart_hub"
-    ],
+    "dependencies": ["lgt_install"],
+    "required_materials": ["smart_hub"],
     "required_photos": [
       {
         "key": "app",
@@ -1843,10 +1634,7 @@
       "Zero flickering fixtures (slow-mo phone camera test)",
       "Snag list closed"
     ],
-    "dependencies": [
-      "lgt_install",
-      "lgt_smart"
-    ],
+    "dependencies": ["lgt_install", "lgt_smart"],
     "required_materials": [],
     "required_photos": [
       {

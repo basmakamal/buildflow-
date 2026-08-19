@@ -189,10 +189,7 @@ export function estimate(standard, values) {
   }
 
   const names = [...declared, ...Object.keys(FORMULA_FUNCTIONS)]
-  const args = [
-    ...[...declared].map((name) => values[name]),
-    ...Object.values(FORMULA_FUNCTIONS),
-  ]
+  const args = [...[...declared].map((name) => values[name]), ...Object.values(FORMULA_FUNCTIONS)]
   // Identifiers are allow-listed above, so the expression cannot name anything
   // outside `declared` + FORMULA_FUNCTIONS — no `process`, no `fetch`.
   const compute = new Function(...names, `"use strict"; return (${standard.formula});`)

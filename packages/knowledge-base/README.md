@@ -16,27 +16,27 @@ node scripts/verify.mjs "mysql://root@127.0.0.1:3306/buildflow_dev"
 
 `import.mjs` is idempotent — every seed is `INSERT IGNORE` on a `(company_key, code)` unique key, so re-running adds new rows and leaves existing ones alone. Pass `--replace` to force system rows back to shipped values; tenant overrides are never touched.
 
-| Script | Purpose |
-|---|---|
-| `scripts/import.mjs` | Runs `sql/*.sql` in order, prints per-file row counts |
-| `scripts/verify.mjs` | Referential + semantic integrity. **Run in CI and after every admin-panel edit** |
-| `scripts/export-json.mjs` | Regenerates `data/*.json` from the database |
-| `scripts/smoke.mjs` | Evaluates realistic room payloads and asserts the engine's conclusions |
+| Script                    | Purpose                                                                          |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| `scripts/import.mjs`      | Runs `sql/*.sql` in order, prints per-file row counts                            |
+| `scripts/verify.mjs`      | Referential + semantic integrity. **Run in CI and after every admin-panel edit** |
+| `scripts/export-json.mjs` | Regenerates `data/*.json` from the database                                      |
+| `scripts/smoke.mjs`       | Evaluates realistic room payloads and asserts the engine's conclusions           |
 
 ## Contents
 
-| Table | Rows | What it holds |
-|---|---|---|
-| `kb_room_types` | 19 | Classification: category, wet-area flag, typical areas, circulation minimums |
-| `kb_lighting_standards` | 19 | Per room: lux band, CCT, CRI, spot density/spacing, hidden LED, switch plan, IP rating |
-| `kb_electrical_standards` | 19 | Per room: min/recommended/luxury sockets, TV/data/AC/USB/smart points, dedicated circuits |
-| `kb_plumbing_standards` | 21 | Per fixture per space: rough-in heights, clearances, drain sizes, install notes |
-| `kb_furniture_standards` | 36 | Per item per room: dimensions, quantities, use-clearances |
-| `kb_material_catalog` | 51 | Flooring, paint, ceiling, lighting, doors, kitchens, sanitary — with advantages, disadvantages, durability, maintenance, cost tier |
-| `kb_construction_stages` | 36 | 9 trades × stages: definition, checklist, completion criteria, dependencies, materials, photos, inspections |
-| `kb_estimation_standards` | 31 | Formulas + waste percentages for paint, tiles, gypsum, cable, pipe, plaster |
-| `kb_facts` | 93 | Vocabulary the rule builder renders as dropdowns |
-| `kb_rules` | 190 | 110 validation + 80 recommendation rules |
+| Table                     | Rows | What it holds                                                                                                                      |
+| ------------------------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `kb_room_types`           | 19   | Classification: category, wet-area flag, typical areas, circulation minimums                                                       |
+| `kb_lighting_standards`   | 19   | Per room: lux band, CCT, CRI, spot density/spacing, hidden LED, switch plan, IP rating                                             |
+| `kb_electrical_standards` | 19   | Per room: min/recommended/luxury sockets, TV/data/AC/USB/smart points, dedicated circuits                                          |
+| `kb_plumbing_standards`   | 21   | Per fixture per space: rough-in heights, clearances, drain sizes, install notes                                                    |
+| `kb_furniture_standards`  | 36   | Per item per room: dimensions, quantities, use-clearances                                                                          |
+| `kb_material_catalog`     | 51   | Flooring, paint, ceiling, lighting, doors, kitchens, sanitary — with advantages, disadvantages, durability, maintenance, cost tier |
+| `kb_construction_stages`  | 36   | 9 trades × stages: definition, checklist, completion criteria, dependencies, materials, photos, inspections                        |
+| `kb_estimation_standards` | 31   | Formulas + waste percentages for paint, tiles, gypsum, cable, pipe, plaster                                                        |
+| `kb_facts`                | 93   | Vocabulary the rule builder renders as dropdowns                                                                                   |
+| `kb_rules`                | 190  | 110 validation + 80 recommendation rules                                                                                           |
 
 Stage weights sum to exactly 100 per trade, so trade progress is `Σ(completed stage weights)` with no normalization step.
 
@@ -68,11 +68,11 @@ const result = evaluate(rules, {
   hasRcd: true,
 })
 
-result.findings          // sorted: critical → error → warning → info → suggestion
+result.findings // sorted: critical → error → warning → info → suggestion
 result.evaluated.skipped // rules that needed a fact you did not supply
 ```
 
-**Absent facts skip a rule rather than failing it.** A room where the user hasn't drawn sockets has no `socketCount`, and reporting "insufficient outlets" for it would be noise. `evaluated.skipped` names each missing fact, so the UI can say *"add socket data to unlock 12 more checks"* instead of quietly under-reporting.
+**Absent facts skip a rule rather than failing it.** A room where the user hasn't drawn sockets has no `socketCount`, and reporting "insufficient outlets" for it would be noise. `evaluated.skipped` names each missing fact, so the UI can say _"add socket data to unlock 12 more checks"_ instead of quietly under-reporting.
 
 Estimation:
 
@@ -98,10 +98,10 @@ LIMIT 1;
 
 **The rules are split across two tables instead**, because they are read on an API request path where that query cannot be written safely:
 
-| Table | Tenancy | Protected by |
-|---|---|---|
-| `kb_rules` | none — product data, identical for every tenant | listed in `GLOBAL_MODELS` |
-| `kb_rule_overrides` | `company_id NOT NULL` | the Prisma tenant extension, no exception |
+| Table               | Tenancy                                         | Protected by                              |
+| ------------------- | ----------------------------------------------- | ----------------------------------------- |
+| `kb_rules`          | none — product data, identical for every tenant | listed in `GLOBAL_MODELS`                 |
+| `kb_rule_overrides` | `company_id NOT NULL`                           | the Prisma tenant extension, no exception |
 
 The single-table version fails three ways under this architecture: the tenant extension injects `company_id = X` and hides the system rows; marking the model global removes protection from the override rows; and bypassing the extension is forbidden from a request handler (docs/11 §4). Splitting lets each table use the mechanism that actually fits, and `PrismaRuleReader` merges them by code with the tenant winning.
 
@@ -130,7 +130,7 @@ Validate panel writes against `schemas/index.json` (`#/definitions/Rule`) before
 
 ## Formula safety
 
-Formulas in `kb_estimation_standards` are editable by business users, so `estimate()` checks every identifier in the expression against the declared inputs plus a math allow-list *before* compiling. A formula cannot reach `process`, `fetch`, or anything else in scope. Adding a math function means editing `FORMULA_FUNCTIONS` in `src/evaluate.mjs` — deliberately not data.
+Formulas in `kb_estimation_standards` are editable by business users, so `estimate()` checks every identifier in the expression against the declared inputs plus a math allow-list _before_ compiling. A formula cannot reach `process`, `fetch`, or anything else in scope. Adding a math function means editing `FORMULA_FUNCTIONS` in `src/evaluate.mjs` — deliberately not data.
 
 ## Extending
 

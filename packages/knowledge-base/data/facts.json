@@ -641,13 +641,7 @@
     "label_ar": "مقاس السرير",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "single",
-      "double",
-      "queen",
-      "king",
-      "bunk"
-    ],
+    "allowed_values": ["single", "double", "queen", "king", "bunk"],
     "domain": "furniture",
     "description_en": null,
     "is_active": 1
@@ -779,12 +773,7 @@
     "label_ar": "نوع السقف",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "gypsum",
-      "pvc",
-      "acoustic",
-      "stretch"
-    ],
+    "allowed_values": ["gypsum", "pvc", "acoustic", "stretch"],
     "domain": "finishing",
     "description_en": null,
     "is_active": 1
@@ -806,15 +795,7 @@
     "label_ar": "نوع الباب",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "wood_solid",
-      "mdf",
-      "hdf",
-      "wpc",
-      "aluminum",
-      "glass",
-      "steel"
-    ],
+    "allowed_values": ["wood_solid", "mdf", "hdf", "wpc", "aluminum", "glass", "steel"],
     "domain": "finishing",
     "description_en": null,
     "is_active": 1
@@ -825,14 +806,7 @@
     "label_ar": "نوع الأرضية",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "porcelain",
-      "ceramic",
-      "natural_stone",
-      "vinyl",
-      "wood",
-      "epoxy"
-    ],
+    "allowed_values": ["porcelain", "ceramic", "natural_stone", "vinyl", "wood", "epoxy"],
     "domain": "finishing",
     "description_en": null,
     "is_active": 1
@@ -865,11 +839,7 @@
     "label_ar": "مستوى الصيانة",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "low",
-      "medium",
-      "high"
-    ],
+    "allowed_values": ["low", "medium", "high"],
     "domain": "finishing",
     "description_en": null,
     "is_active": 1
@@ -880,12 +850,7 @@
     "label_ar": "فئة تكلفة المادة",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "economy",
-      "standard",
-      "premium",
-      "luxury"
-    ],
+    "allowed_values": ["economy", "standard", "premium", "luxury"],
     "domain": "finishing",
     "description_en": null,
     "is_active": 1
@@ -896,12 +861,7 @@
     "label_ar": "متانة المادة",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "low",
-      "medium",
-      "high",
-      "very_high"
-    ],
+    "allowed_values": ["low", "medium", "high", "very_high"],
     "domain": "finishing",
     "description_en": null,
     "is_active": 1
@@ -912,12 +872,7 @@
     "label_ar": "نوع الدهان",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "emulsion",
-      "specialty",
-      "enamel",
-      "texture"
-    ],
+    "allowed_values": ["emulsion", "specialty", "enamel", "texture"],
     "domain": "finishing",
     "description_en": null,
     "is_active": 1
@@ -1060,12 +1015,7 @@
     "label_ar": "مستوى التشطيب",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "economy",
-      "standard",
-      "premium",
-      "luxury"
-    ],
+    "allowed_values": ["economy", "standard", "premium", "luxury"],
     "domain": "general",
     "description_en": "Project finishing tier — drives recommendation depth.",
     "is_active": 1
@@ -1076,15 +1026,7 @@
     "label_ar": "نوع الساكن",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "family",
-      "couple",
-      "single",
-      "kids",
-      "elderly",
-      "staff",
-      "guest"
-    ],
+    "allowed_values": ["family", "couple", "single", "kids", "elderly", "staff", "guest"],
     "domain": "general",
     "description_en": null,
     "is_active": 1
@@ -1095,13 +1037,7 @@
     "label_ar": "نوع الوحدة",
     "data_type": "enum",
     "unit": null,
-    "allowed_values": [
-      "apartment",
-      "villa",
-      "duplex",
-      "studio",
-      "office"
-    ],
+    "allowed_values": ["apartment", "villa", "duplex", "studio", "office"],
     "domain": "general",
     "description_en": null,
     "is_active": 1

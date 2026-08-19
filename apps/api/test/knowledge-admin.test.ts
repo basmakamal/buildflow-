@@ -36,7 +36,12 @@ let bathroomId: string
 
 const sys = { userId: null, requestId: 'seed', source: 'system' as const, locale: 'en' }
 
-const api = (method: 'GET' | 'POST' | 'PUT' | 'DELETE', url: string, payload?: unknown, token?: string) => {
+const api = (
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+  url: string,
+  payload?: unknown,
+  token?: string,
+) => {
   const options: InjectOptions = {
     method,
     url,
@@ -110,10 +115,38 @@ beforeEach(async () => {
           domain: 'room',
           allowedValues: ['bathroom', 'kitchen', 'master_bedroom'],
         },
-        { id: ids.next(), factCode: 'area', labelEn: 'Area', labelAr: 'المساحة', dataType: 'number', domain: 'room' },
-        { id: ids.next(), factCode: 'isWetArea', labelEn: 'Wet', labelAr: 'رطبة', dataType: 'boolean', domain: 'room' },
-        { id: ids.next(), factCode: 'hasRcd', labelEn: 'RCD', labelAr: 'قاطع', dataType: 'boolean', domain: 'electrical' },
-        { id: ids.next(), factCode: 'socketCount', labelEn: 'Sockets', labelAr: 'أفياش', dataType: 'number', domain: 'electrical' },
+        {
+          id: ids.next(),
+          factCode: 'area',
+          labelEn: 'Area',
+          labelAr: 'المساحة',
+          dataType: 'number',
+          domain: 'room',
+        },
+        {
+          id: ids.next(),
+          factCode: 'isWetArea',
+          labelEn: 'Wet',
+          labelAr: 'رطبة',
+          dataType: 'boolean',
+          domain: 'room',
+        },
+        {
+          id: ids.next(),
+          factCode: 'hasRcd',
+          labelEn: 'RCD',
+          labelAr: 'قاطع',
+          dataType: 'boolean',
+          domain: 'electrical',
+        },
+        {
+          id: ids.next(),
+          factCode: 'socketCount',
+          labelEn: 'Sockets',
+          labelAr: 'أفياش',
+          dataType: 'number',
+          domain: 'electrical',
+        },
       ],
     })
 
@@ -152,29 +185,64 @@ beforeEach(async () => {
     unitId = ids.next()
     bathroomId = ids.next()
     await raw.project.create({
-      data: { id: projectId, companyId: COMPANY, code: 'ADM-1', nameEn: 'A', nameAr: 'أ', currency: 'SAR' },
+      data: {
+        id: projectId,
+        companyId: COMPANY,
+        code: 'ADM-1',
+        nameEn: 'A',
+        nameAr: 'أ',
+        currency: 'SAR',
+      },
     })
     await raw.unit.create({
-      data: { id: unitId, companyId: COMPANY, projectId, unitNumber: '1', name: 'U', grossArea: '90', currency: 'SAR' },
+      data: {
+        id: unitId,
+        companyId: COMPANY,
+        projectId,
+        unitNumber: '1',
+        name: 'U',
+        grossArea: '90',
+        currency: 'SAR',
+      },
     })
     await raw.room.create({
       data: {
-        id: bathroomId, companyId: COMPANY, unitId, typeCode: 'bathroom',
-        nameEn: 'Bath', nameAr: 'حمام', widthMm: 2000, lengthMm: 2500, heightMm: 2800,
-        floorArea: '5', wallArea: '25.2', ceilingArea: '5', perimeter: '9',
+        id: bathroomId,
+        companyId: COMPANY,
+        unitId,
+        typeCode: 'bathroom',
+        nameEn: 'Bath',
+        nameAr: 'حمام',
+        widthMm: 2000,
+        lengthMm: 2500,
+        heightMm: 2800,
+        floorArea: '5',
+        wallArea: '25.2',
+        ceilingArea: '5',
+        perimeter: '9',
       },
     })
   })
 
   await seedPermissionCatalogue(db, () => ids.next())
-  const roleIds = await runWithoutTenantScope(sys, () => seedCompanyRoles(db, COMPANY, () => ids.next()))
+  const roleIds = await runWithoutTenantScope(sys, () =>
+    seedCompanyRoles(db, COMPANY, () => ids.next()),
+  )
 
   const stamp = String(Date.now())
   const makeUser = async (email: string, role: string) => {
     const userId = ids.next()
     await runWithoutTenantScope(sys, async () => {
       await raw.user.create({
-        data: { id: userId, companyId: COMPANY, email, passwordHash: hash, firstNameEn: 'X', lastNameEn: 'Y', status: 'active' },
+        data: {
+          id: userId,
+          companyId: COMPANY,
+          email,
+          passwordHash: hash,
+          firstNameEn: 'X',
+          lastNameEn: 'Y',
+          status: 'active',
+        },
       })
       await raw.userRole.create({ data: { userId, roleId: roleIds[role]!, companyId: COMPANY } })
     })
@@ -200,7 +268,9 @@ const findingCodes = async () =>
     await api('POST', `/api/v1/units/${unitId}/rooms/${bathroomId}/analyze`, {
       facts: { hasRcd: false },
     })
-  ).json<{ findings: { code: string }[] }>().findings.map((f) => f.code)
+  )
+    .json<{ findings: { code: string }[] }>()
+    .findings.map((f) => f.code)
 
 describe('rule catalogue', () => {
   it('lists system rules marked as such', async () => {
@@ -211,9 +281,10 @@ describe('rule catalogue', () => {
   })
 
   it('serves the vocabulary the condition editor is built from', async () => {
-    const body = (
-      await api('GET', '/api/v1/knowledge/vocabulary')
-    ).json<{ facts: { factCode: string; dataType: string; allowedValues: string[] | null }[]; roomTypeCodes: string[] }>()
+    const body = (await api('GET', '/api/v1/knowledge/vocabulary')).json<{
+      facts: { factCode: string; dataType: string; allowedValues: string[] | null }[]
+      roomTypeCodes: string[]
+    }>()
 
     const roomType = body.facts.find((f) => f.factCode === 'roomType')
     expect(roomType?.dataType).toBe('enum')
@@ -222,7 +293,9 @@ describe('rule catalogue', () => {
   })
 
   it('refuses a role without knowledge.view', async () => {
-    expect((await api('GET', '/api/v1/knowledge/rules', undefined, engineerToken)).statusCode).toBe(403)
+    expect((await api('GET', '/api/v1/knowledge/rules', undefined, engineerToken)).statusCode).toBe(
+      403,
+    )
   })
 })
 
@@ -230,7 +303,9 @@ describe('overriding a system rule', () => {
   it('disables it, and the engine stops reporting it', async () => {
     expect(await findingCodes()).toContain(SYSTEM_RULE.code)
 
-    const res = await api('PUT', `/api/v1/knowledge/rules/${SYSTEM_RULE.code}`, { isDisabled: true })
+    const res = await api('PUT', `/api/v1/knowledge/rules/${SYSTEM_RULE.code}`, {
+      isDisabled: true,
+    })
     expect(res.statusCode).toBe(200)
 
     expect(await findingCodes()).not.toContain(SYSTEM_RULE.code)
@@ -262,7 +337,9 @@ describe('overriding a system rule', () => {
     await api('PUT', `/api/v1/knowledge/rules/${SYSTEM_RULE.code}`, { isDisabled: true })
     expect(await findingCodes()).not.toContain(SYSTEM_RULE.code)
 
-    expect((await api('DELETE', `/api/v1/knowledge/rules/${SYSTEM_RULE.code}`)).statusCode).toBe(200)
+    expect((await api('DELETE', `/api/v1/knowledge/rules/${SYSTEM_RULE.code}`)).statusCode).toBe(
+      200,
+    )
 
     expect(await findingCodes()).toContain(SYSTEM_RULE.code)
     expect((await rulesList()).find((r) => r.code === SYSTEM_RULE.code)?.source).toBe('system')

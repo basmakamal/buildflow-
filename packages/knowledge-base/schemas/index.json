@@ -7,10 +7,25 @@
     "RoomTypeCode": {
       "type": "string",
       "enum": [
-        "master_bedroom", "bedroom", "kids_room", "guest_room", "dressing_room",
-        "living_room", "family_room", "dining_room", "majlis", "office",
-        "kitchen", "bathroom", "guest_bathroom", "laundry", "maid_room",
-        "storage", "entrance", "corridor", "balcony"
+        "master_bedroom",
+        "bedroom",
+        "kids_room",
+        "guest_room",
+        "dressing_room",
+        "living_room",
+        "family_room",
+        "dining_room",
+        "majlis",
+        "office",
+        "kitchen",
+        "bathroom",
+        "guest_bathroom",
+        "laundry",
+        "maid_room",
+        "storage",
+        "entrance",
+        "corridor",
+        "balcony"
       ]
     },
     "Severity": {
@@ -20,8 +35,15 @@
     "Operator": {
       "type": "string",
       "enum": [
-        "equal", "notEqual", "lessThan", "lessThanInclusive",
-        "greaterThan", "greaterThanInclusive", "in", "notIn", "contains"
+        "equal",
+        "notEqual",
+        "lessThan",
+        "lessThanInclusive",
+        "greaterThan",
+        "greaterThanInclusive",
+        "in",
+        "notIn",
+        "contains"
       ]
     },
 
@@ -67,13 +89,34 @@
     "Rule": {
       "description": "One row of kb_rules.",
       "type": "object",
-      "required": ["code", "rule_type", "domain", "conditions", "severity", "message_en", "message_ar"],
+      "required": [
+        "code",
+        "rule_type",
+        "domain",
+        "conditions",
+        "severity",
+        "message_en",
+        "message_ar"
+      ],
       "properties": {
-        "code": { "type": "string", "maxLength": 80, "pattern": "^[A-Z]{3}_[A-Z]{3}_[0-9]{3}$|^[A-Za-z0-9_-]+$" },
+        "code": {
+          "type": "string",
+          "maxLength": 80,
+          "pattern": "^[A-Z]{3}_[A-Z]{3}_[0-9]{3}$|^[A-Za-z0-9_-]+$"
+        },
         "rule_type": { "type": "string", "enum": ["recommendation", "validation"] },
         "domain": {
           "type": "string",
-          "enum": ["lighting", "electrical", "plumbing", "furniture", "finishing", "progress", "estimation", "general"]
+          "enum": [
+            "lighting",
+            "electrical",
+            "plumbing",
+            "furniture",
+            "finishing",
+            "progress",
+            "estimation",
+            "general"
+          ]
         },
         "room_type_code": {
           "description": "Pre-filter. MUST agree with any roomType condition inside `conditions`, and MUST be null when the conditions match more than one room type — otherwise the rule silently never fires.",
@@ -110,11 +153,26 @@
           "items": {
             "type": "string",
             "enum": [
-              "ceiling_cove", "behind_headboard", "wardrobe_interior", "tv_wall",
-              "display_niches", "wall_niches", "curtain_pelmet", "shelf_edges",
-              "hanging_rails", "mirror_perimeter", "niche_shelves", "under_cabinet",
-              "above_cabinet", "study_desk", "monitor_wall", "console_niche",
-              "skirting_level", "planter_edges", "seating_perimeter", "shelf_underside"
+              "ceiling_cove",
+              "behind_headboard",
+              "wardrobe_interior",
+              "tv_wall",
+              "display_niches",
+              "wall_niches",
+              "curtain_pelmet",
+              "shelf_edges",
+              "hanging_rails",
+              "mirror_perimeter",
+              "niche_shelves",
+              "under_cabinet",
+              "above_cabinet",
+              "study_desk",
+              "monitor_wall",
+              "console_niche",
+              "skirting_level",
+              "planter_edges",
+              "seating_perimeter",
+              "shelf_underside"
             ]
           }
         },
@@ -219,7 +277,16 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["lighting", "electrical", "plumbing", "furniture", "finishing", "progress", "estimation", "general"]
+            "enum": [
+              "lighting",
+              "electrical",
+              "plumbing",
+              "furniture",
+              "finishing",
+              "progress",
+              "estimation",
+              "general"
+            ]
           },
           "description": "Omit to evaluate every domain."
         },

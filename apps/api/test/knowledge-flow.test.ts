@@ -129,10 +129,38 @@ beforeEach(async () => {
     })
     await raw.kbFact.createMany({
       data: [
-        { id: ids.next(), factCode: 'roomType', labelEn: 'Room Type', labelAr: 'نوع الغرفة', dataType: 'enum', domain: 'room' },
-        { id: ids.next(), factCode: 'area', labelEn: 'Area', labelAr: 'المساحة', dataType: 'number', domain: 'room' },
-        { id: ids.next(), factCode: 'isWetArea', labelEn: 'Wet Area', labelAr: 'منطقة رطبة', dataType: 'boolean', domain: 'room' },
-        { id: ids.next(), factCode: 'hasRcd', labelEn: 'Has RCD', labelAr: 'قاطع تسرب', dataType: 'boolean', domain: 'electrical' },
+        {
+          id: ids.next(),
+          factCode: 'roomType',
+          labelEn: 'Room Type',
+          labelAr: 'نوع الغرفة',
+          dataType: 'enum',
+          domain: 'room',
+        },
+        {
+          id: ids.next(),
+          factCode: 'area',
+          labelEn: 'Area',
+          labelAr: 'المساحة',
+          dataType: 'number',
+          domain: 'room',
+        },
+        {
+          id: ids.next(),
+          factCode: 'isWetArea',
+          labelEn: 'Wet Area',
+          labelAr: 'منطقة رطبة',
+          dataType: 'boolean',
+          domain: 'room',
+        },
+        {
+          id: ids.next(),
+          factCode: 'hasRcd',
+          labelEn: 'Has RCD',
+          labelAr: 'قاطع تسرب',
+          dataType: 'boolean',
+          domain: 'electrical',
+        },
       ],
     })
 
@@ -153,8 +181,22 @@ beforeEach(async () => {
 
     await raw.company.createMany({
       data: [
-        { id: COMPANY, nameEn: 'Acme', nameAr: 'أكمي', slug: `acme-kb-${String(Date.now())}`, countryCode: 'SA', defaultCurrency: 'SAR' },
-        { id: RIVAL, nameEn: 'Rival', nameAr: 'منافس', slug: `rival-kb-${String(Date.now())}`, countryCode: 'AE', defaultCurrency: 'AED' },
+        {
+          id: COMPANY,
+          nameEn: 'Acme',
+          nameAr: 'أكمي',
+          slug: `acme-kb-${String(Date.now())}`,
+          countryCode: 'SA',
+          defaultCurrency: 'SAR',
+        },
+        {
+          id: RIVAL,
+          nameEn: 'Rival',
+          nameAr: 'منافس',
+          slug: `rival-kb-${String(Date.now())}`,
+          countryCode: 'AE',
+          defaultCurrency: 'AED',
+        },
       ],
     })
 
@@ -165,42 +207,99 @@ beforeEach(async () => {
     otherRoomId = ids.next()
 
     await raw.project.create({
-      data: { id: projectId, companyId: COMPANY, code: 'KB-1', nameEn: 'KB', nameAr: 'ق', currency: 'SAR' },
+      data: {
+        id: projectId,
+        companyId: COMPANY,
+        code: 'KB-1',
+        nameEn: 'KB',
+        nameAr: 'ق',
+        currency: 'SAR',
+      },
     })
     await raw.unit.create({
-      data: { id: unitId, companyId: COMPANY, projectId, unitNumber: '1', name: 'Unit', grossArea: '120', currency: 'SAR' },
+      data: {
+        id: unitId,
+        companyId: COMPANY,
+        projectId,
+        unitNumber: '1',
+        name: 'Unit',
+        grossArea: '120',
+        currency: 'SAR',
+      },
     })
     await raw.room.createMany({
       data: [
         {
-          id: bathroomId, companyId: COMPANY, unitId, typeCode: 'bathroom',
-          nameEn: 'Bath', nameAr: 'حمام', widthMm: 2000, lengthMm: 2500, heightMm: 2800,
-          floorArea: '5', wallArea: '25.2', ceilingArea: '5', perimeter: '9',
+          id: bathroomId,
+          companyId: COMPANY,
+          unitId,
+          typeCode: 'bathroom',
+          nameEn: 'Bath',
+          nameAr: 'حمام',
+          widthMm: 2000,
+          lengthMm: 2500,
+          heightMm: 2800,
+          floorArea: '5',
+          wallArea: '25.2',
+          ceilingArea: '5',
+          perimeter: '9',
         },
         {
-          id: bedroomId, companyId: COMPANY, unitId, typeCode: 'master_bedroom',
-          nameEn: 'Master', nameAr: 'رئيسية', widthMm: 4200, lengthMm: 5700, heightMm: 3000,
-          floorArea: '23.94', wallArea: '59.4', ceilingArea: '23.94', perimeter: '19.8',
+          id: bedroomId,
+          companyId: COMPANY,
+          unitId,
+          typeCode: 'master_bedroom',
+          nameEn: 'Master',
+          nameAr: 'رئيسية',
+          widthMm: 4200,
+          lengthMm: 5700,
+          heightMm: 3000,
+          floorArea: '23.94',
+          wallArea: '59.4',
+          ceilingArea: '23.94',
+          perimeter: '19.8',
         },
         {
-          id: otherRoomId, companyId: COMPANY, unitId, typeCode: 'other',
-          nameEn: 'Odd', nameAr: 'أخرى', widthMm: 3000, lengthMm: 3000, heightMm: 3000,
-          floorArea: '9', wallArea: '36', ceilingArea: '9', perimeter: '12',
+          id: otherRoomId,
+          companyId: COMPANY,
+          unitId,
+          typeCode: 'other',
+          nameEn: 'Odd',
+          nameAr: 'أخرى',
+          widthMm: 3000,
+          lengthMm: 3000,
+          heightMm: 3000,
+          floorArea: '9',
+          wallArea: '36',
+          ceilingArea: '9',
+          perimeter: '12',
         },
       ],
     })
   })
 
   await seedPermissionCatalogue(db, () => ids.next())
-  const roleIds = await runWithoutTenantScope(sys, () => seedCompanyRoles(db, COMPANY, () => ids.next()))
+  const roleIds = await runWithoutTenantScope(sys, () =>
+    seedCompanyRoles(db, COMPANY, () => ids.next()),
+  )
 
   const email = `owner-kb-${String(Date.now())}@acme.sa`
   const userId = ids.next()
   await runWithoutTenantScope(sys, async () => {
     await raw.user.create({
-      data: { id: userId, companyId: COMPANY, email, passwordHash: hash, firstNameEn: 'Owner', lastNameEn: 'User', status: 'active' },
+      data: {
+        id: userId,
+        companyId: COMPANY,
+        email,
+        passwordHash: hash,
+        firstNameEn: 'Owner',
+        lastNameEn: 'User',
+        status: 'active',
+      },
     })
-    await raw.userRole.create({ data: { userId, roleId: roleIds['company_owner']!, companyId: COMPANY } })
+    await raw.userRole.create({
+      data: { userId, roleId: roleIds['company_owner']!, companyId: COMPANY },
+    })
   })
 
   ownerToken = (

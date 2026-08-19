@@ -6,19 +6,8 @@
     "name_en": "Ceramic Tile",
     "name_ar": "سيراميك",
     "usage_en": "Budget floors and walls, service areas",
-    "suitable_rooms": [
-      "kitchen",
-      "bathroom",
-      "laundry",
-      "maid_room",
-      "storage",
-      "balcony"
-    ],
-    "advantages": [
-      "Economical",
-      "Easy to source",
-      "Easy to cut"
-    ],
+    "suitable_rooms": ["kitchen", "bathroom", "laundry", "maid_room", "storage", "balcony"],
+    "advantages": ["Economical", "Easy to source", "Easy to cut"],
     "disadvantages": [
       "Chips at edges",
       "Higher absorption than porcelain",
@@ -39,22 +28,13 @@
     "name_en": "Engineered Wood",
     "name_ar": "خشب هندسي",
     "usage_en": "Premium bedrooms and living areas",
-    "suitable_rooms": [
-      "master_bedroom",
-      "living_room",
-      "office",
-      "dressing_room"
-    ],
+    "suitable_rooms": ["master_bedroom", "living_room", "office", "dressing_room"],
     "advantages": [
       "Real wood surface",
       "Re-sandable 1-2 times",
       "Stable vs solid wood in AC climate"
     ],
-    "disadvantages": [
-      "Expensive",
-      "Scratches show",
-      "Humidity swings open joints"
-    ],
+    "disadvantages": ["Expensive", "Scratches show", "Humidity swings open joints"],
     "durability": "high",
     "lifespan_years": 25,
     "maintenance_level": "medium",
@@ -70,16 +50,8 @@
     "name_en": "Epoxy / Microcement Floor",
     "name_ar": "إيبوكسي / ميكروسمنت",
     "usage_en": "Seamless modern floors, garages, feature areas",
-    "suitable_rooms": [
-      "storage",
-      "laundry",
-      "office"
-    ],
-    "advantages": [
-      "Seamless — no grout",
-      "Chemical resistant",
-      "Any color"
-    ],
+    "suitable_rooms": ["storage", "laundry", "office"],
+    "advantages": ["Seamless — no grout", "Chemical resistant", "Any color"],
     "disadvantages": [
       "Shows substrate cracks",
       "Skilled applicator critical",
@@ -100,22 +72,9 @@
     "name_en": "Granite",
     "name_ar": "جرانيت",
     "usage_en": "Heavy-traffic floors, entrances, external steps",
-    "suitable_rooms": [
-      "entrance",
-      "corridor",
-      "balcony",
-      "kitchen"
-    ],
-    "advantages": [
-      "Hardest common stone",
-      "Acid and scratch resistant",
-      "Outdoor capable"
-    ],
-    "disadvantages": [
-      "Limited color range",
-      "Heavy — check slab loads",
-      "Cold appearance"
-    ],
+    "suitable_rooms": ["entrance", "corridor", "balcony", "kitchen"],
+    "advantages": ["Hardest common stone", "Acid and scratch resistant", "Outdoor capable"],
+    "disadvantages": ["Limited color range", "Heavy — check slab loads", "Cold appearance"],
     "durability": "very_high",
     "lifespan_years": 40,
     "maintenance_level": "low",
@@ -131,12 +90,7 @@
     "name_en": "Laminate (HDF) Parquet",
     "name_ar": "باركيه HDF",
     "usage_en": "Bedrooms and dry living areas on a budget",
-    "suitable_rooms": [
-      "master_bedroom",
-      "bedroom",
-      "guest_room",
-      "office"
-    ],
+    "suitable_rooms": ["master_bedroom", "bedroom", "guest_room", "office"],
     "advantages": [
       "Wood look at low cost",
       "Click install, no glue",
@@ -162,17 +116,8 @@
     "name_en": "Natural Marble",
     "name_ar": "رخام طبيعي",
     "usage_en": "Luxury reception floors, entrances, stairs",
-    "suitable_rooms": [
-      "majlis",
-      "entrance",
-      "living_room",
-      "corridor"
-    ],
-    "advantages": [
-      "Prestige finish",
-      "Each slab unique",
-      "Cool underfoot in hot climate"
-    ],
+    "suitable_rooms": ["majlis", "entrance", "living_room", "corridor"],
+    "advantages": ["Prestige finish", "Each slab unique", "Cool underfoot in hot climate"],
     "disadvantages": [
       "Etches with acids (lemon, cleaners)",
       "Needs periodic sealing/polishing",
@@ -193,9 +138,7 @@
     "name_en": "Porcelain Tile 60x60",
     "name_ar": "بورسلان 60×60",
     "usage_en": "General floors — living, corridors, kitchens, bathrooms",
-    "suitable_rooms": [
-      "*"
-    ],
+    "suitable_rooms": ["*"],
     "advantages": [
       "Very hard wearing",
       "Low water absorption (<0.5%)",
@@ -222,19 +165,8 @@
     "name_en": "Large-format Porcelain 120x60+",
     "name_ar": "بورسلان مقاسات كبيرة",
     "usage_en": "Premium open areas, feature floors, wall cladding",
-    "suitable_rooms": [
-      "living_room",
-      "majlis",
-      "entrance",
-      "corridor",
-      "kitchen",
-      "bathroom"
-    ],
-    "advantages": [
-      "Minimal grout lines",
-      "Luxury look",
-      "Book-match marble effects"
-    ],
+    "suitable_rooms": ["living_room", "majlis", "entrance", "corridor", "kitchen", "bathroom"],
+    "advantages": ["Minimal grout lines", "Luxury look", "Book-match marble effects"],
     "disadvantages": [
       "High cutting waste",
       "Needs very flat screed (±2 mm)",
@@ -289,21 +221,9 @@
     "name_en": "Anti-mold Bathroom Paint",
     "name_ar": "دهان مقاوم للرطوبة والعفن",
     "usage_en": "Bathroom and laundry ceilings/walls above tiles",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom",
-      "laundry",
-      "kitchen"
-    ],
-    "advantages": [
-      "Fungicide additives",
-      "Moisture tolerant",
-      "Wipeable"
-    ],
-    "disadvantages": [
-      "Limited colors",
-      "Still needs ventilation to perform"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom", "laundry", "kitchen"],
+    "advantages": ["Fungicide additives", "Moisture tolerant", "Wipeable"],
+    "disadvantages": ["Limited colors", "Still needs ventilation to perform"],
     "durability": "high",
     "lifespan_years": 8,
     "maintenance_level": "low",
@@ -319,18 +239,9 @@
     "name_en": "Oil / Water-based Enamel",
     "name_ar": "دهان زيت / لاكيه",
     "usage_en": "Doors, frames, metalwork, skirting",
-    "suitable_rooms": [
-      "*"
-    ],
-    "advantages": [
-      "Hard washable film",
-      "Good edge coverage on wood/metal"
-    ],
-    "disadvantages": [
-      "Slow recoat",
-      "Yellows (oil-based)",
-      "Brush marks need skill"
-    ],
+    "suitable_rooms": ["*"],
+    "advantages": ["Hard washable film", "Good edge coverage on wood/metal"],
+    "disadvantages": ["Slow recoat", "Yellows (oil-based)", "Brush marks need skill"],
     "durability": "high",
     "lifespan_years": 10,
     "maintenance_level": "low",
@@ -346,18 +257,9 @@
     "name_en": "Scrubbable Anti-bacterial Paint",
     "name_ar": "دهان صحي قابل للفرك",
     "usage_en": "Kids rooms, clinics-grade walls",
-    "suitable_rooms": [
-      "kids_room",
-      "kitchen"
-    ],
-    "advantages": [
-      "Survives crayon/marker cleaning",
-      "Anti-bacterial film"
-    ],
-    "disadvantages": [
-      "Premium price",
-      "Limited suppliers"
-    ],
+    "suitable_rooms": ["kids_room", "kitchen"],
+    "advantages": ["Survives crayon/marker cleaning", "Anti-bacterial film"],
+    "disadvantages": ["Premium price", "Limited suppliers"],
     "durability": "high",
     "lifespan_years": 10,
     "maintenance_level": "low",
@@ -373,19 +275,9 @@
     "name_en": "Plastic Emulsion (Matt)",
     "name_ar": "دهان بلاستيك مطفي",
     "usage_en": "Ceilings and low-touch walls",
-    "suitable_rooms": [
-      "*"
-    ],
-    "advantages": [
-      "Cheap",
-      "Hides surface defects",
-      "Easy recoat"
-    ],
-    "disadvantages": [
-      "Marks with scrubbing",
-      "Absorbs stains",
-      "Not washable"
-    ],
+    "suitable_rooms": ["*"],
+    "advantages": ["Cheap", "Hides surface defects", "Easy recoat"],
+    "disadvantages": ["Marks with scrubbing", "Absorbs stains", "Not washable"],
     "durability": "medium",
     "lifespan_years": 7,
     "maintenance_level": "medium",
@@ -401,15 +293,8 @@
     "name_en": "Decorative Texture (Graffiato/Stucco)",
     "name_ar": "دهان ديكوري (جرافياتو/استوكو)",
     "usage_en": "Feature walls, majlis columns, facades",
-    "suitable_rooms": [
-      "majlis",
-      "living_room",
-      "entrance"
-    ],
-    "advantages": [
-      "Hides substrate defects completely",
-      "Distinctive finish"
-    ],
+    "suitable_rooms": ["majlis", "living_room", "entrance"],
+    "advantages": ["Hides substrate defects completely", "Distinctive finish"],
     "disadvantages": [
       "Hard to repair invisibly",
       "Collects dust in relief",
@@ -439,15 +324,8 @@
       "entrance",
       "office"
     ],
-    "advantages": [
-      "Scrubbable",
-      "Stain resistant",
-      "Soft sheen hides handprints"
-    ],
-    "disadvantages": [
-      "Sheen highlights wall waviness",
-      "Costs 2x matt"
-    ],
+    "advantages": ["Scrubbable", "Stain resistant", "Soft sheen hides handprints"],
+    "disadvantages": ["Sheen highlights wall waviness", "Costs 2x matt"],
     "durability": "high",
     "lifespan_years": 10,
     "maintenance_level": "low",
@@ -463,18 +341,9 @@
     "name_en": "Acoustic Ceiling Tiles 60x60",
     "name_ar": "بلاط أسقف صوتي",
     "usage_en": "Home office, media rooms",
-    "suitable_rooms": [
-      "office"
-    ],
-    "advantages": [
-      "Sound absorption",
-      "Full service access",
-      "Cheap replacement"
-    ],
-    "disadvantages": [
-      "Office look",
-      "Low ceilings feel commercial"
-    ],
+    "suitable_rooms": ["office"],
+    "advantages": ["Sound absorption", "Full service access", "Cheap replacement"],
+    "disadvantages": ["Office look", "Low ceilings feel commercial"],
     "durability": "medium",
     "lifespan_years": 15,
     "maintenance_level": "low",
@@ -490,23 +359,13 @@
     "name_en": "Tray / Cove Design Gypsum Ceiling",
     "name_ar": "سقف جبس ديكور مع إضاءة مخفية",
     "usage_en": "Living, majlis, master bedroom feature ceilings",
-    "suitable_rooms": [
-      "living_room",
-      "majlis",
-      "master_bedroom",
-      "dining_room",
-      "entrance"
-    ],
+    "suitable_rooms": ["living_room", "majlis", "master_bedroom", "dining_room", "entrance"],
     "advantages": [
       "Integrates hidden LED coves",
       "Adds perceived height/luxury",
       "Zoning of large spaces"
     ],
-    "disadvantages": [
-      "Costs 1.5-2x flat",
-      "Dust shelf in coves",
-      "Complicates AC diffuser layout"
-    ],
+    "disadvantages": ["Costs 1.5-2x flat", "Dust shelf in coves", "Complicates AC diffuser layout"],
     "durability": "high",
     "lifespan_years": 20,
     "maintenance_level": "medium",
@@ -522,14 +381,8 @@
     "name_en": "Flat Gypsum Board Ceiling",
     "name_ar": "سقف جبس مستوي",
     "usage_en": "Whole-house standard false ceiling",
-    "suitable_rooms": [
-      "*"
-    ],
-    "advantages": [
-      "Clean flat finish",
-      "Hides MEP services",
-      "Fast install"
-    ],
+    "suitable_rooms": ["*"],
+    "advantages": ["Clean flat finish", "Hides MEP services", "Fast install"],
     "disadvantages": [
       "Needs access hatches at valves/units",
       "Cracks at bad joints",
@@ -550,20 +403,9 @@
     "name_en": "Moisture-resistant (Green) Gypsum Board",
     "name_ar": "جبس مقاوم للرطوبة (أخضر)",
     "usage_en": "Bathrooms, kitchens, laundry ceilings",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom",
-      "kitchen",
-      "laundry"
-    ],
-    "advantages": [
-      "Tolerates humidity",
-      "Same install as standard board"
-    ],
-    "disadvantages": [
-      "Not waterproof — still fails under direct leaks",
-      "~30% cost premium"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom", "kitchen", "laundry"],
+    "advantages": ["Tolerates humidity", "Same install as standard board"],
+    "disadvantages": ["Not waterproof — still fails under direct leaks", "~30% cost premium"],
     "durability": "high",
     "lifespan_years": 20,
     "maintenance_level": "low",
@@ -579,22 +421,9 @@
     "name_en": "PVC Ceiling Panels",
     "name_ar": "أسقف PVC",
     "usage_en": "Budget wet areas, service rooms",
-    "suitable_rooms": [
-      "bathroom",
-      "laundry",
-      "storage",
-      "maid_room"
-    ],
-    "advantages": [
-      "Fully waterproof",
-      "Cheap",
-      "Demountable for access"
-    ],
-    "disadvantages": [
-      "Plastic look",
-      "Yellows over time",
-      "Rattles in AC airflow"
-    ],
+    "suitable_rooms": ["bathroom", "laundry", "storage", "maid_room"],
+    "advantages": ["Fully waterproof", "Cheap", "Demountable for access"],
+    "disadvantages": ["Plastic look", "Yellows over time", "Rattles in AC airflow"],
     "durability": "medium",
     "lifespan_years": 12,
     "maintenance_level": "low",
@@ -610,21 +439,9 @@
     "name_en": "Stretch Ceiling (Barrisol-type)",
     "name_ar": "سقف فرنسي مشدود",
     "usage_en": "Luxury feature ceilings, backlit panels",
-    "suitable_rooms": [
-      "majlis",
-      "living_room",
-      "dining_room"
-    ],
-    "advantages": [
-      "Perfect seamless surface",
-      "Backlit translucent options",
-      "No cracking"
-    ],
-    "disadvantages": [
-      "Specialist installer only",
-      "Punctures are fatal",
-      "Expensive"
-    ],
+    "suitable_rooms": ["majlis", "living_room", "dining_room"],
+    "advantages": ["Perfect seamless surface", "Backlit translucent options", "No cracking"],
+    "disadvantages": ["Specialist installer only", "Punctures are fatal", "Expensive"],
     "durability": "high",
     "lifespan_years": 15,
     "maintenance_level": "low",
@@ -640,16 +457,8 @@
     "name_en": "Chandelier",
     "name_ar": "ثريا",
     "usage_en": "Majlis, dining, double-height entrances",
-    "suitable_rooms": [
-      "majlis",
-      "dining_room",
-      "living_room",
-      "entrance"
-    ],
-    "advantages": [
-      "Statement centerpiece",
-      "Sets the room style"
-    ],
+    "suitable_rooms": ["majlis", "dining_room", "living_room", "entrance"],
+    "advantages": ["Statement centerpiece", "Sets the room style"],
     "disadvantages": [
       "Cleaning burden",
       "Needs rated ceiling anchor",
@@ -670,19 +479,9 @@
     "name_en": "Recessed LED Downlight 7-9W",
     "name_ar": "سبوت لايت LED مسقط",
     "usage_en": "General ambient layer in gypsum ceilings",
-    "suitable_rooms": [
-      "*"
-    ],
-    "advantages": [
-      "Efficient (100+ lm/W)",
-      "Clean ceiling",
-      "Cheap to replace"
-    ],
-    "disadvantages": [
-      "Glare if wrong UGR/beam",
-      "Cheap drivers flicker",
-      "Fixed direction"
-    ],
+    "suitable_rooms": ["*"],
+    "advantages": ["Efficient (100+ lm/W)", "Clean ceiling", "Cheap to replace"],
+    "disadvantages": ["Glare if wrong UGR/beam", "Cheap drivers flicker", "Fixed direction"],
     "durability": "high",
     "lifespan_years": 8,
     "maintenance_level": "low",
@@ -698,14 +497,8 @@
     "name_en": "LED Strip (COB, 24V)",
     "name_ar": "شريط LED خفي",
     "usage_en": "Coves, under-cabinet, niches, mirrors",
-    "suitable_rooms": [
-      "*"
-    ],
-    "advantages": [
-      "Continuous line of light",
-      "Dimmable",
-      "Dot-free COB versions"
-    ],
+    "suitable_rooms": ["*"],
+    "advantages": ["Continuous line of light", "Dimmable", "Dot-free COB versions"],
     "disadvantages": [
       "Driver placement needs access",
       "Cheap strips color-shift within a year",
@@ -726,12 +519,7 @@
     "name_en": "Magnetic Track System 48V",
     "name_ar": "مسار مغناطيسي",
     "usage_en": "Modern living areas, galleries, dressing rooms",
-    "suitable_rooms": [
-      "living_room",
-      "dressing_room",
-      "corridor",
-      "office"
-    ],
+    "suitable_rooms": ["living_room", "dressing_room", "corridor", "office"],
     "advantages": [
       "Reconfigurable fixtures",
       "Mix spot/linear/pendant on one track",
@@ -757,18 +545,9 @@
     "name_en": "Pendant Light",
     "name_ar": "دلاية إضاءة",
     "usage_en": "Over dining tables, kitchen islands, bedsides",
-    "suitable_rooms": [
-      "dining_room",
-      "kitchen",
-      "master_bedroom"
-    ],
-    "advantages": [
-      "Task + decor in one",
-      "Frees bedside table space"
-    ],
-    "disadvantages": [
-      "Fixed position — must match furniture plan exactly"
-    ],
+    "suitable_rooms": ["dining_room", "kitchen", "master_bedroom"],
+    "advantages": ["Task + decor in one", "Frees bedside table space"],
+    "disadvantages": ["Fixed position — must match furniture plan exactly"],
     "durability": "high",
     "lifespan_years": 15,
     "maintenance_level": "low",
@@ -784,20 +563,9 @@
     "name_en": "Wall Sconce",
     "name_ar": "إضاءة جدارية",
     "usage_en": "Bedheads, corridors, bathroom mirrors",
-    "suitable_rooms": [
-      "master_bedroom",
-      "corridor",
-      "bathroom",
-      "majlis"
-    ],
-    "advantages": [
-      "Layered light at eye level",
-      "Frees ceiling"
-    ],
-    "disadvantages": [
-      "Wiring must be planned before plaster",
-      "Fixed height forever"
-    ],
+    "suitable_rooms": ["master_bedroom", "corridor", "bathroom", "majlis"],
+    "advantages": ["Layered light at eye level", "Frees ceiling"],
+    "disadvantages": ["Wiring must be planned before plaster", "Fixed height forever"],
     "durability": "high",
     "lifespan_years": 15,
     "maintenance_level": "low",
@@ -813,20 +581,9 @@
     "name_en": "Aluminum Door (glazed)",
     "name_ar": "باب ألمنيوم",
     "usage_en": "Balconies, external service doors",
-    "suitable_rooms": [
-      "balcony",
-      "laundry",
-      "kitchen"
-    ],
-    "advantages": [
-      "Weatherproof",
-      "Zero maintenance",
-      "Slim sightlines"
-    ],
-    "disadvantages": [
-      "Thermal bridging unless broken profile",
-      "Rattles if cheap profile"
-    ],
+    "suitable_rooms": ["balcony", "laundry", "kitchen"],
+    "advantages": ["Weatherproof", "Zero maintenance", "Slim sightlines"],
+    "disadvantages": ["Thermal bridging unless broken profile", "Rattles if cheap profile"],
     "durability": "very_high",
     "lifespan_years": 30,
     "maintenance_level": "low",
@@ -842,14 +599,8 @@
     "name_en": "Frameless Glass Door",
     "name_ar": "باب زجاج سيكوريت",
     "usage_en": "Office fronts, shower enclosures, internal features",
-    "suitable_rooms": [
-      "office",
-      "bathroom"
-    ],
-    "advantages": [
-      "Light transmission",
-      "Modern look"
-    ],
+    "suitable_rooms": ["office", "bathroom"],
+    "advantages": ["Light transmission", "Modern look"],
     "disadvantages": [
       "No acoustic privacy",
       "Fingerprint maintenance",
@@ -870,21 +621,9 @@
     "name_en": "HDF Skin Moulded Door",
     "name_ar": "باب HDF مضغوط",
     "usage_en": "Budget internal doors",
-    "suitable_rooms": [
-      "bedroom",
-      "maid_room",
-      "storage"
-    ],
-    "advantages": [
-      "Cheapest hinged door",
-      "Light weight",
-      "Pre-primed"
-    ],
-    "disadvantages": [
-      "Hollow feel and sound",
-      "Puncture-prone",
-      "Limited designs"
-    ],
+    "suitable_rooms": ["bedroom", "maid_room", "storage"],
+    "advantages": ["Cheapest hinged door", "Light weight", "Pre-primed"],
+    "disadvantages": ["Hollow feel and sound", "Puncture-prone", "Limited designs"],
     "durability": "medium",
     "lifespan_years": 10,
     "maintenance_level": "low",
@@ -900,23 +639,9 @@
     "name_en": "MDF Lacquered Door",
     "name_ar": "باب MDF دوكو",
     "usage_en": "Standard internal doors with painted finish",
-    "suitable_rooms": [
-      "master_bedroom",
-      "bedroom",
-      "kids_room",
-      "office",
-      "guest_room"
-    ],
-    "advantages": [
-      "Perfectly smooth modern finish",
-      "Any RAL color",
-      "Stable core"
-    ],
-    "disadvantages": [
-      "Chips at edges show brown core",
-      "Lacquer scratches",
-      "Not for wet areas"
-    ],
+    "suitable_rooms": ["master_bedroom", "bedroom", "kids_room", "office", "guest_room"],
+    "advantages": ["Perfectly smooth modern finish", "Any RAL color", "Stable core"],
+    "disadvantages": ["Chips at edges show brown core", "Lacquer scratches", "Not for wet areas"],
     "durability": "high",
     "lifespan_years": 15,
     "maintenance_level": "medium",
@@ -932,18 +657,9 @@
     "name_en": "Security Steel Entrance Door",
     "name_ar": "باب حديد أمان",
     "usage_en": "Apartment entrance doors",
-    "suitable_rooms": [
-      "entrance"
-    ],
-    "advantages": [
-      "Security rating",
-      "Fire options",
-      "Acoustic seals"
-    ],
-    "disadvantages": [
-      "Industrial look unless clad",
-      "Heavy on frame anchors"
-    ],
+    "suitable_rooms": ["entrance"],
+    "advantages": ["Security rating", "Fire options", "Acoustic seals"],
+    "disadvantages": ["Industrial look unless clad", "Heavy on frame anchors"],
     "durability": "very_high",
     "lifespan_years": 30,
     "maintenance_level": "low",
@@ -959,21 +675,9 @@
     "name_en": "Solid Wood Door",
     "name_ar": "باب خشب صلب",
     "usage_en": "Entrance-grade and premium internal doors",
-    "suitable_rooms": [
-      "entrance",
-      "majlis",
-      "master_bedroom"
-    ],
-    "advantages": [
-      "Best acoustics and feel",
-      "Re-finishable many times",
-      "Prestige"
-    ],
-    "disadvantages": [
-      "Warps if humidity uncontrolled",
-      "Heavy — 4 hinges",
-      "Expensive"
-    ],
+    "suitable_rooms": ["entrance", "majlis", "master_bedroom"],
+    "advantages": ["Best acoustics and feel", "Re-finishable many times", "Prestige"],
+    "disadvantages": ["Warps if humidity uncontrolled", "Heavy — 4 hinges", "Expensive"],
     "durability": "very_high",
     "lifespan_years": 40,
     "maintenance_level": "medium",
@@ -989,16 +693,8 @@
     "name_en": "WPC / PVC Door",
     "name_ar": "باب WPC مقاوم للماء",
     "usage_en": "Bathrooms, laundries — all wet areas",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom",
-      "laundry"
-    ],
-    "advantages": [
-      "100% waterproof",
-      "Never swells",
-      "Termite-proof"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom", "laundry"],
+    "advantages": ["100% waterproof", "Never swells", "Termite-proof"],
     "disadvantages": [
       "Plastic feel",
       "Limited premium finishes",
@@ -1019,18 +715,9 @@
     "name_en": "High-gloss Acrylic Kitchen",
     "name_ar": "مطبخ أكريليك",
     "usage_en": "Modern gloss kitchens",
-    "suitable_rooms": [
-      "kitchen"
-    ],
-    "advantages": [
-      "Mirror-gloss finish",
-      "UV stable colors",
-      "Scratch-buffable"
-    ],
-    "disadvantages": [
-      "Shows fingerprints",
-      "Edge banding quality critical"
-    ],
+    "suitable_rooms": ["kitchen"],
+    "advantages": ["Mirror-gloss finish", "UV stable colors", "Scratch-buffable"],
+    "disadvantages": ["Shows fingerprints", "Edge banding quality critical"],
     "durability": "high",
     "lifespan_years": 15,
     "maintenance_level": "low",
@@ -1046,17 +733,13 @@
     "name_en": "HPL / Compact Laminate Kitchen",
     "name_ar": "مطبخ HPL",
     "usage_en": "Heavy-use family kitchens",
-    "suitable_rooms": [
-      "kitchen"
-    ],
+    "suitable_rooms": ["kitchen"],
     "advantages": [
       "Most impact/scratch resistant front",
       "Heat tolerant",
       "Realistic wood textures"
     ],
-    "disadvantages": [
-      "Visible edge lines unless laser-edged"
-    ],
+    "disadvantages": ["Visible edge lines unless laser-edged"],
     "durability": "high",
     "lifespan_years": 20,
     "maintenance_level": "low",
@@ -1072,18 +755,9 @@
     "name_en": "Lacquered (Duco) Kitchen",
     "name_ar": "مطبخ دوكو",
     "usage_en": "Custom-color premium kitchens",
-    "suitable_rooms": [
-      "kitchen"
-    ],
-    "advantages": [
-      "Any color/sheen",
-      "Repairable by respray",
-      "Handle-less designs"
-    ],
-    "disadvantages": [
-      "Chips on impact",
-      "Costly skilled finishing"
-    ],
+    "suitable_rooms": ["kitchen"],
+    "advantages": ["Any color/sheen", "Repairable by respray", "Handle-less designs"],
+    "disadvantages": ["Chips on impact", "Costly skilled finishing"],
     "durability": "high",
     "lifespan_years": 15,
     "maintenance_level": "medium",
@@ -1099,18 +773,9 @@
     "name_en": "MDF Thermofoil (PVC-wrapped) Kitchen",
     "name_ar": "مطبخ MDF ملفوف PVC",
     "usage_en": "Budget-to-standard kitchen cabinets",
-    "suitable_rooms": [
-      "kitchen"
-    ],
-    "advantages": [
-      "Economical",
-      "Seamless wrapped edges",
-      "Easy cleaning"
-    ],
-    "disadvantages": [
-      "Foil peels near ovens/steam",
-      "Limited to matte/gloss basics"
-    ],
+    "suitable_rooms": ["kitchen"],
+    "advantages": ["Economical", "Seamless wrapped edges", "Easy cleaning"],
+    "disadvantages": ["Foil peels near ovens/steam", "Limited to matte/gloss basics"],
     "durability": "medium",
     "lifespan_years": 10,
     "maintenance_level": "low",
@@ -1126,19 +791,9 @@
     "name_en": "Granite Countertop",
     "name_ar": "سطح جرانيت",
     "usage_en": "Standard worktops",
-    "suitable_rooms": [
-      "kitchen"
-    ],
-    "advantages": [
-      "Heat-proof",
-      "Scratch resistant",
-      "Natural stone price now moderate"
-    ],
-    "disadvantages": [
-      "Needs sealing yearly",
-      "Seams visible",
-      "Limited whites"
-    ],
+    "suitable_rooms": ["kitchen"],
+    "advantages": ["Heat-proof", "Scratch resistant", "Natural stone price now moderate"],
+    "disadvantages": ["Needs sealing yearly", "Seams visible", "Limited whites"],
     "durability": "very_high",
     "lifespan_years": 30,
     "maintenance_level": "medium",
@@ -1154,18 +809,9 @@
     "name_en": "Engineered Quartz Countertop",
     "name_ar": "سطح كوارتز صناعي",
     "usage_en": "Premium worktops",
-    "suitable_rooms": [
-      "kitchen"
-    ],
-    "advantages": [
-      "Non-porous — no sealing",
-      "Consistent color",
-      "Stain-proof"
-    ],
-    "disadvantages": [
-      "Scorches above ~150°C — use trivets",
-      "Premium price"
-    ],
+    "suitable_rooms": ["kitchen"],
+    "advantages": ["Non-porous — no sealing", "Consistent color", "Stain-proof"],
+    "disadvantages": ["Scorches above ~150°C — use trivets", "Premium price"],
     "durability": "very_high",
     "lifespan_years": 25,
     "maintenance_level": "low",
@@ -1181,19 +827,9 @@
     "name_en": "Solid Surface (Corian-type)",
     "name_ar": "سطح أكريليك صب",
     "usage_en": "Seamless tops with integrated sinks",
-    "suitable_rooms": [
-      "kitchen",
-      "bathroom"
-    ],
-    "advantages": [
-      "Invisible seams",
-      "Integrated molded sinks",
-      "Repairable by sanding"
-    ],
-    "disadvantages": [
-      "Scratches and scorches easily",
-      "Softer than stone"
-    ],
+    "suitable_rooms": ["kitchen", "bathroom"],
+    "advantages": ["Invisible seams", "Integrated molded sinks", "Repairable by sanding"],
+    "disadvantages": ["Scratches and scorches easily", "Softer than stone"],
     "durability": "high",
     "lifespan_years": 20,
     "maintenance_level": "medium",
@@ -1209,18 +845,9 @@
     "name_en": "Acrylic Bathtub",
     "name_ar": "بانيو أكريليك",
     "usage_en": "Family and kids bathrooms",
-    "suitable_rooms": [
-      "bathroom"
-    ],
-    "advantages": [
-      "Warm to touch",
-      "Light weight",
-      "Repairable surface"
-    ],
-    "disadvantages": [
-      "Flexes — needs full mortar bed",
-      "Scratches with abrasives"
-    ],
+    "suitable_rooms": ["bathroom"],
+    "advantages": ["Warm to touch", "Light weight", "Repairable surface"],
+    "disadvantages": ["Flexes — needs full mortar bed", "Scratches with abrasives"],
     "durability": "medium",
     "lifespan_years": 15,
     "maintenance_level": "low",
@@ -1236,20 +863,9 @@
     "name_en": "Concealed Angle Valves + Manifold",
     "name_ar": "محابس مخفية مع مجمع",
     "usage_en": "Luxury distribution — one shutoff per fixture",
-    "suitable_rooms": [
-      "bathroom",
-      "kitchen",
-      "laundry"
-    ],
-    "advantages": [
-      "Per-fixture isolation",
-      "Leak localization",
-      "Clean look"
-    ],
-    "disadvantages": [
-      "Access panel mandatory",
-      "Higher rough-in cost"
-    ],
+    "suitable_rooms": ["bathroom", "kitchen", "laundry"],
+    "advantages": ["Per-fixture isolation", "Leak localization", "Clean look"],
+    "disadvantages": ["Access panel mandatory", "Higher rough-in cost"],
     "durability": "high",
     "lifespan_years": 25,
     "maintenance_level": "low",
@@ -1265,19 +881,9 @@
     "name_en": "Countertop Vessel Basin",
     "name_ar": "مغسلة فوق الرخامة",
     "usage_en": "Feature guest bathrooms and master vanities",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom"
-    ],
-    "advantages": [
-      "Design statement",
-      "Any counter material below"
-    ],
-    "disadvantages": [
-      "Splash if too shallow",
-      "Tall mixer required",
-      "Harder to clean junction"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom"],
+    "advantages": ["Design statement", "Any counter material below"],
+    "disadvantages": ["Splash if too shallow", "Tall mixer required", "Harder to clean junction"],
     "durability": "high",
     "lifespan_years": 20,
     "maintenance_level": "medium",
@@ -1293,20 +899,9 @@
     "name_en": "Floor-standing WC (back-to-wall)",
     "name_ar": "كرسي أرضي",
     "usage_en": "Standard bathrooms",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom",
-      "maid_room"
-    ],
-    "advantages": [
-      "Cheapest reliable option",
-      "All parts serviceable",
-      "No carrier frame"
-    ],
-    "disadvantages": [
-      "Cleaning around base",
-      "Visible cistern"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom", "maid_room"],
+    "advantages": ["Cheapest reliable option", "All parts serviceable", "No carrier frame"],
+    "disadvantages": ["Cleaning around base", "Visible cistern"],
     "durability": "very_high",
     "lifespan_years": 30,
     "maintenance_level": "low",
@@ -1322,12 +917,7 @@
     "name_en": "Brass Mixer (ceramic cartridge)",
     "name_ar": "خلاط نحاس",
     "usage_en": "All wet points",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom",
-      "kitchen",
-      "laundry"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom", "kitchen", "laundry"],
     "advantages": [
       "25+ year body life",
       "Cartridge cheap to swap",
@@ -1352,18 +942,9 @@
     "name_en": "Pedestal Basin",
     "name_ar": "مغسلة بعمود",
     "usage_en": "Budget bathrooms",
-    "suitable_rooms": [
-      "guest_bathroom",
-      "maid_room"
-    ],
-    "advantages": [
-      "Cheap",
-      "Hides trap"
-    ],
-    "disadvantages": [
-      "Zero counter space",
-      "Fixed height"
-    ],
+    "suitable_rooms": ["guest_bathroom", "maid_room"],
+    "advantages": ["Cheap", "Hides trap"],
+    "disadvantages": ["Zero counter space", "Fixed height"],
     "durability": "high",
     "lifespan_years": 25,
     "maintenance_level": "low",
@@ -1379,19 +960,9 @@
     "name_en": "Stone-resin Shower Tray",
     "name_ar": "قاعدة دش",
     "usage_en": "Shower enclosures",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom"
-    ],
-    "advantages": [
-      "Anti-slip textures",
-      "Low profile 3-4 cm",
-      "Pre-formed slope"
-    ],
-    "disadvantages": [
-      "Heavy",
-      "Cutting to size difficult"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom"],
+    "advantages": ["Anti-slip textures", "Low profile 3-4 cm", "Pre-formed slope"],
+    "disadvantages": ["Heavy", "Cutting to size difficult"],
     "durability": "high",
     "lifespan_years": 20,
     "maintenance_level": "low",
@@ -1407,17 +978,9 @@
     "name_en": "Thermostatic Shower Mixer",
     "name_ar": "خلاط حراري ثابت",
     "usage_en": "Kids and elderly bathrooms — anti-scald",
-    "suitable_rooms": [
-      "bathroom"
-    ],
-    "advantages": [
-      "Locks temperature — no scald",
-      "Comfort on pressure fluctuation"
-    ],
-    "disadvantages": [
-      "2-3x price",
-      "Cartridge sensitive to debris — needs filters"
-    ],
+    "suitable_rooms": ["bathroom"],
+    "advantages": ["Locks temperature — no scald", "Comfort on pressure fluctuation"],
+    "disadvantages": ["2-3x price", "Cartridge sensitive to debris — needs filters"],
     "durability": "high",
     "lifespan_years": 15,
     "maintenance_level": "medium",
@@ -1433,17 +996,9 @@
     "name_en": "Under-counter Basin",
     "name_ar": "مغسلة تحت الرخامة",
     "usage_en": "Family bathrooms — easiest cleaning",
-    "suitable_rooms": [
-      "bathroom"
-    ],
-    "advantages": [
-      "Counter wipes straight into basin",
-      "Concealed rim"
-    ],
-    "disadvantages": [
-      "Needs stone/quartz counter",
-      "Mounting failure risk with bad adhesive"
-    ],
+    "suitable_rooms": ["bathroom"],
+    "advantages": ["Counter wipes straight into basin", "Concealed rim"],
+    "disadvantages": ["Needs stone/quartz counter", "Mounting failure risk with bad adhesive"],
     "durability": "high",
     "lifespan_years": 20,
     "maintenance_level": "low",
@@ -1459,10 +1014,7 @@
     "name_en": "Wall-hung WC + Concealed Cistern",
     "name_ar": "كرسي معلق مع صندوق مخفي",
     "usage_en": "Modern bathrooms",
-    "suitable_rooms": [
-      "bathroom",
-      "guest_bathroom"
-    ],
+    "suitable_rooms": ["bathroom", "guest_bathroom"],
     "advantages": [
       "Easy floor cleaning under bowl",
       "Adjustable height",

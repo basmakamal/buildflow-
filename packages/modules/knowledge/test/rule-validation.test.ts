@@ -140,7 +140,10 @@ describe('validateRuleDraft', () => {
   })
 
   it('accepts a room filter on a rule with no roomType condition', () => {
-    const result = draft({ all: [{ fact: 'isWetArea', operator: 'equal', value: true }] }, 'kitchen')
+    const result = draft(
+      { all: [{ fact: 'isWetArea', operator: 'equal', value: true }] },
+      'kitchen',
+    )
     expect(result.isOk()).toBe(true)
   })
 
