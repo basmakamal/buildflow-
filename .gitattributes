@@ -1,3 +1,16 @@
+# LF in the working tree on every platform, not just in the repository.
+#
+# `core.autocrlf=true` on a Windows clone checks every text file out as CRLF,
+# and Prettier's endOfLine defaults to "lf" — so `pnpm format:check` failed on
+# 73 files in a clean, correctly formatted checkout while CI passed on the same
+# commit. The obvious reaction, `prettier --write`, rewrites the tree to LF,
+# git hands CRLF back on the next checkout, and the check still fails.
+#
+# Generalises what the icon-gallery rule below already does for one file. Must
+# stay ABOVE the specific rules: in .gitattributes the LAST matching pattern
+# wins, so a catch-all placed later would override them.
+* text=auto eol=lf
+
 # The CI job regenerates this file on Linux and fails if it differs from the
 # committed copy. Without a pinned EOL it would be generated with LF and
 # compared against a CRLF working copy on Windows, so the check would fail for
