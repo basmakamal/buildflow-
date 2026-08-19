@@ -651,8 +651,18 @@ model ProcessedEvent {
 /// portable SQL in @buildflow/knowledge-base and imported by tooling that never
 /// loads Prisma, where snake_case is the correct convention. The @map keeps both
 /// readers happy; dropping one would break whichever side stopped being mapped.
+///
+/// ID DEFAULTS: the three kb_* models use `dbgenerated("(UUID())")`, NOT
+/// `uuid()`. Prisma's `uuid()` is generated in the client and leaves the column
+/// with no database default, so `prisma db push` silently STRIPS the
+/// `DEFAULT (UUID())` that the SQL package's CREATE TABLE installs. The
+/// importer omits `id`, and its `INSERT IGNORE` then substitutes '' for the
+/// first row and rejects every later one as a duplicate primary key — a
+/// 93-row seed file lands exactly one row and reports success. Anything
+/// written by both Prisma and the SQL package needs the default to live in the
+/// database, where both can see it.
 model KbRule {
-  id       String       @id @default(uuid()) @db.Char(36)
+  id       String       @id @default(dbgenerated("(UUID())")) @db.Char(36)
   code     String       @unique @db.VarChar(80)
   ruleType KbRuleType   @map("rule_type")
   domain   KbRuleDomain
@@ -686,7 +696,7 @@ model KbRule {
 /// its thresholds, severity or wording — or defines an entirely new tenant rule
 /// under a code no system row uses. Fully tenant-scoped.
 model KbRuleOverride {
-  id        String @id @default(uuid()) @db.Char(36)
+  id        String @id @default(dbgenerated("(UUID())")) @db.Char(36)
   companyId String @map("company_id") @db.Char(36)
   code      String @db.VarChar(80)
 
@@ -719,7 +729,7 @@ model KbRuleOverride {
 /// renders its field dropdown from this table, so a business user can compose a
 /// new rule over existing facts with no deploy. Global — never tenant-scoped.
 model KbFact {
-  id       String @id @default(uuid()) @db.Char(36)
+  id       String @id @default(dbgenerated("(UUID())")) @db.Char(36)
   factCode String @unique @map("fact_code") @db.VarChar(64)
   labelEn  String @map("label_en") @db.VarChar(120)
   labelAr  String @map("label_ar") @db.VarChar(120)

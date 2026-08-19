@@ -36,6 +36,34 @@ const stages = setOf(await rows('SELECT code FROM kb_construction_stages'), 'cod
 // correct data. Link them properly when procurement needs it — with a join
 // table, not by overloading one of the two lists.
 
+/**
+ * A table that imported almost nothing, reported first.
+ *
+ * `prisma db push` once stripped `DEFAULT (UUID())` from the tables Prisma also
+ * models, because Prisma's `uuid()` is generated client-side. The importer
+ * omits `id`, so its `INSERT IGNORE` substituted '' for the first row and
+ * rejected all 92 others as duplicate primary keys. What surfaced was
+ * `unknown_fact: VAL_ELE_001 references "socketCount"` — a message that sends
+ * you reading rule definitions when the actual answer is "this table has one
+ * row in it". These thresholds are floors, not counts, so ordinary seed growth
+ * never touches them.
+ */
+for (const [table, floor] of [
+  ['kb_room_types', 15],
+  ['kb_lighting_standards', 15],
+  ['kb_electrical_standards', 15],
+  ['kb_plumbing_standards', 10],
+  ['kb_furniture_standards', 20],
+  ['kb_material_catalog', 30],
+  ['kb_construction_stages', 20],
+  ['kb_estimation_standards', 20],
+  ['kb_facts', 50],
+  ['kb_rules', 100],
+]) {
+  const [{ n }] = await rows(`SELECT COUNT(*) AS n FROM ${table}`)
+  if (n < floor) fail('table_underfilled', `${table} holds ${n} rows, expected at least ${floor}`)
+}
+
 /** Walks a json-rules-engine condition tree collecting every referenced fact. */
 function collectFacts(node, out = []) {
   if (!node || typeof node !== 'object') return out
