@@ -1139,6 +1139,110 @@ enum PurchaseOrderStatus {
   cancelled
 }
 
+// ─── Invoices & cost allocation ──────────────────────────────────────────────
+//
+// Phase 3 sprint 7. docs/04 §2.9
+//
+// The invoice is where actual cost becomes real, and the allocation is where it
+// becomes attributable: Σ(allocations) = invoice total EXACTLY, to the minor
+// unit, or the profitability report leaks halalas nobody can find. An invoice
+// is never deleted after payment — it is voided, with a reason, so the money
+// trail explains itself the way the stock ledger does.
+
+model Invoice {
+  id         String  @id @db.Char(36)
+  companyId  String  @map("company_id") @db.Char(36)
+  supplierId String  @map("supplier_id") @db.Char(36)
+  poId       String? @map("po_id") @db.Char(36)
+
+  invoiceNumber String    @map("invoice_number") @db.VarChar(64)
+  invoiceDate   DateTime  @map("invoice_date") @db.DateTime(3)
+  dueDate       DateTime? @map("due_date") @db.DateTime(3)
+
+  subtotal  Decimal @db.Decimal(18, 4)
+  /// Percent, 0–100. The amount is derived and stored so the printed figures
+  /// survive a later rate change.
+  taxRate   Decimal @default(0) @map("tax_rate") @db.Decimal(7, 4)
+  taxAmount Decimal @default(0) @map("tax_amount") @db.Decimal(18, 4)
+  total     Decimal @db.Decimal(18, 4)
+  currency  String  @db.Char(3)
+
+  paymentStatus InvoicePaymentStatus @default(unpaid) @map("payment_status")
+  paidAmount    Decimal              @default(0) @map("paid_amount") @db.Decimal(18, 4)
+  paidAt        DateTime?            @map("paid_at") @db.DateTime(3)
+  paymentMethod String?              @map("payment_method") @db.VarChar(40)
+
+  voidReason String? @map("void_reason") @db.VarChar(500)
+
+  notes String? @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  lines       InvoiceLine[]
+  allocations CostAllocation[]
+
+  /// Per supplier, not per company: two suppliers can both issue "INV-100",
+  /// and the same supplier issuing it twice is the duplicate worth catching.
+  @@unique([companyId, supplierId, invoiceNumber])
+  @@index([companyId, supplierId, invoiceDate])
+  @@index([companyId, paymentStatus])
+  @@map("invoices")
+}
+
+model InvoiceLine {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  invoiceId String @map("invoice_id") @db.Char(36)
+
+  materialId  String? @map("material_id") @db.Char(36)
+  description String  @db.VarChar(255)
+
+  quantity  Decimal           @db.Decimal(18, 4)
+  uom       UnitOfMeasureCode
+  unitPrice Decimal           @map("unit_price") @db.Decimal(18, 4)
+  lineTotal Decimal           @map("line_total") @db.Decimal(18, 4)
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, invoiceId])
+  @@map("invoice_lines")
+}
+
+/// One slice of an invoice attributed to a unit (and optionally a stage).
+/// A value-object SET: re-allocating replaces the whole set, because the
+/// invariant is over the set, not any row.
+model CostAllocation {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  invoiceId String @map("invoice_id") @db.Char(36)
+
+  unitId      String  @map("unit_id") @db.Char(36)
+  unitStageId String? @map("unit_stage_id") @db.Char(36)
+
+  amount     Decimal @db.Decimal(18, 4)
+  /// The percentage the caller asked for, kept for display; `amount` is the
+  /// exact-sum truth derived from it.
+  percentage Decimal? @db.Decimal(7, 4)
+
+  allocatedBy String   @map("allocated_by") @db.Char(36)
+  allocatedAt DateTime @map("allocated_at") @db.DateTime(3)
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, invoiceId])
+  @@index([companyId, unitId])
+  @@map("cost_allocations")
+}
+
+enum InvoicePaymentStatus {
+  unpaid
+  partially_paid
+  paid
+  void
+}
+
 // ─── Stock ledger ────────────────────────────────────────────────────────────
 //
 // Phase 3 sprints 3–4. docs/04 §stock_movements, docs/02 §3.9

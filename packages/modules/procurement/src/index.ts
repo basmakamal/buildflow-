@@ -40,3 +40,17 @@ export {
 } from './infrastructure/prisma.repositories'
 
 export { CatalogueStockPoster } from './infrastructure/catalogue-stock-poster'
+
+export {
+  Invoice,
+  type InvoiceSnapshot,
+  type InvoicePaymentStatus,
+  type InvoiceLine,
+  type CostAllocationEntry,
+} from './domain/invoice'
+
+export {
+  PrismaInvoiceRepository,
+  InvoiceQueries,
+  type InvoiceListRow,
+} from './infrastructure/invoice.repository'
