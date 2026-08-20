@@ -9,10 +9,11 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "prisma:generate": "prisma generate --schema prisma/schema.prisma",
-    "prisma:deploy": "prisma db push --schema prisma/schema.prisma --skip-generate --accept-data-loss",
+    "prisma:deploy": "prisma db push --schema prisma/schema.prisma --skip-generate --accept-data-loss && node ../knowledge-base/scripts/import.mjs",
     "prisma:studio": "prisma studio --schema prisma/schema.prisma",
     "test": "vitest run",
-    "test:isolation": "vitest run test/tenant-isolation.test.ts"
+    "test:isolation": "vitest run test/tenant-isolation.test.ts",
+    "//prisma:deploy": "db push drops every table the schema does not model, and the kb_* knowledge-base tables are deliberately unmodelled (authored as portable SQL, read by tooling that never loads Prisma). Chaining the idempotent re-import makes the drop harmless instead of relying on someone remembering — it has been forgotten three times. DATABASE_URL is read by both steps."
   },
   "dependencies": {
     "@buildflow/core": "workspace:*",

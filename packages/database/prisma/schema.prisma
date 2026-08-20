@@ -661,6 +661,12 @@ model ProcessedEvent {
 /// 93-row seed file lands exactly one row and reports success. Anything
 /// written by both Prisma and the SQL package needs the default to live in the
 /// database, where both can see it.
+///
+/// The same applies to updatedAt: `@updatedAt` alone is client-side, so db
+/// push creates the column with NO database default, the SQL import omits it,
+/// and INSERT IGNORE downgrades the strict-mode error to a warning — leaving
+/// zero-dates (0000-00-00) that Prisma then refuses to READ. `@default(now())`
+/// puts DEFAULT CURRENT_TIMESTAMP back in the database.
 model KbRule {
   id       String       @id @default(dbgenerated("(UUID())")) @db.Char(36)
   code     String       @unique @db.VarChar(80)
@@ -684,7 +690,7 @@ model KbRule {
   isActive Boolean @default(true) @map("is_active")
 
   createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
-  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.DateTime(3)
 
   @@index([ruleType, domain, isActive])
   @@index([roomTypeCode])
@@ -718,7 +724,7 @@ model KbRuleOverride {
   isActive     Boolean       @default(true) @map("is_active")
 
   createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
-  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.DateTime(3)
 
   @@unique([companyId, code])
   @@index([companyId, isActive])
@@ -926,6 +932,120 @@ model MaterialUomConversion {
 
 /// Mirrors UnitOfMeasure in @buildflow/core. Kept in sync by a domain test —
 /// a value present in one and not the other is a runtime cast waiting to fail.
+// ─── Stock ledger ────────────────────────────────────────────────────────────
+//
+// Phase 3 sprints 3–4. docs/04 §stock_movements, docs/02 §3.9
+//
+// APPEND-ONLY, structurally. No updatedAt, no deletedAt, no version — the
+// columns are absent so that mutation is not merely forbidden but inexpressible.
+// The single biggest operational loss in finishing work is unexplained material
+// shrinkage, and a mutable quantity_used column cannot answer "who changed it,
+// when, and from what". A ledger can. Corrections are REVERSAL movements that
+// point at what they reverse, so the audit trail survives its own mistakes.
+
+/// One immutable entry in the material ledger.
+model StockMovement {
+  id          String  @id @db.Char(36)
+  companyId   String  @map("company_id") @db.Char(36)
+  materialId  String  @map("material_id") @db.Char(36)
+  unitId      String  @map("unit_id") @db.Char(36)
+  unitStageId String? @map("unit_stage_id") @db.Char(36)
+  roomId      String? @map("room_id") @db.Char(36)
+
+  type      StockMovementType
+  /// Denormalised from `type` and validated in the domain: a query summing the
+  /// ledger must not carry the type→direction mapping in SQL.
+  direction StockDirection
+
+  /// Always in the material's BASE unit. Conversion from purchase units happens
+  /// at the boundary via the Material aggregate — storing mixed units in a
+  /// ledger makes Σ(in) − Σ(out) meaningless.
+  quantity Decimal           @db.Decimal(18, 4)
+  uom      UnitOfMeasureCode
+
+  unitCost  Decimal? @map("unit_cost") @db.Decimal(18, 4)
+  totalCost Decimal? @map("total_cost") @db.Decimal(18, 4)
+  currency  String?  @db.Char(3)
+
+  /// What caused this movement (a goods receipt, a stage checklist item, …).
+  referenceType String? @map("reference_type") @db.VarChar(40)
+  referenceId   String? @map("reference_id") @db.Char(36)
+
+  /// Set on a correcting entry. The original is never touched.
+  reversalOfMovementId String? @map("reversal_of_movement_id") @db.Char(36)
+
+  occurredAt DateTime @map("occurred_at") @db.DateTime(3)
+  recordedBy String   @map("recorded_by") @db.Char(36)
+  source     EventSource
+
+  /// Client-generated idempotency key. The mobile app's offline outbox retries
+  /// until acknowledged, so every movement WILL eventually be sent twice; the
+  /// unique key makes the second write a no-op instead of phantom stock.
+  clientEventId String @map("client_event_id") @db.Char(36)
+
+  note String? @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  @@unique([companyId, clientEventId])
+  @@index([companyId, unitId, materialId, occurredAt])
+  @@index([companyId, unitStageId, type])
+  @@map("stock_movements")
+}
+
+/// Derived projection over the ledger — NEVER authoritative. docs/04 §2.8
+///
+/// Rebuilt by full replay of (unit, material) whenever a movement lands, and
+/// recomputed nightly by reconciliation. It may be wrong temporarily; it may
+/// not be wrong permanently, and drift is always detectable against the ledger.
+model MaterialBalance {
+  id          String  @id @db.Char(36)
+  companyId   String  @map("company_id") @db.Char(36)
+  unitId      String  @map("unit_id") @db.Char(36)
+  unitStageId String? @map("unit_stage_id") @db.Char(36)
+  materialId  String  @map("material_id") @db.Char(36)
+
+  plannedQuantity   Decimal @default(0) @map("planned_quantity") @db.Decimal(18, 4)
+  purchasedQuantity Decimal @default(0) @map("purchased_quantity") @db.Decimal(18, 4)
+  usedQuantity      Decimal @default(0) @map("used_quantity") @db.Decimal(18, 4)
+  wastedQuantity    Decimal @default(0) @map("wasted_quantity") @db.Decimal(18, 4)
+  returnedQuantity  Decimal @default(0) @map("returned_quantity") @db.Decimal(18, 4)
+  remainingQuantity Decimal @default(0) @map("remaining_quantity") @db.Decimal(18, 4)
+  uom               UnitOfMeasureCode
+
+  actualCost Decimal @default(0) @map("actual_cost") @db.Decimal(18, 4)
+  currency   String? @db.Char(3)
+
+  lastMovementAt DateTime? @map("last_movement_at") @db.DateTime(3)
+  recalculatedAt DateTime  @map("recalculated_at") @db.DateTime(3)
+
+  /// unitStageId is inside the key via a generated-column pattern handled in
+  /// the repository: MySQL unique indexes permit repeated NULLs, so uniqueness
+  /// for the stage-less row is enforced by always writing '' — never NULL —
+  /// into stageKey.
+  stageKey String @map("stage_key") @db.Char(36)
+
+  @@unique([companyId, unitId, stageKey, materialId])
+  @@index([companyId, unitId])
+  @@map("material_balances")
+}
+
+enum StockMovementType {
+  purchase_receipt
+  consumption
+  return_to_supplier
+  transfer_in
+  transfer_out
+  wastage
+  adjustment
+  opening_balance
+}
+
+enum StockDirection {
+  in
+  out
+}
+
 enum UnitOfMeasureCode {
   m
   m2

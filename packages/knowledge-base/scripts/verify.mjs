@@ -206,6 +206,18 @@ for (const rule of await rows(
   }
 }
 
+// --- zero-date poisoning. Prisma's @updatedAt is client-side only, so a
+// schema push can leave timestamp columns with no database default; the SQL
+// import omits them and INSERT IGNORE downgrades the strict-mode error to a
+// warning, leaving 0000-00-00 rows that Prisma then refuses to READ. The
+// models now carry @default(now()), and this guard catches any regression. ---
+for (const table of ['kb_rules']) {
+  const [row] = await rows(
+    `SELECT COUNT(*) AS n FROM ${table} WHERE CAST(updated_at AS CHAR) LIKE '0000%' OR CAST(created_at AS CHAR) LIKE '0000%'`,
+  )
+  if (Number(row.n) > 0) fail('zero_date_rows', `${table} has ${row.n} rows with zero timestamps`)
+}
+
 // --- stages: dependencies must resolve, weights must total 100 per trade ---
 const weightByTrade = new Map()
 for (const stage of await rows(
