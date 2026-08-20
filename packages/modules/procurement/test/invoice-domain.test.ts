@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { CompanyId, InvoiceId, UserId } from '@buildflow/core'
-import { Invoice, type InvoiceSnapshot } from '../src/domain/invoice'
+import { Invoice } from '../src/domain/invoice'
 
 /**
  * The exact-sum invariant is the whole reason CostAllocation exists as a
