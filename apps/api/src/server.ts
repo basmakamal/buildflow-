@@ -7,6 +7,7 @@ import { registerAuthRoutes } from './routes/auth'
 import { registerMeRoutes } from './routes/me'
 import { registerCatalogueRoutes } from './routes/catalogue'
 import { registerKnowledgeRoutes } from './routes/knowledge'
+import { registerProcurementRoutes } from './routes/procurement'
 import { registerProjectRoutes } from './routes/projects'
 import { registerStockRoutes } from './routes/stock'
 import { registerWorkflowRoutes } from './routes/workflow'
@@ -133,6 +134,7 @@ export async function buildServer(options: ServerOptions): Promise<FastifyInstan
   registerKnowledgeRoutes(app, options.container, options.db)
   registerCatalogueRoutes(app, options.container, options.db)
   registerStockRoutes(app, options.container, options.db)
+  registerProcurementRoutes(app, options.container, options.db)
 
   return app
 }

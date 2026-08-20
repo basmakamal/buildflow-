@@ -66,6 +66,9 @@ importers:
       '@buildflow/knowledge':
         specifier: workspace:*
         version: link:../../packages/modules/knowledge
+      '@buildflow/procurement':
+        specifier: workspace:*
+        version: link:../../packages/modules/procurement
       '@buildflow/project':
         specifier: workspace:*
         version: link:../../packages/modules/project
@@ -222,6 +225,25 @@ importers:
 
   packages/modules/knowledge:
     dependencies:
+      '@buildflow/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@buildflow/database':
+        specifier: workspace:*
+        version: link:../../database
+    devDependencies:
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@22.20.1)(esbuild@0.28.2)(happy-dom@20.11.2)(tsx@4.23.12)
+
+  packages/modules/procurement:
+    dependencies:
+      '@buildflow/catalogue':
+        specifier: workspace:*
+        version: link:../catalogue
       '@buildflow/core':
         specifier: workspace:*
         version: link:../../core

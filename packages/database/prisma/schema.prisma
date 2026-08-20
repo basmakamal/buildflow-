@@ -932,6 +932,213 @@ model MaterialUomConversion {
 
 /// Mirrors UnitOfMeasure in @buildflow/core. Kept in sync by a domain test —
 /// a value present in one and not the other is a runtime cast waiting to fail.
+// ─── Procurement ─────────────────────────────────────────────────────────────
+//
+// Phase 3 sprints 5–6. docs/04 §2.9
+//
+// The chain is request → approval → order → receipt, and the receipt is where
+// paper meets the ledger: each received line posts a purchase_receipt movement.
+// Every table is tenant-owned. Statuses are state machines in the domain; the
+// database stores the result, never decides the transition.
+
+model Supplier {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+
+  code   String  @db.VarChar(32)
+  nameEn String  @map("name_en") @db.VarChar(200)
+  nameAr String  @map("name_ar") @db.VarChar(200)
+
+  contactPerson    String? @map("contact_person") @db.VarChar(120)
+  mobile           String? @db.VarChar(20)
+  email            String? @db.VarChar(255)
+  city             String? @db.VarChar(80)
+  taxNumber        String? @map("tax_number") @db.VarChar(32)
+  paymentTermsDays Int     @default(0) @map("payment_terms_days") @db.SmallInt
+
+  isActive Boolean @default(true) @map("is_active")
+  notes    String? @db.VarChar(500)
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.DateTime(3)
+  deletedAt DateTime? @map("deleted_at") @db.DateTime(3)
+
+  orders PurchaseOrder[]
+
+  @@unique([companyId, code])
+  @@index([companyId, isActive])
+  @@map("suppliers")
+}
+
+model PurchaseRequest {
+  id          String  @id @db.Char(36)
+  companyId   String  @map("company_id") @db.Char(36)
+  projectId   String  @map("project_id") @db.Char(36)
+  unitId      String? @map("unit_id") @db.Char(36)
+  unitStageId String? @map("unit_stage_id") @db.Char(36)
+
+  requestNumber String                @map("request_number") @db.VarChar(32)
+  status        PurchaseRequestStatus @default(draft)
+
+  requestedBy    String    @map("requested_by") @db.Char(36)
+  requestedAt    DateTime  @map("requested_at") @db.DateTime(3)
+  requiredByDate DateTime? @map("required_by_date") @db.DateTime(3)
+
+  /// Who approved is WHO MAY NOT have requested — the SELF_APPROVAL guard in
+  /// the domain compares these two columns. docs/11 §3
+  approvedBy      String?   @map("approved_by") @db.Char(36)
+  approvedAt      DateTime? @map("approved_at") @db.DateTime(3)
+  rejectionReason String?   @map("rejection_reason") @db.VarChar(500)
+
+  totalEstimated Decimal @default(0) @map("total_estimated") @db.Decimal(18, 4)
+  currency       String  @db.Char(3)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  lines PurchaseRequestLine[]
+
+  @@unique([companyId, requestNumber])
+  @@index([companyId, status])
+  @@map("purchase_requests")
+}
+
+model PurchaseRequestLine {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  requestId String @map("request_id") @db.Char(36)
+
+  materialId  String  @map("material_id") @db.Char(36)
+  description String? @db.VarChar(255)
+
+  quantity           Decimal           @db.Decimal(18, 4)
+  uom                UnitOfMeasureCode
+  estimatedUnitPrice Decimal?          @map("estimated_unit_price") @db.Decimal(18, 4)
+  note               String?           @db.VarChar(255)
+
+  request PurchaseRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, requestId])
+  @@map("purchase_request_lines")
+}
+
+model PurchaseOrder {
+  id         String  @id @db.Char(36)
+  companyId  String  @map("company_id") @db.Char(36)
+  requestId  String? @map("request_id") @db.Char(36)
+  supplierId String  @map("supplier_id") @db.Char(36)
+
+  poNumber String              @map("po_number") @db.VarChar(32)
+  status   PurchaseOrderStatus @default(draft)
+
+  issuedAt             DateTime? @map("issued_at") @db.DateTime(3)
+  expectedDeliveryDate DateTime? @map("expected_delivery_date") @db.DateTime(3)
+
+  subtotal  Decimal @default(0) @db.Decimal(18, 4)
+  taxAmount Decimal @default(0) @map("tax_amount") @db.Decimal(18, 4)
+  total     Decimal @default(0) @db.Decimal(18, 4)
+  currency  String  @db.Char(3)
+  terms     String? @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  supplier Supplier            @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  lines    PurchaseOrderLine[]
+  receipts GoodsReceipt[]
+
+  @@unique([companyId, poNumber])
+  @@index([companyId, status])
+  @@index([companyId, supplierId])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderLine {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  poId      String @map("po_id") @db.Char(36)
+
+  materialId String @map("material_id") @db.Char(36)
+
+  quantity  Decimal           @db.Decimal(18, 4)
+  uom       UnitOfMeasureCode
+  unitPrice Decimal           @map("unit_price") @db.Decimal(18, 4)
+  lineTotal Decimal           @map("line_total") @db.Decimal(18, 4)
+
+  /// Running total maintained by the domain as receipts land; the guard
+  /// against over-receipt compares against `quantity`.
+  receivedQuantity Decimal @default(0) @map("received_quantity") @db.Decimal(18, 4)
+
+  order PurchaseOrder @relation(fields: [poId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, poId])
+  @@map("purchase_order_lines")
+}
+
+model GoodsReceipt {
+  id         String  @id @db.Char(36)
+  companyId  String  @map("company_id") @db.Char(36)
+  poId       String  @map("po_id") @db.Char(36)
+  supplierId String  @map("supplier_id") @db.Char(36)
+  unitId     String? @map("unit_id") @db.Char(36)
+
+  receiptNumber String   @map("receipt_number") @db.VarChar(32)
+  receivedAt    DateTime @map("received_at") @db.DateTime(3)
+  receivedBy    String   @map("received_by") @db.Char(36)
+  notes         String?  @db.VarChar(500)
+
+  /// Idempotency for the offline outbox, same contract as stock movements.
+  clientEventId String @map("client_event_id") @db.Char(36)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  order PurchaseOrder      @relation(fields: [poId], references: [id], onDelete: Restrict)
+  lines GoodsReceiptLine[]
+
+  @@unique([companyId, clientEventId])
+  @@unique([companyId, receiptNumber])
+  @@index([companyId, poId])
+  @@map("goods_receipts")
+}
+
+model GoodsReceiptLine {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  receiptId String @map("receipt_id") @db.Char(36)
+  poLineId  String @map("po_line_id") @db.Char(36)
+
+  materialId String @map("material_id") @db.Char(36)
+
+  quantity         Decimal           @db.Decimal(18, 4)
+  uom              UnitOfMeasureCode
+  rejectedQuantity Decimal           @default(0) @map("rejected_quantity") @db.Decimal(18, 4)
+  rejectionReason  String?           @map("rejection_reason") @db.VarChar(255)
+
+  receipt GoodsReceipt @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, receiptId])
+  @@map("goods_receipt_lines")
+}
+
+enum PurchaseRequestStatus {
+  draft
+  submitted
+  approved
+  rejected
+  converted
+  cancelled
+}
+
+enum PurchaseOrderStatus {
+  draft
+  issued
+  partially_received
+  received
+  cancelled
+}
+
 // ─── Stock ledger ────────────────────────────────────────────────────────────
 //
 // Phase 3 sprints 3–4. docs/04 §stock_movements, docs/02 §3.9
