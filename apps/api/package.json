@@ -20,7 +20,8 @@
     "@buildflow/execution": "workspace:*",
     "@buildflow/knowledge": "workspace:*",
     "@buildflow/catalogue": "workspace:*",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@buildflow/procurement": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.3",
