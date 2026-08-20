@@ -786,6 +786,160 @@ enum KbFactDomain {
   general
 }
 
+// ─── Catalogue ───────────────────────────────────────────────────────────────
+//
+// Phase 3 sprints 1–2. docs/04 §2.6
+//
+// TENANCY, and why it differs from the kb_* tables: a material catalogue is the
+// TENANT'S, not the product's. SKUs, costs and the brands a contractor actually
+// buys are their commercial data, and a product update must not reach in and
+// change them. So there are no global material rows and no scoping exception —
+// `Material` carries companyId NOT NULL and a starter catalogue is seeded per
+// company at provisioning, the same way roles are.
+//
+// That is the opposite call from KbRule, deliberately. A safety rule SHOULD keep
+// receiving product updates; a purchase price should not.
+//
+// Categories and brands stay global: they are shared vocabulary, like the
+// permission catalogue, and a tenant-specific category code would be
+// meaningless to the reporting that groups by it. Tenant-defined categories can
+// be added when a customer needs one — the column is absent, not nullable, so
+// adding it later is an explicit decision rather than an accident.
+
+/// Grouping vocabulary for the catalogue. Global; `parentId` allows one level
+/// of nesting (Flooring → Porcelain) without a recursive query at read time.
+model MaterialCategory {
+  id       String  @id @default(dbgenerated("(UUID())")) @db.Char(36)
+  parentId String? @map("parent_id") @db.Char(36)
+
+  code   String @unique @db.VarChar(64)
+  nameEn String @map("name_en") @db.VarChar(120)
+  nameAr String @map("name_ar") @db.VarChar(120)
+  /// Icon key from @buildflow/ui, not a URL: the icon set ships with the app.
+  icon   String? @db.VarChar(64)
+
+  /// Applied when a material in this category has no waste factor of its own.
+  /// Tiles waste more than paint, and the estimate is wrong either way if the
+  /// number is a single global constant. docs/04 §2.6
+  defaultWasteFactor Decimal @default(0) @map("default_waste_factor") @db.Decimal(5, 2)
+
+  sortOrder Int     @default(0) @map("sort_order") @db.SmallInt
+  isActive  Boolean @default(true) @map("is_active")
+
+  parent   MaterialCategory?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children MaterialCategory[] @relation("CategoryTree")
+  materials Material[]
+
+  @@index([parentId, sortOrder])
+  @@map("material_categories")
+}
+
+/// Manufacturer. Global vocabulary so "Porcelanosa" means one thing in every
+/// tenant's reporting.
+model Brand {
+  id          String  @id @default(dbgenerated("(UUID())")) @db.Char(36)
+  name        String  @unique @db.VarChar(120)
+  countryCode String? @map("country_code") @db.Char(2)
+
+  isActive Boolean @default(true) @map("is_active")
+
+  materials Material[]
+
+  @@map("brands")
+}
+
+/// A material the tenant can specify, price and consume.
+model Material {
+  id         String  @id @default(dbgenerated("(UUID())")) @db.Char(36)
+  companyId  String  @map("company_id") @db.Char(36)
+  categoryId String  @map("category_id") @db.Char(36)
+  brandId    String? @map("brand_id") @db.Char(36)
+
+  /// Tenant's own stock code. Unique per company, not globally: two contractors
+  /// legitimately use "POR-60" for different tiles.
+  sku    String  @db.VarChar(64)
+  nameEn String  @map("name_en") @db.VarChar(200)
+  nameAr String  @map("name_ar") @db.VarChar(200)
+  description String? @db.VarChar(500)
+
+  /// The unit everything else converts INTO. Consumption, stock and BOQ lines
+  /// are all stored in this unit, so changing it on a material with movements
+  /// would silently restate history — the domain refuses.
+  baseUom UnitOfMeasureCode @map("base_uom")
+
+  defaultCost Decimal? @map("default_cost") @db.Decimal(18, 4)
+  currency    String?  @db.Char(3)
+
+  /// Typed attributes that vary by category — tile size, paint sheen, plank
+  /// thickness. JSON because a column per attribute across every category is a
+  /// table nobody can read; validated against the category in the domain.
+  spec Json?
+
+  /// Overrides the category default when this material is unusually wasteful,
+  /// e.g. large-format porcelain. Null means "inherit the category".
+  wasteFactor Decimal? @map("waste_factor") @db.Decimal(5, 2)
+
+  /// Links to the knowledge-base finishing catalogue (kb_material_catalog.code)
+  /// when this row was seeded from it, so a tenant edit is distinguishable from
+  /// a hand-created material and the AI engine can reason about the finish.
+  knowledgeCode String? @map("knowledge_code") @db.VarChar(64)
+
+  isActive Boolean @default(true) @map("is_active")
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.DateTime(3)
+  deletedAt DateTime? @map("deleted_at") @db.DateTime(3)
+  version   Int       @default(0) @db.UnsignedInt
+
+  category    MaterialCategory        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  brand       Brand?                  @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  conversions MaterialUomConversion[]
+
+  @@unique([companyId, sku])
+  @@index([companyId, categoryId, isActive])
+  @@index([companyId, knowledgeCode])
+  @@map("materials")
+}
+
+/// How many base units one purchase unit contains.
+///
+/// Material-specific and never global: a box of 60×60 tiles is 1.44 m², a box of
+/// 30×30 is 0.99 m², and a single shared factor would silently mis-order every
+/// tile in the catalogue. docs/02 §UnitOfMeasure
+model MaterialUomConversion {
+  id         String @id @default(dbgenerated("(UUID())")) @db.Char(36)
+  companyId  String @map("company_id") @db.Char(36)
+  materialId String @map("material_id") @db.Char(36)
+
+  fromUom UnitOfMeasureCode @map("from_uom")
+  toUom   UnitOfMeasureCode @map("to_uom")
+  /// 6 dp: 1 box → 1.44 m² needs 2, but 1 kg → 0.000833 m³ needs 6.
+  factor  Decimal           @db.Decimal(18, 6)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  material Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, materialId, fromUom, toUom])
+  @@map("material_uom_conversions")
+}
+
+/// Mirrors UnitOfMeasure in @buildflow/core. Kept in sync by a domain test —
+/// a value present in one and not the other is a runtime cast waiting to fail.
+enum UnitOfMeasureCode {
+  m
+  m2
+  m3
+  pcs
+  box
+  kg
+  litre
+  bag
+  roll
+  set
+  man_day
+}
+
 enum MeasurementSystem {
   metric
   imperial

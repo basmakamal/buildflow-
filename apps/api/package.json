@@ -19,6 +19,7 @@
     "@buildflow/project": "workspace:*",
     "@buildflow/execution": "workspace:*",
     "@buildflow/knowledge": "workspace:*",
+    "@buildflow/catalogue": "workspace:*",
     "zod": "^3.23.8"
   },
   "devDependencies": {

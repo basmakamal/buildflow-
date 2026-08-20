@@ -10,7 +10,8 @@
       "@buildflow/identity": ["../../packages/modules/identity/src/index.ts"],
       "@buildflow/project": ["../../packages/modules/project/src/index.ts"],
       "@buildflow/execution": ["../../packages/modules/execution/src/index.ts"],
-      "@buildflow/knowledge": ["../../packages/modules/knowledge/src/index.ts"]
+      "@buildflow/knowledge": ["../../packages/modules/knowledge/src/index.ts"],
+      "@buildflow/catalogue": ["../../packages/modules/catalogue/src/index.ts"]
     }
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts", "vitest.config.ts"],
