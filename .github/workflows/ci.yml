@@ -59,8 +59,19 @@ jobs:
 
       # Includes the no-hardcoded-strings rule (docs/12 §3.4) and the
       # domain-layer restrictions on ambient time and I/O (docs/06 §1).
+      #
+      # The heap bump is not padding. `strictTypeChecked` needs type
+      # information, so ESLint holds a TypeScript program per project, and the
+      # ninth workspace package pushed it past the runner's default ~2 GB ceiling
+      # — the job died with "Ineffective mark-compacts near heap limit" after 85
+      # seconds, which reads like a lint failure and is not one. The memory is
+      # inherent to type-aware linting rather than waste, so the fix is headroom.
+      # Revisit if the repo grows enough to need a different strategy
+      # (per-package lint jobs, or dropping type-aware rules on tests).
       - name: Lint — zero warnings tolerated
         run: pnpm lint
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
 
       - name: Typecheck
         run: pnpm typecheck

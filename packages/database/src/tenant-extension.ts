@@ -86,6 +86,20 @@ export const GLOBAL_MODELS: ReadonlySet<string> = new Set([
    */
   'KbRule',
   'KbFact',
+
+  /**
+   * Catalogue vocabulary. Neither table has a companyId column, so neither is
+   * scopable — the extension would inject a predicate on a column that does not
+   * exist and every read would 500.
+   *
+   * Safe because the tenant-owned half lives elsewhere: `Material` and
+   * `MaterialUomConversion` both carry companyId NOT NULL and are deliberately
+   * absent from this list, so one contractor's SKUs, costs and box→m² factors
+   * stay invisible to another. A category code, by contrast, has to mean the
+   * same thing in every tenant or the reporting that groups by it is nonsense.
+   */
+  'MaterialCategory',
+  'Brand',
 ])
 
 /** Operations whose `where` clause needs the tenant predicate added. */
