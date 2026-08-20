@@ -39,6 +39,7 @@ export {
   type PurchaseRequestId,
   type PurchaseOrderId,
   type GoodsReceiptId,
+  type InvoiceId,
   type BoqId,
   type DocumentId,
   type EventId,
