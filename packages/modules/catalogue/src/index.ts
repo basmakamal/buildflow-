@@ -20,3 +20,25 @@ export {
 } from './infrastructure/prisma.repositories'
 
 export { seedMaterialCategories } from './infrastructure/category-seeder'
+
+export {
+  directionFor,
+  foldBalance,
+  reversalOf,
+  validateQuantity,
+  wouldGoNegative,
+  STOCK_MOVEMENT_TYPES,
+  type StockMovementType,
+  type StockDirection,
+  type MovementRecord,
+  type StockBalance,
+} from './domain/stock'
+
+export {
+  PrismaStockLedger,
+  PrismaBalanceProjection,
+  type NewMovement,
+  type MovementRow,
+  type BalanceRow,
+  type AppendOutcome,
+} from './infrastructure/stock.repositories'
