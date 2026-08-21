@@ -54,3 +54,18 @@ export {
   InvoiceQueries,
   type InvoiceListRow,
 } from './infrastructure/invoice.repository'
+
+export { Budget, type BudgetSnapshot, type BudgetBuckets } from './domain/budget'
+
+export {
+  PrismaBudgetRepository,
+  BudgetQueries,
+  type BudgetRevisionRow,
+} from './infrastructure/budget.repository'
+
+export {
+  ProfitabilityQueries,
+  type ProfitabilityReport,
+  type ScopeVariance,
+  type ScopeBudget,
+} from './infrastructure/profitability.queries'

@@ -1243,6 +1243,52 @@ enum InvoicePaymentStatus {
   void
 }
 
+// ─── Budgets ─────────────────────────────────────────────────────────────────
+//
+// Phase 3 sprint 8. docs/04 §2.9
+//
+// APPEND-ONLY REVISIONS, the same discipline as the stock ledger and for the
+// same reason: "the budget was 80k when we started and someone raised it to
+// 95k in March" is the sentence a variance argument turns on, and a mutated
+// row cannot say it. The current budget for a scope is simply its highest
+// revision; every earlier baseline stays readable.
+
+model Budget {
+  id        String  @id @db.Char(36)
+  companyId String  @map("company_id") @db.Char(36)
+  unitId    String  @map("unit_id") @db.Char(36)
+  /// NULL = the whole-unit budget. Stage budgets refine it, they do not
+  /// replace it — the report shows both levels.
+  unitStageId String? @map("unit_stage_id") @db.Char(36)
+  /// Lands with the Phase 4 BOQ; a budget can exist before its quantities do.
+  boqId String? @map("boq_id") @db.Char(36)
+
+  materialBudget  Decimal @default(0) @map("material_budget") @db.Decimal(18, 4)
+  labourBudget    Decimal @default(0) @map("labour_budget") @db.Decimal(18, 4)
+  equipmentBudget Decimal @default(0) @map("equipment_budget") @db.Decimal(18, 4)
+  overheadBudget  Decimal @default(0) @map("overhead_budget") @db.Decimal(18, 4)
+  /// Derived as the sum of the buckets and stored, so the printed baseline
+  /// survives any later change to how buckets are defined.
+  totalBudget Decimal @map("total_budget") @db.Decimal(18, 4)
+  currency    String  @db.Char(3)
+
+  baselineAt DateTime @map("baseline_at") @db.DateTime(3)
+  revision   Int      @db.SmallInt
+  approvedBy String   @map("approved_by") @db.Char(36)
+  /// Why this revision exists. Free on revision 1; the honest answer on 2+.
+  revisionReason String? @map("revision_reason") @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  /// '' pins uniqueness for the stage-less row — MySQL unique indexes permit
+  /// repeated NULLs. Same pattern as material_balances.stageKey.
+  stageKey String @map("stage_key") @db.Char(36)
+
+  @@unique([companyId, unitId, stageKey, revision])
+  @@index([companyId, unitId])
+  @@map("budgets")
+}
+
 // ─── Stock ledger ────────────────────────────────────────────────────────────
 //
 // Phase 3 sprints 3–4. docs/04 §stock_movements, docs/02 §3.9
