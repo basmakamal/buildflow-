@@ -69,3 +69,14 @@ export {
   type ScopeVariance,
   type ScopeBudget,
 } from './infrastructure/profitability.queries'
+
+export {
+  SpendQueries,
+  SupplierPerformanceQueries,
+  type CurrencyAmount,
+  type DateRange,
+  type SupplierSpendRow,
+  type UnitSpendRow,
+  type MonthSpendRow,
+  type SupplierPerformanceRow,
+} from './infrastructure/spend.queries'
