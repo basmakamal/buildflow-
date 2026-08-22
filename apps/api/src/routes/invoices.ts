@@ -3,10 +3,12 @@ import type { DomainError, InvoiceId } from '@buildflow/core'
 import type { Database } from '@buildflow/database'
 import { UNIT_OF_MEASURE_CODES } from '@buildflow/catalogue'
 import {
+  BudgetWatchdog,
   Invoice,
   InvoiceQueries,
   PrismaInvoiceRepository,
   SupplierQueries,
+  type VarianceScope,
 } from '@buildflow/procurement'
 import type { Container } from '../container'
 import { authenticate, principalOf, requirePermission } from '../plugins/authenticate'
@@ -25,6 +27,7 @@ export function registerInvoiceRoutes(app: FastifyInstance, c: Container, db: Da
   const invoices = new PrismaInvoiceRepository(db)
   const queries = new InvoiceQueries(db)
   const suppliers = new SupplierQueries(db)
+  const watchdog = new BudgetWatchdog(db, c.ids, c.clock)
 
   const DECIMAL = '^\\d{1,14}(\\.\\d{1,4})?$'
   const RATE = '^\\d{1,3}(\\.\\d{1,4})?$'
@@ -343,6 +346,18 @@ export function registerInvoiceRoutes(app: FastifyInstance, c: Container, db: Da
       if (result.isErr()) return sendError(reply, request.id, result.error)
 
       await invoices.save(invoice)
+
+      // Money just landed on these scopes — check each against its baseline.
+      // After the save on purpose: the sweep re-runs on every allocation write,
+      // so a crash between the two self-heals on the next one.
+      const scopes: VarianceScope[] = invoice.allocations.flatMap((allocation) => [
+        { unitId: allocation.unitId, unitStageId: null },
+        ...(allocation.unitStageId
+          ? [{ unitId: allocation.unitId, unitStageId: allocation.unitStageId }]
+          : []),
+      ])
+      await watchdog.sweep(scopes, principal.userId)
+
       return { id: invoice.id, allocations: invoice.allocations }
     },
   )
