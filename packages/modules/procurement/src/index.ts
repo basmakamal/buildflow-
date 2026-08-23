@@ -71,6 +71,17 @@ export {
 } from './infrastructure/profitability.queries'
 
 export {
+  SpendQueries,
+  SupplierPerformanceQueries,
+  type CurrencyAmount,
+  type DateRange,
+  type SupplierSpendRow,
+  type UnitSpendRow,
+  type MonthSpendRow,
+  type SupplierPerformanceRow,
+} from './infrastructure/spend.queries'
+
+export {
   BudgetWatchdog,
   BUDGET_EXCEEDED,
   type VarianceScope,
