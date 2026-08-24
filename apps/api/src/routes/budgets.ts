@@ -4,6 +4,7 @@ import type { Database } from '@buildflow/database'
 import {
   Budget,
   BudgetQueries,
+  BudgetWatchdog,
   PrismaBudgetRepository,
   ProfitabilityQueries,
 } from '@buildflow/procurement'
@@ -25,6 +26,7 @@ export function registerBudgetRoutes(app: FastifyInstance, c: Container, db: Dat
   const budgets = new PrismaBudgetRepository(db)
   const queries = new BudgetQueries(db)
   const profitability = new ProfitabilityQueries(db)
+  const watchdog = new BudgetWatchdog(db, c.ids, c.clock)
 
   const DECIMAL = '^\\d{1,14}(\\.\\d{1,4})?$'
 
@@ -143,6 +145,10 @@ export function registerBudgetRoutes(app: FastifyInstance, c: Container, db: Dat
             ),
           )
       }
+
+      // A baseline approved BELOW money already spent is exceeded from birth —
+      // exactly the thing the approver wants to hear about immediately.
+      await watchdog.sweep([{ unitId, unitStageId }], principal.userId)
 
       const snapshot = next.value.toSnapshot()
       return reply.status(201).send({

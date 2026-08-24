@@ -80,3 +80,10 @@ export {
   type MonthSpendRow,
   type SupplierPerformanceRow,
 } from './infrastructure/spend.queries'
+
+export {
+  BudgetWatchdog,
+  BUDGET_EXCEEDED,
+  type VarianceScope,
+  type BudgetExceededPayload,
+} from './application/budget-watchdog'

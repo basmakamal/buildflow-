@@ -96,6 +96,7 @@ beforeEach(async () => {
   const hash = await new Argon2PasswordHasher().hash(PASSWORD)
 
   await runWithoutTenantScope(sys, async () => {
+    await raw.outboxEvent.deleteMany({})
     await raw.budget.deleteMany({})
     await raw.costAllocation.deleteMany({})
     await raw.invoiceLine.deleteMany({})
