@@ -57,6 +57,9 @@ importers:
       '@buildflow/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@buildflow/estimation':
+        specifier: workspace:*
+        version: link:../../packages/modules/estimation
       '@buildflow/execution':
         specifier: workspace:*
         version: link:../../packages/modules/execution
@@ -198,6 +201,22 @@ importers:
         version: 3.23.3(@types/node@22.20.1)
 
   packages/modules/catalogue:
+    dependencies:
+      '@buildflow/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@buildflow/database':
+        specifier: workspace:*
+        version: link:../../database
+    devDependencies:
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@22.20.1)(esbuild@0.28.2)(happy-dom@20.11.2)(tsx@4.23.12)
+
+  packages/modules/estimation:
     dependencies:
       '@buildflow/core':
         specifier: workspace:*
