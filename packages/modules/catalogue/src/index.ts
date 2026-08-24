@@ -42,3 +42,12 @@ export {
   type BalanceRow,
   type AppendOutcome,
 } from './infrastructure/stock.repositories'
+
+export {
+  BalanceReconciliation,
+  RECONCILIATION_DRIFT,
+  type BalanceScope,
+  type DriftField,
+  type DriftReport,
+  type ReconciliationSummary,
+} from './application/balance-reconciliation'
