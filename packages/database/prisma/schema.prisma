@@ -1289,6 +1289,85 @@ model Budget {
   @@map("budgets")
 }
 
+// ─── Rate cards ──────────────────────────────────────────────────────────────
+//
+// Phase 4 sprint 3. docs/04 §2.7
+//
+// EFFECTIVE-DATED PRICING. A BOQ resolves its rates by pricingDate, never by
+// "now" (docs/02 §3.7) — so an ACTIVE card's items are immutable, and a price
+// change is a NEW card with a new effective window, not an edit. Editing rates
+// on a card that priced last month's BOQ would silently restate a signed
+// document.
+//
+// DELIBERATE DEVIATION from docs/04's `company_id NULL = regional default`:
+// the tenant extension cannot protect a nullable-companyId table (the injected
+// predicate would hide system rows — the WorkflowTemplate trap, see
+// tenant-extension.ts). Regional defaults are instead SEEDED per tenant from a
+// curated set in code, the same pattern as SYSTEM_ROLES. Every row here is
+// tenant-owned and fully protected.
+
+model RateCard {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+
+  name        String  @db.VarChar(160)
+  countryCode String  @map("country_code") @db.Char(2)
+  /// NULL = country-wide. Resolution prefers an exact city match.
+  city     String? @db.VarChar(80)
+  currency String  @db.Char(3)
+
+  effectiveFrom DateTime  @map("effective_from") @db.Date
+  /// NULL = open-ended, until a later card supersedes it.
+  effectiveTo DateTime? @map("effective_to") @db.Date
+
+  isDefault Boolean        @default(false) @map("is_default")
+  status    RateCardStatus @default(draft)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  items RateCardItem[]
+
+  @@unique([companyId, name])
+  @@index([companyId, status, effectiveFrom])
+  @@map("rate_cards")
+}
+
+enum RateCardStatus {
+  draft
+  active
+  archived
+}
+
+model RateCardItem {
+  id         String @id @db.Char(36)
+  companyId  String @map("company_id") @db.Char(36)
+  rateCardId String @map("rate_card_id") @db.Char(36)
+
+  /// Optional link to the tenant's own material row; the work item stands alone.
+  materialId String? @map("material_id") @db.Char(36)
+
+  workItemCode  String @map("work_item_code") @db.VarChar(64)
+  descriptionEn String @map("description_en") @db.VarChar(255)
+  descriptionAr String @map("description_ar") @db.VarChar(255)
+
+  uom UnitOfMeasureCode
+
+  materialRate  Decimal @default(0) @map("material_rate") @db.Decimal(18, 4)
+  labourRate    Decimal @default(0) @map("labour_rate") @db.Decimal(18, 4)
+  equipmentRate Decimal @default(0) @map("equipment_rate") @db.Decimal(18, 4)
+
+  /// Output per crew-day, for duration estimates. NULL = not measured.
+  productivityPerDay Decimal? @map("productivity_per_day") @db.Decimal(12, 4)
+
+  card RateCard @relation(fields: [rateCardId], references: [id], onDelete: Cascade)
+
+  @@unique([rateCardId, workItemCode])
+  @@index([companyId, rateCardId])
+  @@map("rate_card_items")
+}
+
 // ─── Stock ledger ────────────────────────────────────────────────────────────
 //
 // Phase 3 sprints 3–4. docs/04 §stock_movements, docs/02 §3.9

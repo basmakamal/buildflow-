@@ -34,6 +34,7 @@ export type PurchaseOrderId = Branded<string, 'PurchaseOrderId'>
 export type GoodsReceiptId = Branded<string, 'GoodsReceiptId'>
 export type InvoiceId = Branded<string, 'InvoiceId'>
 export type BudgetId = Branded<string, 'BudgetId'>
+export type RateCardId = Branded<string, 'RateCardId'>
 export type BoqId = Branded<string, 'BoqId'>
 export type DocumentId = Branded<string, 'DocumentId'>
 export type EventId = Branded<string, 'EventId'>
