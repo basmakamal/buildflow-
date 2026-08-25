@@ -89,6 +89,9 @@ export interface BoqSnapshot extends BoqTotals {
   name: string
   status: BoqStatus
   finishingLevel: FinishingLevel | null
+  /** The package this BOQ was generated from, and which version of it. */
+  packageId: string | null
+  packageVersion: number | null
   rateCardId: string
   pricingDate: Date
   currency: string
@@ -151,6 +154,8 @@ export class Boq extends AggregateRoot<BoqId> {
     readonly versionNumber: number,
     readonly name: string,
     readonly finishingLevel: FinishingLevel | null,
+    readonly packageId: string | null,
+    readonly packageVersion: number | null,
     readonly rateCardId: string,
     readonly pricingDate: Date,
     readonly currency: string,
@@ -185,6 +190,8 @@ export class Boq extends AggregateRoot<BoqId> {
     versionNumber: number
     name: string
     finishingLevel: FinishingLevel | null
+    packageId?: string | null
+    packageVersion?: number | null
     rateCardId: string
     pricingDate: Date
     currency: string
@@ -221,6 +228,8 @@ export class Boq extends AggregateRoot<BoqId> {
         props.versionNumber,
         props.name.trim(),
         props.finishingLevel,
+        props.packageId ?? null,
+        props.packageVersion ?? null,
         props.rateCardId,
         props.pricingDate,
         props.currency,
@@ -255,6 +264,8 @@ export class Boq extends AggregateRoot<BoqId> {
       snapshot.versionNumber,
       snapshot.name,
       snapshot.finishingLevel,
+      snapshot.packageId,
+      snapshot.packageVersion,
       snapshot.rateCardId,
       snapshot.pricingDate,
       snapshot.currency,
@@ -564,6 +575,8 @@ export class Boq extends AggregateRoot<BoqId> {
         this.versionNumber + 1,
         this.name,
         this.finishingLevel,
+        this.packageId,
+        this.packageVersion,
         this.rateCardId,
         this.pricingDate,
         this.currency,
@@ -671,6 +684,8 @@ export class Boq extends AggregateRoot<BoqId> {
       name: this.name,
       status: this.#status,
       finishingLevel: this.finishingLevel,
+      packageId: this.packageId,
+      packageVersion: this.packageVersion,
       rateCardId: this.rateCardId,
       pricingDate: this.pricingDate,
       currency: this.currency,

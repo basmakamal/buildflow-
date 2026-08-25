@@ -42,6 +42,7 @@ export {
   type InvoiceId,
   type BudgetId,
   type RateCardId,
+  type PackageId,
   type BoqId,
   type DocumentId,
   type EventId,

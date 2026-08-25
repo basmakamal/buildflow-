@@ -1368,6 +1368,127 @@ model RateCardItem {
   @@map("rate_card_items")
 }
 
+// ─── Finishing packages ──────────────────────────────────────────────────────
+//
+// Phase 4 sprint 6. docs/04 §2.6, docs/02 §3.6
+//
+// A package is a TIER DEFINITION: for each (room type, element), which material
+// and which quantity rule. Applying one to a unit is what turns 14 rooms into
+// 140 BOQ lines, each carrying its formula.
+//
+// A package version becomes IMMUTABLE once published (docs/02 §3.6 phrases it
+// as "once applied to any unit"; publishing is the earlier and stricter line,
+// and it is the one a seller can rely on — a quotation that cites "Premium v2"
+// must mean the same thing next month). New content is a new version.
+
+model FinishingPackage {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+
+  code          String @db.VarChar(64)
+  /// v1, v2 … per code. `version` below is the concurrency column, as everywhere.
+  versionNumber Int    @map("version_number") @db.SmallInt
+
+  nameEn String @map("name_en") @db.VarChar(160)
+  nameAr String @map("name_ar") @db.VarChar(160)
+
+  tier   PackageTier
+  status PackageStatus @default(draft)
+
+  descriptionEn String? @map("description_en") @db.VarChar(1000)
+  descriptionAr String? @map("description_ar") @db.VarChar(1000)
+
+  /// The MARKETING number the tenant authors — "from 1,450 SAR/m²". The real
+  /// number for a real unit is derived by applying the package to its rooms;
+  /// the two are deliberately separate, because one is a promise and the other
+  /// is an estimate.
+  indicativePricePerSqm Decimal? @map("indicative_price_per_sqm") @db.Decimal(18, 4)
+  currency              String   @db.Char(3)
+
+  publishedAt DateTime? @map("published_at") @db.DateTime(3)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  items PackageItem[]
+
+  @@unique([companyId, code, versionNumber])
+  @@index([companyId, status, tier])
+  @@map("finishing_packages")
+}
+
+enum PackageTier {
+  economic
+  standard
+  premium
+  luxury
+  vip
+  custom
+}
+
+enum PackageStatus {
+  draft
+  published
+  archived
+}
+
+model PackageItem {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  packageId String @map("package_id") @db.Char(36)
+
+  /// NULL = every room in the unit. Validated against the domain room-type
+  /// list in code, like rooms.type_code — the tenant-extensible lookup lands
+  /// with tenant customization. docs/04 §2.4
+  roomTypeCode String? @map("room_type_code") @db.VarChar(40)
+
+  element PackageElement
+
+  materialId String? @map("material_id") @db.Char(36)
+  specTextEn String? @map("spec_text_en") @db.VarChar(255)
+  specTextAr String? @map("spec_text_ar") @db.VarChar(255)
+
+  /// The estimation rule computing the quantity. NULL = fixedQuantity per room
+  /// (one kitchen sink is one kitchen sink; no formula improves on that).
+  ruleCode String? @map("rule_code") @db.VarChar(64)
+  /// Constants the rule needs beyond room geometry: coats, coverage, tile size.
+  /// Geometry itself is supplied by the room, keyed off `element`.
+  ruleInputs Json? @map("rule_inputs")
+  /// Used when ruleCode is NULL. 4 dp, in the work item's uom.
+  fixedQuantity Decimal? @map("fixed_quantity") @db.Decimal(18, 4)
+
+  /// The rate card item that prices this line. Without a match on the BOQ's
+  /// card, the line cannot be priced and generation says so rather than
+  /// inventing a rate.
+  workItemCode String @map("work_item_code") @db.VarChar(64)
+
+  isOptional         Boolean  @default(false) @map("is_optional")
+  upgradePriceDelta  Decimal? @map("upgrade_price_delta") @db.Decimal(18, 4)
+
+  sortOrder Int @default(0) @map("sort_order") @db.SmallInt
+
+  package FinishingPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, packageId])
+  @@map("package_items")
+}
+
+/// The finish surfaces and fittings a package specifies. Mirrors
+/// room_finish_specs.element (docs/04 §2.5) so the two can be compared.
+enum PackageElement {
+  floor
+  wall
+  ceiling
+  skirting
+  door
+  window
+  sanitary
+  kitchen
+  lighting
+  ironmongery
+}
+
 // ─── BOQ ─────────────────────────────────────────────────────────────────────
 //
 // Phase 4 sprints 4–5. docs/04 §2.7, docs/02 §3.7
@@ -1390,6 +1511,11 @@ model Boq {
 
   status         BoqStatus    @default(draft)
   finishingLevel FinishLevel? @map("finishing_level")
+
+  /// The package this BOQ was generated from, and WHICH VERSION of it — the
+  /// pair, because a package code alone would not say what was quoted.
+  packageId      String? @map("package_id") @db.Char(36)
+  packageVersion Int?    @map("package_version") @db.SmallInt
 
   rateCardId  String   @map("rate_card_id") @db.Char(36)
   /// Rates are resolved by THIS date, never by "now". docs/02 §3.7
