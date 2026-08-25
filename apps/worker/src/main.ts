@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { Uuid7Generator } from '@buildflow/core'
 import { OutboxRelay, createDatabase, runWithoutTenantScope } from '@buildflow/database'
-import { BalanceReconciliation } from '@buildflow/catalogue'
+import { BalanceReconciliation, ShortageSweep } from '@buildflow/catalogue'
 import { LogOutboxPublisher } from './log-publisher'
 
 /**
@@ -13,9 +13,12 @@ import { LogOutboxPublisher } from './log-publisher'
  *   1. The OUTBOX RELAY drains outbox_events every few seconds. This is what
  *      makes the transactional outbox an actual delivery mechanism rather
  *      than a table that fills up — budget.exceeded alerts wait here.
- *   2. The NIGHTLY RECONCILIATION replays every stock ledger scope against
- *      material_balances, repairs drift, and reports it. The Phase 3 exit
- *      criterion is this job reporting zero drift over 30 days.
+ *   2. The NIGHTLY PASS replays every stock ledger scope against
+ *      material_balances, repairs drift, and reports it — the Phase 3 exit
+ *      criterion is this job reporting zero drift over 30 days — and then
+ *      sweeps for material SHORTAGES against the issued plans. That order is
+ *      deliberate: a shortage computed from a drifted projection is a false
+ *      alarm, and false alarms are how people learn to ignore real ones.
  *
  * `--once` runs each job exactly once and exits — for cron, CI, and hand
  * verification. Loops never overlap themselves: a tick that finds the
@@ -45,6 +48,7 @@ async function main(): Promise<void> {
 
   const relay = new OutboxRelay(db, new LogOutboxPublisher())
   const reconciliation = new BalanceReconciliation(db, () => ids.next())
+  const shortages = new ShortageSweep(db, () => ids.next())
 
   const drainOutbox = async (): Promise<void> => {
     const published = await runWithoutTenantScope(sys('outbox-relay'), () => relay.drain())
@@ -70,6 +74,22 @@ async function main(): Promise<void> {
     for (const drift of summary.drifts) {
       console.error(JSON.stringify({ msg: 'reconciliation.drift', ...drift }))
     }
+
+    // Shortages are checked right after the ledger is known to be true: a
+    // shortage computed from a drifted projection is a false alarm, and a
+    // false shortage alarm is how people learn to ignore the real ones.
+    const shortage = await runWithoutTenantScope(sys('shortage-sweep'), () =>
+      shortages.run(new Date()),
+    )
+    // eslint-disable-next-line no-console
+    console.log(
+      JSON.stringify({
+        msg: 'shortage.swept',
+        scopesChecked: shortage.scopesChecked,
+        shortagesFound: shortage.shortages.length,
+        eventsRaised: shortage.raised,
+      }),
+    )
   }
 
   if (once) {

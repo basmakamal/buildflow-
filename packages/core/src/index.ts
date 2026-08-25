@@ -44,6 +44,7 @@ export {
   type RateCardId,
   type PackageId,
   type QuotationId,
+  type MaterialPlanId,
   type BoqId,
   type DocumentId,
   type EventId,
