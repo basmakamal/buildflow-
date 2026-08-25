@@ -1527,6 +1527,11 @@ model Boq {
   equipmentTotal Decimal @default(0) @map("equipment_total") @db.Decimal(18, 4)
   subtotal       Decimal @default(0) @db.Decimal(18, 4)
 
+  /// subtotal + overhead + profit, BEFORE tax. Stored because it is the basis
+  /// every quotation and contract is built on, and re-deriving a chain that
+  /// already ran is how two documents come to disagree.
+  preTaxTotal Decimal @default(0) @map("pre_tax_total") @db.Decimal(18, 4)
+
   overheadPercentage Decimal @default(0) @map("overhead_percentage") @db.Decimal(5, 2)
   profitPercentage   Decimal @default(0) @map("profit_percentage") @db.Decimal(5, 2)
   taxPercentage      Decimal @default(0) @map("tax_percentage") @db.Decimal(5, 2)
@@ -1637,6 +1642,87 @@ enum BoqLineSource {
   ai
   manual
   package
+}
+
+// ─── Quotations ──────────────────────────────────────────────────────────────
+//
+// Phase 4 sprint 7. docs/04 §2.7, docs/02 §3.7
+//
+// The client-facing document derived from an APPROVED BOQ. Its money starts
+// from the BOQ's pre-tax total and adds the commercial layer — markup, then
+// discount, then tax on what is actually payable. Tax last and once: VAT on a
+// figure that a later discount reduces is simply the wrong number.
+//
+// Content freezes on SEND. A quotation the client is holding cannot change
+// under them; a new price is a new quotation.
+
+model Quotation {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+
+  boqId  String @map("boq_id") @db.Char(36)
+  unitId String @map("unit_id") @db.Char(36)
+  /// Forward reference: the CRM context is not built yet, so this carries the
+  /// unit's owner client without a foreign key — the same deliberate pattern
+  /// as units.owner_client_id. docs/04 §2.2
+  clientId String? @map("client_id") @db.Char(36)
+
+  quotationNumber String          @map("quotation_number") @db.VarChar(32)
+  status          QuotationStatus @default(draft)
+
+  /// The offer's shelf life. An expired quotation is a historical fact, not a
+  /// price anybody can still accept.
+  validUntil DateTime @map("valid_until") @db.Date
+
+  /// The client-facing uplift on the BOQ's pre-tax total.
+  markupPercentage Decimal @default(0) @map("markup_percentage") @db.Decimal(5, 2)
+  /// An absolute concession, applied after markup and before tax.
+  discountAmount Decimal @default(0) @map("discount_amount") @db.Decimal(18, 4)
+  taxPercentage  Decimal @default(0) @map("tax_percentage") @db.Decimal(5, 2)
+
+  /// Every figure derived and stored, so the sent document explains itself
+  /// years later even if the BOQ behind it is superseded.
+  basisAmount   Decimal @map("basis_amount") @db.Decimal(18, 4)
+  markupAmount  Decimal @map("markup_amount") @db.Decimal(18, 4)
+  netAmount     Decimal @map("net_amount") @db.Decimal(18, 4)
+  taxAmount     Decimal @map("tax_amount") @db.Decimal(18, 4)
+  totalAmount   Decimal @map("total_amount") @db.Decimal(18, 4)
+  currency      String  @db.Char(3)
+
+  /// The language the document was issued in. Both are always renderable; this
+  /// records which one the client was actually sent.
+  language QuotationLanguage @default(ar)
+
+  sentAt      DateTime? @map("sent_at") @db.DateTime(3)
+  viewedAt    DateTime? @map("viewed_at") @db.DateTime(3)
+  respondedAt DateTime? @map("responded_at") @db.DateTime(3)
+  /// Forward reference until the documents context lands: the stored PDF.
+  documentId String? @map("document_id") @db.Char(36)
+
+  notes String? @db.VarChar(1000)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  @@unique([companyId, quotationNumber])
+  @@index([companyId, unitId, status])
+  @@index([companyId, boqId])
+  @@map("quotations")
+}
+
+enum QuotationStatus {
+  draft
+  sent
+  viewed
+  accepted
+  rejected
+  expired
+}
+
+enum QuotationLanguage {
+  ar
+  en
 }
 
 // ─── Stock ledger ────────────────────────────────────────────────────────────
