@@ -132,3 +132,18 @@ export {
   QuotationQueries,
   type QuotationListRow,
 } from './infrastructure/quotation.repository'
+
+export {
+  issueMaterialPlan,
+  foldPlannedTotals,
+  type PlanRow,
+  type PlannedTotal,
+  type IssuedPlan,
+  type UnplannableLine,
+} from './application/issue-material-plan.handler'
+
+export {
+  PrismaMaterialPlanRepository,
+  MaterialPlanQueries,
+  type MaterialPlanRow,
+} from './infrastructure/material-plan.repository'

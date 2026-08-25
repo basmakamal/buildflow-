@@ -51,3 +51,13 @@ export {
   type DriftReport,
   type ReconciliationSummary,
 } from './application/balance-reconciliation'
+
+export { detectShortages, shortageOf, type BalanceFacts, type Shortage } from './domain/shortage'
+
+export {
+  ShortageSweep,
+  ShortageQueries,
+  SHORTAGE_DETECTED,
+  type ShortageSummary,
+  type ShortageRow,
+} from './application/shortage-sweep'

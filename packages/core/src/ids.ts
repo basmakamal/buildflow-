@@ -37,6 +37,7 @@ export type BudgetId = Branded<string, 'BudgetId'>
 export type RateCardId = Branded<string, 'RateCardId'>
 export type PackageId = Branded<string, 'PackageId'>
 export type QuotationId = Branded<string, 'QuotationId'>
+export type MaterialPlanId = Branded<string, 'MaterialPlanId'>
 export type BoqId = Branded<string, 'BoqId'>
 export type DocumentId = Branded<string, 'DocumentId'>
 export type EventId = Branded<string, 'EventId'>

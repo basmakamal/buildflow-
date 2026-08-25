@@ -1725,6 +1725,47 @@ enum QuotationLanguage {
   en
 }
 
+// ─── Material plans ──────────────────────────────────────────────────────────
+//
+// Phase 4 sprint 8. docs/04 §2.9, docs/02 §1.1
+//
+// The quantities an APPROVED BOQ commits the site to. This is the row that
+// finally gives material_balances.planned_quantity a source: since Phase 3 the
+// projection has carried the column with nothing to fill it, so every
+// planned-versus-actual number has been half a comparison.
+//
+// One row per BOQ LINE, not per material: the line is where the quantity came
+// from, and collapsing to a material would lose which room and which formula
+// asked for it. The projection does the summing.
+
+model MaterialPlan {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+
+  unitId      String  @map("unit_id") @db.Char(36)
+  unitStageId String? @map("unit_stage_id") @db.Char(36)
+  materialId  String  @map("material_id") @db.Char(36)
+
+  boqId     String @map("boq_id") @db.Char(36)
+  boqLineId String @map("boq_line_id") @db.Char(36)
+
+  /// The BOQ line quantity INCLUDING waste: the site has to buy the waste too.
+  plannedQuantity Decimal           @map("planned_quantity") @db.Decimal(18, 4)
+  uom             UnitOfMeasureCode
+  plannedUnitCost Decimal           @map("planned_unit_cost") @db.Decimal(18, 4)
+  currency        String            @db.Char(3)
+
+  issuedAt DateTime @map("issued_at") @db.DateTime(3)
+  issuedBy String   @map("issued_by") @db.Char(36)
+
+  /// One plan row per BOQ line, so re-issuing an approved BOQ is idempotent
+  /// rather than doubling the plan.
+  @@unique([companyId, boqLineId])
+  @@index([companyId, unitId, materialId])
+  @@index([companyId, boqId])
+  @@map("material_plans")
+}
+
 // ─── Stock ledger ────────────────────────────────────────────────────────────
 //
 // Phase 3 sprints 3–4. docs/04 §stock_movements, docs/02 §3.9
@@ -1806,8 +1847,11 @@ model MaterialBalance {
   remainingQuantity Decimal @default(0) @map("remaining_quantity") @db.Decimal(18, 4)
   uom               UnitOfMeasureCode
 
-  actualCost Decimal @default(0) @map("actual_cost") @db.Decimal(18, 4)
-  currency   String? @db.Char(3)
+  /// Projected from material_plans, not from the ledger — the ledger knows
+  /// what was spent, only the plan knows what was meant to be.
+  plannedCost Decimal @default(0) @map("planned_cost") @db.Decimal(18, 4)
+  actualCost  Decimal @default(0) @map("actual_cost") @db.Decimal(18, 4)
+  currency    String? @db.Char(3)
 
   lastMovementAt DateTime? @map("last_movement_at") @db.DateTime(3)
   recalculatedAt DateTime  @map("recalculated_at") @db.DateTime(3)
