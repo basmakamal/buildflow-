@@ -71,3 +71,42 @@ export {
 export { extendRate } from './domain/pricing-math'
 
 export { PrismaBoqRepository, BoqQueries, type BoqListRow } from './infrastructure/boq.repository'
+
+export {
+  FinishingPackage,
+  PACKAGE_TIERS,
+  PACKAGE_ELEMENTS,
+  type PackageSnapshot,
+  type PackageStatus,
+  type PackageTier,
+  type PackageElement,
+  type PackageItem,
+  type NewItemInput,
+} from './domain/finishing-package'
+
+export {
+  planLines,
+  roomInputs,
+  SECTION_FOR_ELEMENT,
+  SECTION_TITLES,
+  type RoomFacts,
+  type LinePlan,
+} from './domain/package-generation'
+
+export {
+  generateContent,
+  buildBoq,
+  estimatePackage,
+  type GenerationInputs,
+  type GeneratedContent,
+  type SkippedLine,
+  type BuiltBoq,
+  type PackageEstimate,
+} from './application/generate-boq.handler'
+
+export {
+  PrismaPackageRepository,
+  PackageQueries,
+  RoomFactsQueries,
+  type PackageListRow,
+} from './infrastructure/package.repository'

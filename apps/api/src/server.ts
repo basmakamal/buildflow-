@@ -12,6 +12,7 @@ import { registerEstimationRoutes } from './routes/estimation'
 import { registerInvoiceRoutes } from './routes/invoices'
 import { registerKnowledgeRoutes } from './routes/knowledge'
 import { registerProcurementRoutes } from './routes/procurement'
+import { registerPackageRoutes } from './routes/packages'
 import { registerProjectRoutes } from './routes/projects'
 import { registerRateCardRoutes } from './routes/rate-cards'
 import { registerReportRoutes } from './routes/reports'
@@ -147,6 +148,7 @@ export async function buildServer(options: ServerOptions): Promise<FastifyInstan
   registerEstimationRoutes(app, options.container, options.db)
   registerRateCardRoutes(app, options.container, options.db)
   registerBoqRoutes(app, options.container, options.db)
+  registerPackageRoutes(app, options.container, options.db)
 
   return app
 }
