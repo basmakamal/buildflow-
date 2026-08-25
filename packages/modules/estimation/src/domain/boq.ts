@@ -78,6 +78,8 @@ export interface BoqTotals {
   labourTotal: string
   equipmentTotal: string
   subtotal: string
+  /** subtotal + overhead + profit, BEFORE tax — the basis a quotation uses. */
+  preTaxTotal: string
   grandTotal: string
 }
 
@@ -249,6 +251,7 @@ export class Boq extends AggregateRoot<BoqId> {
           labourTotal: zero,
           equipmentTotal: zero,
           subtotal: zero,
+          preTaxTotal: zero,
           grandTotal: zero,
         },
         0,
@@ -285,6 +288,7 @@ export class Boq extends AggregateRoot<BoqId> {
         labourTotal: snapshot.labourTotal,
         equipmentTotal: snapshot.equipmentTotal,
         subtotal: snapshot.subtotal,
+        preTaxTotal: snapshot.preTaxTotal,
         grandTotal: snapshot.grandTotal,
       },
       snapshot.version,
@@ -670,6 +674,7 @@ export class Boq extends AggregateRoot<BoqId> {
       labourTotal: labour.toDecimal(),
       equipmentTotal: equipment.toDecimal(),
       subtotal: subtotal.toDecimal(),
+      preTaxTotal: taxBase.toDecimal(),
       grandTotal: taxBase.add(tax.value).toDecimal(),
     }
     return ok(undefined)

@@ -110,3 +110,25 @@ export {
   RoomFactsQueries,
   type PackageListRow,
 } from './infrastructure/package.repository'
+
+export {
+  Quotation,
+  type QuotationSnapshot,
+  type QuotationStatus,
+  type QuotationLanguage,
+  type QuotationTotals,
+} from './domain/quotation'
+
+export {
+  buildQuotationDocument,
+  type QuotationDocument,
+  type DocumentSection,
+  type DocumentLine,
+  type DocumentTotalRow,
+} from './domain/quotation-document'
+
+export {
+  PrismaQuotationRepository,
+  QuotationQueries,
+  type QuotationListRow,
+} from './infrastructure/quotation.repository'
