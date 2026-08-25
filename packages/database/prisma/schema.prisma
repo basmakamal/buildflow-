@@ -1368,6 +1368,151 @@ model RateCardItem {
   @@map("rate_card_items")
 }
 
+// ─── BOQ ─────────────────────────────────────────────────────────────────────
+//
+// Phase 4 sprints 4–5. docs/04 §2.7, docs/02 §3.7
+//
+// A Boq in status `approved` is IMMUTABLE; edits create a new versionNumber
+// (docs/04 calls the document column `version`; renamed here because `version`
+// is this codebase's optimistic-concurrency column on every aggregate). Every
+// rule-sourced line carries `formula_evaluated` + `formula_inputs` — the pair
+// that makes a BOQ defensible when a client disputes a quantity.
+
+model Boq {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  unitId    String @map("unit_id") @db.Char(36)
+
+  /// The DOCUMENT version: v1, v2 … per unit. Approved versions are frozen;
+  /// a new version supersedes, never edits.
+  versionNumber Int    @map("version_number") @db.SmallInt
+  name          String @db.VarChar(200)
+
+  status         BoqStatus    @default(draft)
+  finishingLevel FinishLevel? @map("finishing_level")
+
+  rateCardId  String   @map("rate_card_id") @db.Char(36)
+  /// Rates are resolved by THIS date, never by "now". docs/02 §3.7
+  pricingDate DateTime @map("pricing_date") @db.Date
+  currency    String   @db.Char(3)
+
+  materialTotal  Decimal @default(0) @map("material_total") @db.Decimal(18, 4)
+  labourTotal    Decimal @default(0) @map("labour_total") @db.Decimal(18, 4)
+  equipmentTotal Decimal @default(0) @map("equipment_total") @db.Decimal(18, 4)
+  subtotal       Decimal @default(0) @db.Decimal(18, 4)
+
+  overheadPercentage Decimal @default(0) @map("overhead_percentage") @db.Decimal(5, 2)
+  profitPercentage   Decimal @default(0) @map("profit_percentage") @db.Decimal(5, 2)
+  taxPercentage      Decimal @default(0) @map("tax_percentage") @db.Decimal(5, 2)
+  grandTotal         Decimal @default(0) @map("grand_total") @db.Decimal(18, 4)
+
+  generatedBy       BoqGeneratedBy @default(manual) @map("generated_by")
+  approvedBy        String?        @map("approved_by") @db.Char(36)
+  approvedAt        DateTime?      @map("approved_at") @db.DateTime(3)
+  supersededByBoqId String?        @map("superseded_by_boq_id") @db.Char(36)
+  notes             String?        @db.VarChar(500)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int      @default(0) @db.UnsignedInt
+
+  sections BoqSection[]
+  lines    BoqLine[]
+
+  @@unique([companyId, unitId, versionNumber])
+  @@index([companyId, unitId, status])
+  @@map("boqs")
+}
+
+enum BoqStatus {
+  draft
+  in_review
+  approved
+  superseded
+  rejected
+}
+
+enum BoqGeneratedBy {
+  rule_engine
+  ai
+  manual
+  imported
+}
+
+model BoqSection {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  boqId     String @map("boq_id") @db.Char(36)
+
+  /// Usually maps to a workflow stage; free-standing sections are legal.
+  stageTemplateId String? @map("stage_template_id") @db.Char(36)
+
+  code      String  @db.VarChar(32)
+  titleEn   String  @map("title_en") @db.VarChar(160)
+  titleAr   String  @map("title_ar") @db.VarChar(160)
+  sortOrder Int     @default(0) @map("sort_order") @db.SmallInt
+  subtotal  Decimal @default(0) @db.Decimal(18, 4)
+
+  boq Boq @relation(fields: [boqId], references: [id], onDelete: Cascade)
+
+  @@unique([boqId, code])
+  @@index([companyId, boqId])
+  @@map("boq_sections")
+}
+
+model BoqLine {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  boqId     String @map("boq_id") @db.Char(36)
+  sectionId String @map("section_id") @db.Char(36)
+
+  roomId     String? @map("room_id") @db.Char(36)
+  materialId String? @map("material_id") @db.Char(36)
+
+  workItemCode  String @map("work_item_code") @db.VarChar(64)
+  descriptionEn String @map("description_en") @db.VarChar(255)
+  descriptionAr String @map("description_ar") @db.VarChar(255)
+
+  uom UnitOfMeasureCode
+
+  quantity          Decimal @map("quantity") @db.Decimal(18, 4)
+  wasteFactor       Decimal @default(0) @map("waste_factor") @db.Decimal(5, 2)
+  quantityWithWaste Decimal @map("quantity_with_waste") @db.Decimal(18, 4)
+
+  materialRate  Decimal @default(0) @map("material_rate") @db.Decimal(18, 4)
+  labourRate    Decimal @default(0) @map("labour_rate") @db.Decimal(18, 4)
+  equipmentRate Decimal @default(0) @map("equipment_rate") @db.Decimal(18, 4)
+  lineTotal     Decimal @map("line_total") @db.Decimal(18, 4)
+
+  source BoqLineSource
+  /// The estimation rule CODE (docs/04 says rule_id; the catalogue's stable
+  /// key is the code, and it survives re-seeds where a row id would not).
+  ruleCode String? @map("rule_code") @db.VarChar(64)
+
+  /// The defensibility pair: the substituted formula and the inputs it read.
+  /// docs/04 §2.7 — this is what answers a disputed quantity.
+  formulaEvaluated String? @map("formula_evaluated") @db.VarChar(500)
+  formulaInputs    Json?   @map("formula_inputs")
+
+  isOverridden   Boolean @default(false) @map("is_overridden")
+  overrideReason String? @map("override_reason") @db.VarChar(500)
+
+  sortOrder Int @default(0) @map("sort_order") @db.SmallInt
+
+  boq Boq @relation(fields: [boqId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, boqId, sectionId])
+  @@index([companyId, materialId])
+  @@map("boq_lines")
+}
+
+enum BoqLineSource {
+  rule
+  ai
+  manual
+  package
+}
+
 // ─── Stock ledger ────────────────────────────────────────────────────────────
 //
 // Phase 3 sprints 3–4. docs/04 §stock_movements, docs/02 §3.9
