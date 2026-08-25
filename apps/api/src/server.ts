@@ -5,6 +5,7 @@ import { runWithTenantContext, type Database } from '@buildflow/database'
 import type { Container } from './container'
 import { registerAuthRoutes } from './routes/auth'
 import { registerMeRoutes } from './routes/me'
+import { registerBoqRoutes } from './routes/boqs'
 import { registerBudgetRoutes } from './routes/budgets'
 import { registerCatalogueRoutes } from './routes/catalogue'
 import { registerEstimationRoutes } from './routes/estimation'
@@ -145,6 +146,7 @@ export async function buildServer(options: ServerOptions): Promise<FastifyInstan
   registerReportRoutes(app, options.container, options.db)
   registerEstimationRoutes(app, options.container, options.db)
   registerRateCardRoutes(app, options.container, options.db)
+  registerBoqRoutes(app, options.container, options.db)
 
   return app
 }

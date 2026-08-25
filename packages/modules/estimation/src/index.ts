@@ -47,3 +47,27 @@ export {
   STARTER_RATE_CARD_NAME,
   type SeedResult,
 } from './infrastructure/rate-card-seeder'
+
+export {
+  Boq,
+  type BoqSnapshot,
+  type BoqStatus,
+  type BoqLine,
+  type BoqSection,
+  type BoqLineSource,
+  type BoqTotals,
+  type FinishingLevel,
+  type NewLineInput,
+} from './domain/boq'
+
+export {
+  diffBoqs,
+  type BoqDiff,
+  type LineDelta,
+  type LineFact,
+  type LineRef,
+} from './domain/boq-diff'
+
+export { extendRate } from './domain/pricing-math'
+
+export { PrismaBoqRepository, BoqQueries, type BoqListRow } from './infrastructure/boq.repository'
