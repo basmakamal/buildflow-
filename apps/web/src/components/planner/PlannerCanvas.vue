@@ -877,22 +877,43 @@ onBeforeUnmount(() => {
 /** The one thing this component offers its parent: a rendered sheet. */
 defineExpose({ exportImage })
 
+/**
+ * Three watchers, not one — the whole point of the layer stack.
+ *
+ * The layers exist so that a change redraws only the canvases it touched
+ * (docs/08 §7.1), but a single watcher that calls `redraw()` collects none of
+ * that: with `pointer` in its list, EVERY MOUSE MOVE destroyed and rebuilt all
+ * ~600 nodes and rasterised all seven canvases. At 500 objects that is most of
+ * the 16 ms frame budget spent redrawing walls that did not change.
+ *
+ * Split by what a change can actually touch:
+ *  - geometry, viewport, rooms — the drawing itself; everything repaints.
+ *  - selection — tints walls and structure, places the endpoint handles.
+ *  - the pointer group — the interaction overlay only: a handful of nodes on
+ *    one canvas, which is what makes a mouse move cheap.
+ */
 watch(
-  () => [
-    store.viewport,
-    store.document,
-    store.selection,
-    store.marquee,
-    store.lastSnap,
-    store.anchor,
-    store.pointer,
-    store.tool,
-    store.calibration,
-    store.rooms,
-    store.activeRoomId,
-  ],
+  () => [store.viewport, store.document, store.rooms, store.activeRoomId],
   () => {
     redraw()
+  },
+  { deep: true },
+)
+
+watch(
+  () => store.selection,
+  () => {
+    drawStructure(culled(store.visibleStructural))
+    drawWalls(culled(store.visibleWalls))
+    drawUi()
+  },
+  { deep: true },
+)
+
+watch(
+  () => [store.pointer, store.lastSnap, store.anchor, store.marquee, store.tool, store.calibration],
+  () => {
+    drawUi()
   },
   { deep: true },
 )
