@@ -103,6 +103,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@buildflow/estimation':
+        specifier: workspace:*
+        version: link:../../packages/modules/estimation
       '@buildflow/spatial':
         specifier: workspace:*
         version: link:../../packages/modules/spatial
