@@ -1,0 +1,38 @@
+{
+  "title": "عرض ثلاثي الأبعاد",
+  "open": "ثلاثي الأبعاد",
+  "close": "المخطط",
+  "cameras": "الكاميرا",
+  "camera": {
+    "room": "غرفة",
+    "walkthrough": "تجوّل",
+    "top": "من الأعلى"
+  },
+  "lighting": "الإضاءة",
+  "light": {
+    "daylight": "ضوء النهار",
+    "evening": "المساء",
+    "neutral": "محايدة"
+  },
+  "stats": "{solids} مجسم · {calls} استدعاء رسم · {fps} إطار/ث",
+  "walkHint": "انقر للنظر حولك · W A S D للمشي · Shift للإسراع · Esc للخروج",
+  "empty": "ارسم بعض الجدران لتظهر مجسمة هنا.",
+  "finishes": "التشطيبات",
+  "surface": "السطح",
+  "surfaceName": {
+    "floor": "الأرضية",
+    "wall": "الجدران",
+    "ceiling": "السقف"
+  },
+  "material": "المادة",
+  "pickMaterial": "اختر مادة",
+  "loadingMaterials": "جارٍ تحميل الكتالوج…",
+  "noMaterials": "لا توجد مواد مسعّرة في الكتالوج بعد.",
+  "currentCost": "الحالي",
+  "newCost": "مع هذه",
+  "difference": "الفرق",
+  "acrossRooms": "عبر {count} غرفة",
+  "applyFinish": "تطبيق على المجسم",
+  "materialCostOnly": "تكلفة المواد فقط — العمالة والمعدات تأتي من بطاقة الأسعار عند إعداد جدول الكميات.",
+  "unnamedRoom": "غرفة بلا اسم"
+}

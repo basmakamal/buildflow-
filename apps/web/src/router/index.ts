@@ -32,6 +32,13 @@ export const router = createRouter({
       component: () => import('@/views/UnitBoardView.vue'),
     },
     {
+      // The planner is heavy — Konva plus the scene — so it is split out and
+      // never downloaded by a user who does not open a plan. docs/08 §4
+      path: '/units/:unitId/planner',
+      name: 'unit-planner',
+      component: () => import('@/views/PlannerView.vue'),
+    },
+    {
       path: '/units/:unitId/review',
       name: 'unit-review',
       component: () => import('@/views/UnitReviewView.vue'),

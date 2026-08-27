@@ -8,6 +8,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@buildflow/ui": ["../../packages/ui/src/index.ts"],
+      "@buildflow/spatial": ["../../packages/modules/spatial/src/index.ts"],
+      "@buildflow/estimation/pricing": ["../../packages/modules/estimation/src/pricing.ts"],
       "@buildflow/ui/*": ["../../packages/ui/src/*"]
     }
   },

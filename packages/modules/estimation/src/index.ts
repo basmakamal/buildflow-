@@ -70,6 +70,19 @@ export {
 
 export { extendRate } from './domain/pricing-math'
 
+export {
+  FINISH_SURFACES,
+  finishDelta,
+  quoteFinish,
+  surfaceQuantity,
+  type FinishDelta,
+  type FinishQuote,
+  type FinishSpec,
+  type FinishSurface,
+  type RoomSurfaces,
+  type SurfaceLine,
+} from './domain/finish-delta'
+
 export { PrismaBoqRepository, BoqQueries, type BoqListRow } from './infrastructure/boq.repository'
 
 export {

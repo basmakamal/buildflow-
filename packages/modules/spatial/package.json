@@ -1,0 +1,25 @@
+{
+  "name": "@buildflow/spatial",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "//exports": "Two entry points on purpose. The ROOT is pure geometry and runs in the browser; `./infrastructure` touches Prisma and must never reach a bundle. The project module exports both from one barrel, which is why the web app cannot import it at all.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./infrastructure": "./src/infrastructure/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@buildflow/core": "workspace:*",
+    "@buildflow/database": "workspace:*",
+    "rbush": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/rbush": "^4.0.0",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.4"
+  }
+}
