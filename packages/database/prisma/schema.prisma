@@ -24,26 +24,26 @@ datasource db {
 
 /// The tenant. Every other row in the database belongs to exactly one of these.
 model Company {
-  id       String @id @db.Char(36)
-  nameEn   String @db.VarChar(200)
-  nameAr   String @db.VarChar(200)
-  slug     String @unique @db.VarChar(80)
+  id     String @id @db.Char(36)
+  nameEn String @db.VarChar(200)
+  nameAr String @db.VarChar(200)
+  slug   String @unique @db.VarChar(80)
 
-  countryCode       String  @db.Char(2)
-  defaultCurrency   String  @db.Char(3)
-  defaultLocale     String  @default("ar-SA") @db.VarChar(10)
-  timezone          String  @default("Asia/Riyadh") @db.VarChar(64)
+  countryCode       String            @db.Char(2)
+  defaultCurrency   String            @db.Char(3)
+  defaultLocale     String            @default("ar-SA") @db.VarChar(10)
+  timezone          String            @default("Asia/Riyadh") @db.VarChar(64)
   measurementSystem MeasurementSystem @default(metric)
   /// 0 = Sunday. Sunday in KSA/EG/AE, Monday in the EU. Every working-day
   /// calculation depends on this — a hard-coded Sat/Sun weekend reports every
   /// Gulf project as permanently delayed. docs/12 §5
-  weekStartDay      Int     @default(0) @db.TinyInt
+  weekStartDay      Int               @default(0) @db.TinyInt
 
-  status  CompanyStatus @default(trial)
+  status     CompanyStatus @default(trial)
   /// Enterprise tenants can be moved to their own database with no application
   /// change — the connection registry already resolves per tenant. docs/03 §5.4
-  dbMode  DbMode        @default(shared)
-  dataRegion String     @default("me-south-1") @db.VarChar(32)
+  dbMode     DbMode        @default(shared)
+  dataRegion String        @default("me-south-1") @db.VarChar(32)
 
   createdAt DateTime  @default(now()) @db.DateTime(3)
   updatedAt DateTime  @updatedAt @db.DateTime(3)
@@ -70,11 +70,11 @@ model User {
   lastNameAr   String? @db.VarChar(100)
   locale       String  @default("ar-SA") @db.VarChar(10)
 
-  status          UserStatus @default(invited)
-  mfaEnabled      Boolean    @default(false)
-  lastLoginAt     DateTime?  @db.DateTime(3)
-  failedLoginCount Int       @default(0) @db.TinyInt
-  lockedUntil     DateTime?  @db.DateTime(3)
+  status           UserStatus @default(invited)
+  mfaEnabled       Boolean    @default(false)
+  lastLoginAt      DateTime?  @db.DateTime(3)
+  failedLoginCount Int        @default(0) @db.TinyInt
+  lockedUntil      DateTime?  @db.DateTime(3)
 
   createdAt DateTime  @default(now()) @db.DateTime(3)
   updatedAt DateTime  @updatedAt @db.DateTime(3)
@@ -167,11 +167,11 @@ model UserAssignment {
   userId    String @db.Char(36)
 
   scopeType   AssignmentScope
-  scopeId     String   @db.Char(36)
-  roleInScope String?  @db.VarChar(64)
-  assignedBy  String?  @db.Char(36)
-  assignedAt  DateTime @default(now()) @db.DateTime(3)
-  revokedAt   DateTime? @db.DateTime(3)
+  scopeId     String          @db.Char(36)
+  roleInScope String?         @db.VarChar(64)
+  assignedBy  String?         @db.Char(36)
+  assignedAt  DateTime        @default(now()) @db.DateTime(3)
+  revokedAt   DateTime?       @db.DateTime(3)
 
   @@index([companyId, userId, scopeType, scopeId])
   @@map("user_assignments")
@@ -236,8 +236,8 @@ model RefreshToken {
 /// defeats the purpose. No application code may update or delete a row here.
 /// docs/04 §4, docs/11 §7
 model AuditLog {
-  id        String  @id @db.Char(36)
-  companyId String  @db.Char(36)
+  id        String @id @db.Char(36)
+  companyId String @db.Char(36)
 
   actorUserId String?   @db.Char(36)
   actorType   ActorType @default(user)
@@ -314,12 +314,12 @@ model Project {
   nameEn String @db.VarChar(200)
   nameAr String @db.VarChar(200)
 
-  status          ProjectStatus @default(planned)
-  contractValue   Decimal?      @db.Decimal(18, 4)
-  currency        String        @db.Char(3)
-  plannedStartDate DateTime?    @db.Date
-  plannedEndDate   DateTime?    @db.Date
-  progressPercentage Decimal    @default(0) @db.Decimal(5, 2)
+  status             ProjectStatus @default(planned)
+  contractValue      Decimal?      @db.Decimal(18, 4)
+  currency           String        @db.Char(3)
+  plannedStartDate   DateTime?     @db.Date
+  plannedEndDate     DateTime?     @db.Date
+  progressPercentage Decimal       @default(0) @db.Decimal(5, 2)
 
   createdAt DateTime  @default(now()) @db.DateTime(3)
   updatedAt DateTime  @updatedAt @db.DateTime(3)
@@ -364,12 +364,12 @@ model Unit {
   /// conditions with a guess, and those rules would then fire — or stay
   /// silent — on data no one supplied. Absent means the rule SKIPS and the
   /// review screen says which fact would unlock it. docs/10
-  unitType     UnitType?     
-  finishLevel  FinishLevel?  
-  occupantType OccupantType? 
+  unitType     UnitType?
+  finishLevel  FinishLevel?
+  occupantType OccupantType?
 
-  status            UnitStatus        @default(planned)
-  progressPercentage Decimal          @default(0) @db.Decimal(5, 2)
+  status             UnitStatus @default(planned)
+  progressPercentage Decimal    @default(0) @db.Decimal(5, 2)
 
   budgetAmount Decimal? @db.Decimal(18, 4)
   actualCost   Decimal  @default(0) @db.Decimal(18, 4)
@@ -380,9 +380,10 @@ model Unit {
   deletedAt DateTime? @db.DateTime(3)
   version   Int       @default(0) @db.UnsignedInt
 
-  company Company @relation(fields: [companyId], references: [id], onDelete: Restrict)
-  project Project @relation(fields: [projectId], references: [id], onDelete: Restrict)
-  rooms   Room[]
+  company    Company     @relation(fields: [companyId], references: [id], onDelete: Restrict)
+  project    Project     @relation(fields: [projectId], references: [id], onDelete: Restrict)
+  rooms      Room[]
+  floorPlans FloorPlan[]
 
   @@unique([companyId, projectId, unitNumber])
   @@index([companyId, projectId, status])
@@ -411,10 +412,10 @@ model Room {
   lengthMm Int
   heightMm Int
 
-  floorArea    Decimal @db.Decimal(12, 4)
-  wallArea     Decimal @db.Decimal(12, 4)
-  ceilingArea  Decimal @db.Decimal(12, 4)
-  perimeter    Decimal @db.Decimal(12, 4)
+  floorArea      Decimal @db.Decimal(12, 4)
+  wallArea       Decimal @db.Decimal(12, 4)
+  ceilingArea    Decimal @db.Decimal(12, 4)
+  perimeter      Decimal @db.Decimal(12, 4)
   /// True once a floor-plan polygon owns the geometry; manual edits are then
   /// rejected so the plan and the BOQ cannot disagree. docs/01 ROM-02
   isAreaFromPlan Boolean @default(false)
@@ -458,10 +459,10 @@ model WorkflowStageTemplate {
   companyId  String? @db.Char(36)
   templateId String  @db.Char(36)
 
-  code     String @db.VarChar(64)
-  nameEn   String @db.VarChar(120)
-  nameAr   String @db.VarChar(120)
-  sequence Int    @db.SmallInt
+  code     String  @db.VarChar(64)
+  nameEn   String  @db.VarChar(120)
+  nameAr   String  @db.VarChar(120)
+  sequence Int     @db.SmallInt
   /// Contribution to unit progress. Weights need not sum to anything — the
   /// rollup normalises — so removing a stage does not force re-weighting.
   weight   Decimal @db.Decimal(6, 3)
@@ -592,10 +593,10 @@ model OutboxEvent {
   id        String @id @db.Char(36)
   companyId String @db.Char(36)
 
-  aggregateType String @db.VarChar(80)
-  aggregateId   String @db.Char(36)
-  eventType     String @db.VarChar(120)
-  eventVersion  Int    @default(1)
+  aggregateType String  @db.VarChar(80)
+  aggregateId   String  @db.Char(36)
+  eventType     String  @db.VarChar(120)
+  eventVersion  Int     @default(1)
   actorId       String? @db.Char(36)
   payload       Json
 
@@ -668,14 +669,14 @@ model ProcessedEvent {
 /// zero-dates (0000-00-00) that Prisma then refuses to READ. `@default(now())`
 /// puts DEFAULT CURRENT_TIMESTAMP back in the database.
 model KbRule {
-  id       String       @id @default(dbgenerated("(UUID())")) @db.Char(36)
-  code     String       @unique @db.VarChar(80)
-  ruleType KbRuleType   @map("rule_type")
-  domain   KbRuleDomain
+  id           String       @id @default(dbgenerated("(UUID())")) @db.Char(36)
+  code         String       @unique @db.VarChar(80)
+  ruleType     KbRuleType   @map("rule_type")
+  domain       KbRuleDomain
   /// Pre-filter. Must agree with any roomType condition inside `conditions`,
   /// and must be null when the conditions match more than one room type —
   /// otherwise the rule silently never fires. Enforced by kb:verify.
-  roomTypeCode String? @map("room_type_code") @db.VarChar(64)
+  roomTypeCode String?      @map("room_type_code") @db.VarChar(64)
 
   /// json-rules-engine condition tree. MariaDB 10.4 stores this as LONGTEXT and
   /// enforces only well-formedness, so shape is validated in the domain layer.
@@ -685,9 +686,9 @@ model KbRule {
   messageAr  String     @map("message_ar") @db.VarChar(500)
   /// Machine-actionable payload passed through to the client, e.g.
   /// {"add":"lighting_zone","qty":1}. Free-form by design.
-  action   Json?
-  priority Int     @default(100) @db.SmallInt
-  isActive Boolean @default(true) @map("is_active")
+  action     Json?
+  priority   Int        @default(100) @db.SmallInt
+  isActive   Boolean    @default(true) @map("is_active")
 
   createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.DateTime(3)
@@ -735,12 +736,12 @@ model KbRuleOverride {
 /// renders its field dropdown from this table, so a business user can compose a
 /// new rule over existing facts with no deploy. Global — never tenant-scoped.
 model KbFact {
-  id       String @id @default(dbgenerated("(UUID())")) @db.Char(36)
-  factCode String @unique @map("fact_code") @db.VarChar(64)
-  labelEn  String @map("label_en") @db.VarChar(120)
-  labelAr  String @map("label_ar") @db.VarChar(120)
-  dataType KbFactType @map("data_type")
-  unit     String? @db.VarChar(16)
+  id            String       @id @default(dbgenerated("(UUID())")) @db.Char(36)
+  factCode      String       @unique @map("fact_code") @db.VarChar(64)
+  labelEn       String       @map("label_en") @db.VarChar(120)
+  labelAr       String       @map("label_ar") @db.VarChar(120)
+  dataType      KbFactType   @map("data_type")
+  unit          String?      @db.VarChar(16)
   /// For enum facts: the array of allowed codes.
   allowedValues Json?        @map("allowed_values")
   domain        KbFactDomain
@@ -818,9 +819,9 @@ model MaterialCategory {
   id       String  @id @default(dbgenerated("(UUID())")) @db.Char(36)
   parentId String? @map("parent_id") @db.Char(36)
 
-  code   String @unique @db.VarChar(64)
-  nameEn String @map("name_en") @db.VarChar(120)
-  nameAr String @map("name_ar") @db.VarChar(120)
+  code   String  @unique @db.VarChar(64)
+  nameEn String  @map("name_en") @db.VarChar(120)
+  nameAr String  @map("name_ar") @db.VarChar(120)
   /// Icon key from @buildflow/ui, not a URL: the icon set ships with the app.
   icon   String? @db.VarChar(64)
 
@@ -832,8 +833,8 @@ model MaterialCategory {
   sortOrder Int     @default(0) @map("sort_order") @db.SmallInt
   isActive  Boolean @default(true) @map("is_active")
 
-  parent   MaterialCategory?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
-  children MaterialCategory[] @relation("CategoryTree")
+  parent    MaterialCategory?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children  MaterialCategory[] @relation("CategoryTree")
   materials Material[]
 
   @@index([parentId, sortOrder])
@@ -863,9 +864,9 @@ model Material {
 
   /// Tenant's own stock code. Unique per company, not globally: two contractors
   /// legitimately use "POR-60" for different tiles.
-  sku    String  @db.VarChar(64)
-  nameEn String  @map("name_en") @db.VarChar(200)
-  nameAr String  @map("name_ar") @db.VarChar(200)
+  sku         String  @db.VarChar(64)
+  nameEn      String  @map("name_en") @db.VarChar(200)
+  nameAr      String  @map("name_ar") @db.VarChar(200)
   description String? @db.VarChar(500)
 
   /// The unit everything else converts INTO. Consumption, stock and BOQ lines
@@ -945,9 +946,9 @@ model Supplier {
   id        String @id @db.Char(36)
   companyId String @map("company_id") @db.Char(36)
 
-  code   String  @db.VarChar(32)
-  nameEn String  @map("name_en") @db.VarChar(200)
-  nameAr String  @map("name_ar") @db.VarChar(200)
+  code   String @db.VarChar(32)
+  nameEn String @map("name_en") @db.VarChar(200)
+  nameAr String @map("name_ar") @db.VarChar(200)
 
   contactPerson    String? @map("contact_person") @db.VarChar(120)
   mobile           String? @db.VarChar(20)
@@ -1221,7 +1222,7 @@ model CostAllocation {
   unitId      String  @map("unit_id") @db.Char(36)
   unitStageId String? @map("unit_stage_id") @db.Char(36)
 
-  amount     Decimal @db.Decimal(18, 4)
+  amount     Decimal  @db.Decimal(18, 4)
   /// The percentage the caller asked for, kept for display; `amount` is the
   /// exact-sum truth derived from it.
   percentage Decimal? @db.Decimal(7, 4)
@@ -1254,14 +1255,14 @@ enum InvoicePaymentStatus {
 // revision; every earlier baseline stays readable.
 
 model Budget {
-  id        String  @id @db.Char(36)
-  companyId String  @map("company_id") @db.Char(36)
-  unitId    String  @map("unit_id") @db.Char(36)
+  id          String  @id @db.Char(36)
+  companyId   String  @map("company_id") @db.Char(36)
+  unitId      String  @map("unit_id") @db.Char(36)
   /// NULL = the whole-unit budget. Stage budgets refine it, they do not
   /// replace it — the report shows both levels.
   unitStageId String? @map("unit_stage_id") @db.Char(36)
   /// Lands with the Phase 4 BOQ; a budget can exist before its quantities do.
-  boqId String? @map("boq_id") @db.Char(36)
+  boqId       String? @map("boq_id") @db.Char(36)
 
   materialBudget  Decimal @default(0) @map("material_budget") @db.Decimal(18, 4)
   labourBudget    Decimal @default(0) @map("labour_budget") @db.Decimal(18, 4)
@@ -1269,14 +1270,14 @@ model Budget {
   overheadBudget  Decimal @default(0) @map("overhead_budget") @db.Decimal(18, 4)
   /// Derived as the sum of the buckets and stored, so the printed baseline
   /// survives any later change to how buckets are defined.
-  totalBudget Decimal @map("total_budget") @db.Decimal(18, 4)
-  currency    String  @db.Char(3)
+  totalBudget     Decimal @map("total_budget") @db.Decimal(18, 4)
+  currency        String  @db.Char(3)
 
-  baselineAt DateTime @map("baseline_at") @db.DateTime(3)
-  revision   Int      @db.SmallInt
-  approvedBy String   @map("approved_by") @db.Char(36)
+  baselineAt     DateTime @map("baseline_at") @db.DateTime(3)
+  revision       Int      @db.SmallInt
+  approvedBy     String   @map("approved_by") @db.Char(36)
   /// Why this revision exists. Free on revision 1; the honest answer on 2+.
-  revisionReason String? @map("revision_reason") @db.VarChar(500)
+  revisionReason String?  @map("revision_reason") @db.VarChar(500)
 
   createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
 
@@ -1313,12 +1314,12 @@ model RateCard {
   name        String  @db.VarChar(160)
   countryCode String  @map("country_code") @db.Char(2)
   /// NULL = country-wide. Resolution prefers an exact city match.
-  city     String? @db.VarChar(80)
-  currency String  @db.Char(3)
+  city        String? @db.VarChar(80)
+  currency    String  @db.Char(3)
 
   effectiveFrom DateTime  @map("effective_from") @db.Date
   /// NULL = open-ended, until a later card supersedes it.
-  effectiveTo DateTime? @map("effective_to") @db.Date
+  effectiveTo   DateTime? @map("effective_to") @db.Date
 
   isDefault Boolean        @default(false) @map("is_default")
   status    RateCardStatus @default(draft)
@@ -1451,10 +1452,10 @@ model PackageItem {
 
   /// The estimation rule computing the quantity. NULL = fixedQuantity per room
   /// (one kitchen sink is one kitchen sink; no formula improves on that).
-  ruleCode String? @map("rule_code") @db.VarChar(64)
+  ruleCode      String?  @map("rule_code") @db.VarChar(64)
   /// Constants the rule needs beyond room geometry: coats, coverage, tile size.
   /// Geometry itself is supplied by the room, keyed off `element`.
-  ruleInputs Json? @map("rule_inputs")
+  ruleInputs    Json?    @map("rule_inputs")
   /// Used when ruleCode is NULL. 4 dp, in the work item's uom.
   fixedQuantity Decimal? @map("fixed_quantity") @db.Decimal(18, 4)
 
@@ -1463,8 +1464,8 @@ model PackageItem {
   /// inventing a rate.
   workItemCode String @map("work_item_code") @db.VarChar(64)
 
-  isOptional         Boolean  @default(false) @map("is_optional")
-  upgradePriceDelta  Decimal? @map("upgrade_price_delta") @db.Decimal(18, 4)
+  isOptional        Boolean  @default(false) @map("is_optional")
+  upgradePriceDelta Decimal? @map("upgrade_price_delta") @db.Decimal(18, 4)
 
   sortOrder Int @default(0) @map("sort_order") @db.SmallInt
 
@@ -1615,10 +1616,10 @@ model BoqLine {
   equipmentRate Decimal @default(0) @map("equipment_rate") @db.Decimal(18, 4)
   lineTotal     Decimal @map("line_total") @db.Decimal(18, 4)
 
-  source BoqLineSource
+  source   BoqLineSource
   /// The estimation rule CODE (docs/04 says rule_id; the catalogue's stable
   /// key is the code, and it survives re-seeds where a row id would not).
-  ruleCode String? @map("rule_code") @db.VarChar(64)
+  ruleCode String?       @map("rule_code") @db.VarChar(64)
 
   /// The defensibility pair: the substituted formula and the inputs it read.
   /// docs/04 §2.7 — this is what answers a disputed quantity.
@@ -1660,8 +1661,8 @@ model Quotation {
   id        String @id @db.Char(36)
   companyId String @map("company_id") @db.Char(36)
 
-  boqId  String @map("boq_id") @db.Char(36)
-  unitId String @map("unit_id") @db.Char(36)
+  boqId    String  @map("boq_id") @db.Char(36)
+  unitId   String  @map("unit_id") @db.Char(36)
   /// Forward reference: the CRM context is not built yet, so this carries the
   /// unit's owner client without a foreign key — the same deliberate pattern
   /// as units.owner_client_id. docs/04 §2.2
@@ -1677,17 +1678,17 @@ model Quotation {
   /// The client-facing uplift on the BOQ's pre-tax total.
   markupPercentage Decimal @default(0) @map("markup_percentage") @db.Decimal(5, 2)
   /// An absolute concession, applied after markup and before tax.
-  discountAmount Decimal @default(0) @map("discount_amount") @db.Decimal(18, 4)
-  taxPercentage  Decimal @default(0) @map("tax_percentage") @db.Decimal(5, 2)
+  discountAmount   Decimal @default(0) @map("discount_amount") @db.Decimal(18, 4)
+  taxPercentage    Decimal @default(0) @map("tax_percentage") @db.Decimal(5, 2)
 
   /// Every figure derived and stored, so the sent document explains itself
   /// years later even if the BOQ behind it is superseded.
-  basisAmount   Decimal @map("basis_amount") @db.Decimal(18, 4)
-  markupAmount  Decimal @map("markup_amount") @db.Decimal(18, 4)
-  netAmount     Decimal @map("net_amount") @db.Decimal(18, 4)
-  taxAmount     Decimal @map("tax_amount") @db.Decimal(18, 4)
-  totalAmount   Decimal @map("total_amount") @db.Decimal(18, 4)
-  currency      String  @db.Char(3)
+  basisAmount  Decimal @map("basis_amount") @db.Decimal(18, 4)
+  markupAmount Decimal @map("markup_amount") @db.Decimal(18, 4)
+  netAmount    Decimal @map("net_amount") @db.Decimal(18, 4)
+  taxAmount    Decimal @map("tax_amount") @db.Decimal(18, 4)
+  totalAmount  Decimal @map("total_amount") @db.Decimal(18, 4)
+  currency     String  @db.Char(3)
 
   /// The language the document was issued in. Both are always renderable; this
   /// records which one the client was actually sent.
@@ -1697,7 +1698,7 @@ model Quotation {
   viewedAt    DateTime? @map("viewed_at") @db.DateTime(3)
   respondedAt DateTime? @map("responded_at") @db.DateTime(3)
   /// Forward reference until the documents context lands: the stored PDF.
-  documentId String? @map("document_id") @db.Char(36)
+  documentId  String?   @map("document_id") @db.Char(36)
 
   notes String? @db.VarChar(1000)
 
@@ -1808,8 +1809,8 @@ model StockMovement {
   /// Set on a correcting entry. The original is never touched.
   reversalOfMovementId String? @map("reversal_of_movement_id") @db.Char(36)
 
-  occurredAt DateTime @map("occurred_at") @db.DateTime(3)
-  recordedBy String   @map("recorded_by") @db.Char(36)
+  occurredAt DateTime    @map("occurred_at") @db.DateTime(3)
+  recordedBy String      @map("recorded_by") @db.Char(36)
   source     EventSource
 
   /// Client-generated idempotency key. The mobile app's offline outbox retries
@@ -1839,12 +1840,12 @@ model MaterialBalance {
   unitStageId String? @map("unit_stage_id") @db.Char(36)
   materialId  String  @map("material_id") @db.Char(36)
 
-  plannedQuantity   Decimal @default(0) @map("planned_quantity") @db.Decimal(18, 4)
-  purchasedQuantity Decimal @default(0) @map("purchased_quantity") @db.Decimal(18, 4)
-  usedQuantity      Decimal @default(0) @map("used_quantity") @db.Decimal(18, 4)
-  wastedQuantity    Decimal @default(0) @map("wasted_quantity") @db.Decimal(18, 4)
-  returnedQuantity  Decimal @default(0) @map("returned_quantity") @db.Decimal(18, 4)
-  remainingQuantity Decimal @default(0) @map("remaining_quantity") @db.Decimal(18, 4)
+  plannedQuantity   Decimal           @default(0) @map("planned_quantity") @db.Decimal(18, 4)
+  purchasedQuantity Decimal           @default(0) @map("purchased_quantity") @db.Decimal(18, 4)
+  usedQuantity      Decimal           @default(0) @map("used_quantity") @db.Decimal(18, 4)
+  wastedQuantity    Decimal           @default(0) @map("wasted_quantity") @db.Decimal(18, 4)
+  returnedQuantity  Decimal           @default(0) @map("returned_quantity") @db.Decimal(18, 4)
+  remainingQuantity Decimal           @default(0) @map("remaining_quantity") @db.Decimal(18, 4)
   uom               UnitOfMeasureCode
 
   /// Projected from material_plans, not from the ledger — the ledger knows
@@ -1976,4 +1977,256 @@ enum HandoverCondition {
   red_brick
   semi_finished
   fully_finished_renovation
+}
+
+// ─── Spatial ─────────────────────────────────────────────────────────────────
+// docs/04 §2.5. The planner's persistence: one plan per unit, its geometry,
+// its named revisions, and an advisory edit lock.
+
+enum FloorPlanStatus {
+  draft
+  active
+  archived
+}
+
+enum PlanWallType {
+  structural
+  partition
+  existing
+  demolish
+}
+
+enum PlanOpeningType {
+  door
+  window
+  arch
+  niche
+}
+
+enum PlanStructuralType {
+  column
+  beam
+  shaft
+  obstacle
+  slab_opening
+}
+
+/// A floor plan for a unit. docs/04 §2.5
+///
+/// DUAL STORAGE, deliberately. The authoritative geometry is the normalised
+/// child tables below — queryable, diffable, and what the BOQ take-off reads.
+/// `geometry` is a denormalised CACHE of the same thing so the editor loads a
+/// whole plan in one round trip instead of five joins. It is rebuilt from the
+/// rows on every save and is never the source of truth.
+model FloorPlan {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+  unitId    String @map("unit_id") @db.Char(36)
+
+  name   String          @db.VarChar(200)
+  status FloorPlanStatus @default(draft)
+
+  /// Plan origin, in the integer millimetres everything spatial uses. ADR-016
+  originXMm Int @default(0) @map("origin_x_mm")
+  originYMm Int @default(0) @map("origin_y_mm")
+
+  /// The traced underlay and the scale calibration that makes it usable.
+  backgroundObjectKey    String?  @map("background_object_key") @db.VarChar(500)
+  backgroundScaleMmPerPx Decimal? @map("background_scale_mm_per_px") @db.Decimal(12, 6)
+
+  geometry           Json
+  thumbnailObjectKey String? @map("thumbnail_object_key") @db.VarChar(500)
+
+  /// Advisory edit lock. docs/08 §7.6 — a TTL refreshed by heartbeat, so a
+  /// closed laptop frees the plan without anybody having to intervene.
+  lockedByUserId String?   @map("locked_by_user_id") @db.Char(36)
+  lockedByName   String?   @map("locked_by_name") @db.VarChar(200)
+  lockExpiresAt  DateTime? @map("lock_expires_at") @db.DateTime(3)
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.DateTime(3)
+  deletedAt DateTime? @map("deleted_at") @db.DateTime(3)
+  createdBy String?   @map("created_by") @db.Char(36)
+
+  /// Optimistic concurrency. docs/07 §6 — a stale editor is refused rather
+  /// than allowed to overwrite work it never saw.
+  version Int @default(1)
+
+  unit       Unit                    @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  walls      PlanWall[]
+  openings   PlanOpening[]
+  structural PlanStructuralElement[]
+  rooms      PlanRoomBoundary[]
+  revisions  PlanRevision[]
+  shares     PlanShare[]
+
+  @@index([companyId, unitId])
+  @@map("floor_plans")
+}
+
+model PlanWall {
+  id          String @id @db.Char(36)
+  companyId   String @map("company_id") @db.Char(36)
+  floorPlanId String @map("floor_plan_id") @db.Char(36)
+
+  startXMm Int @map("start_x_mm")
+  startYMm Int @map("start_y_mm")
+  endXMm   Int @map("end_x_mm")
+  endYMm   Int @map("end_y_mm")
+
+  thicknessMm Int          @map("thickness_mm")
+  heightMm    Int          @map("height_mm")
+  wallType    PlanWallType @default(partition) @map("wall_type")
+
+  layer        String  @default("default") @db.VarChar(64)
+  materialHint String? @map("material_hint") @db.VarChar(120)
+  /// Draw order. Which wall a click selects where two overlap depends on it.
+  sortOrder    Int     @default(0) @map("sort_order")
+
+  plan     FloorPlan     @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+  openings PlanOpening[]
+
+  @@index([companyId, floorPlanId])
+  @@map("plan_walls")
+}
+
+/// An opening is HOSTED on a wall: it stores an offset along that wall's
+/// centreline, never a position. Cascading from the wall is therefore correct
+/// — an opening whose wall is gone has no position at all. docs/02 §3.5
+model PlanOpening {
+  id          String @id @db.Char(36)
+  companyId   String @map("company_id") @db.Char(36)
+  floorPlanId String @map("floor_plan_id") @db.Char(36)
+  wallId      String @map("wall_id") @db.Char(36)
+
+  type           PlanOpeningType
+  offsetMm       Int             @map("offset_mm")
+  widthMm        Int             @map("width_mm")
+  heightMm       Int             @map("height_mm")
+  sillHeightMm   Int             @default(0) @map("sill_height_mm")
+  swingDirection String?         @map("swing_direction") @db.VarChar(20)
+
+  materialId String? @map("material_id") @db.Char(36)
+  label      String? @db.VarChar(120)
+
+  plan FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+  wall PlanWall  @relation(fields: [wallId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, floorPlanId])
+  @@index([wallId])
+  @@map("plan_openings")
+}
+
+model PlanStructuralElement {
+  id          String @id @db.Char(36)
+  companyId   String @map("company_id") @db.Char(36)
+  floorPlanId String @map("floor_plan_id") @db.Char(36)
+
+  type PlanStructuralType
+
+  /// A point element is a rectangle at (x, y) turned by rotation; a beam spans
+  /// (x, y) to (end_x, end_y) with a width. One table, two footprints.
+  xMm    Int  @map("x_mm")
+  yMm    Int  @map("y_mm")
+  endXMm Int? @map("end_x_mm")
+  endYMm Int? @map("end_y_mm")
+
+  widthMm     Int @map("width_mm")
+  depthMm     Int @map("depth_mm")
+  heightMm    Int @default(3000) @map("height_mm")
+  rotationDeg Int @default(0) @map("rotation_deg")
+
+  layer          String  @default("structure") @db.VarChar(64)
+  label          String? @db.VarChar(120)
+  isDemolishable Boolean @default(false) @map("is_demolishable")
+
+  plan FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, floorPlanId])
+  @@map("plan_structural_elements")
+}
+
+/// A detected room, with the area that flows to the BOQ. `roomId` links it to
+/// the Room the rest of the domain knows about, once a user assigns one.
+model PlanRoomBoundary {
+  id          String  @id @db.Char(36)
+  companyId   String  @map("company_id") @db.Char(36)
+  floorPlanId String  @map("floor_plan_id") @db.Char(36)
+  roomId      String? @map("room_id") @db.Char(36)
+
+  /// The walls enclosing this space, sorted. Stable across geometry edits, so
+  /// a room keeps its name when a corner moves. docs/08 §7.4
+  signature String  @db.VarChar(1000)
+  name      String  @default("") @db.VarChar(120)
+  typeCode  String? @map("type_code") @db.VarChar(40)
+
+  polygon           Json
+  computedArea      Decimal @map("computed_area") @db.Decimal(12, 4)
+  computedPerimeter Decimal @map("computed_perimeter") @db.Decimal(12, 4)
+  centroidXMm       Int     @map("centroid_x_mm")
+  centroidYMm       Int     @map("centroid_y_mm")
+  ceilingHeightMm   Int     @default(3000) @map("ceiling_height_mm")
+
+  plan FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, floorPlanId])
+  @@map("plan_room_boundaries")
+}
+
+/// A named, restorable snapshot. A SNAPSHOT and not a diff: it has to be
+/// restorable in isolation years later, when the walls it referenced are gone
+/// and the chain of diffs that would rebuild it no longer exists.
+model PlanRevision {
+  id          String @id @db.Char(36)
+  companyId   String @map("company_id") @db.Char(36)
+  floorPlanId String @map("floor_plan_id") @db.Char(36)
+
+  revisionNumber Int     @map("revision_number")
+  name           String  @db.VarChar(120)
+  note           String? @db.Text
+
+  snapshot Json
+
+  createdBy String   @map("created_by") @db.Char(36)
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  plan FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+
+  @@unique([floorPlanId, revisionNumber])
+  @@index([companyId, floorPlanId])
+  @@map("plan_revisions")
+}
+
+/// A client share link. docs/04 §2.5, docs/16 Phase 5 sprint 10
+///
+/// The document names this `scene_shares`, keyed to a `SceneConfig` carrying
+/// materials, lighting and camera bookmarks. SceneConfig is not modelled yet,
+/// so a link points at the FLOOR PLAN; when it lands the link gains a scene
+/// and this table keeps its shape.
+///
+/// Only the token's SHA-256 is stored. A leaked row does not open the plan it
+/// points at — the same reasoning as refresh tokens. docs/11 §2.2
+model PlanShare {
+  id          String @id @db.Char(36)
+  companyId   String @map("company_id") @db.Char(36)
+  floorPlanId String @map("floor_plan_id") @db.Char(36)
+
+  /// Unique, because the lookup is BY hash on an unauthenticated route: a
+  /// duplicate would make "which plan does this token open" ambiguous.
+  tokenHash String @unique @map("token_hash") @db.Char(64)
+  label     String @db.VarChar(120)
+
+  /// Every link ends. A share with no expiry is an access grant nobody
+  /// remembers issuing.
+  expiresAt DateTime  @map("expires_at") @db.DateTime(3)
+  viewCount Int       @default(0) @map("view_count")
+  revokedAt DateTime? @map("revoked_at") @db.DateTime(3)
+
+  createdBy String   @map("created_by") @db.Char(36)
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  plan FloorPlan @relation(fields: [floorPlanId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, floorPlanId])
+  @@map("plan_shares")
 }

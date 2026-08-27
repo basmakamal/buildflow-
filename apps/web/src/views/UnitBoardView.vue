@@ -112,9 +112,14 @@ onMounted(load)
               <strong class="numeric">{{ unitProgress }}%</strong>
             </p>
           </div>
-          <RouterLink :to="`/units/${unitId}/review`" class="btn btn--small">
-            {{ t('knowledge.title') }}
-          </RouterLink>
+          <div class="board__actions">
+            <RouterLink :to="`/units/${unitId}/planner`" class="btn btn--small">
+              {{ t('planner.open') }}
+            </RouterLink>
+            <RouterLink :to="`/units/${unitId}/review`" class="btn btn--small">
+              {{ t('knowledge.title') }}
+            </RouterLink>
+          </div>
         </div>
         <div class="board__meter" role="progressbar" :aria-valuenow="Number(unitProgress)">
           <div class="board__meter-fill" :style="{ width: `${Number(unitProgress)}%` }" />
@@ -287,6 +292,11 @@ onMounted(load)
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--bf-space-4);
+}
+
+.board__actions {
+  display: flex;
+  gap: var(--bf-space-2);
 }
 
 .board__title .btn {

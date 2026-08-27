@@ -1,0 +1,38 @@
+{
+  "title": "3D view",
+  "open": "3D",
+  "close": "Plan",
+  "cameras": "Camera",
+  "camera": {
+    "room": "Room",
+    "walkthrough": "Walk",
+    "top": "Top"
+  },
+  "lighting": "Lighting",
+  "light": {
+    "daylight": "Daylight",
+    "evening": "Evening",
+    "neutral": "Neutral"
+  },
+  "stats": "{solids} solids · {calls} draw calls · {fps} fps",
+  "walkHint": "Click to look around · W A S D to walk · Shift to hurry · Esc to release",
+  "empty": "Draw some walls and they will stand up here.",
+  "finishes": "Finishes",
+  "surface": "Surface",
+  "surfaceName": {
+    "floor": "Floor",
+    "wall": "Walls",
+    "ceiling": "Ceiling"
+  },
+  "material": "Material",
+  "pickMaterial": "Choose a material",
+  "loadingMaterials": "Loading the catalogue…",
+  "noMaterials": "No costed materials in the catalogue yet.",
+  "currentCost": "Now",
+  "newCost": "With this",
+  "difference": "Difference",
+  "acrossRooms": "Across {count} rooms",
+  "applyFinish": "Apply to the model",
+  "materialCostOnly": "Material cost only — labour and equipment come from the rate card at BOQ time.",
+  "unnamedRoom": "Unnamed room"
+}

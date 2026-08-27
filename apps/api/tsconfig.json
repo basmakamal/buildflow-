@@ -13,7 +13,11 @@
       "@buildflow/knowledge": ["../../packages/modules/knowledge/src/index.ts"],
       "@buildflow/catalogue": ["../../packages/modules/catalogue/src/index.ts"],
       "@buildflow/procurement": ["../../packages/modules/procurement/src/index.ts"],
-      "@buildflow/estimation": ["../../packages/modules/estimation/src/index.ts"]
+      "@buildflow/estimation": ["../../packages/modules/estimation/src/index.ts"],
+      "@buildflow/spatial": ["../../packages/modules/spatial/src/index.ts"],
+      "@buildflow/spatial/infrastructure": [
+        "../../packages/modules/spatial/src/infrastructure/index.ts"
+      ]
     }
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts", "vitest.config.ts"],

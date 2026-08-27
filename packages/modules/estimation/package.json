@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./pricing": "./src/pricing.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
@@ -17,5 +18,6 @@
   "devDependencies": {
     "typescript": "^5.6.3",
     "vitest": "^3.2.4"
-  }
+  },
+  "//exports": "Two entry points. The ROOT carries the Prisma repositories and is server only; ./pricing is pure arithmetic the 3D viewer imports to price a finish change live."
 }

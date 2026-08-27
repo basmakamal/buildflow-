@@ -20,6 +20,20 @@ export default defineConfig({
         replacement: fileURLToPath(new URL('../../packages/ui/src/index.ts', import.meta.url)),
       },
       {
+        find: /^@buildflow\/spatial$/,
+        replacement: fileURLToPath(
+          new URL('../../packages/modules/spatial/src/index.ts', import.meta.url),
+        ),
+      },
+      {
+        // Pure pricing only. The estimation ROOT pulls Prisma, so it is never
+        // aliased here — the subpath is the whole point of the split.
+        find: /^@buildflow\/estimation\/pricing$/,
+        replacement: fileURLToPath(
+          new URL('../../packages/modules/estimation/src/pricing.ts', import.meta.url),
+        ),
+      },
+      {
         find: /^@buildflow\/ui\/tokens\.css$/,
         replacement: fileURLToPath(
           new URL('../../packages/ui/src/tokens/tokens.css', import.meta.url),
