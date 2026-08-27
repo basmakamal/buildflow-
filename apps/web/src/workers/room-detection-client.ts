@@ -55,6 +55,30 @@ function ensureWorker(): Worker | null {
   return worker
 }
 
+/**
+ * Plain, structured-cloneable copies of the walls.
+ *
+ * A SHALLOW spread is not enough and that is the whole reason this exists. The
+ * walls arrive from a Pinia store, so `wall` is a Vue reactive Proxy and so are
+ * the `start` and `end` points hanging off it. `{ ...wall }` unwraps only the
+ * top level; the two points stay Proxies, `postMessage` refuses to clone a
+ * Proxy, and detection dies with a DataCloneError that surfaces as a plan with
+ * NO ROOMS — no areas, no BOQ quantities, and no error a user would recognise.
+ *
+ * Exported so it can be asserted on: the worker itself cannot run in the test
+ * environment, which is exactly how this survived a full suite the first time.
+ */
+export function toTransferable(walls: readonly Wall[]): Wall[] {
+  return walls.map((wall) => ({
+    id: wall.id,
+    start: { x: wall.start.x, y: wall.start.y },
+    end: { x: wall.end.x, y: wall.end.y },
+    thicknessMm: wall.thicknessMm,
+    heightMm: wall.heightMm,
+    layer: wall.layer,
+  }))
+}
+
 export function detectRoomsInWorker(
   walls: readonly Wall[],
   options: { toleranceMm?: number } = {},
@@ -76,9 +100,7 @@ export function detectRoomsInWorker(
     pending.set(id, resolve)
     const request: DetectRequest = {
       id,
-      // Structured-cloned across the boundary, so the walls must be plain data.
-      // They are: a Wall is points and numbers, by design. docs/18 ADR-016
-      walls: walls.map((wall) => ({ ...wall })),
+      walls: toTransferable(walls),
       ...(options.toleranceMm === undefined ? {} : { toleranceMm: options.toleranceMm }),
     }
     active.postMessage(request)
