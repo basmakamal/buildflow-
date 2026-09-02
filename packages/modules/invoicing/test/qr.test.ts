@@ -80,7 +80,8 @@ describe('the phase 1 invoice QR', () => {
     ])
     expect(text.decode(fields[0]?.bytes)).toBe('شركة التشطيبات التجريبية')
     expect(text.decode(fields[1]?.bytes)).toBe('310123456700003')
-    expect(text.decode(fields[2]?.bytes)).toBe('2026-08-27T14:30:00.000Z')
+    // Seconds precision — ZATCA's timestamp format has no milliseconds.
+    expect(text.decode(fields[2]?.bytes)).toBe('2026-08-27T14:30:00Z')
     expect(text.decode(fields[3]?.bytes)).toBe('1150.00')
     expect(text.decode(fields[4]?.bytes)).toBe('150.00')
   })

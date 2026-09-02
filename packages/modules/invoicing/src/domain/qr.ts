@@ -29,6 +29,10 @@ export const QR_TAGS = {
   vatTotal: 5,
 } as const
 
+/** `YYYY-MM-DDTHH:mm:ssZ` — seconds precision, the format ZATCA's QR and
+ * XAdES both use. `toISOString()`'s milliseconds are not part of it. */
+export const zatcaTimestamp = (instant: Date): string => `${instant.toISOString().slice(0, 19)}Z`
+
 const encoder = new TextEncoder()
 
 /** Encodes the fields as TLV and returns the base64 payload the QR carries. */
@@ -73,7 +77,7 @@ export function qrPayload(fields: readonly QrField[]): Result<string, DomainErro
 export function phase1Qr(input: {
   sellerName: string
   sellerVatNumber: string
-  /** ISO 8601 with time — ZATCA wants the moment, not the day. */
+  /** The moment, not the day — formatted by `zatcaTimestamp`. */
   issuedAt: Date
   invoiceTotal: string
   vatTotal: string
@@ -81,7 +85,7 @@ export function phase1Qr(input: {
   return qrPayload([
     { tag: QR_TAGS.sellerName, value: input.sellerName },
     { tag: QR_TAGS.sellerVatNumber, value: input.sellerVatNumber },
-    { tag: QR_TAGS.timestamp, value: input.issuedAt.toISOString() },
+    { tag: QR_TAGS.timestamp, value: zatcaTimestamp(input.issuedAt) },
     { tag: QR_TAGS.invoiceTotal, value: input.invoiceTotal },
     { tag: QR_TAGS.vatTotal, value: input.vatTotal },
   ])

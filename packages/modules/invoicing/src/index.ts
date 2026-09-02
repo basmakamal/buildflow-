@@ -20,4 +20,25 @@ export {
   type BuyerIdentity,
 } from './domain/tax-invoice'
 
-export { qrPayload, phase1Qr, QR_TAGS, type QrField } from './domain/qr'
+export { qrPayload, phase1Qr, zatcaTimestamp, QR_TAGS, type QrField } from './domain/qr'
+
+export {
+  ublInvoiceXml,
+  pureInvoiceString,
+  invoiceHash,
+  UBL_EXTENSIONS_PLACEHOLDER,
+  QR_PLACEHOLDER,
+  type SellerDetails,
+  type BuyerDetails,
+  type UblBuildInput,
+} from './domain/ubl'
+
+export {
+  signInvoice,
+  certificateInfo,
+  digitalSignature,
+  verifySignature,
+  phase2Qr,
+  type CertificateInfo,
+  type SignedInvoice,
+} from './domain/stamp'
