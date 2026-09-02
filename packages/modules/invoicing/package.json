@@ -1,0 +1,21 @@
+{
+  "name": "@buildflow/invoicing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "//name": "Not `billing`: docs/02 §3.1 already uses Billing for the TENANT's SaaS subscription. This module is the invoices the tenant ISSUES — ZATCA e-invoicing, docs/01 NFR-C4.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@buildflow/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.4"
+  }
+}

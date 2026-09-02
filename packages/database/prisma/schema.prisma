@@ -29,6 +29,14 @@ model Company {
   nameAr String @db.VarChar(200)
   slug   String @unique @db.VarChar(80)
 
+  /// Seller identity for issued tax invoices. docs/04 §2.1 designed these
+  /// columns; ZATCA e-invoicing (docs/01 NFR-C4) is what finally needs them.
+  /// Nullable because existing tenants predate them — the invoicing domain
+  /// refuses to issue until they are filled, which is the honest failure.
+  legalName String? @map("legal_name") @db.VarChar(200)
+  vatNumber String? @map("vat_number") @db.Char(15)
+  crNumber  String? @map("cr_number") @db.VarChar(20)
+
   countryCode       String            @db.Char(2)
   defaultCurrency   String            @db.Char(3)
   defaultLocale     String            @default("ar-SA") @db.VarChar(10)
