@@ -291,6 +291,19 @@ importers:
         specifier: ^3.2.4
         version: 3.2.7(@types/node@22.20.1)(esbuild@0.28.2)(happy-dom@20.11.2)(tsx@4.23.12)
 
+  packages/modules/invoicing:
+    dependencies:
+      '@buildflow/core':
+        specifier: workspace:*
+        version: link:../../core
+    devDependencies:
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@22.20.1)(esbuild@0.28.2)(happy-dom@20.11.2)(tsx@4.23.12)
+
   packages/modules/knowledge:
     dependencies:
       '@buildflow/core':
