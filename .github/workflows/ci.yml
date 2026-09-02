@@ -66,12 +66,15 @@ jobs:
       # — the job died with "Ineffective mark-compacts near heap limit" after 85
       # seconds, which reads like a lint failure and is not one. The memory is
       # inherent to type-aware linting rather than waste, so the fix is headroom.
-      # Revisit if the repo grows enough to need a different strategy
-      # (per-package lint jobs, or dropping type-aware rules on tests).
+      #
+      # And again at the sixteenth package (@buildflow/invoicing): past 4 GB
+      # this time, ~175 s in. The runner has 16 GB, so 8 GB is still headroom,
+      # but the trend line now has two points — the NEXT breach should switch
+      # to per-package lint jobs instead of a bigger number here.
       - name: Lint — zero warnings tolerated
         run: pnpm lint
         env:
-          NODE_OPTIONS: --max-old-space-size=4096
+          NODE_OPTIONS: --max-old-space-size=8192
 
       - name: Typecheck
         run: pnpm typecheck
