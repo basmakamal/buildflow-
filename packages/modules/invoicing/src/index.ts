@@ -42,3 +42,9 @@ export {
   type CertificateInfo,
   type SignedInvoice,
 } from './domain/stamp'
+
+export {
+  PrismaTaxInvoiceRepository,
+  validateDraft,
+  type TaxInvoiceDraft,
+} from './infrastructure/tax-invoice.repository'

@@ -66,6 +66,9 @@ importers:
       '@buildflow/identity':
         specifier: workspace:*
         version: link:../../packages/modules/identity
+      '@buildflow/invoicing':
+        specifier: workspace:*
+        version: link:../../packages/modules/invoicing
       '@buildflow/knowledge':
         specifier: workspace:*
         version: link:../../packages/modules/knowledge
@@ -296,6 +299,9 @@ importers:
       '@buildflow/core':
         specifier: workspace:*
         version: link:../../core
+      '@buildflow/database':
+        specifier: workspace:*
+        version: link:../../database
     devDependencies:
       typescript:
         specifier: ^5.6.3
