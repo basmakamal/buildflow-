@@ -280,6 +280,69 @@ describe('issuing — the regulated moment', () => {
   })
 })
 
+describe('the tax identity endpoint', () => {
+  it('round-trips over HTTP, and completing it is what unlocks issuing', async () => {
+    // Strip the seeded identity: the tenant starts where a real one starts.
+    await runWithoutTenantScope(sys, () =>
+      raw.company.update({
+        where: { id: COMPANY },
+        data: {
+          legalName: null,
+          vatNumber: null,
+          crNumber: null,
+          addressStreet: null,
+          addressBuilding: null,
+          addressDistrict: null,
+          addressCity: null,
+          addressPostal: null,
+        },
+      }),
+    )
+
+    const before = await api('GET', '/api/v1/company/tax-identity')
+    expect(before.statusCode).toBe(200)
+    expect(before.json<{ data: { complete: boolean } }>().data.complete).toBe(false)
+    expect((await api('POST', `/api/v1/units/${unitId}/tax-invoices`, draftBody)).statusCode).toBe(
+      422,
+    )
+
+    // A malformed VAT is refused by the SAME rule the aggregate enforces.
+    const badVat = await api('PUT', '/api/v1/company/tax-identity', {
+      legalName: SELLER_IDENTITY.legalName,
+      vatNumber: '410123456700003',
+      crNumber: SELLER_IDENTITY.crNumber,
+      address: {
+        street: SELLER_IDENTITY.addressStreet,
+        buildingNumber: SELLER_IDENTITY.addressBuilding,
+        district: SELLER_IDENTITY.addressDistrict,
+        city: SELLER_IDENTITY.addressCity,
+        postalCode: SELLER_IDENTITY.addressPostal,
+      },
+    })
+    expect(badVat.statusCode).toBe(400)
+    expect(badVat.json<{ code: string }>().code).toBe('SELLER_VAT_INVALID')
+
+    const put = await api('PUT', '/api/v1/company/tax-identity', {
+      legalName: SELLER_IDENTITY.legalName,
+      vatNumber: SELLER_IDENTITY.vatNumber,
+      crNumber: SELLER_IDENTITY.crNumber,
+      address: {
+        street: SELLER_IDENTITY.addressStreet,
+        buildingNumber: SELLER_IDENTITY.addressBuilding,
+        district: SELLER_IDENTITY.addressDistrict,
+        city: SELLER_IDENTITY.addressCity,
+        postalCode: SELLER_IDENTITY.addressPostal,
+      },
+    })
+    expect(put.statusCode, put.body).toBe(200)
+    expect(put.json<{ data: { complete: boolean } }>().data.complete).toBe(true)
+
+    // The whole point: setting the identity over HTTP unlocks the invoice.
+    const { id } = await draft()
+    expect((await issue(id)).statusCode).toBe(200)
+  })
+})
+
 describe('tenant isolation', () => {
   it('never shows another tenant an invoice, issued or drafted', async () => {
     const { id } = await draft()

@@ -10,6 +10,7 @@
 export {
   TaxInvoice,
   GENESIS_PREVIOUS_HASH,
+  isKsaVatNumber,
   type TaxInvoiceKind,
   type TaxInvoiceStatus,
   type TaxInvoiceSnapshot,

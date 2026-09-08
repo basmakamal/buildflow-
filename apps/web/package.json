@@ -18,12 +18,14 @@
     "immer": "^10.1.1",
     "konva": "^9.3.16",
     "pinia": "^2.2.6",
+    "qrcode": "^1.5.4",
     "three": "^0.170.0",
     "vue": "^3.5.12",
     "vue-i18n": "^10.0.5",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@types/qrcode": "^1.5.5",
     "@types/three": "^0.170.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/test-utils": "^2.4.6",

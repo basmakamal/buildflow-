@@ -1,0 +1,52 @@
+{
+  "title": "Tax invoices",
+  "intro": "Invoices issued to the client under ZATCA e-invoicing. A draft can change; an issued invoice is a regulated document corrected only by a credit note.",
+  "newDraft": "New draft",
+  "kind": "Invoice kind",
+  "kinds": {
+    "simplified": "Simplified (B2C)",
+    "standard": "Standard (B2B)"
+  },
+  "buyerName": "Buyer name",
+  "buyerVat": "Buyer VAT registration",
+  "description": "Description",
+  "quantity": "Quantity",
+  "unitPrice": "Unit price (SAR)",
+  "vatRate": "VAT rate %",
+  "createDraft": "Create draft",
+  "empty": "No invoices for this unit yet.",
+  "status": {
+    "draft": "Draft",
+    "issued": "Issued"
+  },
+  "sar": "SAR",
+  "icv": "Counter",
+  "issue": "Issue",
+  "viewDocument": "View document",
+  "document": "Invoice document (UBL XML)",
+  "qrAlt": "Invoice QR code",
+  "identity": {
+    "title": "Company tax identity",
+    "intro": "What every issued tax invoice prints about your company: the registered legal name, VAT registration, commercial registration and national address.",
+    "incomplete": "The tax identity is incomplete — invoicing is disabled until every field is set.",
+    "complete": "The tax identity is complete. Invoicing is enabled.",
+    "saved": "Saved.",
+    "legalName": "Registered legal name",
+    "vatNumber": "VAT registration (15 digits)",
+    "crNumber": "Commercial registration",
+    "street": "Street",
+    "buildingNumber": "Building number",
+    "district": "District",
+    "city": "City",
+    "postalCode": "Postal code"
+  },
+  "errors": {
+    "UNKNOWN": "Something went wrong. Try again.",
+    "SELLER_IDENTITY_INCOMPLETE": "Complete the company tax identity in Settings before invoicing.",
+    "SELLER_VAT_INVALID": "A KSA VAT registration is 15 digits, starting and ending with 3.",
+    "BUYER_VAT_REQUIRED": "A standard (B2B) invoice needs the buyer's VAT registration.",
+    "TAX_INVOICE_ALREADY_ISSUED": "This invoice is already issued.",
+    "TAX_INVOICE_ISSUE_RACE": "Another invoice was issued at the same moment — try again.",
+    "UBL_BUYER_ADDRESS_REQUIRED": "A standard invoice needs the buyer's address to issue."
+  }
+}

@@ -1,18 +1,29 @@
 {
-  "app": { "name": "BuildFlow", "tagline": "إدارة المقاولات والتشطيبات" },
+  "app": {
+    "name": "BuildFlow",
+    "tagline": "إدارة المقاولات والتشطيبات"
+  },
   "actions": {
     "save": "حفظ",
     "cancel": "إلغاء",
     "signIn": "تسجيل الدخول",
     "signOut": "تسجيل الخروج",
     "retry": "إعادة المحاولة",
-    "search": "بحث"
+    "search": "بحث",
+    "close": "إغلاق"
   },
   "state": {
     "loading": "جارٍ التحميل…",
     "empty": "لا يوجد شيء بعد",
     "error": "حدث خطأ ما"
   },
-  "language": { "switch": "English", "current": "العربية" },
-  "theme": { "toggle": "تبديل المظهر", "light": "فاتح", "dark": "داكن" }
+  "language": {
+    "switch": "English",
+    "current": "العربية"
+  },
+  "theme": {
+    "toggle": "تبديل المظهر",
+    "light": "فاتح",
+    "dark": "داكن"
+  }
 }
