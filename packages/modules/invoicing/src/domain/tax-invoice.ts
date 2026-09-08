@@ -50,8 +50,11 @@ export type TaxInvoiceStatus = 'draft' | 'issued'
 /**
  * A KSA VAT registration: fifteen digits, first and last both `3`.
  * The middle thirteen are the entity's; the bracketing 3s are the country's.
+ * Exported so the settings endpoint validates with THE SAME RULE the
+ * aggregate enforces — two copies of a format rule always drift.
  */
-const VAT_NUMBER = /^3\d{13}3$/
+export const isKsaVatNumber = (value: string): boolean => /^3\d{13}3$/.test(value)
+const VAT_NUMBER = { test: isKsaVatNumber }
 
 const QUANTITY_PATTERN = /^\d{1,10}(\.\d{1,4})?$/
 const AMOUNT_PATTERN = /^\d{1,14}(\.\d{1,4})?$/

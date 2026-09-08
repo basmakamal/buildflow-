@@ -39,6 +39,16 @@ export const router = createRouter({
       component: () => import('@/views/PlannerView.vue'),
     },
     {
+      path: '/units/:unitId/invoices',
+      name: 'unit-invoices',
+      component: () => import('@/views/UnitInvoicesView.vue'),
+    },
+    {
+      path: '/settings/tax-identity',
+      name: 'company-tax-identity',
+      component: () => import('@/views/CompanySettingsView.vue'),
+    },
+    {
       path: '/units/:unitId/review',
       name: 'unit-review',
       component: () => import('@/views/UnitReviewView.vue'),

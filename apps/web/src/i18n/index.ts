@@ -9,6 +9,7 @@ import enStages from '../locales/en/stages.json'
 import enKnowledge from '../locales/en/knowledge.json'
 import enPlanner from '../locales/en/planner.json'
 import enViewer from '../locales/en/viewer.json'
+import enInvoicing from '../locales/en/invoicing.json'
 import arCommon from '../locales/ar/common.json'
 import arAuth from '../locales/ar/auth.json'
 import arNav from '../locales/ar/nav.json'
@@ -18,6 +19,7 @@ import arStages from '../locales/ar/stages.json'
 import arKnowledge from '../locales/ar/knowledge.json'
 import arPlanner from '../locales/ar/planner.json'
 import arViewer from '../locales/ar/viewer.json'
+import arInvoicing from '../locales/ar/invoicing.json'
 
 /**
  * Internationalisation.
@@ -55,6 +57,7 @@ export const i18n = createI18n({
       knowledge: enKnowledge,
       planner: enPlanner,
       viewer: enViewer,
+      invoicing: enInvoicing,
     },
     ar: {
       common: arCommon,
@@ -66,6 +69,7 @@ export const i18n = createI18n({
       knowledge: arKnowledge,
       planner: arPlanner,
       viewer: arViewer,
+      invoicing: arInvoicing,
     },
   },
   numberFormats: {

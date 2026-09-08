@@ -27,6 +27,9 @@ async function signOut() {
           {{ t('nav.ruleLibrary') }}
         </RouterLink>
         <RouterLink to="/icons">{{ t('nav.iconLibrary') }}</RouterLink>
+        <RouterLink v-if="auth.can('company.view_settings')" to="/settings/tax-identity">
+          {{ t('nav.settings') }}
+        </RouterLink>
         <button class="shell__link" type="button" @click="ui.toggleLocale()">
           {{ t('common.language.switch') }}
         </button>

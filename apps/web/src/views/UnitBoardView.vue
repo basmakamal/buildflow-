@@ -116,6 +116,13 @@ onMounted(load)
             <RouterLink :to="`/units/${unitId}/planner`" class="btn btn--small">
               {{ t('planner.open') }}
             </RouterLink>
+            <RouterLink
+              v-if="auth.can('invoice.view')"
+              :to="`/units/${unitId}/invoices`"
+              class="btn btn--small"
+            >
+              {{ t('invoicing.title') }}
+            </RouterLink>
             <RouterLink :to="`/units/${unitId}/review`" class="btn btn--small">
               {{ t('knowledge.title') }}
             </RouterLink>
