@@ -37,6 +37,15 @@ model Company {
   vatNumber String? @map("vat_number") @db.Char(15)
   crNumber  String? @map("cr_number") @db.VarChar(20)
 
+  /// The national address a UBL tax invoice must print for the seller
+  /// (BR-KSA rules require it on standard invoices). Same nullability
+  /// reasoning as the identity above: issuing refuses while incomplete.
+  addressStreet   String? @map("address_street") @db.VarChar(200)
+  addressBuilding String? @map("address_building") @db.VarChar(20)
+  addressDistrict String? @map("address_district") @db.VarChar(120)
+  addressCity     String? @map("address_city") @db.VarChar(120)
+  addressPostal   String? @map("address_postal") @db.VarChar(10)
+
   countryCode       String            @db.Char(2)
   defaultCurrency   String            @db.Char(3)
   defaultLocale     String            @default("ar-SA") @db.VarChar(10)
@@ -2237,4 +2246,72 @@ model PlanShare {
 
   @@index([companyId, floorPlanId])
   @@map("plan_shares")
+}
+
+// ─── Tax invoices (issued) ───────────────────────────────────────────────────
+//
+// The invoices the tenant ISSUES under ZATCA e-invoicing — not the supplier
+// invoices above, which arrive as costs. docs/01 NFR-C4.
+//
+// A DRAFT is just a row: the regulated aggregate materialises at ISSUE, when
+// the chain fields are allocated. ICV is claimed optimistically — read the
+// max, write max+1, and the unique key is the arbiter, exactly the contract
+// quotation and PO numbers use — so icv and the chain hashes stay NULL until
+// the moment they are law. The XML is stored verbatim because the hash chain
+// is over BYTES: a regenerated document that differs by a byte breaks every
+// invoice after it.
+
+model TaxInvoice {
+  id        String @id @db.Char(36)
+  companyId String @map("company_id") @db.Char(36)
+
+  unitId      String? @map("unit_id") @db.Char(36)
+  quotationId String? @map("quotation_id") @db.Char(36)
+
+  kind   TaxInvoiceKind
+  status TaxInvoiceStatus @default(draft)
+
+  invoiceNumber String @map("invoice_number") @db.VarChar(32)
+  /// The document's UUID as ZATCA sees it — distinct from our row id.
+  uuid          String @db.Char(36)
+
+  /// Chain fields — NULL until issued, allocated in one transaction.
+  icv                 Int?    @db.UnsignedInt
+  previousInvoiceHash String? @map("previous_invoice_hash") @db.VarChar(120)
+  invoiceHash         String? @map("invoice_hash") @db.VarChar(120)
+
+  /// Frozen at draft creation: what the document will say, not references
+  /// that could drift under it.
+  buyer Json
+  lines Json
+
+  taxExclusiveAmount Decimal @map("tax_exclusive_amount") @db.Decimal(18, 4)
+  vatAmount          Decimal @map("vat_amount") @db.Decimal(18, 4)
+  taxInclusiveAmount Decimal @map("tax_inclusive_amount") @db.Decimal(18, 4)
+  currency           String  @db.Char(3)
+
+  /// The issued document, byte-exact, and its phase 1 QR.
+  xml String? @db.LongText
+  qr  String? @db.Text
+
+  issuedAt  DateTime? @map("issued_at") @db.DateTime(3)
+  createdAt DateTime  @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.DateTime(3)
+  version   Int       @default(0) @db.UnsignedInt
+
+  @@unique([companyId, invoiceNumber])
+  @@unique([companyId, icv])
+  @@index([companyId, status])
+  @@index([companyId, unitId])
+  @@map("tax_invoices")
+}
+
+enum TaxInvoiceKind {
+  standard
+  simplified
+}
+
+enum TaxInvoiceStatus {
+  draft
+  issued
 }

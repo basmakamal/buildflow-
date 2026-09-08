@@ -5,7 +5,8 @@
     "noEmit": true,
     "types": ["node"],
     "paths": {
-      "@buildflow/core": ["../../core/src/index.ts"]
+      "@buildflow/core": ["../../core/src/index.ts"],
+      "@buildflow/database": ["../../database/src/index.ts"]
     }
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],

@@ -17,6 +17,7 @@
     "@buildflow/estimation": "workspace:*",
     "@buildflow/execution": "workspace:*",
     "@buildflow/identity": "workspace:*",
+    "@buildflow/invoicing": "workspace:*",
     "@buildflow/knowledge": "workspace:*",
     "@buildflow/procurement": "workspace:*",
     "@buildflow/project": "workspace:*",

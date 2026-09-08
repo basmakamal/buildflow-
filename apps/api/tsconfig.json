@@ -14,6 +14,7 @@
       "@buildflow/catalogue": ["../../packages/modules/catalogue/src/index.ts"],
       "@buildflow/procurement": ["../../packages/modules/procurement/src/index.ts"],
       "@buildflow/estimation": ["../../packages/modules/estimation/src/index.ts"],
+      "@buildflow/invoicing": ["../../packages/modules/invoicing/src/index.ts"],
       "@buildflow/spatial": ["../../packages/modules/spatial/src/index.ts"],
       "@buildflow/spatial/infrastructure": [
         "../../packages/modules/spatial/src/infrastructure/index.ts"
